@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http'; 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
@@ -9,13 +12,19 @@ import { environment } from '../environments/environment';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { ExploreModule } from './modules/explore/explore.module';
+import { MapContainerComponent } from './components/containers/map-container/map-container.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MapContainerComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    HttpClientModule,
     AppRoutingModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     AkitaNgRouterStoreModule.forRoot(),
