@@ -1,0 +1,15 @@
+<div class="osem-bottom-bar-container" *ngIf="displayBox">
+
+  <div class="osem-bottom-header">
+    <h3 class="osem-no-margin">{{displayBox.name}}</h3>
+    <p class="osem-no-margin">{{displayBox.lastMeasurementAt}}</p>
+  </div>
+
+  <div class="osem-sensors">
+    <div class="osem-sensor" *ngFor="let sensor of displayBox.sensors">
+      <div><b>{{sensor.lastMeasurement.value}}</b></div>
+      <div>{{sensor.title}}</div>
+    </div>
+  </div>
+
+</div>

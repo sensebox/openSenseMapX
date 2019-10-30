@@ -18,6 +18,8 @@ export class MapComponent implements OnInit {
 
   constructor(private mapService: MapService, private layerService: LayerService, private boxQuery: BoxQuery, private boxService: BoxService) { }
 
+  layerExists = false;
+
   ngOnInit() {
     let that = this;
     this.mapService.generateMap('map');
@@ -25,13 +27,17 @@ export class MapComponent implements OnInit {
     this.boxes$ = this.boxQuery.selectAll();
 
     this.boxes$.subscribe(res => {
-      if(res.length > 9){
-        setTimeout(function(){
-          that.layerService.addPointLayer('boxes', res);
-  
-        }, 2000)
+      if(res.length > 9 ){
+        if(!this.layerExists){
+          this.layerExists = true;
+          setTimeout(function(){
+            that.layerService.addPointLayer('boxes', res);
+    
+          }, 2000);
+        } else {
+          that.layerService.updateData('boxes', res);
+        }
       }
     })
   }
-
 }

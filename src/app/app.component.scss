@@ -3,3 +3,18 @@ osem-nav {
     top: 0;
     width: 100%;
 }
+
+osem-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+osem-phenomenon-container {
+    position: absolute;
+    left: 50px;
+    top: 200px;
+    z-index: 40;
+    background: rgba(240,240,240,0.7);
+}

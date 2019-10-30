@@ -2,6 +2,9 @@ import { ID } from '@datorama/akita';
 
 export interface Box {
   _id: ID;
+  name: string;
+  sensors: any[];
+  lastMeasurementAt: string;
 }
 
 /**

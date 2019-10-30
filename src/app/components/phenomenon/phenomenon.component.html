@@ -1,0 +1,5 @@
+<div *ngIf="phenos">
+    <div *ngFor="let pheno of phenos">
+        <div class="osem-single-pheno" (click)="selectPheno(pheno)">{{pheno}}</div>
+    </div>
+</div>

@@ -19,6 +19,10 @@ import { LayerService } from './services/layer/layer.service';
 import { SearchComponent } from './components/controls/search/search.component';
 import { DateComponent } from './components/controls/date/date.component';
 import { NavComponent } from './components/containers/nav/nav.component';
+import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
+import { BottomBoxComponent } from './components/containers/bottom-box/bottom-box.component';
+import { PhenomenonContainerComponent } from './components/containers/phenomenon-container/phenomenon-container.component';
+import { PhenomenonComponent } from './components/phenomenon/phenomenon.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { NavComponent } from './components/containers/nav/nav.component';
     MapComponent,
     SearchComponent,
     DateComponent,
-    NavComponent
+    NavComponent,
+    BottomBarComponent,
+    BottomBoxComponent,
+    PhenomenonContainerComponent,
+    PhenomenonComponent
   ],
   imports: [
     BrowserModule,

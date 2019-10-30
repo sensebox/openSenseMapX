@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MapService } from '../map/map.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -18,43 +19,79 @@ export class LayerService {
       // "cluster": true,
       // "clusterRadius": 80,
     });
+    
+    // this.mapService.addLayer({
+    //   'id': name + 'layer',
+    //   'type': 'circle',
+    //   'source': name,
+    //   'paint': {
+    //   'circle-radius': {
+    //     'base': 1.75,
+    //     'stops': [[1, 2], [22, 3080]]
+    //   },
+    //   'circle-color': [
+    //     'match',
+    //     ['get', 'state'],
+    //     'active', '#4EAF47',
+    //     'old', '#eb5933',
+    //     /* other */ '#ccc200'
+    //     ]
+    //   }
+    // });
     this.mapService.addLayer({
       'id': name + 'layer',
       'type': 'circle',
       'source': name,
       'paint': {
-      // make circles larger as the user zooms from z12 to z22
       'circle-radius': {
-      'base': 1.75,
-      'stops': [[12, 2], [22, 180]]
+        'base': 1.75,
+        'stops': [[1, 2], [22, 3080]]
       },
-      // color circles by ethnicity, using a match expression
-      // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
       'circle-color': [
-      'match',
-      ['get', 'ethnicity'],
-      'White', '#fbb03b',
-      'Black', '#223b53',
-      'Hispanic', '#e55e5e',
-      'Asian', '#3bb2d0',
-      /* other */ '#ccc'
-      ]
+        'interpolate',
+        ['linear'],
+        [ "get", "2019-10-23T14:00:00.000Z", ["object", ["get", "values"]]],
+        10, '#4EAF47',
+        30, '#eb5933']
       }
-      });
+    });
   }
 
   toGeoJson(data){
     let geojson = data.map(item => {
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: item.currentLocation.coordinates,
-        },
-        properties: {
-          name: item.name,
-          exposure: item.exposure,
-          state: item.state
+      console.log(item.values);
+      if(item.values){
+        return {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: item.currentLocation.coordinates,
+          },
+          properties: {
+            values: item.values['Temperatur'],
+            name: item.name,
+            _id: item._id,
+            exposure: item.exposure,
+            state: item.state,
+            sensors: item.sensors,
+            
+          }
+        }
+      } else {
+        return {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: item.currentLocation.coordinates,
+          },
+          properties: {
+            name: item.name,
+            _id: item._id,
+            exposure: item.exposure,
+            state: item.state,
+            sensors: item.sensors,
+            
+          }
         }
       }
     });
@@ -64,5 +101,11 @@ export class LayerService {
       features: geojson
     };
     return geojson;
+  }
+
+  updateData(name, data){
+    console.log(data);
+    this.mapService.updateData(name, this.toGeoJson(data));
+
   }
 }
