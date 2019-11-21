@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BottomBoxComponent } from './components/containers/bottom-box/bottom-box.component';
+import { BoxContainerComponent } from './modules/explore/box/box-container/box-container.component';
 
 
 const routes: Routes = [
-  {path: '', component: BottomBoxComponent},
-  {path: 'explore/:id', component: BottomBoxComponent}
+  {path: '', component: BoxContainerComponent},
+  {path: 'explore/:id', component: BoxContainerComponent}
 ];
 
 @NgModule({

@@ -1,0 +1,22 @@
+<div class="osem-bottom-bar-container" *ngIf="box">
+
+    <div class="osem-bottom-header">
+      <h3 class="osem-no-margin">{{box.name}}</h3>
+      <p class="osem-no-margin">{{box.lastMeasurementAt}}</p>
+    </div>
+  
+    <div class="osem-sensors">
+      <div class="osem-sensor" *ngFor="let sensor of box.sensors" (click)="selectValue(box._id, sensor._id)">
+        <div>
+          <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value}}</b>
+          <b *ngIf="!sensor.lastMeasurement">N/A</b>
+        </div>
+        <div>{{sensor.title}}</div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div *ngIf="!box">
+    Click on a marker to view details
+  </div>

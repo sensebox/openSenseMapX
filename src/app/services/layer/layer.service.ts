@@ -20,24 +20,6 @@ export class LayerService {
       // "clusterRadius": 80,
     });
     
-    // this.mapService.addLayer({
-    //   'id': name + 'layer',
-    //   'type': 'circle',
-    //   'source': name,
-    //   'paint': {
-    //   'circle-radius': {
-    //     'base': 1.75,
-    //     'stops': [[1, 2], [22, 3080]]
-    //   },
-    //   'circle-color': [
-    //     'match',
-    //     ['get', 'state'],
-    //     'active', '#4EAF47',
-    //     'old', '#eb5933',
-    //     /* other */ '#ccc200'
-    //     ]
-    //   }
-    // });
     this.mapService.addLayer({
       'id': name + 'layer',
       'type': 'circle',
@@ -48,13 +30,31 @@ export class LayerService {
         'stops': [[1, 2], [22, 3080]]
       },
       'circle-color': [
-        'interpolate',
-        ['linear'],
-        [ "get", "2019-10-23T14:00:00.000Z", ["object", ["get", "values"]]],
-        10, '#4EAF47',
-        30, '#eb5933']
+        'match',
+        ['get', 'state'],
+        'active', '#4EAF47',
+        'old', '#eb5933',
+        /* other */ '#ccc200'
+        ]
       }
     });
+    // this.mapService.addLayer({
+    //   'id': name + 'layer',
+    //   'type': 'circle',
+    //   'source': name,
+    //   'paint': {
+    //   'circle-radius': {
+    //     'base': 1.75,
+    //     'stops': [[1, 2], [22, 3080]]
+    //   },
+    //   'circle-color': [
+    //     'interpolate',
+    //     ['linear'],
+    //     [ "get", "2019-10-23T14:00:00.000Z", ["object", ["get", "values"]]],
+    //     10, '#4EAF47',
+    //     30, '#eb5933']
+    //   }
+    // });
   }
 
   toGeoJson(data){

@@ -1,0 +1,16 @@
+<div>
+    <input 
+        [owlDateTime]="dt1" 
+        [owlDateTimeTrigger]="dt1" 
+        [selectMode]="'range'"
+        [min]="minDate"
+        [max]="maxDate"
+        (dateTimeChange)="dateChange($event)"
+        (dateTimeInput)="dateInput($event)"
+        [(ngModel)]="dateRange"
+        placeholder="From Date Time">
+        <owl-date-time 
+            [stepMinute]="60"
+            [startAt]="startAt"
+        #dt1></owl-date-time>
+</div>

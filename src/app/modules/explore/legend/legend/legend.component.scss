@@ -1,0 +1,23 @@
+#legend-container {
+    position: relative;
+
+    #legend-gradient {
+        width: 20px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+    }
+    
+    #legend-labels  {
+        padding-left: 2em;
+        align-items: space-between;
+        display: flex;
+        flex-direction: column-reverse;
+
+        .legend-label {
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+        }
+    }
+}

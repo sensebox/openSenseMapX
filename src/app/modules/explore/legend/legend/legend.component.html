@@ -1,0 +1,16 @@
+<div *ngIf="selectedPheno">
+    <h2>{{selectedPheno.title}}</h2>
+    <div id="legend-container">
+        <div id="legend-labels">
+        <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
+            <div *ngIf="i>2">
+                <div  class="legend-label" *ngIf=" i%2">
+                    {{prop}}
+                </div>
+                
+            </div>
+        </ng-container>
+    </div>
+        <div id="legend-gradient" [style.background]="'linear-gradient('+gradient+')'"></div>
+    </div>
+</div>

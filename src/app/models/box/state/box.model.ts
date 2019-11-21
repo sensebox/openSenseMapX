@@ -5,6 +5,7 @@ export interface Box {
   name: string;
   sensors: any[];
   lastMeasurementAt: string;
+  values: any;
 }
 
 /**

@@ -1,0 +1,9 @@
+<osem-search></osem-search>
+<osem-datepicker 
+    [dateRange]="null" 
+    (dateChanged)="changeDateRange($event)"></osem-datepicker>
+
+<osem-phenomenon
+    [selectedPheno]="(selectUI$ | async)?.selectedPheno"
+    (phenoSelected)="selectPheno($event)"
+    ></osem-phenomenon>

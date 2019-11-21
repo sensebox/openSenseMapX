@@ -1,0 +1,22 @@
+
+<div id="osem-chart-container" *ngIf="data">
+    <ngx-charts-line-chart 
+        [results]="[{'name': 'test', 'series': data}]" 
+        [xAxis]="true"
+        [xAxisLabel]="'XXX'"
+        [yAxis]="true"
+        [yAxisLabel]="'HALLO'"
+        [autoScale]="true"
+        [showYAxisLabel]="true"
+        [showXAxisLabel]="true"
+        [xAxisTickFormatting]="test"
+        [trimXAxisTicks]="true"
+        [maxXAxisTickLength]="10"
+        [roundDomains]="true"
+        [showRefLines]="true"
+        [referenceLines]="[{name: 'yoo', value: 10.1}]"
+        [legend]="true"
+        ></ngx-charts-line-chart>
+        <!-- [xAxisTicks]="xAxisTicks" -->
+    <!-- <ngx-charts-bubble-chart [results]="[{'name': 'test', 'series': data}]" ></ngx-charts-bubble-chart> -->
+</div>

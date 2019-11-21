@@ -17,7 +17,7 @@ export class PhenomenonContainerComponent implements OnInit {
 
   selectPheno(pheno){
     console.log(pheno);
-    this.boxService.getValue(pheno).subscribe();
+    // this.boxService.getValue(pheno).subscribe();
   }
 
 }
