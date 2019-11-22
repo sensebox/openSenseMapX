@@ -12,6 +12,7 @@ export class BoxValuesComponent implements OnInit {
   @Input() box: Box;
 
   @Output() valueSelected = new EventEmitter();
+  @Output() valueAdded = new EventEmitter();
 
   constructor() { }
 
@@ -20,6 +21,10 @@ export class BoxValuesComponent implements OnInit {
 
   selectValue(boxId, sensorId){
     this.valueSelected.emit({boxId, sensorId});
+  }
+
+  addValue(boxId, sensorId) {
+    this.valueAdded.emit({boxId, sensorId});
   }
 
 }

@@ -15,6 +15,9 @@ export class BoxContainerComponent implements OnInit {
   activeBox$: Observable<Box>;
   displayBox: Box;
   selectedSensor;
+  selectedSensors = [];
+  dateRange$ = this.boxQuery.selectDateRange$;
+  dateRange;
 
   constructor(private activatedRoute: ActivatedRoute, private boxService: BoxService, private boxQuery: BoxQuery) { }
 
@@ -22,7 +25,12 @@ export class BoxContainerComponent implements OnInit {
     
     this.activeBox$ = this.boxQuery.selectActive();
     this.activeBox$.subscribe(data => {
+      console.log(data);
       this.displayBox = data;
+    });
+
+    this.dateRange$.subscribe(res => {
+      this.dateRange = res;
     })
 
     this.activatedRoute.params.subscribe(params => {
@@ -34,8 +42,23 @@ export class BoxContainerComponent implements OnInit {
 
   }
 
+  addValue(data){
+    // this.selectedSensor = data.sensorId;
+    this.selectedSensors.push(data);
+    if(this.dateRange){
+      this.boxService.getSingleBoxValues(data.boxId, data.sensorId, this.dateRange[0].toISOString(), this.dateRange[1].toISOString()).subscribe();
+    } else {
+      this.boxService.getSingleBoxValues(data.boxId, data.sensorId, '2019-11-05T14:54:08.775Z', '2019-11-06T15:54:08.775Z').subscribe();
+    }
+  }
+
   selectValue(data) {
     this.selectedSensor = data.sensorId;
-    this.boxService.getSingleBoxValues(data.boxId, data.sensorId, '2019-11-05T14:54:08.775Z', '2019-11-06T15:54:08.775Z').subscribe();
+    this.selectedSensors.push(data.sensorId);
+    if(this.dateRange){
+      this.boxService.getSingleBoxValues(data.boxId, data.sensorId, this.dateRange[0].toISOString(), this.dateRange[1].toISOString()).subscribe();
+    } else {
+      this.boxService.getSingleBoxValues(data.boxId, data.sensorId, '2019-11-05T14:54:08.775Z', '2019-11-06T15:54:08.775Z').subscribe();
+    }
   }
 }

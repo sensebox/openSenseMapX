@@ -11,7 +11,7 @@ export class BoxChartComponent implements OnInit {
 
   @Input() data;
 
-  xAxisTicks = [new Date('2019-11-05T18:54:08.775Z')]
+  // xAxisTicks = [new Date('2019-11-05T18:54:08.775Z')]
 
   constructor() { }
 
@@ -20,7 +20,7 @@ export class BoxChartComponent implements OnInit {
   }
 
   test(e){
-    return new Date(e).toLocaleDateString('en-US');
+    return new Date(e).toLocaleDateString('de-DE');
   }
 
 }

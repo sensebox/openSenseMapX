@@ -1,3 +1,3 @@
-<osem-box-values [box]="activeBox$ | async" (valueSelected)="selectValue($event)"></osem-box-values>
+<osem-box-values [box]="activeBox$ | async" (valueAdded)="addValue($event)" (valueSelected)="selectValue($event)"></osem-box-values>
 
 <osem-box-chart *ngIf="selectedSensor && (activeBox$ | async).values" [data]="(activeBox$ | async).values[selectedSensor]"></osem-box-chart>
