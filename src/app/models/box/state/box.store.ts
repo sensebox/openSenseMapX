@@ -15,6 +15,8 @@ export interface BoxState extends EntityState<Box>, ActiveState {
     selectedDate: any;
     selectedPheno: any;
     displayTimeSlider: boolean;
+    mapInit: boolean;
+    dataInit: boolean;
   }
 }
 export interface BoxUIState extends EntityState<BoxUI> {}
@@ -46,7 +48,9 @@ const initialState = {
     dateRange: null,
     selectedDate: null,
     selectedPheno: null,
-    displayTimeSlider: null
+    displayTimeSlider: null,
+    mapInit: false,
+    dataInit: false
   }
 }
 
@@ -81,5 +85,11 @@ export class BoxStore extends EntityStore<BoxState> {
   }
   setLayers(layers){
     this.update( state => ({ ui: { ...state.ui , layers: layers }}));
+  }
+  setMapInit(mapInit){
+    this.update( state => ({ ui: { ...state.ui , mapInit: mapInit }}));
+  }
+  setDataInit(dataInit){
+    this.update( state => ({ ui: { ...state.ui , dataInit: dataInit }}));
   }
 }

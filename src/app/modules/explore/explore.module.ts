@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseMapContainerComponent } from './map/base-map-container/base-map-container.component';
 import { BaseMapComponent } from './map/base-map/base-map.component';
-import { MapService } from '../../services/map/map.service';
+import { MapService } from './services/map.service';
 import { BoxContainerComponent } from './box/box-container/box-container.component';
 import { BoxValuesComponent } from './box/box-values/box-values.component';
 import { BoxChartComponent } from './box/box-chart/box-chart.component';

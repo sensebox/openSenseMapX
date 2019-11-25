@@ -12,30 +12,10 @@ import { environment } from '../environments/environment';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { ExploreModule } from './modules/explore/explore.module';
-import { MapContainerComponent } from './components/containers/map-container/map-container.component';
-import { MapComponent } from './components/map/map.component';
-import { MapService } from './services/map/map.service';
-import { LayerService } from './services/layer/layer.service';
-import { SearchComponent } from './components/controls/search/search.component';
-import { DateComponent } from './components/controls/date/date.component';
-import { NavComponent } from './components/containers/nav/nav.component';
-import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
-import { BottomBoxComponent } from './components/containers/bottom-box/bottom-box.component';
-import { PhenomenonContainerComponent } from './components/containers/phenomenon-container/phenomenon-container.component';
-import { PhenomenonComponent } from './components/phenomenon/phenomenon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapContainerComponent,
-    MapComponent,
-    SearchComponent,
-    DateComponent,
-    NavComponent,
-    BottomBarComponent,
-    BottomBoxComponent,
-    PhenomenonContainerComponent,
-    PhenomenonComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +28,7 @@ import { PhenomenonComponent } from './components/phenomenon/phenomenon.componen
     SharedModule,
     ExploreModule
   ],
-  providers: [MapService, LayerService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

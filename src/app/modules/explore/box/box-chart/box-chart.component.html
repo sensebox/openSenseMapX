@@ -1,7 +1,7 @@
 
-<div id="osem-chart-container" *ngIf="data">
+<div id="osem-chart-container" *ngIf="data.length > 0">
     <ngx-charts-line-chart 
-        [results]="[{'name': 'test', 'series': data}]" 
+        [results]="data" 
         [xAxis]="true"
         [xAxisLabel]="'XXX'"
         [yAxis]="true"

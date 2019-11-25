@@ -22,12 +22,15 @@ export class MapService {
   layers$;
   activeBox$ = this.boxQuery.selectActiveId();
 
+  baseLayersInit: Boolean = false;
+  dataInit = false;
+
   generateMap(elementName) {
     
     console.log("Initmap")
     let that = this;
 
-    this.boxService.get().subscribe();
+    // this.boxService.get().subscribe();
     (mapboxgl as typeof mapboxgl).accessToken = "pk.eyJ1IjoidW11dDAwIiwiYSI6ImNqbnVkbnFxNDB2YnIzd3M1eTNidTA3MjUifQ.3gqG1JYEQvckOiiQ8B3NQQ";
     this.map = new Map({
       container: elementName,
@@ -39,97 +42,101 @@ export class MapService {
 
     this.map.addControl(new NavigationControl());
 
-    this.boxes$ = this.boxQuery.selectAll();
-
-    this.layers$ = this.boxQuery.select(ent => ent.ui.layers);
-
     this.map.on('load', function(){
-      that.boxes$.subscribe(boxes => {
+      that.boxService.setMapInit(true);
+    })
 
-        boxes = that.convertLastMeasurement(boxes);
-        if(!that.map.getSource('boxes')){
-          that.map.addSource('boxes', {
-            type: "geojson",
-            data: that.toGeoJson(boxes)
-          })
-        } else {
-          console.log(that.toGeoJson(boxes));
-          that.map.getSource('boxes').setData(that.toGeoJson(boxes));
-        }
-      });
+    // this.boxes$ = this.boxQuery.selectAll();
 
-      that.activeBox$.subscribe(res => {
-        if(res){
-          if(!that.map.getLayer('active-layer')){
-            that.map.addLayer({
-              'id': 'active-layer-text',
-              'type': 'symbol',
-              'source': 'boxes',
-              'filter': ["==", res, ["get", "_id"]],
-              "paint": {
-                'text-color': '#FFFFFF',
-                'text-halo-blur': 2,
-                'text-halo-color': '#000000',
-                'text-halo-width': 2
-              },
-              "layout": {
-                "text-field": ["get", "name"],
-                "text-variable-anchor": ["top"],
-                "text-offset": [0,1],
-                // "text-font": [
-                //   "DIN Offc Pro Medium",
-                //   "Arial Unicode MS Bold"
-                // ],
-                "text-size": 15
-              } 
-            });
-            that.map.addLayer({
-              'id': 'active-layer',
-              'type': 'circle',
-              'source': 'boxes',
-              'filter': ["==", res, ["get", "_id"]],
-              'paint': {
-              'circle-radius': {
-                'base': 1.75,
-                'stops': [[1, 10], [22, 3580]]
-              },
-              'circle-blur': 0.6,
-              // 'circle-stroke-width': 1,
-              'circle-opacity': 0.6,
-              'circle-color': '#FFFFFF'
-              } 
-            }, 'active-layer-text');
+    // this.layers$ = this.boxQuery.select(ent => ent.ui.layers);
+
+    // this.map.on('load', function(){
+    //   that.boxes$.subscribe(boxes => {
+    //     console.log("newBoxes");
+    //     boxes = that.convertLastMeasurement(boxes);
+    //     if(!that.map.getSource('boxes')){
+    //       that.map.addSource('boxes', {
+    //         type: "geojson",
+    //         data: that.toGeoJson(boxes)
+    //       })
+    //     } else {
+    //       console.log(that.toGeoJson(boxes));
+    //       that.map.getSource('boxes').setData(that.toGeoJson(boxes));
+    //     }
+    //   });
+
+    //   that.activeBox$.subscribe(res => {
+    //     if(res){
+    //       if(!that.map.getLayer('active-layer')){
+    //         that.map.addLayer({
+    //           'id': 'active-layer-text',
+    //           'type': 'symbol',
+    //           'source': 'boxes',
+    //           'filter': ["==", res, ["get", "_id"]],
+    //           "paint": {
+    //             'text-color': '#FFFFFF',
+    //             'text-halo-blur': 2,
+    //             'text-halo-color': '#000000',
+    //             'text-halo-width': 2
+    //           },
+    //           "layout": {
+    //             "text-field": ["get", "name"],
+    //             "text-variable-anchor": ["top"],
+    //             "text-offset": [0,1],
+    //             // "text-font": [
+    //             //   "DIN Offc Pro Medium",
+    //             //   "Arial Unicode MS Bold"
+    //             // ],
+    //             "text-size": 15
+    //           } 
+    //         });
+    //         that.map.addLayer({
+    //           'id': 'active-layer',
+    //           'type': 'circle',
+    //           'source': 'boxes',
+    //           'filter': ["==", res, ["get", "_id"]],
+    //           'paint': {
+    //           'circle-radius': {
+    //             'base': 1.75,
+    //             'stops': [[1, 10], [22, 3580]]
+    //           },
+    //           'circle-blur': 0.6,
+    //           // 'circle-stroke-width': 1,
+    //           'circle-opacity': 0.6,
+    //           'circle-color': '#FFFFFF'
+    //           } 
+    //         }, 'active-layer-text');
             
-            if(that.map.getLayer('base-layer'))
-              that.map.moveLayer('base-layer', 'active-layer-text')
-          } else {
-            that.map.setFilter('active-layer', ["==", res, ["get", "_id"]])
-            that.map.setFilter('active-layer-text', ["==", res, ["get", "_id"]])
-          }
-        }
-      })
+    //         if(that.map.getLayer('base-layer'))
+    //           that.map.moveLayer('base-layer', 'active-layer-text')
+    //       } else {
+    //         that.map.setFilter('active-layer', ["==", res, ["get", "_id"]])
+    //         that.map.setFilter('active-layer-text', ["==", res, ["get", "_id"]])
+    //       }
+    //     }
+    //   })
 
-      that.layers$.subscribe(layers => {
-        layers.forEach(element => {
-          console.log(element);
-          if(!that.map.getLayer(element.id)) {
-            that.map.addLayer(element);
-            if(that.map.getLayer('active-layer-text'))
-              that.map.moveLayer(element.id, 'active-layer-text')
-          } else {
-            that.map.setPaintProperty(element.id, 'circle-color', element.paint['circle-color']);
-            if(element.filter){
-              that.map.setFilter(element.id, element.filter);
-            } else {
-              that.map.setFilter(element.id);
-            }
-          }
-        });
-      });
-      //add mouse functions for base-layer
-      that.addPopup('base-layer');
-      that.addClickFuntion('base-layer');
-    });
+    //   that.layers$.subscribe(layers => {
+    //     layers.forEach(element => {
+    //       console.log(element);
+    //       if(!that.map.getLayer(element.id)) {
+    //         that.map.addLayer(element);
+    //         if(that.map.getLayer('active-layer-text'))
+    //           that.map.moveLayer(element.id, 'active-layer-text')
+    //       } else {
+    //         that.map.setPaintProperty(element.id, 'circle-color', element.paint['circle-color']);
+    //         if(element.filter){
+    //           that.map.setFilter(element.id, element.filter);
+    //         } else {
+    //           that.map.setFilter(element.id);
+    //         }
+    //       }
+    //     });
+    //   });
+    //   //add mouse functions for base-layer
+    //   that.addPopup('base-layer');
+    //   that.addClickFuntion('base-layer');
+    // });
   }
 
 
@@ -241,4 +248,127 @@ export class MapService {
   }
 
 
+  setMapData(boxes) {
+    
+    this.updateBoxesData(boxes, this.map);
+    // if(!this.waitingForLoadBox){
+    //   if(this.map.isStyleLoaded()){
+    //   } else {
+    //     this.executeWhenLoaded.push([this.updateBoxesData, boxes])
+    //     // this.waitingForLoadBox = true;
+    //     // this.map.on('load', () => {
+    //     //   // this.setMapData(boxes);
+    //     //   this.updateBoxesData(boxes);
+    //     //   this.waitingForLoadBox = false;
+    //     // })
+    //   }
+    // }
+  }
+
+
+  updateBoxesData(boxes, map){
+    boxes = this.convertLastMeasurement(boxes);
+  
+    if(!map.getSource('boxes')){
+      map.addSource('boxes', {
+        type: "geojson",
+        data: this.toGeoJson(boxes)
+      })
+    } else {
+      map.getSource('boxes').setData(this.toGeoJson(boxes));
+    }
+    this.boxService.setDataInit(true);
+  }
+
+
+  setMapLayers(layers){
+    this.drawLayers(layers, this.map);
+
+    // if(!this.baseLayersInit)
+    //   this.initBaseLayer();
+    // if(!this.waitingForLoadLayer){
+    //   if(this.map && this.map.isStyleLoaded()){
+    //   } else {
+    //     this.executeWhenLoaded.push([this.drawLayers, layers])
+    //     // this.waitingForLoadLayer = true;
+    //     // this.map.on('load', () => {
+    //     //   // this.setMapData(boxes);
+    //     //   this.drawLayers(layers);
+    //     //   this.waitingForLoadLayer = false;
+    //     // })
+    //   }
+    // }
+  }
+
+
+  drawLayers(layers, map) {  
+    
+    layers.forEach(element => {
+
+      if(!map.getLayer(element.id)) {
+        map.addLayer(element);
+
+        if(map.getLayer('active-layer-text'))
+          map.moveLayer(element.id, 'active-layer-text');
+
+      } else {
+
+        map.setPaintProperty(element.id, 'circle-color', element.paint['circle-color']);
+
+        if(element.filter){
+          map.setFilter(element.id, element.filter);
+        } else {
+          map.setFilter(element.id);
+        }
+      }
+    });
+  }
+
+
+  updateActiveLayer(id){
+   
+    if(!this.map.getLayer('active-layer')){
+      this.map.addLayer({
+        'id': 'active-layer-text',
+        'type': 'symbol',
+        'source': 'boxes',
+        'filter': ["==", id, ["get", "_id"]],
+        "paint": {
+          'text-color': '#FFFFFF',
+          'text-halo-blur': 2,
+          'text-halo-color': '#000000',
+          'text-halo-width': 2
+        },
+        "layout": {
+          "text-field": ["get", "name"],
+          "text-variable-anchor": ["top"],
+          "text-offset": [0,1],
+          // "text-font": [
+          //   "DIN Offc Pro Medium",
+          //   "Arial Unicode MS Bold"
+          // ],
+          "text-size": 15
+        } 
+      });
+      this.map.addLayer({
+        'id': 'active-layer',
+        'type': 'circle',
+        'source': 'boxes',
+        'filter': ["==", id, ["get", "_id"]],
+        'paint': {
+        'circle-radius': {
+          'base': 1.75,
+          'stops': [[1, 10], [22, 3580]]
+        },
+        'circle-blur': 0.6,
+        // 'circle-stroke-width': 1,
+        'circle-opacity': 0.6,
+        'circle-color': '#FFFFFF'
+        } 
+      }, 'base-layer');
+    } else {
+      this.map.setFilter('active-layer', ["==", id, ["get", "_id"]]);
+      this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
+    }
+  }
 }

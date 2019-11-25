@@ -6,16 +6,35 @@ import { Box } from './box.model';
 import { tap } from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
 
+import { schema, normalize } from 'normalizr';
+import { MeasurementStore } from '../../measurement/state/measurement.store';
+import { SensorStore } from '../../sensor/state/sensor.store';
+
 @Injectable({ providedIn: 'root' })
 export class BoxService {
 
-  constructor(private boxStore: BoxStore,
-              private http: HttpClient) {
+  constructor(
+    private boxStore: BoxStore, 
+    private sensorStore: SensorStore, 
+    private measurementStore: MeasurementStore, 
+    private http: HttpClient) {
   }
 
   get() {
+    
+    // Normalizr-Schema for the Data 
+    const sensor = new schema.Entity('sensors', {}, { idAttribute: '_id' });
+    const box = new schema.Entity('boxes', {sensors: [sensor] }, { idAttribute: '_id' });
+
+
     return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587`).pipe(tap(entities => {
-      this.boxStore.set(entities);
+      
+      //normalize Data 
+      let res  = normalize(entities, [box]);
+
+      //set Data in storess
+      this.boxStore.set(res.entities.boxes);
+      this.sensorStore.set(res.entities.sensors);
     }));
   }
 
@@ -39,7 +58,7 @@ export class BoxService {
           _id: ent.boxId,
           values: {
             [pheno]: noEnt 
-          } 
+          }
         }
       })
       
@@ -57,19 +76,19 @@ export class BoxService {
     }));
   }
 
-  getSingleBoxValues(boxId, sensorId, fromDate, toDate){
-    // https://api.opensensemap.org/boxes/5aec1cb5223bd80019cdcadf/data/5aec1cb5223bd80019cdcae3?to-date=2019-11-12T15:54:08.775Z
-    return this.http.get<any[]>(`${environment.api_url}/boxes/${boxId}/data/${sensorId}?from-date=${fromDate}&to-date=${toDate}`).pipe(tap(data => {
-      let mapData = data.map(item => {return {name: new Date(item.createdAt), value: item.value}})
-      let upsert = {
-        _id: boxId,
-        values: {
-          [sensorId]: mapData
-        }
-      }
-      this.boxStore.upsert(boxId, upsert);
-    }));
-  }
+  // getSingleBoxValues(boxId, sensorId, fromDate, toDate){
+  //   // https://api.opensensemap.org/boxes/5aec1cb5223bd80019cdcadf/data/5aec1cb5223bd80019cdcae3?to-date=2019-11-12T15:54:08.775Z
+  //   return this.http.get<any[]>(`${environment.api_url}/boxes/${boxId}/data/${sensorId}?from-date=${fromDate}&to-date=${toDate}`).pipe(tap(data => {
+  //     let mapData = data.map(item => {return {name: new Date(item.createdAt), value: item.value}})
+  //     let upsert = {
+  //       _id: boxId,
+  //       values: {
+  //         [sensorId]: mapData
+  //       }
+  //     }
+  //     this.boxStore.upsert(boxId, upsert);
+  //   }));
+  // }
 
   add(box: Box) {
     this.boxStore.add(box);
@@ -111,5 +130,12 @@ export class BoxService {
 
   setLayers(layers) {
     this.boxStore.setLayers(layers);
+  }
+
+  setMapInit(mapInit){
+    this.boxStore.setMapInit(mapInit);
+  }
+  setDataInit(dataInit){
+    this.boxStore.setDataInit(dataInit);
   }
 }

@@ -25,6 +25,7 @@
     "@types/mapbox-gl": "^0.54.4",
     "mapbox-gl": "^1.4.1",
     "ng-pick-datetime": "^7.0.0",
+    "normalizr": "^3.4.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
