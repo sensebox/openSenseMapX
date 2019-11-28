@@ -25,6 +25,7 @@ export class SensorService {
   }
 
   getSingleSensorValues(boxId, sensorId, fromDate, toDate){
+    //TODO: CHECK CACHE HERE
     return this.http.get<any[]>(`${environment.api_url}/boxes/${boxId}/data/${sensorId}?from-date=${fromDate}&to-date=${toDate}`).pipe(tap(data => {
       let mapData = data.map(item => {return {name: new Date(item.createdAt), value: item.value}})
       let upsert = {
@@ -32,9 +33,11 @@ export class SensorService {
         rawValues: mapData
       }
       this.sensorStore.upsert(sensorId, upsert);
-      this.sensorStore.addActive([sensorId]);
-    }));  
-
+      // this.sensorStore.addActive([sensorId]);
+      console.log(sensorId);
+      this.sensorStore.addCached(sensorId);
+      // this.sensorStore.ui.upsert(sensorId, {hasData: true} )
+    }));
   }
   
   add(sensor: Sensor) {
@@ -54,5 +57,11 @@ export class SensorService {
   }
   addActive(sensor){
     this.sensorStore.addActive(sensor);
+  }
+  toggleActive(sensor){ 
+    this.sensorStore.toggleActive(sensor);
+  }
+  resetCache(){
+    this.sensorStore.resetCached();
   }
 }

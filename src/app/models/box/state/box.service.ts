@@ -71,6 +71,7 @@ export class BoxService {
   }
 
   getSingleBox(id){
+    console.log("yo")
     return this.http.get<Box>(`${environment.api_url}/boxes/${id}`).pipe(tap(entity => {
       this.boxStore.upsert(entity._id, entity);
     }));
@@ -137,5 +138,13 @@ export class BoxService {
   }
   setDataInit(dataInit){
     this.boxStore.setDataInit(dataInit);
+  }
+
+  setCompareModus(modus){
+    this.boxStore.setCompareModus(modus);
+  }
+
+  toggleCompareTo(box){
+    this.boxStore.toggleCompareTo(box);
   }
 }

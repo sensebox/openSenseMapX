@@ -15,12 +15,32 @@ import { combineLatest } from 'rxjs';
 })
 export class MapService {
 
-  constructor(private boxQuery: BoxQuery, private boxService: BoxService, private router: Router) { }
+  constructor(private boxQuery: BoxQuery, private boxService: BoxService, private router: Router) { 
+    this.compareModus$.subscribe(res => {
+      this.compareModus = res;
+      if(this.map && this.map.getLayer('base-layer')){
+        if(res){
+          this.map.off('mouseenter', 'base-layer', this.baseMouseenterFunction);
+          this.map.off('click', 'base-layer', this.baseClickFunction);
+          this.map.on('mouseenter', 'base-layer', this.compareMouseenterFunction);
+          this.map.on('click', 'base-layer', this.compareClickFunction);
+        } else {
+          this.map.off('click', 'base-layer', this.compareClickFunction);
+          this.map.off('mouseenter', 'base-layer', this.compareMouseenterFunction);
+          this.map.on('mouseenter', 'base-layer', this.baseMouseenterFunction);
+          this.map.on('click', 'base-layer', this.baseClickFunction);
+        }
+      }
+    })
+  }
 
   map;
+  popup;
   boxes$: Observable<Box[]>;
   layers$;
-  activeBox$ = this.boxQuery.selectActiveId();
+  // activeBox$ = this.boxQuery.selectActiveId();
+  compareModus$ = this.boxQuery.selectCompareModus$;
+  compareModus: Boolean = false;
 
   baseLayersInit: Boolean = false;
   dataInit = false;
@@ -144,7 +164,7 @@ export class MapService {
     let returnData = data.map(box => {
       let newValues = {}
       box.sensors.map(sensor => {
-        if(sensor.lastMeasurement){
+        if(sensor && sensor.lastMeasurement){
           let newSensor = { };
           // newSensor[sensor.title] =  sensor.lastMeasurement.value
           newValues[sensor.title] =  parseFloat(sensor.lastMeasurement.value)
@@ -202,49 +222,82 @@ export class MapService {
 
   addClickFuntion(layer) {
     let that = this;
-    this.map.on('click', layer, function (e) {
-       
-      if(e.features.length > 0){
-        that.router.navigate(['/explore/'+e.features[0].properties._id]);
-      }
-    });
+    this.map.on('click', layer, this.baseClickFunction);
+  }
+
+  baseClickFunction = e => {
+    if(e.features.length > 0){
+      this.router.navigate(['/explore/'+e.features[0].properties._id]);
+    }
+  }
+
+  compareClickFunction = e => {
+    if(e.features.length > 0){
+      this.boxService.toggleCompareTo(e.features[0].properties._id);
+    }
   }
 
   addPopup(layer) {
     let that = this;
 
-    var popup = new mapboxgl.Popup({
+    this.popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false
     });
        
-    this.map.on('mouseenter', layer, function(e) {
-      that.map.getCanvas().style.cursor = 'pointer';
-
-        
-      var coordinates = e.features[0].geometry.coordinates.slice();
-        
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      let description = "<h3>" + e.features[0].properties.name + '</h3>' + e.features[0].properties.values
-
-      let sensors = JSON.parse(e.features[0].properties.sensors);
-      for(let sensor in sensors) {
-        let sensorItem = sensors[sensor];
-        description += '<p>' + sensorItem.title + '</p>'
-      }
-  
-      popup.setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(that.map);
-    });
+    this.map.on('mouseenter', layer, this.baseMouseenterFunction);
       
     this.map.on('mouseleave', layer, function() {
       that.map.getCanvas().style.cursor = '';
-      popup.remove();
+      that.popup.remove();
     });
+  }
+
+  baseMouseenterFunction = e => {
+    this.map.getCanvas().style.cursor = 'pointer';
+
+      
+    var coordinates = e.features[0].geometry.coordinates.slice();
+      
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    let description = "<h3>" + e.features[0].properties.name + '</h3>' + e.features[0].properties.values
+
+    let sensors = JSON.parse(e.features[0].properties.sensors);
+    for(let sensor in sensors) {
+      let sensorItem = sensors[sensor];
+      description += '<p>' + sensorItem.title + '</p>'
+    }
+
+    this.popup.setLngLat(coordinates)
+      .setHTML(description)
+      .addTo(this.map);
+
+  }
+
+  compareMouseenterFunction = e => {
+    this.map.getCanvas().style.cursor = 'cell';
+
+      
+    var coordinates = e.features[0].geometry.coordinates.slice();
+      
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    let description = "<h3>" + e.features[0].properties.name + '</h3>' + e.features[0].properties.values
+
+    let sensors = JSON.parse(e.features[0].properties.sensors);
+    for(let sensor in sensors) {
+      let sensorItem = sensors[sensor];
+      description += '<p>' + sensorItem.title + '</p>'
+    }
+
+    this.popup.setLngLat(coordinates)
+      .setHTML(description)
+      .addTo(this.map);
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
 import { Box } from 'src/app/models/box/state/box.model';
 
 @Component({
@@ -7,7 +7,7 @@ import { Box } from 'src/app/models/box/state/box.model';
   styleUrls: ['./box-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BoxChartComponent implements OnInit {
+export class BoxChartComponent implements OnInit, OnChanges {
 
   @Input() data;
 
@@ -17,6 +17,11 @@ export class BoxChartComponent implements OnInit {
 
   ngOnInit() {
     console.log({"name": "test", "series": this.data});
+
+  }
+
+  ngOnChanges(){
+    console.log(this.data);
   }
 
   test(e){

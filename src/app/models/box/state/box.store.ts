@@ -9,6 +9,7 @@ export type BoxUI = {
 
 export interface BoxState extends EntityState<Box>, ActiveState {
   ui: {
+    compareTo;
     layers: any[];
     sourceData: any;
     dateRange: Array<Date>;
@@ -17,6 +18,7 @@ export interface BoxState extends EntityState<Box>, ActiveState {
     displayTimeSlider: boolean;
     mapInit: boolean;
     dataInit: boolean;
+    compareModus: boolean;
   }
 }
 export interface BoxUIState extends EntityState<BoxUI> {}
@@ -24,6 +26,7 @@ export interface BoxUIState extends EntityState<BoxUI> {}
 
 const initialState = {
   ui: {
+    compareTo: [],
     layers: [{
       'id': 'base-layer',
       'type': 'circle',
@@ -50,7 +53,8 @@ const initialState = {
     selectedPheno: null,
     displayTimeSlider: null,
     mapInit: false,
-    dataInit: false
+    dataInit: false,
+    compareModus: false
   }
 }
 
@@ -91,5 +95,36 @@ export class BoxStore extends EntityStore<BoxState> {
   }
   setDataInit(dataInit){
     this.update( state => ({ ui: { ...state.ui , dataInit: dataInit }}));
+  }
+  addCompareTo(box){
+    this.update( state => ({ ui: { ...state.ui ,compareTo: [...state.compareTo, box]}}));
+  }
+  resetCompareTo(){
+    this.update( state => ({  ui: { ...state.ui ,compareTo: []}}));
+  }
+  removeCompareTo(box){
+    this.update( state => {
+      let newCompareTo = state.ui.compareTo.slice(1, state.ui.compareTo.indexOf(box))
+      return {  ui: { ...state.ui ,compareTo: newCompareTo }};
+
+    });
+  }
+
+  setCompareModus(compare){
+    this.update( state => ({ui: {...state.ui, compareModus: compare}}))
+  }
+
+  toggleCompareTo(box){
+    this.update( state => {
+      box = state.entities[box]
+      if(state.ui.compareTo.indexOf(box) === -1){
+        return { ui: {...state.ui, compareTo: [...state.ui.compareTo, box ]}}
+      } else {
+        let newCompareTo = [...state.ui.compareTo.slice(0, state.ui.compareTo.indexOf(box)), ...state.ui.compareTo.slice(state.ui.compareTo.indexOf(box)+1)];
+        console.log(state.ui.compareTo)
+        console.log(newCompareTo)
+        return { ui: {...state.ui, compareTo: newCompareTo}}
+      }
+    })
   }
 }
