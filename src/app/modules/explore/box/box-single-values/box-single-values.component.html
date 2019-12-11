@@ -1,0 +1,18 @@
+<div class="osem-bottom-bar-container" *ngIf="box">
+  {{box.name}}
+
+  <div class="osem-sensors">
+    <div class="osem-sensor" *ngFor="let sensor of box.sensors">
+      
+      <div *ngIf="sensor" [style.color]="(colors && activeSensorTypes && activeSensorTypes.indexOf(sensor.title) != -1) ? colors.getColor(sensor.title) : '#000000'">
+        <div (click)="selectValue(sensor)">
+          <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value}}</b>
+          <b *ngIf="!sensor.lastMeasurement">N/A</b>
+        </div>
+        <div>{{sensor.title}}</div>
+        <div *ngIf="activeSensorTypes.length < 2 && activeSensorTypes.indexOf(sensor.title) === -1" (click)="addValue(sensor)">+</div>
+        <div *ngIf="activeSensorTypes.indexOf(sensor.title) != -1" (click)="addValue(sensor)">-</div>
+      </div>
+    </div>
+  </div>
+</div>

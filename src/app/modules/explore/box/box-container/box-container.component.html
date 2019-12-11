@@ -1,7 +1,7 @@
 <osem-box-values 
     [box]="activeBox$ | async" 
-    (valueAdded)="toggleAddValue($event)" 
     (valueSelected)="toggleValue($event)" 
+    (valueAdded)="toggleAddValue($event)" 
     [compareTo]="compareTo$ | async" 
     [compareModus]="compareModus$ | async"
     [compareData]="compareData"

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Box } from 'src/app/models/box/state/box.model';
 
 @Component({
@@ -7,7 +7,7 @@ import { Box } from 'src/app/models/box/state/box.model';
   styleUrls: ['./box-values.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BoxValuesComponent implements OnInit, OnChanges {
+export class BoxValuesComponent implements OnInit {
 
   @Input() box: Box;
   @Input() compareTo;
@@ -23,18 +23,15 @@ export class BoxValuesComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.compareData);
-  }
-  ngOnChanges(){
-    console.log(this.compareData)
+    // console.log(this.compareData);
   }
 
-  selectValue(boxId, sensorId){
-    this.valueSelected.emit({boxId, sensorId});
+  selectValue(sensor){
+    this.valueSelected.emit(sensor);
   }
-
-  addValue(boxId, sensorId) {
-    this.valueAdded.emit({boxId, sensorId});
+  
+  addValue(sensor) {
+    this.valueAdded.emit(sensor);
   }
 
   toggleCompareModus(){

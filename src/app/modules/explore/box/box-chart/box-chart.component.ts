@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Box } from 'src/app/models/box/state/box.model';
 
 @Component({
@@ -12,6 +12,7 @@ export class BoxChartComponent implements OnInit, OnChanges {
   @Input() data;
 
   // xAxisTicks = [new Date('2019-11-05T18:54:08.775Z')]
+  @Output() colorsChanged = new EventEmitter();
 
   constructor() { }
 
@@ -26,6 +27,10 @@ export class BoxChartComponent implements OnInit, OnChanges {
 
   test(e){
     return new Date(e).toLocaleDateString('de-DE');
+  }
+
+  changeColors(data){
+    this.colorsChanged.emit(data);
   }
 
 }

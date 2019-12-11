@@ -1,6 +1,5 @@
-
 <div id="osem-chart-container" *ngIf="data.length > 0">
-    <ngx-charts-line-chart 
+    <osem-osem-line-chart 
         [results]="data" 
         [xAxis]="true"
         [xAxisLabel]="'XXX'"
@@ -8,15 +7,19 @@
         [yAxisLabel]="'HALLO'"
         [autoScale]="true"
         [showYAxisLabel]="true"
-        [showXAxisLabel]="true"
-        [xAxisTickFormatting]="test"
+        [showXAxisLabel]="false"
+        [gradient]="true"
+        [showGridLines]="true"
         [trimXAxisTicks]="true"
         [maxXAxisTickLength]="10"
         [roundDomains]="true"
-        [showRefLines]="true"
-        [referenceLines]="[{name: 'yoo', value: 10.1}]"
-        [legend]="true"
-        ></ngx-charts-line-chart>
+        [legend]="false"
+        [legendPosition]="'right'"
+        (colorsChanged)="changeColors($event)"
+        ></osem-osem-line-chart>
+        <!-- [showRefLines]="true" -->
         <!-- [xAxisTicks]="xAxisTicks" -->
+        <!-- [referenceLines]="[{name: 'yoo', value: 10.1}]" -->
     <!-- <ngx-charts-bubble-chart [results]="[{'name': 'test', 'series': data}]" ></ngx-charts-bubble-chart> -->
 </div>
+
