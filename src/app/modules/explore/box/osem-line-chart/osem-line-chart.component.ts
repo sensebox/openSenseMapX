@@ -122,8 +122,10 @@ export class OsemLineChartComponent extends BaseChartComponent  {
 
   update(): void {
     super.update();
+    console.log("UUUUPDATE CHART YOOOO")
     
     let width = this.width;
+    //make space for the second y-Axis, TODO: animation
     if(this.results.length > 1) {
       width = this.width-70;
     } 
@@ -152,12 +154,12 @@ export class OsemLineChartComponent extends BaseChartComponent  {
       this.xDomain = this.filteredDomain;
     }
 
-    this.yDomain = this.getYDomain();
+    // this.yDomain = this.getYDomain();
     this.yDomains = this.getYDomains();
     this.seriesDomain = this.getSeriesDomain();
 
     this.xScale = this.getXScale(this.xDomain, this.dims.width);
-    this.yScale = this.getYScale(this.yDomain, this.dims.height);
+    // this.yScale = this.getYScale(this.yDomain, this.dims.height);
     this.yScales = this.getYScales(this.yDomains, this.dims.height);
 
     this.updateTimeline();
@@ -255,6 +257,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   }
   
   getYDomains(): any[] {
+    console.log(this.results)
       const domain = {};
   
       for (const results of this.results) {
@@ -472,4 +475,39 @@ export class OsemLineChartComponent extends BaseChartComponent  {
     this.activeEntries = [];
   }
 
+  //override cloneData Method to allow displayName property
+  cloneData(data): any {
+    const results = [];
+    for (const item of data) {
+      const copy = {
+        name: item['name']
+      };
+
+      if (item['value'] !== undefined) {
+        copy['value'] = item['value'];
+      }
+      if (item['value'] !== undefined) {
+        copy['value'] = item['value'];
+      }
+      if (item['displayName'] !== undefined) {
+        copy['displayName'] = item['displayName'];
+      }
+
+      if (item['series'] !== undefined) {
+        copy['series'] = [];
+        for (const seriesItem of item['series']) {
+          const seriesItemCopy = Object.assign({}, seriesItem);
+          copy['series'].push(seriesItemCopy);
+        }
+      }
+
+      if (item['extra'] !== undefined) {
+        copy['extra'] = JSON.parse(JSON.stringify(item['extra']));
+      }
+
+      results.push(copy);
+    }
+
+    return results;
+  }
 }

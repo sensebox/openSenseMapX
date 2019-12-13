@@ -17,7 +17,6 @@ export class BoxChartComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    console.log({"name": "test", "series": this.data});
 
   }
 

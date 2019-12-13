@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { combineLatest } from 'rxjs';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
+import { UiService } from 'src/app/models/ui/state/ui.service';
 
 @Component({
   selector: 'osem-filter-container',
@@ -10,11 +12,15 @@ import { combineLatest } from 'rxjs';
 })
 export class FilterContainerComponent implements OnInit {
 
-  selectUI$ = this.boxQuery.selectUI$;
+  // selectUI$ = this.boxQuery.selectUI$;
   selectDateRange$ = this.boxQuery.selectDateRange$;
-  selectedPheno$ = this.boxQuery.selectSelectedPheno$;
+  selectedPheno$ = this.uiQuery.selectSelectedPheno$;
 
-  constructor(private boxService: BoxService, private boxQuery: BoxQuery) { }
+  constructor(
+    private boxService: BoxService, 
+    private boxQuery: BoxQuery,
+    private uiService: UiService, 
+    private uiQuery: UiQuery) { }
 
   ngOnInit() {
     let that = this;
@@ -40,7 +46,7 @@ export class FilterContainerComponent implements OnInit {
   }
 
   selectPheno(pheno){
-    this.boxService.updateSelectedPheno(pheno);
+    this.uiService.updateSelectedPheno(pheno);
   }
 
 }

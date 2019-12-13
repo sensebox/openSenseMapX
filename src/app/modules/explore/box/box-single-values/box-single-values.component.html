@@ -1,6 +1,8 @@
 <div class="osem-bottom-bar-container" *ngIf="box">
   {{box.name}}
 
+  <a [routerLink]="['/compare']" [queryParams]="{id: [box._id], activeTypes: activeSensorTypes}">COMPARE</a>
+
   <div class="osem-sensors">
     <div class="osem-sensor" *ngFor="let sensor of box.sensors">
       

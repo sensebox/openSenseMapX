@@ -12,6 +12,7 @@ import { environment } from '../environments/environment';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { ExploreModule } from './modules/explore/explore.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ExploreModule } from './modules/explore/explore.module';
   imports: [
     BrowserModule,
     CommonModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),

@@ -1,1 +1,32 @@
-<p>box-compare-values works!</p>
+
+
+<div class="values" *ngIf="boxes">
+    <div class="box-row">
+        <div class="box-name">
+            name
+        </div>
+        <div *ngFor="let pheno of combinedData | keyvalue" class="value-item" (click)="selectPheno(pheno)">
+            {{pheno.key}}
+        </div>
+    </div>
+    <div *ngFor="let box of boxes">
+        <div class="box-row">
+            <div class="box-name">
+                {{box.name}}
+            </div>
+            <div *ngFor="let pheno of combinedData | keyvalue" class="value-item" (click)="selectPheno(pheno)">
+                <div *ngIf="pheno && pheno.value">
+                    <div *ngIf="pheno.value[box._id]?.lastMeasurement; else noValue">
+                        {{pheno.value[box._id].lastMeasurement.value}}
+                    </div>
+                    <ng-template #noValue>
+                        N/a
+                    </ng-template>
+                    <!-- <div *ngIf="!pheno.value[box._id]">
+                        N/a
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

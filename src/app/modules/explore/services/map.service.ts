@@ -6,16 +6,20 @@ import { Observable } from 'rxjs';
 import { Box } from 'src/app/models/box/state/box.model';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { BoxService } from 'src/app/models/box/state/box.service';
-import { Router } from '@angular/router';
-import { throttleable } from '@swimlane/ngx-charts/release/utils';
-import { combineLatest } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+import { arrayRemove } from '../box/osem-line-chart/helper/helpers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
 
-  constructor(private boxQuery: BoxQuery, private boxService: BoxService, private router: Router) { 
+  constructor(
+    private boxQuery: BoxQuery, 
+    private boxService: BoxService, 
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+    ) { 
     this.compareModus$.subscribe(res => {
       this.compareModus = res;
       if(this.map && this.map.getLayer('base-layer')){
@@ -163,14 +167,16 @@ export class MapService {
   convertLastMeasurement(data){
     let returnData = data.map(box => {
       let newValues = {}
-      box.sensors.map(sensor => {
-        if(sensor && sensor.lastMeasurement){
-          let newSensor = { };
-          // newSensor[sensor.title] =  sensor.lastMeasurement.value
-          newValues[sensor.title] =  parseFloat(sensor.lastMeasurement.value)
-        }
-        return null;
-      })
+      if(box.sensors){
+        box.sensors.map(sensor => {
+          if(sensor && sensor.lastMeasurement){
+            let newSensor = { };
+            // newSensor[sensor.title] =  sensor.lastMeasurement.value
+            newValues[sensor.title] =  parseFloat(sensor.lastMeasurement.value)
+          }
+          return null;
+        })
+      }
       let newBox = {...box, live: newValues};
       return newBox;
     })
@@ -194,21 +200,23 @@ export class MapService {
 
 
   toGeoJson(data){
-    let geojson = data.map(item => {
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: item.currentLocation.coordinates,
-        },
-        properties: {
-          name: item.name,
-          _id: item._id,
-          exposure: item.exposure,
-          state: item.state,
-          sensors: item.sensors,
-          values: item.values ? item.values : null,
-          live: item.live ? item.live : null
+    let geojson = data.filter(item => item.currentLocation).map(item => {
+      if(item.currentLocation){
+        return {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: item.currentLocation.coordinates,
+          },
+          properties: {
+            name: item.name,
+            _id: item._id,
+            exposure: item.exposure,
+            state: item.state,
+            sensors: item.sensors,
+            values: item.values ? item.values : null,
+            live: item.live ? item.live : null
+          }
         }
       }
     });
@@ -232,8 +240,33 @@ export class MapService {
   }
 
   compareClickFunction = e => {
+
     if(e.features.length > 0){
-      this.boxService.toggleCompareTo(e.features[0].properties._id);
+
+      let newIds = [];
+      if(this.activatedRoute.snapshot.queryParams.id){
+        if(Array.isArray(this.activatedRoute.snapshot.queryParams.id)){
+          if(this.activatedRoute.snapshot.queryParams.id.indexOf(e.features[0].properties._id) != -1){
+            newIds = arrayRemove(this.activatedRoute.snapshot.queryParams.id, e.features[0].properties._id)
+          } else {
+            newIds = [...this.activatedRoute.snapshot.queryParams.id, e.features[0].properties._id]
+          }
+        } else {
+          if(this.activatedRoute.snapshot.queryParams.id === e.features[0].properties._id){
+            newIds = []
+          } else {
+            newIds = [this.activatedRoute.snapshot.queryParams.id, e.features[0].properties._id]
+          }
+        }
+      }
+      this.router.navigate(
+        [], 
+        {
+          relativeTo: this.activatedRoute,
+          queryParams: { id: newIds },
+          queryParamsHandling: 'merge'
+        });
+      // this.boxService.toggleCompareTo(e.features[0].properties._id);
     }
   }
 
@@ -251,6 +284,14 @@ export class MapService {
       that.map.getCanvas().style.cursor = '';
       that.popup.remove();
     });
+
+  }
+
+  setCompareModusClickFunctions(){
+    this.map.off('mouseenter', 'base-layer', this.baseMouseenterFunction);
+    this.map.off('click', 'base-layer', this.baseClickFunction);
+    this.map.on('mouseenter', 'base-layer', this.compareMouseenterFunction);
+    this.map.on('click', 'base-layer', this.compareClickFunction);
   }
 
   baseMouseenterFunction = e => {
@@ -355,25 +396,32 @@ export class MapService {
 
 
   drawLayers(layers, map) {  
+
+    
     
     layers.forEach(element => {
-
+      
       if(!map.getLayer(element.id)) {
         map.addLayer(element);
 
         if(map.getLayer('active-layer-text'))
-          map.moveLayer(element.id, 'active-layer-text');
-
+        map.moveLayer(element.id, 'active-layer-text');
+        
       } else {
-
+        
         map.setPaintProperty(element.id, 'circle-color', element.paint['circle-color']);
-
+        
         if(element.filter){
           map.setFilter(element.id, element.filter);
         } else {
           map.setFilter(element.id);
         }
       }
+      if(!map.getLayer('number-layer')){
+        this.addNumberLayer();
+      }
+      map.setPaintProperty('number-layer', 'text-color', element.paint['circle-color']);
+      map.setLayoutProperty('number-layer', 'text-field', element.paint['circle-color'][2]);
     });
   }
 
@@ -419,9 +467,40 @@ export class MapService {
         'circle-color': '#FFFFFF'
         } 
       }, 'base-layer');
+      
     } else {
       this.map.setFilter('active-layer', ["==", id, ["get", "_id"]]);
       this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
     }
+  }
+
+  addNumberLayer(){
+    this.map.addLayer({
+      'id': 'number-layer',
+      'type': 'symbol',
+      'source': 'boxes',
+      "paint": {
+        'text-color': [
+          'interpolate',
+        ['linear'],
+        [ "get", "Temperatur", ["object", ["get", "live"]]],
+        -5, '#9900cc',
+        0, '#0000ff',
+        10, '#0099ff',
+        20, '#ffff00',
+        30, '#ff0000'
+      ]
+      },
+      "layout": {
+        "text-field": "",
+        "text-variable-anchor": ["bottom"],
+        "text-offset": [0,1],
+        // "text-font": [
+        //   "DIN Offc Pro Medium",
+        //   "Arial Unicode MS Bold"
+        // ],
+        "text-size": 15
+      } 
+    }, 'base-layer');
   }
 }

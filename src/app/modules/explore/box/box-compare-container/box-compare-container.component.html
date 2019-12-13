@@ -1,1 +1,9 @@
-<p>box-compare-container works!</p>
+<osem-box-compare-values 
+    [boxes]="compareToWithSensors$ | async" 
+    [combinedData]="combinedData"
+    (phenoSelected)="selectPheno($event)"></osem-box-compare-values>
+
+
+<div>
+    <osem-box-chart *ngIf="activeSensors$ | async" (colorsChanged)="changeColors($event)" [data]="chartData"></osem-box-chart>
+</div>

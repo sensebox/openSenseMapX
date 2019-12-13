@@ -1,0 +1,21 @@
+.values {
+    background: #ccc;
+    overflow-x: auto;
+
+    .box-row {
+        white-space: nowrap;
+
+        // display: flex;
+
+        .box-name {
+            width: 140px;
+            display: inline-block;
+        }
+        
+        .value-item {
+            width: 120px;
+            display: inline-block;
+            border: 1px solid white;
+        }
+    }
+}

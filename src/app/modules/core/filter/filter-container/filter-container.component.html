@@ -4,6 +4,6 @@
     (dateChanged)="changeDateRange($event)"></osem-datepicker>
 
 <osem-phenomenon
-    [selectedPheno]="(selectUI$ | async)?.selectedPheno"
+    [selectedPheno]="selectedPheno$"
     (phenoSelected)="selectPheno($event)"
     ></osem-phenomenon>

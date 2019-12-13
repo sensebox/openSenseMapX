@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Box } from 'src/app/models/box/state/box.model';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { MapService } from '../../services/map.service';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'osem-base-map-container',
@@ -12,13 +14,18 @@ import { MapService } from '../../services/map.service';
 })
 export class BaseMapContainerComponent implements OnInit {
 
-  constructor(private boxService: BoxService, private boxQuery: BoxQuery, private mapService: MapService) { }
+  constructor(
+    private boxService: BoxService, 
+    private boxQuery: BoxQuery, 
+    private mapService: MapService,
+    private uiQuery: UiQuery) { }
 
   boxes$ = this.boxQuery.selectBoxes();
-  layers$ = this.boxQuery.select(ent => ent.ui.layers);
+  layers$ = this.uiQuery.select(ent => ent.layers);
   mapInit$ = this.boxQuery.selectMapInit$;
   dataInit$ = this.boxQuery.selectDataInit$;
   activeBox$ = this.boxQuery.selectActiveId();
+  compareModus$ = this.boxQuery.selectCompareModus$;
   ui$;
 
   boxSub;
@@ -31,16 +38,18 @@ export class BaseMapContainerComponent implements OnInit {
     this.boxService.get().subscribe();
 
     //SUBSCRIBE TO ALL BOXES and Layers after map is initiatet
-    this.mapInit$.subscribe(res => {
-      if(res){
+    this.mapInit$.pipe(withLatestFrom(this.compareModus$)).subscribe(res => {
+      if(res[0]){
         this.boxSub = this.boxes$.subscribe(res => {
-          console.log("NEWDATA")
           if(res) {
             this.mapService.setMapData(res);  
           }
         });
         this.mapService.addPopup('base-layer');
         this.mapService.addClickFuntion('base-layer');
+        if(res[1]){
+          this.mapService.setCompareModusClickFunctions();
+        }
       }
     });
     

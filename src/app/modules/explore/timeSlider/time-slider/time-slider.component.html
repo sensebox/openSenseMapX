@@ -4,7 +4,16 @@
     </div>
     
     
-    <input type="range" name="points" id="points" [step]="step" [min]="dateRange[0].getTime()"
-    [max]="dateRange[1].getTime()" data-show-value="true" data-popup-enabled="true" (change)="changed($event)"
-    [(ngModel)]="selectedDate" />
+    <input 
+        type="range" 
+        name="points" 
+        id="points" 
+        [step]="step" 
+        [min]="dateRange[0].getTime()"
+        [max]="dateRange[1].getTime()" 
+        data-show-value="true" 
+        data-popup-enabled="true" 
+        (input)="changed($event)" 
+        (change)="changed($event)"
+        [(ngModel)]="selectedDate" />
 </div>

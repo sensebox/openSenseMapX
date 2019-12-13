@@ -13,15 +13,24 @@ import { LegendComponent } from './legend/legend/legend.component';
 import { TimeSliderContainerComponent } from './timeSlider/time-slider-container/time-slider-container.component';
 import { TimeSliderComponent } from './timeSlider/time-slider/time-slider.component';
 import { FormsModule } from '@angular/forms';
+import { OsemLineChartComponent } from './box/osem-line-chart/osem-line-chart.component';
+import { OsemLineSeriesComponent } from './box/osem-line-chart/osem-line-series/osem-line-series.component';
+import { BoxSingleContainerComponent } from './box/box-single-container/box-single-container.component';
+import { BoxSingleValuesComponent } from './box/box-single-values/box-single-values.component';
+import { TestthisbitchComponent } from './testthisbitch/testthisbitch.component';
+import { BoxCompareContainerComponent } from './box/box-compare-container/box-compare-container.component';
+import { BoxCompareValuesComponent } from './box/box-compare-values/box-compare-values.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, TestthisbitchComponent, BoxCompareContainerComponent, BoxCompareValuesComponent],
   imports: [
     CommonModule,
     NgxChartsModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [MapService],
   exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent]

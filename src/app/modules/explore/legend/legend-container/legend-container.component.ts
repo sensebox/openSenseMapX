@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BoxQuery } from 'src/app/models/box/state/box.query';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
 
 @Component({
   selector: 'osem-legend-container',
@@ -8,14 +8,14 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 })
 export class LegendContainerComponent implements OnInit {
 
-  selectedPheno$ = this.boxQuery.selectSelectedPheno$;
+  selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   gradient = "";
-  constructor(private boxQuery: BoxQuery) { }
+  constructor(private uiQuery: UiQuery) { }
 
   ngOnInit() {
 
     this.selectedPheno$.subscribe((res:any) => {
-      if(res){
+      if(res.layer){
         this.gradient = '0deg';
         res.layer.paint['circle-color'].forEach((color, index) => {
           if(index > 3 && (index % 2) != 1){

@@ -65,7 +65,7 @@ export class BoxSingleContainerComponent implements OnInit {
               }
             }
           })
-          console.log('ToActive', sensorsToActive);
+          // console.log('ToActive', sensorsToActive);
           this.sensorService.setActive(sensorsToActive);
         } else {
           // this.displayBox = data;
@@ -76,7 +76,7 @@ export class BoxSingleContainerComponent implements OnInit {
     //subscribe to sensorIds so this does not trigger when the sensor itself changes (e.g. data loaded)
     this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$)).subscribe(data => {
       if(data && data.length > 0){
-        console.log('data1',data[1]);
+        // console.log('data1',data[1]);
         this.uiService.setActiveSensorTypes([...new Set(data[1].map(sensor => sensor.title))]);
         data[1].forEach(sensor => {
           if(!sensor.hasData){
@@ -99,12 +99,12 @@ export class BoxSingleContainerComponent implements OnInit {
 
         this.chartData = sensors.filter(sensor => sensor.rawValues).map(sensor => {
           if(sensor.rawValues){
-            return {"name": sensor.title, series: sensor.rawValues}
+            return {"name": sensor.title, "displayName": `${sensor.title} (${sensor.unit})`, series: sensor.rawValues}
           } else {
             return undefined
           }
         })
-        console.log(this.chartData);
+        // console.log(this.chartData);
         // console.log(this.chartData)
       } else {
         // console.log("NOARRAY")

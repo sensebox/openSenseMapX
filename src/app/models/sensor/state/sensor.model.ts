@@ -11,6 +11,7 @@ export interface Sensor {
   lastMeasurement: Measurement;
   values: Object;
   rawValues: Object;
+  boxes_id: string;
 }
 
 /**

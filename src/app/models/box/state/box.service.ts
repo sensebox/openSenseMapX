@@ -34,6 +34,14 @@ export class BoxService {
 
       //set Data in storess
       this.boxStore.set(res.entities.boxes);
+
+      //TODO: find better way than this
+      console.log(res.entities.boxes);
+      for (let box in res.entities.boxes) {
+        res.entities.boxes[box].sensors.forEach(sensor => {
+          res.entities.sensors[sensor].boxes_id = res.entities.boxes[box]._id;
+        })
+      }
       this.sensorStore.set(res.entities.sensors);
     }));
   }
@@ -71,9 +79,16 @@ export class BoxService {
   }
 
   getSingleBox(id){
-    console.log("yo")
+    const sensor = new schema.Entity('sensors', {}, { idAttribute: '_id' });
+
+    const box = new schema.Entity('boxes', {sensors: [sensor] }, { idAttribute: '_id' });
+
     return this.http.get<Box>(`${environment.api_url}/boxes/${id}`).pipe(tap(entity => {
-      this.boxStore.upsert(entity._id, entity);
+      // console.log(entity);
+      // console.log(normalize([entity], [box]))
+      let entities: any = normalize([entity], [box]);
+      this.boxStore.upsert(entities.entities.boxes[entity._id], entities.entities.boxes);
+      this.sensorStore.upsertMany(Object.values(entities.entities.sensors));
     }));
   }
 
@@ -125,13 +140,6 @@ export class BoxService {
   updateEndDate(date) {
     this.boxStore.updateEndDate(date);
   }
-  updateSelectedPheno(pheno) {
-    this.boxStore.updateSelectedPheno(pheno);
-  }
-
-  setLayers(layers) {
-    this.boxStore.setLayers(layers);
-  }
 
   setMapInit(mapInit){
     this.boxStore.setMapInit(mapInit);
@@ -146,5 +154,12 @@ export class BoxService {
 
   toggleCompareTo(box){
     this.boxStore.toggleCompareTo(box);
+  }
+  resetCompareTo(){
+    this.boxStore.resetCompareTo();
+  }
+
+  setCompareTo(compareTo){
+    this.boxStore.setCompareTo(compareTo);
   }
 }

@@ -10,11 +10,9 @@ export type BoxUI = {
 export interface BoxState extends EntityState<Box>, ActiveState {
   ui: {
     compareTo;
-    layers: any[];
     sourceData: any;
     dateRange: Array<Date>;
     selectedDate: any;
-    selectedPheno: any;
     displayTimeSlider: boolean;
     mapInit: boolean;
     dataInit: boolean;
@@ -78,9 +76,6 @@ export class BoxStore extends EntityStore<BoxState> {
   updateEndDate(endDate: Date) {
     this.update( state => ({ ui: { ...state.ui ,dateRange: [state.ui.dateRange[0] ? state.ui.dateRange[0] : null , endDate]} }) );
   }
-  updateSelectedPheno(pheno) {
-    this.update( state => ({ ui: { ...state.ui , selectedPheno: pheno, layers: [pheno.layer] }}));
-  }
   updateDisplayTimeSlider(display) {
     this.update( state => ({ ui: { ...state.ui , displayTimeSlider: display }}));
   }
@@ -102,6 +97,9 @@ export class BoxStore extends EntityStore<BoxState> {
   resetCompareTo(){
     this.update( state => ({  ui: { ...state.ui ,compareTo: []}}));
   }
+  setCompareTo(compareTo){
+    this.update( state => ({  ui: { ...state.ui ,compareTo: compareTo}}));
+  }
   removeCompareTo(box){
     this.update( state => {
       let newCompareTo = state.ui.compareTo.slice(1, state.ui.compareTo.indexOf(box))
@@ -116,13 +114,11 @@ export class BoxStore extends EntityStore<BoxState> {
 
   toggleCompareTo(box){
     this.update( state => {
-      box = state.entities[box]
+      // box = state.entities[box]
       if(state.ui.compareTo.indexOf(box) === -1){
         return { ui: {...state.ui, compareTo: [...state.ui.compareTo, box ]}}
       } else {
         let newCompareTo = [...state.ui.compareTo.slice(0, state.ui.compareTo.indexOf(box)), ...state.ui.compareTo.slice(state.ui.compareTo.indexOf(box)+1)];
-        console.log(state.ui.compareTo)
-        console.log(newCompareTo)
         return { ui: {...state.ui, compareTo: newCompareTo}}
       }
     })
