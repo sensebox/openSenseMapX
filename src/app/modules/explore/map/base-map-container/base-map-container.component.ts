@@ -26,11 +26,14 @@ export class BaseMapContainerComponent implements OnInit {
   dataInit$ = this.boxQuery.selectDataInit$;
   activeBox$ = this.boxQuery.selectActiveId();
   compareModus$ = this.boxQuery.selectCompareModus$;
+  compareTo$ = this.boxQuery.selectCompareTo$;
   ui$;
 
   boxSub;
+  compareToSub;
   layerSub;
   activeSub;
+  compareToFilterSub;
   
 
   ngOnInit() {
@@ -55,13 +58,20 @@ export class BaseMapContainerComponent implements OnInit {
     
     this.dataInit$.subscribe(res => {
       if(res){
-        this.layerSub = this.layers$.subscribe(res => { console.log(res); this.mapService.setMapLayers(res); });
+        this.layerSub = this.layers$.subscribe(res => { 
+          this.mapService.setMapLayers(res); 
+        });
         this.activeSub = this.activeBox$.subscribe(res => {
           if(res)
             this.mapService.updateActiveLayer(res);
-        });        
+        });
+        this.compareToSub = this.compareTo$.subscribe(res => {
+          if(res.length > 0)
+            this.mapService.updateActiveLayerCompare(res);
+        });
       }
     })
+
 
     // this.boxService.get().subscribe();
     // this.boxes$ = this.boxQuery.selectAll();
@@ -77,6 +87,19 @@ export class BaseMapContainerComponent implements OnInit {
     this.boxSub.unsubscribe();
     this.layerSub.unsubscribe();
     this.activeSub.unsubscribe();
+    this.compareToSub.unsubscribe();
+  }
+
+  removeAllOtherBoxes(){
+    if(!this.compareToFilterSub) {
+      this.compareToFilterSub = this.compareTo$.subscribe(res => {
+        this.mapService.setBaseLayerFilter(res);
+      });
+    } else {
+      this.compareToFilterSub.unsubscribe();
+      this.compareToFilterSub = undefined;
+      this.mapService.resetBaseFilter();
+    }
   }
 
 }

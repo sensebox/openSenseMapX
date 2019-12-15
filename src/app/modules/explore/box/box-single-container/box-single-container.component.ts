@@ -99,7 +99,14 @@ export class BoxSingleContainerComponent implements OnInit {
 
         this.chartData = sensors.filter(sensor => sensor.rawValues).map(sensor => {
           if(sensor.rawValues){
-            return {"name": sensor.title, "displayName": `${sensor.title} (${sensor.unit})`, series: sensor.rawValues}
+            return {
+              name: sensor.title, 
+              series: sensor.rawValues,
+              extra: {
+                title: sensor.title,
+                displayName: `${sensor.title} (${sensor.unit})`, 
+              }
+            }
           } else {
             return undefined
           }

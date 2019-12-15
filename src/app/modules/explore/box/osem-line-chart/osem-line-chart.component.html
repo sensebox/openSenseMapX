@@ -33,15 +33,15 @@
     [ticks]="xAxisTicks"
     (dimensionsChanged)="updateXAxisHeight($event)"
   ></svg:g>
-  <svg:g *ngFor="let series of results; trackBy: trackBy; let i = index">
+  <svg:g *ngFor="let dom of yDomains; trackBy: trackBy; let i = index">
     <svg:g
     ngx-charts-y-axis
     *ngIf="yAxis"
-    [yScale]="yScales[series.name]"
+    [yScale]="yScales[dom[2]]"
     [dims]="dims"
     [showGridLines]="showGridLines"
     [showLabel]="showYAxisLabel"
-    [labelText]="series.displayName"
+    [labelText]="dom[2]"
     [trimTicks]="trimYAxisTicks"
     [maxTickLength]="maxYAxisTickLength"
     [tickFormatting]="yAxisTickFormatting"
@@ -61,7 +61,7 @@
       <svg:g
         ngx-charts-osem-line-series
         [xScale]="xScale"
-        [yScale]="yScales[series.name]"
+        [yScale]="yScales[series.extra.title]"
         [colors]="colors"
         [data]="series"
         [activeEntries]="activeEntries"
@@ -91,7 +91,7 @@
         <svg:g
           ngx-charts-circle-series
           [xScale]="xScale"
-          [yScale]="yScales[series.name]"
+          [yScale]="yScales[series.extra.title]"
           [colors]="colors"
           [data]="series"
           [scaleType]="scaleType"
@@ -124,7 +124,7 @@
     <svg:g
       ngx-charts-osem-line-series
       [xScale]="timelineXScale"
-      [yScale]="timelineYScales[series.name]"
+      [yScale]="timelineYScales[series.extra.title]"
       [colors]="colors"
       [data]="series"
       [scaleType]="scaleType"

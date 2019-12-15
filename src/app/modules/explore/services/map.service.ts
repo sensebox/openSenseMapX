@@ -8,6 +8,7 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { arrayRemove } from '../box/osem-line-chart/helper/helpers';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,10 @@ export class MapService {
     private router: Router,
     private activatedRoute: ActivatedRoute
     ) { 
-    this.compareModus$.subscribe(res => {
-      this.compareModus = res;
+    this.compareModus$.pipe(withLatestFrom(this.compareTo$)).subscribe(res => {
+      this.compareModus = res[0];
       if(this.map && this.map.getLayer('base-layer')){
-        if(res){
+        if(res[0]){
           this.map.off('mouseenter', 'base-layer', this.baseMouseenterFunction);
           this.map.off('click', 'base-layer', this.baseClickFunction);
           this.map.on('mouseenter', 'base-layer', this.compareMouseenterFunction);
@@ -33,6 +34,10 @@ export class MapService {
           this.map.off('mouseenter', 'base-layer', this.compareMouseenterFunction);
           this.map.on('mouseenter', 'base-layer', this.baseMouseenterFunction);
           this.map.on('click', 'base-layer', this.baseClickFunction);
+        }
+
+        if(res[1].length > 0){
+          this.map.setFilter('active-layer', ["match", ["get", "_id"], res[1], true, false ]);        
         }
       }
     })
@@ -44,10 +49,12 @@ export class MapService {
   layers$;
   // activeBox$ = this.boxQuery.selectActiveId();
   compareModus$ = this.boxQuery.selectCompareModus$;
+  compareTo$ = this.boxQuery.selectCompareTo$;
   compareModus: Boolean = false;
 
   baseLayersInit: Boolean = false;
   dataInit = false;
+  oldFilter;
 
   generateMap(elementName) {
     
@@ -456,6 +463,7 @@ export class MapService {
         'type': 'circle',
         'source': 'boxes',
         'filter': ["==", id, ["get", "_id"]],
+        // 'filter': ["match", ["get", "_id"], ["5da0a27f25683a001a59271b", "5bf837bf86f11b001aae7f82"], true, false ],
         'paint': {
         'circle-radius': {
           'base': 1.75,
@@ -471,9 +479,63 @@ export class MapService {
     } else {
       this.map.setFilter('active-layer', ["==", id, ["get", "_id"]]);
       this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
+      // this.map.setFilter('active-layer', ["match", ["get", "_id"], ["5da0a27f25683a001a59271b", "5bf837bf86f11b001aae7f82"], true, false ]);
+      // this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
     }
   }
-
+  
+  updateActiveLayerCompare(data){
+    if(!this.map.getLayer('active-layer')){
+      this.map.addLayer({
+        'id': 'active-layer-text',
+        'type': 'symbol',
+        'source': 'boxes',
+        'filter': ["match", ["get", "_id"], data, true, false ],
+        // 'filter': ["==", id, ["get", "_id"]],
+        "paint": {
+          'text-color': '#FFFFFF',
+          'text-halo-blur': 2,
+          'text-halo-color': '#000000',
+          'text-halo-width': 2
+        },
+        "layout": {
+          "text-field": ["get", "name"],
+          "text-variable-anchor": ["top"],
+          "text-offset": [0,1],
+          // "text-font": [
+          //   "DIN Offc Pro Medium",
+          //   "Arial Unicode MS Bold"
+          // ],
+          "text-size": 15
+        } 
+      });
+      this.map.addLayer({
+        'id': 'active-layer',
+        'type': 'circle',
+        'source': 'boxes',
+        // 'filter': ["==", id, ["get", "_id"]],
+        'filter': ["match", ["get", "_id"], data, true, false ],
+        'paint': {
+        'circle-radius': {
+          'base': 1.75,
+          'stops': [[1, 10], [22, 3580]]
+        },
+        'circle-blur': 0.6,
+        // 'circle-stroke-width': 1,
+        'circle-opacity': 0.6,
+        'circle-color': '#FFFFFF'
+        } 
+      }, 'base-layer');
+      
+    } else {
+      // this.map.setFilter('active-layer', ["==", data, ["get", "_id"]]);
+      // this.map.setFilter('active-layer-text', ["==", data, ["get", "_id"]]);
+      this.map.setFilter('active-layer-text', ["match", ["get", "_id"], data, true, false ]);
+      this.map.setFilter('active-layer', ["match", ["get", "_id"], data, true, false ]);
+      // this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
+    }    
+  }
+  
   addNumberLayer(){
     this.map.addLayer({
       'id': 'number-layer',
@@ -482,25 +544,32 @@ export class MapService {
       "paint": {
         'text-color': [
           'interpolate',
-        ['linear'],
-        [ "get", "Temperatur", ["object", ["get", "live"]]],
-        -5, '#9900cc',
-        0, '#0000ff',
-        10, '#0099ff',
-        20, '#ffff00',
-        30, '#ff0000'
-      ]
+          ['linear'],
+          [ "get", "Temperatur", ["object", ["get", "live"]]],
+          -5, '#9900cc',
+          0, '#0000ff',
+          10, '#0099ff',
+          20, '#ffff00',
+          30, '#ff0000'
+        ]
       },
       "layout": {
         "text-field": "",
         "text-variable-anchor": ["bottom"],
         "text-offset": [0,1],
-        // "text-font": [
-        //   "DIN Offc Pro Medium",
-        //   "Arial Unicode MS Bold"
-        // ],
         "text-size": 15
       } 
     }, 'base-layer');
+  }
+    
+  setBaseLayerFilter(boxes){
+    this.oldFilter = this.map.getFilter('base-layer');
+    this.map.setFilter('base-layer', ["match", ["get", "_id"], boxes, true, false ]);
+    this.map.setFilter('number-layer', ["match", ["get", "_id"], boxes, true, false ]);
+  }
+  
+  resetBaseFilter(){
+    this.map.setFilter('base-layer', this.oldFilter);
+    this.map.setFilter('number-layer', this.oldFilter);
   }
 }

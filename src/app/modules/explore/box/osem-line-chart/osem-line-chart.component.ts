@@ -7,7 +7,10 @@ import {
   HostListener,
   ChangeDetectionStrategy,
   ContentChild,
-  TemplateRef
+  TemplateRef,
+  ElementRef,
+  NgZone,
+  ChangeDetectorRef
 } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { scaleLinear, scaleTime, scalePoint } from 'd3-scale';
@@ -119,6 +122,12 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   timelineXDomain: any;
   timelineTransform: any;
   timelinePadding: number = 10;
+
+  constructor(protected chartElement: ElementRef, protected zone: NgZone, protected cd: ChangeDetectorRef) {
+    super(chartElement, zone, cd);
+    this["cloneData"] = this.cloneDataOverride;
+  }
+
 
   update(): void {
     super.update();
@@ -257,43 +266,44 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   }
   
   getYDomains(): any[] {
-    console.log(this.results)
-      const domain = {};
-  
-      for (const results of this.results) {
-          domain[results.name] = []; 
-        for (const d of results.series) {
-          if (domain[results.name].indexOf(d.value) < 0) {
-            domain[results.name].push(d.value);
+  console.log('RESULTS', this.results)
+    const domain = {};
+
+    for (const results of this.results) {
+      if(!domain[results.extra.title])
+        domain[results.extra.title] = []; 
+      for (const d of results.series) {
+        if (domain[results.extra.title].indexOf(d.value) < 0) {
+          domain[results.extra.title].push(d.value);
+        }
+        if (d.min !== undefined) {
+          if (domain[results.extra.title].indexOf(d.min) < 0) {
+            domain[results.extra.title].push(d.min);
           }
-          if (d.min !== undefined) {
-            if (domain[results.name].indexOf(d.min) < 0) {
-              domain[results.name].push(d.min);
-            }
-          }
-          if (d.max !== undefined) {
-            if (domain[results.name].indexOf(d.max) < 0) {
-              domain[results.name].push(d.max);
-            }
+        }
+        if (d.max !== undefined) {
+          if (domain[results.extra.title].indexOf(d.max) < 0) {
+            domain[results.extra.title].push(d.max);
           }
         }
       }
-      if(Object.keys(domain).length > 2){
-
-      } else {
-          let newDomains = [];
-          for(let singleDom in domain){
-              let min = Math.min(...domain[singleDom]);
-              const max = Math.max(...domain[singleDom]);
-              // const minMax = this.yRightAxisScaleFactor(min, max);
-              // newDomains.push([Math.min(0, minMax.min), minMax.max, singleDom]);
-              // newDomains.push([minMax.min, minMax.max, singleDom]);
-              min = Math.min(0, min);
-              newDomains.push([min, max, singleDom]);
-          }
-          return newDomains;
-      }
     }
+    if(Object.keys(domain).length > 2){
+
+    } else {
+      let newDomains = [];
+      for(let singleDom in domain){
+        let min = Math.min(...domain[singleDom]);
+        const max = Math.max(...domain[singleDom]);
+        // const minMax = this.yRightAxisScaleFactor(min, max);
+        // newDomains.push([Math.min(0, minMax.min), minMax.max, singleDom]);
+        // newDomains.push([minMax.min, minMax.max, singleDom]);
+        min = Math.min(0, min);
+        newDomains.push([min, max, singleDom]);
+      }
+      return newDomains;
+    }
+  }
 
 
   getSeriesDomain(): any[] {
@@ -334,6 +344,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   }
 
   getYScales(domain, height): any {
+    console.log('domain', domain);
       let lines = {};
       for(let dom of domain){
           const scale = scaleLinear()
@@ -476,7 +487,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   }
 
   //override cloneData Method to allow displayName property
-  cloneData(data): any {
+  cloneDataOverride(data): any {
     const results = [];
     for (const item of data) {
       const copy = {

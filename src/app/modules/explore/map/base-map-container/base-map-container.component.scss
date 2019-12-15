@@ -5,3 +5,11 @@
     left: 0;
     width: 100%
 }
+
+#removeBoxes {
+    position: absolute;
+    z-index:10;
+    top: 0;
+    right: 0;
+    background: #ccc;
+}
