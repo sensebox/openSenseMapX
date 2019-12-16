@@ -13,8 +13,7 @@ export class BoxQuery extends QueryEntity<BoxState> {
 
   selectUI$ = this.select('ui');
   // selectselectedPheno$ = this.select('ui');
-  selectDateRange$ = this.select(state => state.ui.dateRange);
-  selectSelectedDate$ = this.select(state => state.ui.selectedDate);
+  // selectDateRange$ = this.select(state => state.ui.dateRange);
   
   selectDisplayTimeSlider$ = this.select(state => state.ui.displayTimeSlider);
 

@@ -11,22 +11,26 @@
     </div>
     <div *ngFor="let box of boxes">
         <div class="box-row">
-            <div class="box-name">
+            <div class="box-name"
+                [style.color]="colors ? colors.colorDomain[colors.domain.indexOf(box._id)]: '#000'">
                 {{box.name}}
             </div>
             <div *ngFor="let pheno of combinedData | keyvalue" class="value-item" (click)="selectPheno(pheno)">
                 <div *ngIf="pheno && pheno.value">
                     <div *ngIf="pheno.value[box._id]?.lastMeasurement; else noValue">
-                        {{pheno.value[box._id].lastMeasurement.value}}
+                        <div [style.color]="colors && (activePhenos == pheno.value[box._id].title) ? colors.colorDomain[colors.domain.indexOf(box._id)] : '#000'">
+                            {{pheno.value[box._id].lastMeasurement.value}}
+                        </div>
                     </div>
-                    <ng-template #noValue>
-                        N/a
-                    </ng-template>
-                    <!-- <div *ngIf="!pheno.value[box._id]">
-                        N/a
-                    </div> -->
                 </div>
+                <ng-template #noValue>
+                    N/a
+                </ng-template>
+                <!-- <div *ngIf="!pheno.value[box._id]">
+                    N/a
+                </div> -->
             </div>
         </div>
     </div>
 </div>
+<!-- [style.color]="(colors && compareTo.indexOf(box._id) != -1) ? colors.getColor(colors.domain.indexOf(pheno.value[box._id].lastMeasurement._id)) : '#000000'"> -->

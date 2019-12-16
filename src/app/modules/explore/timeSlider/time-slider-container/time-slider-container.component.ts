@@ -12,9 +12,10 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 })
 export class TimeSliderContainerComponent implements OnInit {
 
-  dateRange$ = this.boxQuery.selectDateRange$;
-  selectedDate$ = this.boxQuery.selectSelectedDate$;
+  dateRange$ = this.uiQuery.selectDateRange$;
+  selectedDate$ = this.uiQuery.selectSelectedDate$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
+  selectedDate;
 
   constructor(
     private boxQuery: BoxQuery, 
@@ -24,20 +25,23 @@ export class TimeSliderContainerComponent implements OnInit {
 
   ngOnInit() { 
     combineLatest(this.selectedDate$, this.selectedPheno$).subscribe(res => {
+      if(res[0])
+        this.selectedDate = res[0].getTime();
       if(res[0] && res[1]){
-        console.log(new Date(res[0]).toISOString());
+        // console.log(new Date(res[0]).toISOString());
         //deep clone
         let newLayer = JSON.parse(JSON.stringify(res[1].layer))
-        console.log(newLayer);
-        newLayer.filter = ["!=", null, [ "get", new Date(res[0]).toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
-        newLayer.paint['circle-color'][2] = [ "get", new Date(res[0]).toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
+        // console.log(newLayer);
+        newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
+        newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
         this.uiService.setLayers([newLayer]);
       }
     });
   }
 
   dateSelected(date) {
-    this.boxService.setSelectedDate(date);
+    this.uiService.setSelectedDate(date);
+    // console.log(date);
   }
 
 }

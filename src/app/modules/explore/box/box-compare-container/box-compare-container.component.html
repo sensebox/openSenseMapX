@@ -1,9 +1,16 @@
 <osem-box-compare-values 
     [boxes]="compareToWithSensors$ | async" 
+    [colors]="colors$ | async"
+    [activePhenos]="activePhenos$ | async"
+    [compareTo]="compareTo$ | async"
     [combinedData]="combinedData"
     (phenoSelected)="selectPheno($event)"></osem-box-compare-values>
 
 
 <div>
-    <osem-box-chart *ngIf="activeSensors$ | async" (colorsChanged)="changeColors($event)" [data]="chartData"></osem-box-chart>
+    <osem-box-chart 
+        *ngIf="activeSensors$ | async" 
+        (colorsChanged)="changeColors($event)" 
+        [data]="chartData"
+        [selectedDate]="selectedDate$ | async"></osem-box-chart>
 </div>

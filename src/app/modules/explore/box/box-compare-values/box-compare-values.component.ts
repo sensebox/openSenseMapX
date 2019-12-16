@@ -10,6 +10,9 @@ export class BoxCompareValuesComponent implements OnInit {
 
   @Input() boxes;
   @Input() combinedData;
+  @Input() compareTo;
+  @Input() colors;
+  @Input() activePhenos;
 
   @Output() phenoSelected = new EventEmitter();
 

@@ -25,6 +25,9 @@ export class BoxSingleContainerComponent implements OnInit {
   // activeSensors$ = this.sensorQuery.selectActiveWithUI();
   cachedSensors$ = this.sensorQuery.selectCachedSensors$;
   activeSensorTypes$ = this.uiQuery.selectActiveSensorTypes$;
+  dateRange$ = this.uiQuery.selectDateRange$;
+  selectedDate$ = this.uiQuery.selectSelectedDate$;
+
   activeSensorSub;
   activeRouteSub;
   cachedSensorsSub;
@@ -74,23 +77,19 @@ export class BoxSingleContainerComponent implements OnInit {
     });
 
     //subscribe to sensorIds so this does not trigger when the sensor itself changes (e.g. data loaded)
-    this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$)).subscribe(data => {
+    this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$, this.dateRange$)).subscribe(data => {
       if(data && data.length > 0){
         // console.log('data1',data[1]);
         this.uiService.setActiveSensorTypes([...new Set(data[1].map(sensor => sensor.title))]);
         data[1].forEach(sensor => {
           if(!sensor.hasData){
-            this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, '2019-11-05T14:54:08.775Z', '2019-11-06T15:54:08.775Z').subscribe();
+            // this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, '2019-11-05T14:54:08.775Z', '2019-11-06T15:54:08.775Z').subscribe();
+            this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, data[2][0], data[2][1]).subscribe();
   
             // this.sensorService.getSingleSensorValues(data.boxId, data.sensorId, this.dateRange[0].toISOString(), this.dateRange[1].toISOString()).subscribe();
           }
         })
-        
-
       }
-      // this.activeSensors$ = data;
-      // console.log([...new Set(data.map(sensor => sensor.title))]);
-      // this.chartData = 
     });
 
     this.activeSensors$.subscribe(sensors => {

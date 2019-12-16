@@ -21,8 +21,8 @@ export class TimeSliderComponent implements OnInit {
   }
 
   changed(ev){
-    console.log(new Date(this.selectedDate));
-    this.dateSelected.emit(this.selectedDate);
+    // console.log(new Date(this.selectedDate));
+    this.dateSelected.emit(new Date(this.selectedDate));
   }
 
 }

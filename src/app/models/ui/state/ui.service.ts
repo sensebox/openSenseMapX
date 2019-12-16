@@ -32,4 +32,17 @@ export class UiService {
     this.uiStore.setLayers(layers);
   }
 
+  // DATE
+  updateDateRange(dateRange) {
+    this.uiStore.updateDateRange(dateRange);
+  }
+  updateStartDate(date) {
+    this.uiStore.updateStartDate(date);
+  }
+  updateEndDate(date) {
+    this.uiStore.updateEndDate(date);
+  }
+  setSelectedDate(date){
+    this.uiStore.updateSelectedDate(date);
+  }
 }

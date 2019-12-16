@@ -28,10 +28,13 @@ export class BoxCompareContainerComponent implements OnInit {
   compareToWithSensors$ = this.boxQuery.selectCompareToWithSensors();
   compareTo$ = this.boxQuery.selectCompareTo$;
   activePhenos$ = this.uiQuery.selectActiveSensorTypes$;
+  dateRange$ = this.uiQuery.selectDateRange$;
   activeSensors$: Observable<any[]> = this.sensorQuery.selectActiveWithUI();
   activeSensorIds$ = this.sensorQuery.selectActiveId();
+  selectedDate$ = this.uiQuery.selectSelectedDate$;
+  colors$ = this.uiQuery.selectColors$;
 
-  activeSensorSub
+  activeSensorSub;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -77,14 +80,14 @@ export class BoxCompareContainerComponent implements OnInit {
       if(res[0] && res[1]){
         let sensorsToActive = res[0].map(box => box.sensors.filter(sensor => sensor.title === res[1]))
         sensorsToActive = [].concat(...sensorsToActive).map(sensor => sensor._id);
-        console.log(sensorsToActive)
-        if(this.currentActiveSensors != sensorsToActive){
-          this.sensorService.setActive(sensorsToActive);
-          this.currentActiveSensors = sensorsToActive;
-        }
+        // if(JSON.stringify(this.currentActiveSensors) != JSON.stringify(sensorsToActive)){
+        //   console.log(sensorsToActive)
+        //   this.currentActiveSensors = sensorsToActive;
+        // }
         return sensorsToActive;
       }
     })).subscribe(res => {
+      this.sensorService.setActive(res);
       console.log("SUB OF COMBINE", res);
     });
     // this.activatedRoute..subscribe(res => {
@@ -117,14 +120,14 @@ export class BoxCompareContainerComponent implements OnInit {
       }
     })
 
-    this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$)).subscribe(data => {
+    this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$, this.dateRange$)).subscribe(data => {
       if(data && data.length > 0){
         console.log(data)
         // console.log('data1',data[1]);
         // this.uiService.setActiveSensorTypes([...new Set(data[1].map(sensor => sensor.title))]);
         data[1].forEach(sensor => {
           if(!sensor.hasData){
-            this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, '2019-11-05T14:54:08.775Z', '2019-11-06T15:54:08.775Z').subscribe();
+            this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, data[2][0], data[2][1]).subscribe();
   
             // this.sensorService.getSingleSensorValues(data.boxId, data.sensorId, this.dateRange[0].toISOString(), this.dateRange[1].toISOString()).subscribe();
           }
@@ -157,7 +160,7 @@ export class BoxCompareContainerComponent implements OnInit {
         }
       })
     });
-    // console.log(sensorData);
+    console.log("COMBINEDDATA: " ,sensorData);
     return sensorData;
   }
 
@@ -175,7 +178,7 @@ export class BoxCompareContainerComponent implements OnInit {
     // this.colors = data;
     this.uiService.updateColors(data);
     //TODO: remove this somehow
-    // console.log(data);
+    console.log("COLORS: ", data);
     // this.cd.detectChanges();
   }
 

@@ -3,7 +3,9 @@ import { ColorHelper } from '@swimlane/ngx-charts';
 
 export interface Ui {
   id: ID;
-  colors: ColorHelper
+  colors: ColorHelper;
+  dateRange: Array<Date>;
+
 }
 
 /**

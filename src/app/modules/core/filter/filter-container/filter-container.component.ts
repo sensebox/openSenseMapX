@@ -4,6 +4,7 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { combineLatest } from 'rxjs';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
+import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 
 @Component({
   selector: 'osem-filter-container',
@@ -13,12 +14,12 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 export class FilterContainerComponent implements OnInit {
 
   // selectUI$ = this.boxQuery.selectUI$;
-  selectDateRange$ = this.boxQuery.selectDateRange$;
+  selectDateRange$ = this.uiQuery.selectDateRange$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
 
   constructor(
     private boxService: BoxService, 
-    private boxQuery: BoxQuery,
+    private sensorService: SensorService,
     private uiService: UiService, 
     private uiQuery: UiQuery) { }
 
@@ -28,21 +29,23 @@ export class FilterContainerComponent implements OnInit {
     combineLatest(this.selectDateRange$, this.selectedPheno$).subscribe(res => {
       console.log(res);
       if(res[0] && res[1]){
+        console.log(res)
         this.boxService.getValues(res[1].title, res[0]).subscribe();
       }
     })
   }
 
   changeDateRange(range){
-    this.boxService.updateDateRange(range);
+    this.uiService.updateDateRange(range);
+    this.sensorService.resetHasData();
   }
 
   changeStartDate(startDate){
-    this.boxService.updateStartDate(startDate);
+    this.uiService.updateStartDate(startDate);
   }
 
   changeEndDate(startDate){
-    this.boxService.updateEndDate(startDate);
+    this.uiService.updateEndDate(startDate);
   }
 
   selectPheno(pheno){

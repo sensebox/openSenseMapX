@@ -31,7 +31,7 @@ export class BoxContainerComponent implements OnInit {
   activeBoxLonely$;
 
   // selectedSensors = [];
-  dateRange$ = this.boxQuery.selectDateRange$;
+  // dateRange$ = this.boxQuery.selectDateRange$;
   dateRange;
   chartData;
 
@@ -76,9 +76,9 @@ export class BoxContainerComponent implements OnInit {
       }
     });
 
-    this.dateRange$.subscribe(res => {
-      this.dateRange = res;
-    })
+    // this.dateRange$.subscribe(res => {
+    //   this.dateRange = res;
+    // })
 
     this.activatedRoute.params.subscribe(params => {
       if(params.id){

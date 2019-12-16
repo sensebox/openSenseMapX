@@ -82,6 +82,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   @Input() xScaleMax: any;
   @Input() yScaleMin: number;
   @Input() yScaleMax: number;
+  @Input() selectedDate: Date;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -125,6 +126,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
 
   constructor(protected chartElement: ElementRef, protected zone: NgZone, protected cd: ChangeDetectorRef) {
     super(chartElement, zone, cd);
+    //override cloneData because it is private
     this["cloneData"] = this.cloneDataOverride;
   }
 
@@ -133,11 +135,11 @@ export class OsemLineChartComponent extends BaseChartComponent  {
     super.update();
     console.log("UUUUPDATE CHART YOOOO")
     
-    let width = this.width;
+    let width = this.width - 70;
     //make space for the second y-Axis, TODO: animation
-    if(this.results.length > 1) {
-      width = this.width-70;
-    } 
+    // if(this.results.length > 1) {
+    //   width = this.width-70;
+    // } 
 
     this.dims = calculateViewDimensions({
       width: width,
@@ -331,7 +333,6 @@ export class OsemLineChartComponent extends BaseChartComponent  {
         .padding(0.1)
         .domain(domain);
     }
-
     return scale;
   }
 

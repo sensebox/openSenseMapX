@@ -1,6 +1,7 @@
 <div id="osem-chart-container" *ngIf="data.length > 0">
     <osem-osem-line-chart 
         [results]="data" 
+        [selectedDate]="selectedDate"
         [xAxis]="true"
         [xAxisLabel]="'XXX'"
         [yAxis]="true"

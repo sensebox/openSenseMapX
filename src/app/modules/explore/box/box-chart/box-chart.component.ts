@@ -10,6 +10,7 @@ import { Box } from 'src/app/models/box/state/box.model';
 export class BoxChartComponent implements OnInit, OnChanges {
 
   @Input() data;
+  @Input() selectedDate;
 
   // xAxisTicks = [new Date('2019-11-05T18:54:08.775Z')]
   @Output() colorsChanged = new EventEmitter();

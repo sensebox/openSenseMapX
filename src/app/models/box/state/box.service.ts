@@ -9,6 +9,7 @@ import { environment } from './../../../../environments/environment';
 import { schema, normalize } from 'normalizr';
 import { MeasurementStore } from '../../measurement/state/measurement.store';
 import { SensorStore } from '../../sensor/state/sensor.store';
+import { UiService } from '../../ui/state/ui.service';
 
 @Injectable({ providedIn: 'root' })
 export class BoxService {
@@ -16,7 +17,7 @@ export class BoxService {
   constructor(
     private boxStore: BoxStore, 
     private sensorStore: SensorStore, 
-    private measurementStore: MeasurementStore, 
+    private uiService: UiService,
     private http: HttpClient) {
   }
 
@@ -61,7 +62,10 @@ export class BoxService {
   getValues(pheno, dateRange) {
     return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587&format=json&columns=boxId&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
       entities = entities.map(ent => {
-        const { boxId, sensorId, ...noEnt} = ent;
+        let { boxId, sensorId, ...noEnt} = ent;
+        // console.log(noEnt);
+        //TODO: find better place for vconverting to 2 decimal-diggits
+        Object.keys(noEnt).forEach(key => {if(noEnt[key]) { noEnt[key] = Math.round( noEnt[key] * 1e2 ) / 1e2 } })
         return {
           _id: ent.boxId,
           values: {
@@ -72,7 +76,7 @@ export class BoxService {
       
       //TODO: find a better place for this
       this.setDisplayTimeSlider(true);
-      this.setSelectedDate(dateRange[0].getTime());
+      this.uiService.setSelectedDate(dateRange[0]);
 
       this.boxStore.upsertMany(entities);
     })); 
@@ -124,21 +128,6 @@ export class BoxService {
 
   setDisplayTimeSlider(display: boolean){
     this.boxStore.updateDisplayTimeSlider(display);
-  }
-
-  setSelectedDate(date){
-    this.boxStore.updateSelectedDate(date);
-  }
-
-  // DATE
-  updateDateRange(dateRange) {
-    this.boxStore.updateDateRange(dateRange);
-  }
-  updateStartDate(date) {
-    this.boxStore.updateStartDate(date);
-  }
-  updateEndDate(date) {
-    this.boxStore.updateEndDate(date);
   }
 
   setMapInit(mapInit){

@@ -51,6 +51,25 @@
     [showRefLabels]="showRefLabels"
     (dimensionsChanged)="updateYAxisWidth($event)"
   ></svg:g>
+  <line *ngIf="selectedDate"
+    [attr.x1]="xScale(selectedDate)" 
+    [attr.x2]="xScale(selectedDate)" 
+    [attr.y1]="0" 
+    [attr.y2]="dims.height" 
+    style="stroke:rgb(99,99,99);stroke-width:2;stroke-dasharray: 4" />
+  <text 
+    [attr.x]="xScale(selectedDate)" 
+    [attr.y]="0" 
+    id="date" 
+    *ngIf="selectedDate">
+    {{selectedDate | date:'M/d/yy, h:mm a'}}
+  </text>
+  
+    <!-- <text id="eins" x="10" y="40" *ngIf="selectedDate">
+      {{selectedDate.toLocaleDateString()}}
+    </text>
+   -->
+  
 </svg:g>
 
 

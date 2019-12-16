@@ -7,14 +7,18 @@ export interface UiState {
   colors: ColorHelper,
   activeSensorTypes: any[],
   selectedPheno: any,
-  layers: any[]
+  layers: any[],
+  dateRange: Array<Date>,
+  selectedDate: Date
 }
 
 export function createInitialState(): UiState {
   return {
     colors: null,
     activeSensorTypes: [],
-    selectedPheno: {},
+    selectedPheno: null,
+    dateRange: [new Date("2019-11-05T14:00:00.000Z"), new Date("2019-11-06T14:00:00.000Z")],
+    selectedDate: null,
     layers: [{
       'id': 'base-layer',
       'type': 'circle',
@@ -54,6 +58,19 @@ export class UiStore extends Store<UiState> {
   }
   setLayers(layers){
     this.update( state => ( { ...state , layers: layers }));
+  }
+
+  updateDateRange(dateRange: Array<Date>) {
+    this.update( state => ({ ...state ,dateRange: dateRange}) );
+  }
+  updateStartDate(startDate: Date) {
+    this.update( state => ({ ...state ,dateRange: [startDate, state.dateRange[1] ? state.dateRange[1] : null]} ) );
+  }
+  updateEndDate(endDate: Date) {
+    this.update( state => ({ ...state ,dateRange: [state.dateRange[0] ? state.dateRange[0] : null , endDate]}) );
+  }
+  updateSelectedDate(date){
+    this.update( state => ({ ...state , selectedDate: date }));
   }
 }
 

@@ -11,6 +11,6 @@
     ></osem-box-single-values> 
     
     <div>
-        <osem-box-chart *ngIf="activeSensors$ | async" (colorsChanged)="changeColors($event)" [data]="chartData"></osem-box-chart>
+        <osem-box-chart *ngIf="activeSensors$ | async" (colorsChanged)="changeColors($event)" [data]="chartData" [selectedDate]="selectedDate$ | async"></osem-box-chart>
     </div>
 </div>
