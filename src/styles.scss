@@ -1,15 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+@import 'styles/icons/osem-icons.scss';
+@import 'styles/variables.scss';
 
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+
+@font-face {
+  font-family: BrixSlab;
+  src: url(styles/fonts/BrixSlab-Regular.otf);
+}
+@font-face {
+  font-family: BrixSlab;
+  font-weight: bold;
+  src: url(styles/fonts/BrixSlab-Bold.otf);  
 }
 
-
+body, html {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: BrixSlab,Helvetica,sans-serif;
+}
 
 .osem-no-margin {
-    margin: 0;
+  margin: 0;
 }

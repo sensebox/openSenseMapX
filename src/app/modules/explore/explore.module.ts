@@ -17,14 +17,13 @@ import { OsemLineChartComponent } from './box/osem-line-chart/osem-line-chart.co
 import { OsemLineSeriesComponent } from './box/osem-line-chart/osem-line-series/osem-line-series.component';
 import { BoxSingleContainerComponent } from './box/box-single-container/box-single-container.component';
 import { BoxSingleValuesComponent } from './box/box-single-values/box-single-values.component';
-import { TestthisbitchComponent } from './testthisbitch/testthisbitch.component';
 import { BoxCompareContainerComponent } from './box/box-compare-container/box-compare-container.component';
 import { BoxCompareValuesComponent } from './box/box-compare-values/box-compare-values.component';
 import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, TestthisbitchComponent, BoxCompareContainerComponent, BoxCompareValuesComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent],
   imports: [
     CommonModule,
     NgxChartsModule,
