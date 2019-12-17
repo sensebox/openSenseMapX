@@ -1,25 +1,76 @@
-.osem-bottom-bar-container {
-    background: #ccc;
+@import '../../../../../styles/variables.scss';
+
+.bottom-bar-container {
+    background: $primaryBackground;
   
-    .osem-bottom-header {
-      background: #eee;
+    .box-header {
       display: flex;
-      justify-content: center;
-      h3 {
-        padding: 0.3em 0.6em;
+      background: $secondaryBackground;
+      justify-content: space-around;
+      align-items: center;
+      color: white;
+      .name {
+        font-weight: bold;
+        font-size: 1.4em;
+        padding: 0.2em 0;
+      }
+      .last-measurement {
+        font-style: italic;
       }
     }
     .osem-sensors {
       display: flex;
       justify-content: center;
+      background: white;
   
       .osem-sensor {
         display: flex;
+        position: relative;
+        // background: $primaryBackgroundLight;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         padding: 0.3em 0.5em;
-        border: 1px solid #eee;
+        margin: 0.2em 0.2em;
+        &:hover {
+          background: $primaryBackground;
+          cursor: pointer;
+        }
+        // border: 1px solid rgb(121, 117, 117);
+
+        .icon-value-unit {
+          display: flex;
+          height: 2.3em;
+          justify-content: space-between;
+          align-items: center;
+          .icon {
+            font-size: 1.3em;
+            padding: 0 0.2em;
+          }
+          .value {
+            font-size: 2.3em;
+          }
+          .unit {
+            align-self: baseline;
+            left: -10px;
+            position: relative;
+            font-size: 0.8em;
+            font-weight: bold;
+          }
+        }
+        
+        .title {
+          text-align: center;
+        }
+        .add-button {
+          cursor: pointer;
+          position: absolute;
+          bottom: 0;
+          right: 3px;
+          &:hover {
+            font-weight: bold;
+          }
+        }
       }
     }
   }

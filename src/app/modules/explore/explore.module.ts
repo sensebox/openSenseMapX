@@ -20,6 +20,7 @@ import { BoxSingleValuesComponent } from './box/box-single-values/box-single-val
 import { BoxCompareContainerComponent } from './box/box-compare-container/box-compare-container.component';
 import { BoxCompareValuesComponent } from './box/box-compare-values/box-compare-values.component';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RouterModule } from '@angular/router';
     NgxChartsModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   providers: [MapService],
   exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent]

@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { DatepickerComponent } from './filter/datepicker/datepicker.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent],
 })

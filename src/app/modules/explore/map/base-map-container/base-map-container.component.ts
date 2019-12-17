@@ -27,6 +27,7 @@ export class BaseMapContainerComponent implements OnInit {
   activeBox$ = this.boxQuery.selectActiveId();
   compareModus$ = this.boxQuery.selectCompareModus$;
   compareTo$ = this.boxQuery.selectCompareTo$;
+  colors$ = this.uiQuery.selectColors$;
   ui$;
 
   boxSub;
@@ -69,6 +70,10 @@ export class BaseMapContainerComponent implements OnInit {
           if(res.length > 0)
             this.mapService.updateActiveLayerCompare(res);
         });
+        this.colors$.subscribe(res => {
+          console.log(res);
+          this.mapService.colorActives(res);
+        })
       }
     })
 

@@ -518,12 +518,12 @@ export class MapService {
         'paint': {
         'circle-radius': {
           'base': 1.75,
-          'stops': [[1, 10], [22, 3580]]
+          'stops': [[1, 10], [22, 2580]]
         },
         'circle-blur': 0.6,
         // 'circle-stroke-width': 1,
         'circle-opacity': 0.6,
-        'circle-color': '#FFFFFF'
+        'circle-color': '#eee'
         } 
       }, 'base-layer');
       
@@ -571,5 +571,28 @@ export class MapService {
   resetBaseFilter(){
     this.map.setFilter('base-layer', this.oldFilter);
     this.map.setFilter('number-layer', this.oldFilter);
+  }
+  
+  colorActives(colors){
+//     'match',
+// ['get', 'ethnicity'],
+// 'White',
+// '#fbb03b',
+// 'Black',
+// '#223b53',
+// 'Hispanic',
+// '#e55e5e',
+// 'Asian',
+// '#3bb2d0',
+    let colorArray = ['match', ['get', '_id']];
+    colors.domain.forEach(domain => {
+      colorArray.push(domain, colors.getColor(domain));
+    });
+    colorArray.push('#FFFFFF')
+    console.log("COLORARRAY:" ,colorArray);
+    this.map.setPaintProperty('active-layer-text', 'text-color', colorArray);
+    // this.map.setPaintProperty('active-layer', 'circle-stroke-width', 2);
+    // this.map.setPaintProperty('active-layer', 'cirlce-color', colorArray);
+    // this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#ccc')
   }
 }

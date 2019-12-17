@@ -1,0 +1,19 @@
+@import '../../../../../styles/variables.scss';
+
+.search-container {
+    position: relative;
+
+    input {
+        padding-right: 25px;
+        min-width: 230px;
+    }
+
+    i {
+        position: absolute;
+        padding: 0 0.45em;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left: 1px solid $textColorPrimary;
+    }
+}

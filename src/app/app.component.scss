@@ -1,3 +1,5 @@
+@import '../styles/variables.scss';
+
 osem-nav {
     position: absolute;;
     top: 0;
@@ -6,10 +8,10 @@ osem-nav {
 
 osem-filter-container {
     position: absolute;
-    top: 1em;
-    left: 1em;
+    top: 0;
+    left: 0;
     z-index: 10;
-    background: #ccc;
+    background: $primaryBackground;
 }
 
 osem-bottom-bar-container {
@@ -36,7 +38,7 @@ osem-legend-container {
 
 osem-time-slider-container {
     position: absolute;
-    right: 50%;
+    left: 50%;
     transform: translateX(-50%);
     top: 1em;
     z-index: 40;

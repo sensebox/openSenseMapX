@@ -1,6 +1,11 @@
-<div id="phenomene-selector">
-    <div *ngFor="let pheno of phenos" (click)="selectPheno(pheno)">
-        {{pheno.title}}
+<div class="" id="phenomene-selector">
+    <div *ngFor="let pheno of phenos" 
+        (click)="selectPheno(pheno)" 
+        [class.active]="pheno?.title === selectedPheno?.title"
+        class="pheno osem-padding-small">
         <i class="osem-icon {{pheno.icon}}"></i>
+        <div class="osem-inline name">
+            {{pheno.title}}
+        </div>
     </div>
 </div>

@@ -29,6 +29,7 @@ export class BoxCompareContainerComponent implements OnInit {
   compareTo$ = this.boxQuery.selectCompareTo$;
   activePhenos$ = this.uiQuery.selectActiveSensorTypes$;
   dateRange$ = this.uiQuery.selectDateRange$;
+  dateRangeChart$ = this.uiQuery.selectDateRangeChart$;
   activeSensors$: Observable<any[]> = this.sensorQuery.selectActiveWithUI();
   activeSensorIds$ = this.sensorQuery.selectActiveId();
   selectedDate$ = this.uiQuery.selectSelectedDate$;
@@ -120,14 +121,15 @@ export class BoxCompareContainerComponent implements OnInit {
       }
     })
 
-    this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$, this.dateRange$)).subscribe(data => {
+    this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$, this.dateRange$, this.dateRangeChart$)).subscribe(data => {
       if(data && data.length > 0){
         console.log(data)
+        let dateRange = data[2] ? data[2] : data[3]
         // console.log('data1',data[1]);
         // this.uiService.setActiveSensorTypes([...new Set(data[1].map(sensor => sensor.title))]);
         data[1].forEach(sensor => {
           if(!sensor.hasData){
-            this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, data[2][0], data[2][1]).subscribe();
+            this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, dateRange[0], dateRange[1]).subscribe();
   
             // this.sensorService.getSingleSensorValues(data.boxId, data.sensorId, this.dateRange[0].toISOString(), this.dateRange[1].toISOString()).subscribe();
           }

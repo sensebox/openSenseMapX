@@ -9,6 +9,7 @@ export interface UiState {
   selectedPheno: any,
   layers: any[],
   dateRange: Array<Date>,
+  dateRangeChart: Array<Date>,
   selectedDate: Date
 }
 
@@ -17,7 +18,8 @@ export function createInitialState(): UiState {
     colors: null,
     activeSensorTypes: [],
     selectedPheno: null,
-    dateRange: [new Date("2019-11-05T14:00:00.000Z"), new Date("2019-11-06T14:00:00.000Z")],
+    dateRange: null,
+    dateRangeChart: [new Date("2019-11-05T14:00:00.000Z"), new Date("2019-11-06T14:00:00.000Z")],
     selectedDate: null,
     layers: [{
       'id': 'base-layer',
@@ -68,6 +70,15 @@ export class UiStore extends Store<UiState> {
   }
   updateEndDate(endDate: Date) {
     this.update( state => ({ ...state ,dateRange: [state.dateRange[0] ? state.dateRange[0] : null , endDate]}) );
+  }
+  updateDateRangeChart(dateRange: Array<Date>) {
+    this.update( state => ({ ...state ,dateRangeChart: dateRange}) );
+  }
+  updateStartDateChart(startDate: Date) {
+    this.update( state => ({ ...state ,dateRangeChart: [startDate, state.dateRangeChart[1] ? state.dateRangeChart[1] : null]} ) );
+  }
+  updateEndDateChart(endDate: Date) {
+    this.update( state => ({ ...state ,dateRangeChart: [state.dateRangeChart[0] ? state.dateRangeChart[0] : null , endDate]}) );
   }
   updateSelectedDate(date){
     this.update( state => ({ ...state , selectedDate: date }));

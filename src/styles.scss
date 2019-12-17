@@ -2,7 +2,10 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 @import 'styles/icons/osem-icons.scss';
 @import 'styles/variables.scss';
+@import 'styles/general/general.scss';
 
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome';
 
 @font-face {
   font-family: BrixSlab;
@@ -18,7 +21,17 @@ body, html {
   height: 100%;
   padding: 0;
   margin: 0;
+  font-size: 16px;
   font-family: BrixSlab,Helvetica,sans-serif;
+  color: $textColorPrimary;
+}
+
+input {
+  font-family: BrixSlab,Helvetica,sans-serif;
+  &::placeholder {
+    top: 2px;
+    position: relative;
+  }
 }
 
 .osem-no-margin {

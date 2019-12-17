@@ -1,0 +1,28 @@
+@import '../../../../../styles/variables.scss';
+
+#phenomene-selector {
+    
+    .pheno {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        i {
+            padding: 0 0.8em 0 0.4em;
+            flex-grow: 0;
+            width: 25px;
+        }
+        &.active {
+            background: $primaryBackground;
+            color: $primaryColor;
+        }
+        &:hover {
+            background: $primaryBackgroundFull;
+            color: $primaryColor;
+        }
+        .name {
+            flex-grow: 1;
+            text-align: left;
+        }
+    }
+    
+}

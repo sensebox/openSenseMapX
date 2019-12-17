@@ -9,6 +9,7 @@ export class UiQuery extends Query<UiState> {
   selectActiveSensorTypes$ = this.select(state => state.activeSensorTypes);
   selectSelectedPheno$ = this.select(state => state.selectedPheno);
   selectDateRange$ = this.select(state => state.dateRange);
+  selectDateRangeChart$ = this.select(state => state.dateRangeChart);
   selectSelectedDate$ = this.select(state => state.selectedDate);
 
   constructor(protected store: UiStore) {

@@ -42,6 +42,15 @@ export class UiService {
   updateEndDate(date) {
     this.uiStore.updateEndDate(date);
   }
+  updateDateRangeChart(dateRange) {
+    this.uiStore.updateDateRangeChart(dateRange);
+  }
+  updateStartDateChart(date) {
+    this.uiStore.updateStartDateChart(date);
+  }
+  updateEndDateChart(date) {
+    this.uiStore.updateEndDateChart(date);
+  }
   setSelectedDate(date){
     this.uiStore.updateSelectedDate(date);
   }

@@ -1,5 +1,5 @@
-<div>
-    <input 
+<div class="datepicker-container secondary-background">
+    <input class="osem-hidden"
         [owlDateTime]="dt1" 
         [owlDateTimeTrigger]="dt1" 
         [selectMode]="'range'"
@@ -9,8 +9,20 @@
         (dateTimeInput)="dateInput($event)"
         [(ngModel)]="dateRange"
         placeholder="From Date Time">
-        <owl-date-time 
-            [stepMinute]="60"
-            [startAt]="startAt"
-        #dt1></owl-date-time>
+    <owl-date-time 
+        [stepMinute]="60"
+        [startAt]="startAt"
+    #dt1></owl-date-time>
+    
+    <div class="osem-padding-small">
+        <div class="osem-inline osem-border-radius-5">    
+            <input class="date-input osem-padding-small" placeholder="{{'FROM' | translate}}" [value]="dateRange ? dateRange[0] : ''" [owlDateTimeTrigger]="dt1">
+        </div>
+        <div class="osem-inline osem-border-radius-5">
+            <input class="date-input osem-padding-small" placeholder="{{'TO' | translate}}" [value]="dateRange ? dateRange[1] : ''" [owlDateTimeTrigger]="dt1">
+        </div>
+        <div class="osem-inline osem-height-100" [owlDateTimeTrigger]="dt1">
+            <i class="fa fa-calendar osem-center-horizontal"></i>
+        </div>
+    </div>
 </div>
