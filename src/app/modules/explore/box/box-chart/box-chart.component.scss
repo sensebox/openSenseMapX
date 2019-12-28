@@ -1,8 +1,14 @@
+// .chart-wrapper {
+//     padding-top: 0.7em;
+// }
+
 #osem-chart-container {
     width: 100%;
     position: relative;
     overflow: auto;
-    background: #ccc;
+    background: var(--background-primary-full);
+    box-shadow:  inset 0px 2px 3px 0px var(--shadow-color);
+    box-sizing: border-box;
     min-height: 25VH;
     // width: 1000px;
     // height: 300px;

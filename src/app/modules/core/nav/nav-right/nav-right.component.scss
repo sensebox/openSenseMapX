@@ -1,0 +1,74 @@
+@import '../../../../../styles/variables.scss';
+
+.logo {
+    position: relative;
+    height: $headerHeight;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    background: var(--background-primary-full);
+    right: 0;
+    color: var(--color-primary);
+    padding: 0 1em;
+    img {
+        padding: 0 0.5em 0 0;
+        height: 80%;
+    }
+}
+.nav-right-container {
+    // padding: 0.2em 0.3em;
+    display: flex;
+    position: relative;
+    height: $headerHeight;
+    @media screen and(max-width: $secondBreak){
+        width: 100%;
+        justify-content: space-between;
+        background: var(--background-primary-full);
+    }
+    width: 246px;
+    
+    .nav-item-container {
+        display: flex;
+    }
+    
+    .nav-item {
+        background: var(--background-secondary);
+        color: var(--text-color-secondary);
+        line-height: 26px;
+        cursor: pointer;
+        padding: 0.2em 0.3em;
+        font-weight: bold;
+    }
+}
+
+#settings {
+    position: absolute;
+    background: var(--background-primary-full);
+    right: 0;
+    width: 246px;
+    z-index: -1;
+    box-sizing: border-box;
+
+    h2 {
+        margin: 0;
+    }
+    h3 {
+        margin: 0.7em 0 0.1em 0;
+    }
+    .options {
+        padding-left: 0.2em;
+        cursor: pointer;
+        border-left: 1px solid #ccc;
+        padding-left: 0.5em;
+        margin-left: 0.2em;
+        .inner {
+            position: relative;
+            top: 2px;
+
+            .active {
+                font-weight: bold;
+                border-bottom: 1px solid var(--text-color-primary);
+            }
+        }
+    }
+}

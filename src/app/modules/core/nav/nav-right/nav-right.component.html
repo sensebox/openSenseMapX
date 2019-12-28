@@ -1,1 +1,34 @@
-<p>nav-right works!</p>
+<div class="nav-right-container osem-box-shadow-basic">
+    <div class="logo">
+       <img src="/assets/img/logos/osem.svg"> <span>openSenseMap</span>
+    </div>
+    <div class="nav-item-container">
+        <div class="nav-item">
+            Login
+        </div>
+        <div class="nav-item" (click)="toggleSettings()">
+            <i class="fa fa-gears"></i>
+        </div>
+    </div>
+</div>
+
+
+<div id="settings" class="osem-box-shadow-basic osem-padding-small" *ngIf="settings" [@slideInOutMenu]>
+    
+    <h2 class="underline">{{'SETTINGS' | translate}}</h2>
+    <h3>{{'THEME' | translate}}</h3>
+    <div class="options" (click)="toggleTheme(theme)">
+        <div class="inner">
+            <span [class.active]="theme === 'light'">light</span> /
+            <span [class.active]="theme === 'dark'">dark</span>
+        </div>
+    </div>
+    <h3>{{'LANGUAGE' | translate}}</h3>
+    <div class="options" (click)="toggleLanguage(language)">
+        <div class="inner">
+            <span [class.active]="language === 'en'">en</span> /
+            <span [class.active]="language === 'de'">de</span>
+        </div>
+    </div>
+
+</div>

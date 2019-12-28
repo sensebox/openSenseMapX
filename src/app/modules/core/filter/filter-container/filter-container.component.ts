@@ -5,17 +5,23 @@ import { combineLatest } from 'rxjs';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
+import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
 
 @Component({
   selector: 'osem-filter-container',
   templateUrl: './filter-container.component.html',
-  styleUrls: ['./filter-container.component.scss']
+  styleUrls: ['./filter-container.component.scss'],
+  animations: [slideInOutHorizontalBoolean]
 })
 export class FilterContainerComponent implements OnInit {
 
   // selectUI$ = this.boxQuery.selectUI$;
   selectDateRange$ = this.uiQuery.selectDateRange$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
+  activeTab = 'phenos';
+
+  minimizedBoolean = false;
+  minimizedFilter = false;
 
   constructor(
     private boxService: BoxService, 
@@ -27,9 +33,7 @@ export class FilterContainerComponent implements OnInit {
     let that = this;
     // this.selectDateRange$.subscribe(res => console.log(res));
     combineLatest(this.selectDateRange$, this.selectedPheno$).subscribe(res => {
-      console.log(res);
       if(res[0] && res[1]){
-        console.log(res)
         this.boxService.getValues(res[1].title, res[0]).subscribe();
       }
     })
@@ -52,4 +56,17 @@ export class FilterContainerComponent implements OnInit {
     this.uiService.updateSelectedPheno(pheno);
   }
 
+  setActiveTab(activeTab){
+    this.activeTab = activeTab;
+    if(this.minimizedBoolean)
+      this.minimizedBoolean = false;
+  }
+
+  minimize(){
+    this.minimizedBoolean = !this.minimizedBoolean;
+  }
+
+  toggleMinimizeFilter(){
+    this.minimizedFilter = !this.minimizedFilter;
+  }
 }

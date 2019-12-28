@@ -42,3 +42,50 @@ export const slideInOutAnimation =
             }))
         ])
     ]);
+
+export const slideInOutMenu = 
+    trigger('slideInOutMenu', [
+        transition(':enter',[ 
+            style({transform: 'translate3d(0, -100%, 0)'}),
+            animate('400ms ease-in-out'), style({
+                transform: 'translate3d(0, 0, 0)'
+            })
+        ]),
+        transition(':leave',[
+            animate('400ms ease-in-out'), style({
+                transform: 'translate3d(0, -100%, 0)'
+            })
+        ])
+    ]);
+
+export const slideInOutHorizontal = 
+    trigger('slideInOutHorizontal', [
+        transition(':enter',[ 
+            style({transform: 'translate3d(-100%, 0, 0)'}),
+            animate('400ms ease-in-out'), style({
+                transform: 'translate3d(0, 0, 0)'
+            })
+        ]),
+        transition(':leave',[
+            animate('400ms ease-in-out'), style({
+                transform: 'translate3d(-100%, 0, 0)'
+            })
+        ])
+    ]);
+
+export const shrinkVertical = 
+    trigger('shrinkVertical', [
+        state('1', style({height: '*'})),
+        state('0', style({height: 0})),
+        transition('1 => 0', animate('200ms')),
+        transition('0 => 1', animate('200ms'))
+    ])
+
+
+export const slideInOutHorizontalBoolean = 
+    trigger('slideInOutHorizontalBoolean', [
+        state('1', style({transform: 'translate3d(0, 0, 0)'})),
+        state('0', style({transform: 'translate3d(-100%, 0, 0)'})),
+        transition('1 => 0', animate('400ms ease-in-out')),
+        transition('0 => 1', animate('400ms ease-in-out'))
+    ]);

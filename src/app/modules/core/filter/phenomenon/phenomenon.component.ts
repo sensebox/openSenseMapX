@@ -62,6 +62,32 @@ export class PhenomenonComponent implements OnInit {
       },
       icon: "osem-humidity"
     },
+    {
+      title: 'Luftdruck',
+      layer : { 
+        'id': 'base-layer',
+        'type': 'circle',
+        'source': 'boxes',
+        'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live"]]]],
+        'paint': {
+          'circle-radius': {
+            'base': 1.75,
+            'stops': [[1, 2], [22, 3080]]
+          },
+          'circle-color': [
+            'interpolate',
+            ['linear'],
+            [ "get", "Luftdruck", ["object", ["get", "live"]]],
+            0, '#9900cc',
+            25, '#0000ff',
+            50, '#0099ff',
+            75, '#ffff00',
+            100, '#ff0000',
+          ]
+        } 
+      },
+      icon: "osem-barometer"
+    },
     { title: 'Beleuchtungsstärke', 
       layer: {
         'id': 'base-layer',

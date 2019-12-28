@@ -1,6 +1,32 @@
 .datepicker-container {
     position: relative;
-    .date-input {
-        max-width: 100px;
+    background: var(--background-secondary-light);
+
+    
+    .owl-date-time-trigger {
+        display: flex;
+        justify-content: space-evenly;
+        cursor: pointer;
+        &:hover {
+            background: var(--background-secondary);
+        }
+        .date-input {
+            max-width: 100px;
+            padding: 0 0 0 0.2em;
+            pointer-events: none;
+            background: none;
+            color: var(--background-primary-full);
+            border-bottom: 2px solid var(--background-primary-full);
+
+            &::placeholder {
+                color: var(--background-primary-full);
+            }
+        }
+
+        .calendar-button {
+            background: var(--background-primary-full);
+            padding: 0.1em 0.2em;
+            align-items: center;
+        }
     }
 }

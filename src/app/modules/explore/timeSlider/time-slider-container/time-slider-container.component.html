@@ -1,1 +1,5 @@
-<osem-time-slider [dateRange]="dateRange$ | async" [selectedDate]="selectedDate" (dateSelected)="dateSelected($event)"></osem-time-slider>
+<osem-time-slider 
+    [dateRange]="dateRange$ | async" 
+    [selectedPheno]="selectedPheno$ | async"
+    [selectedDate]="selectedDate" 
+    (dateSelected)="dateSelected($event)"></osem-time-slider>

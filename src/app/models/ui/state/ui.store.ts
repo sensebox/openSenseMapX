@@ -10,7 +10,10 @@ export interface UiState {
   layers: any[],
   dateRange: Array<Date>,
   dateRangeChart: Array<Date>,
-  selectedDate: Date
+  selectedDate: Date,
+  language: string,
+  theme: string,
+  baseLayer: any
 }
 
 export function createInitialState(): UiState {
@@ -21,6 +24,31 @@ export function createInitialState(): UiState {
     dateRange: null,
     dateRangeChart: [new Date("2019-11-05T14:00:00.000Z"), new Date("2019-11-06T14:00:00.000Z")],
     selectedDate: null,
+    language: 'en',
+    theme: 'light',
+    baseLayer: {
+      'id': 'base-layer',
+      'type': 'circle',
+      'source': 'boxes',
+      'filter': ["!=", 'old', ["get", "state"]],
+      'paint': {
+      'circle-radius': {
+        'base': 1.75,
+        'stops': [[1, 2], [22, 3080]]
+      },
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#383838',
+      
+      // 'circle-blur': 0.8,
+      'circle-color': [
+        'match',
+        ['get', 'state'],
+        'active', '#4EAF47',
+        'old', '#eb5933',
+        /* other */ '#ccc200'
+        ]
+      }
+    },
     layers: [{
       'id': 'base-layer',
       'type': 'circle',
@@ -31,7 +59,10 @@ export function createInitialState(): UiState {
         'base': 1.75,
         'stops': [[1, 2], [22, 3080]]
       },
-      'circle-blur': 0.8,
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#383838',
+      
+      // 'circle-blur': 0.8,
       'circle-color': [
         'match',
         ['get', 'state'],
@@ -56,7 +87,19 @@ export class UiStore extends Store<UiState> {
     this.update( state => ({...state, activeSensorTypes: types}));
   }
   updateSelectedPheno(pheno) {
-    this.update( state => ( { ...state , selectedPheno: pheno, layers: [pheno.layer] }));
+    this.update( state => ( {
+       ...state, 
+       selectedPheno: pheno, 
+       baseLayer: {
+        ...state.baseLayer,
+        filter: pheno.layer.filter,
+        paint: {
+          ...state.baseLayer.paint,
+          'circle-color': pheno.layer.paint['circle-color'],
+          'circle-radius': pheno.layer.paint['circle-radius']
+        },
+      }
+    }));
   }
   setLayers(layers){
     this.update( state => ( { ...state , layers: layers }));
@@ -82,6 +125,29 @@ export class UiStore extends Store<UiState> {
   }
   updateSelectedDate(date){
     this.update( state => ({ ...state , selectedDate: date }));
+  }
+  setLanguage(lang){
+    this.update( state => ({ ...state , language: lang }));
+  }
+  setTheme(theme){
+    this.update( state => ({ ...state , theme: theme }));
+  }
+
+  updateBaseLayer(layer){
+    console.log(layer);
+    this.update( state => ( {
+      baseLayer: {
+        ...state.baseLayer,
+        filter: layer.filter ? layer.filter : state.baseLayer.filter,
+        paint: {
+          ...state.baseLayer.paint,
+          'circle-stroke-width': layer.paint['circle-stroke-width'] ? layer.paint['circle-stroke-width'] : state.baseLayer.paint['circle-stroke-width'],
+          'circle-blur': layer.paint['circle-blur'] != undefined ? layer.paint['circle-blur'] : state.baseLayer.paint['circle-blur'],
+          'circle-color': layer.paint['circle-color'] ? layer.paint['circle-color'] : state.baseLayer.paint['circle-color'],
+          'circle-radius': layer.paint['circle-radius']
+        },
+      }
+    }))
   }
 }
 

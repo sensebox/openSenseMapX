@@ -108,7 +108,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   clipPathId: string;
   series: any;
   areaPath: any;
-  margin = [10, 20, 20, 20];
+  margin = [25, 20, 20, 20];
   hoveredVertical: any; // the value of the x axis that is hovered over
   xAxisHeight: number = 0;
   yAxisWidth: number = 0;

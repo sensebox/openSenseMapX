@@ -1,5 +1,13 @@
 {
     "SEARCH": "Search for Places or Boxes",
     "FROM": "From",
-    "TO": "To"
+    "TO": "To",
+
+    "CHOOSE_DATERANGE": "Choose Date range",
+    "FILTER": "Filter",
+    "PHENOMENA": "Phenomena",
+
+    "SETTINGS": "Settings",
+    "THEME": "Theme",
+    "LANGUAGE": "Language"
 }

@@ -1,0 +1,8 @@
+<osem-nav-right 
+    [settings]="settings"
+    [language]="language$ | async"
+    [theme]="theme$ | async"
+    (themeToggled)="toggleTheme($event)"
+    (languageToggled)="setLanguage($event)"
+    (settingsToggled)="toggleSettings()"
+    ></osem-nav-right>

@@ -1,7 +1,12 @@
-<div *ngIf="dateRange">
-    <div *ngIf="selectedDate">
+<div id="timeslider-container" 
+    class="osem-box-shadow-basic" 
+    *ngIf="dateRange && selectedPheno" 
+    [@slideInOutHorizontal]="dateRange">
+
+    <div *ngIf="selectedDate; else noDate">
         {{selectedDate | date:'medium'}}
     </div>
+    <ng-template #noDate>Loading...</ng-template>
     
     
     <input 

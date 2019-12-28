@@ -1,11 +1,11 @@
 <div *ngIf="selectedPheno && selectedPheno.title">
-    <h2>{{selectedPheno.title}}</h2>
+    <h3>{{selectedPheno.title}}</h3>
     <div id="legend-container">
         <div id="legend-labels">
         <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
             <div *ngIf="i>2">
                 <div  class="legend-label" *ngIf=" i%2">
-                    {{prop}}
+                    <div class="content-container">{{prop}}</div>
                 </div>
                 
             </div>

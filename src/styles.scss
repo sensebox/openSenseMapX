@@ -2,7 +2,9 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 @import 'styles/icons/osem-icons.scss';
 @import 'styles/variables.scss';
+@import 'styles/themes/theme.scss';
 @import 'styles/general/general.scss';
+@import 'styles/general/mapbox.scss';
 
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome';
@@ -23,16 +25,10 @@ body, html {
   margin: 0;
   font-size: 16px;
   font-family: BrixSlab,Helvetica,sans-serif;
-  color: $textColorPrimary;
+  color: var(--text-color-primary);
 }
 
-input {
-  font-family: BrixSlab,Helvetica,sans-serif;
-  &::placeholder {
-    top: 2px;
-    position: relative;
-  }
-}
+
 
 .osem-no-margin {
   margin: 0;

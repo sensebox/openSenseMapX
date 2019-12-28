@@ -1,0 +1,28 @@
+<div id="filter-menu">
+    <div 
+        class="filter-item" 
+        [class.not-active]="activeTab != 'phenos'"
+        (click)="changeActive('phenos')"
+    >{{'PHENOMENA' | translate}}</div>
+    <div 
+        class="filter-item" 
+        [class.not-active]="activeTab != 'filter'"
+        (click)="changeActive('filter')"
+    >{{'FILTER' | translate}}</div>
+    <div class="minimize"
+        (click)="minimize()"
+    ><i class="fa fa-chevron-up" *ngIf="!minimizedBoolean; else down"></i></div>
+    <ng-template #down>
+        <i class="fa fa-chevron-down"></i>
+    </ng-template>
+</div>
+<div [@shrinkVertical]="!minimizedBoolean" class="osem-overflow-hidden">
+    <osem-phenomenon *ngIf="activeTab === 'phenos'"
+        [selectedPheno]="selectedPheno"
+        (phenoSelected)="selectPheno($event)"
+        ></osem-phenomenon>
+    
+    <osem-filter *ngIf="activeTab === 'filter'">
+    
+    </osem-filter>
+</div>

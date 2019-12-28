@@ -12,12 +12,12 @@
             width: 25px;
         }
         &.active {
-            background: $primaryBackground;
-            color: $primaryColor;
+            background: var(--background-primary);
+            color: var(--color-primary);
         }
         &:hover {
-            background: $primaryBackgroundFull;
-            color: $primaryColor;
+            background: var(--background-primary-full);
+            color: var(--color-primary);
         }
         .name {
             flex-grow: 1;

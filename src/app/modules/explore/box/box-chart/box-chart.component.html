@@ -1,26 +1,28 @@
-<div id="osem-chart-container" *ngIf="data.length > 0">
-    <osem-osem-line-chart 
-        [results]="data" 
-        [selectedDate]="selectedDate"
-        [xAxis]="true"
-        [xAxisLabel]="'XXX'"
-        [yAxis]="true"
-        [yAxisLabel]="'HALLO'"
-        [autoScale]="true"
-        [showYAxisLabel]="true"
-        [showXAxisLabel]="false"
-        [gradient]="true"
-        [showGridLines]="true"
-        [trimXAxisTicks]="true"
-        [maxXAxisTickLength]="10"
-        [roundDomains]="true"
-        [legend]="false"
-        [legendPosition]="'right'"
-        (colorsChanged)="changeColors($event)"
-        ></osem-osem-line-chart>
-        <!-- [showRefLines]="true" -->
-        <!-- [xAxisTicks]="xAxisTicks" -->
-        <!-- [referenceLines]="[{name: 'yoo', value: 10.1}]" -->
-    <!-- <ngx-charts-bubble-chart [results]="[{'name': 'test', 'series': data}]" ></ngx-charts-bubble-chart> -->
+<div class="chart-wrapper">
+    <div id="osem-chart-container" *ngIf="data.length > 0">
+        <osem-osem-line-chart 
+            [results]="data" 
+            [selectedDate]="selectedDate"
+            [xAxis]="true"
+            [xAxisLabel]="'XXX'"
+            [yAxis]="true"
+            [yAxisLabel]="'HALLO'"
+            [autoScale]="true"
+            [showYAxisLabel]="true"
+            [showXAxisLabel]="false"
+            [gradient]="true"
+            [showGridLines]="true"
+            [trimXAxisTicks]="true"
+            [maxXAxisTickLength]="10"
+            [roundDomains]="true"
+            [legend]="false"
+            [legendPosition]="'right'"
+            (colorsChanged)="changeColors($event)"
+            ></osem-osem-line-chart>
+            <!-- [showRefLines]="true" -->
+            <!-- [xAxisTicks]="xAxisTicks" -->
+            <!-- [referenceLines]="[{name: 'yoo', value: 10.1}]" -->
+        <!-- <ngx-charts-bubble-chart [results]="[{'name': 'test', 'series': data}]" ></ngx-charts-bubble-chart> -->
+    </div>
 </div>
 

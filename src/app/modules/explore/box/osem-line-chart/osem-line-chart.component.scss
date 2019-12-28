@@ -71,7 +71,7 @@
     }
   
     .gridline-path {
-      stroke: #ddd;
+      stroke: var(--color-opposite-light);
       stroke-width: 1;
       fill: none;
     }
@@ -114,3 +114,8 @@
   
   }
   
+
+
+  .axis, #date{
+    fill: var(--text-color-primary);
+  }

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Box } from 'src/app/models/box/state/box.model';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { BoxService } from 'src/app/models/box/state/box.service';
+import { UiService } from 'src/app/models/ui/state/ui.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { arrayRemove } from '../box/osem-line-chart/helper/helpers';
 import { withLatestFrom } from 'rxjs/operators';
@@ -18,6 +19,7 @@ export class MapService {
   constructor(
     private boxQuery: BoxQuery, 
     private boxService: BoxService, 
+    private uiService: UiService, 
     private router: Router,
     private activatedRoute: ActivatedRoute
     ) { 
@@ -46,7 +48,8 @@ export class MapService {
   map;
   popup;
   boxes$: Observable<Box[]>;
-  layers$;
+  // layers$;
+  // baseLayer$;
   // activeBox$ = this.boxQuery.selectActiveId();
   compareModus$ = this.boxQuery.selectCompareModus$;
   compareTo$ = this.boxQuery.selectCompareTo$;
@@ -65,7 +68,7 @@ export class MapService {
     (mapboxgl as typeof mapboxgl).accessToken = "pk.eyJ1IjoidW11dDAwIiwiYSI6ImNqbnVkbnFxNDB2YnIzd3M1eTNidTA3MjUifQ.3gqG1JYEQvckOiiQ8B3NQQ";
     this.map = new Map({
       container: elementName,
-      style: 'mapbox://styles/mapbox/dark-v9',
+      style: 'mapbox://styles/mapbox/light-v9',
       center: [13.5,52.4],
       zoom: 8,
       pitch: 21
@@ -73,10 +76,11 @@ export class MapService {
 
     this.map.addControl(new NavigationControl());
 
-    this.map.on('load', function(){
+    this.map.on('style.load', function(){
+      console.log("LOADING");
       that.boxService.setMapInit(true);
     })
-
+    
     // this.boxes$ = this.boxQuery.selectAll();
 
     // this.layers$ = this.boxQuery.select(ent => ent.ui.layers);
@@ -236,7 +240,6 @@ export class MapService {
   }
 
   addClickFuntion(layer) {
-    let that = this;
     this.map.on('click', layer, this.baseClickFunction);
   }
 
@@ -306,7 +309,12 @@ export class MapService {
 
       
     var coordinates = e.features[0].geometry.coordinates.slice();
-      
+    console.log("Coordinates: ", coordinates)
+    let pixelPosition = this.map.project(coordinates);
+    console.log(document.getElementById("popuptest"));
+    document.getElementById("popuptest").style.top = pixelPosition.y + 'px';
+    document.getElementById("popuptest").style.left = pixelPosition.x + 'px';
+    document.getElementById("popuptest").style.display = 'block';
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
@@ -404,8 +412,6 @@ export class MapService {
 
   drawLayers(layers, map) {  
 
-    
-    
     layers.forEach(element => {
       
       if(!map.getLayer(element.id)) {
@@ -595,4 +601,91 @@ export class MapService {
     // this.map.setPaintProperty('active-layer', 'cirlce-color', colorArray);
     // this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#ccc')
   }
-}
+  
+  setThemeLight(){
+    this.boxService.setMapInit(false);
+    this.boxService.setDataInit(false);
+    this.uiService.updateBaseLayer(
+      {
+        'paint': {
+          'circle-radius': {
+              'base': 1.75,
+              'stops': [[1, 2], [22, 3080]]
+          },
+          'circle-stroke-width': 1,
+          'circle-blur': 0
+      } 
+    }
+  );
+    // this.uiService.setLayers([
+      //   {
+        //     'id': 'base-layer',
+        //     'type': 'circle',
+        //     'source': 'boxes',
+        //     'filter': ["!=", 'old', ["get", "state"]],
+        //     'paint': {
+          //     'circle-radius': {
+            //       'base': 1.75,
+            //       'stops': [[1, 2], [22, 3080]]
+            //     },
+            //     'circle-stroke-width': 1,
+            //     'circle-stroke-color': '#383838',
+            
+            //     // 'circle-blur': 0.8,
+            //     'circle-color': [
+              //       'match',
+              //       ['get', 'state'],
+              //       'active', '#4EAF47',
+              //       'old', '#eb5933',
+              //       /* other */ '#ccc200'
+              //       ]
+              //     } 
+              //   } 
+              // ]);
+              this.map.setStyle("mapbox://styles/mapbox/light-v9");
+              // this.boxService.setMapInit(false);
+              // this.map.once('style.load', () => {
+                //   const waiting = () => {
+                  //     if (!this.map.isStyleLoaded()) {
+                    //       setTimeout(waiting, 200);
+                    //     } else {
+                      //       this.boxService.setMapInit(true);
+                      //       setTimeout(waiting, 200);
+                      //     }
+                      //   };
+                      //   waiting();
+                      // });
+                      
+                    }
+                    
+                    setThemeDark(){
+                      this.boxService.setMapInit(false);
+                      this.boxService.setDataInit(false);
+                      this.uiService.updateBaseLayer(
+                          {
+                            'paint': {
+                              'circle-radius': {
+                                  'base': 1.75,
+                                  'stops': [[1, 2], [22, 3080]]
+                              },
+                              'circle-stroke-width': 0,
+                              'circle-blur': 0.8,
+                          } 
+                        } 
+                      );
+    this.map.setStyle("mapbox://styles/mapbox/dark-v9");
+    // this.boxService.setMapInit(false);
+    // this.map.once('style.load', () => {
+      //   const waiting = () => {
+        //     if (!this.map.isStyleLoaded()) {
+          //       setTimeout(waiting, 200);
+          //     } else {
+            //       // this.boxService.setMapInit(true);
+            //       setTimeout(waiting, 200);
+            //     }
+            //   };
+            //   waiting();
+            // });
+          }
+        }
+        

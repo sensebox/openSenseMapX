@@ -1,9 +1,35 @@
-<osem-search></osem-search>
-<osem-datepicker 
-    [dateRange]="null" 
-    (dateChanged)="changeDateRange($event)"></osem-datepicker>
+<div class="filter-container" [@slideInOutHorizontalBoolean]="!minimizedFilter">
+    <div class="filter-inner">
+        <osem-search></osem-search>
+        <osem-datepicker 
+            [dateRange]="null" 
+            (dateChanged)="changeDateRange($event)"></osem-datepicker>
+        
+        <osem-filter-switcher
+            [activeTab]="activeTab"
+            [selectedPheno]="selectedPheno$ | async"
+            [minimizedBoolean]="minimizedBoolean"
+            (activeChanged)="setActiveTab($event)"
+            (phenoSelected)="selectPheno($event)"
+            (minimized)="minimize()"
+        ></osem-filter-switcher>
+    </div>
+    
+    <div 
+        id="filter-minimizer" 
+        class="osem-box-shadow-basic"
+        [class.minimized]="minimizedFilter"
+        (click)="toggleMinimizeFilter()">
+            <div class="osem-chevron">
+                <i *ngIf="!minimizedFilter; else minimized" class="fa fa-chevron-left"></i>
+                <ng-template #minimized>
+                    <i class="fa fa-chevron-right"></i>
+                    <div>
+                        <i class="fa fa-search"></i>
+                        <i class="fa fa-filter"></i>
+                    </div>
+                </ng-template>
+            </div>
+    </div>
 
-<osem-phenomenon
-    [selectedPheno]="selectedPheno$ | async"
-    (phenoSelected)="selectPheno($event)"
-    ></osem-phenomenon>
+</div>

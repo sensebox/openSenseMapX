@@ -1,14 +1,15 @@
 @import '../../../../../styles/variables.scss';
 
 .bottom-bar-container {
-    background: $primaryBackground;
+    background: var(--background-primary);
   
     .box-header {
       display: flex;
-      background: $secondaryBackground;
+      background: var(--background-secondary);;
       justify-content: space-around;
       align-items: center;
-      color: white;
+      color: var(--text-color-primary);
+      
       .name {
         font-weight: bold;
         font-size: 1.4em;
@@ -18,13 +19,21 @@
         font-style: italic;
       }
     }
+
+    .max-width-scroll {
+      width: 100%;
+      overflow: auto;
+    }
     .osem-sensors {
-      display: flex;
-      justify-content: center;
-      background: white;
+      // display: flex;
+      // justify-content: center;
+      background: var(--background-primary);
+      color: var(--text-color-primary);
+      white-space: nowrap;
+      text-align: center;
   
       .osem-sensor {
-        display: flex;
+        display: inline-block;
         position: relative;
         // background: $primaryBackgroundLight;
         justify-content: center;
@@ -33,7 +42,7 @@
         padding: 0.3em 0.5em;
         margin: 0.2em 0.2em;
         &:hover {
-          background: $primaryBackground;
+          background: var(--background-primary);
           cursor: pointer;
         }
         // border: 1px solid rgb(121, 117, 117);

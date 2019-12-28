@@ -13,12 +13,13 @@
 //ICONS
 .fa {
     opacity: 0.7;
+    color: var(--primary-text);
 }
 
 
 //BACKGROUND
 .secondary-background {
-    background: $secondaryBackground;
+    background: var(--background-secondary);
 }
 
 
@@ -47,4 +48,118 @@
 .osem-small-bottom {
     font-size: 0.35em;
     padding-left: 0.1em;
+}
+
+//FORMS
+input:disabled {
+    background: var(--color-disabled);
+    border: none;
+}
+
+input {
+    font-family: BrixSlab,Helvetica,sans-serif;
+    color: var(--primary-color);
+    &::placeholder {
+      color: var(--text-color-primary);
+      top: 2px;
+      position: relative;
+    }
+    background: var(--background-primary-full);
+    border-color: var(--background-primary-full);
+    border: 0;
+
+    &:focus {
+        outline: 1px solid var(--primary-text);
+    }
+}
+
+
+input:focus { 
+    color: var(--primary-color)
+}
+
+
+//TEXT
+
+.bold {
+    font-weight: bold;
+}
+
+h2,h3,h4 {
+    color: var(--color-primary);
+    margin: 0.3em 0;
+}
+
+.underline {
+    position: relative;
+    display: inline-block;
+    &:after {
+        content: '';
+        position: absolute;
+        border-bottom: 1px solid var(--color-primary);
+        left: 10%;
+        width: 100%;
+        bottom: 0;
+
+    }
+}
+
+
+
+//shadows 
+
+.osem-box-shadow-basic {
+    box-shadow: var(--box-shadow-basic);
+}
+
+
+
+//BUTTON
+
+.osem-simple-button {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    // padding: 0.2em 0.2em;
+    background: var(--background-primary-full);
+    // padding: 0.3em 0.4em 0.1em 0.4em;
+    border: 1px solid var(--text-color-primary);
+    border-radius: 3px;
+    z-index: 2;
+    position: relative;
+    // bottom: 0.5em;
+    // right: 0.5em;
+    transition: transform 0.1s linear;
+    i {
+        line-height: 16px;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+    // &:hover {
+    //     transform: scale(0.9);
+    //     // color: $focusColor;
+    //     // border-color: $focusColor;
+    // }
+}
+
+
+.osem-overflow-hidden {
+    overflow:hidden;
+}
+
+
+//responsive
+
+.osem-only-mobile {
+    @media screen and (min-width: $secondBreak){
+        display: none;
+    }
+}
+
+.osem-only-desktop {
+    @media screen and (max-width: $secondBreak){
+        display: none;
+    }
 }

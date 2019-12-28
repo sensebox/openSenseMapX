@@ -54,4 +54,15 @@ export class UiService {
   setSelectedDate(date){
     this.uiStore.updateSelectedDate(date);
   }
+
+  setLanguage(lang){
+    this.uiStore.setLanguage(lang);
+  }
+  setTheme(theme){
+    this.uiStore.setTheme(theme);
+  }
+
+  updateBaseLayer(layer){
+    this.uiStore.updateBaseLayer(layer);
+  }
 }

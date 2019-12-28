@@ -1,17 +1,23 @@
 @import '../styles/variables.scss';
 
-osem-nav {
+osem-nav-container {
     position: absolute;;
     top: 0;
-    width: 100%;
+    right: 0;
+    z-index: 100;
+    @media screen and(max-width: $secondBreak){
+        width: 100%;
+    }
 }
 
 osem-filter-container {
     position: absolute;
     top: 0;
+    @media screen and(max-width: $secondBreak){
+        top: $headerHeight;
+    }
     left: 0;
-    z-index: 10;
-    background: $primaryBackground;
+    z-index: 20;
 }
 
 osem-bottom-bar-container {
@@ -28,20 +34,23 @@ osem-phenomenon-container {
     z-index: 40;
     background: rgba(240,240,240,0.7);
 }
+
 osem-legend-container {
     position: absolute;
-    right: 50px;
-    top: 200px;
-    z-index: 40;
-    background: rgba(240,240,240,0.7);
+    right: 10px;
+    top: 140px;
+    z-index: 15;
+    background: var(--background-primary-full);
+
 }
 
 osem-time-slider-container {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 1em;
-    z-index: 40;
-    background: rgba(240,240,240,0.7);
+    // left: 50%;
+    left: 273px;
+    // transform: translateX(-50%);
+    top: 0;
+    z-index: 9;
+    min-width: 200px;
 
 }

@@ -22,6 +22,7 @@ export class BaseMapContainerComponent implements OnInit {
 
   boxes$ = this.boxQuery.selectBoxes();
   layers$ = this.uiQuery.select(ent => ent.layers);
+  baseLayer$ = this.uiQuery.select(ent => ent.baseLayer);
   mapInit$ = this.boxQuery.selectMapInit$;
   dataInit$ = this.boxQuery.selectDataInit$;
   activeBox$ = this.boxQuery.selectActiveId();
@@ -43,9 +44,11 @@ export class BaseMapContainerComponent implements OnInit {
 
     //SUBSCRIBE TO ALL BOXES and Layers after map is initiatet
     this.mapInit$.pipe(withLatestFrom(this.compareModus$)).subscribe(res => {
+      console.log("mapInit");
       if(res[0]){
         this.boxSub = this.boxes$.subscribe(res => {
           if(res) {
+            console.log(res);
             this.mapService.setMapData(res);  
           }
         });
@@ -58,9 +61,12 @@ export class BaseMapContainerComponent implements OnInit {
     });
     
     this.dataInit$.subscribe(res => {
+      console.log("DATAINIT", res);
       if(res){
-        this.layerSub = this.layers$.subscribe(res => { 
-          this.mapService.setMapLayers(res); 
+        this.layerSub = this.baseLayer$.subscribe(res => { 
+          //convert to Array because drawLayers expects an array
+          console.log("BASELAYER:", res);
+          this.mapService.setMapLayers([res]); 
         });
         this.activeSub = this.activeBox$.subscribe(res => {
           if(res)
@@ -72,7 +78,10 @@ export class BaseMapContainerComponent implements OnInit {
         });
         this.colors$.subscribe(res => {
           console.log(res);
-          this.mapService.colorActives(res);
+          if(res){
+            // if(res.domain)
+            this.mapService.colorActives(res);
+          }
         })
       }
     })

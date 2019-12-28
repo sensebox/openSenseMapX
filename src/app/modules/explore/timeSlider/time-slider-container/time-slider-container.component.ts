@@ -34,7 +34,7 @@ export class TimeSliderContainerComponent implements OnInit {
         // console.log(newLayer);
         newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
         newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
-        this.uiService.setLayers([newLayer]);
+        this.uiService.updateBaseLayer(newLayer);
       }
     });
   }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { UiQuery } from './models/ui/state/ui.query';
 
 @Component({
   selector: 'osem-root',
@@ -9,8 +10,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   title = 'openSenseMapX';
 
-  constructor(translate: TranslateService){
-    translate.setDefaultLang('en');
-    translate.use('en');
+  language$ = this.uiQuery.selectLanguage$;
+
+  constructor(
+    private translate: TranslateService,
+    private uiQuery: UiQuery){
+
+      translate.setDefaultLang('en');
+      this.language$.subscribe(lang => {
+        translate.use(lang);
+      })
   }
 }

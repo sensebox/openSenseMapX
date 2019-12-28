@@ -12,12 +12,14 @@ import { DatepickerComponent } from './filter/datepicker/datepicker.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { FilterSwitcherComponent } from './filter/filter-switcher/filter-switcher.component';
+import { FilterComponent } from './filter/filter/filter.component';
 
 
 
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent],
   imports: [
     CommonModule,
     RouterModule,
