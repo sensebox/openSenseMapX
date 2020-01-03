@@ -1,1 +1,12 @@
-<p>popup works!</p>
+<div *ngIf="box" id="popup">
+    <div class="sensor-icons sensor-icons-{{box.sensors.length}}">
+        <div
+            *ngFor="let sensor of box.sensors"
+            class="sensor-icon osem-box-shadow-small">
+            <i *ngIf="sensor.icon" class="osem-icon map-icon {{sensor.icon}}"></i>
+        </div>
+    </div>
+    <div class="popup-name osem-box-shadow-small">
+        <h2>{{box.name}}</h2>
+    </div>
+</div>

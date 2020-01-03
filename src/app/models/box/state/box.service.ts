@@ -151,4 +151,8 @@ export class BoxService {
   setCompareTo(compareTo){
     this.boxStore.setCompareTo(compareTo);
   }
+
+  setPopupBox(box){
+    this.boxStore.setPopupBox(box);
+  }
 }

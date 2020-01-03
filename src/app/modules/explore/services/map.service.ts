@@ -283,16 +283,17 @@ export class MapService {
   addPopup(layer) {
     let that = this;
 
-    this.popup = new mapboxgl.Popup({
-      closeButton: false,
-      closeOnClick: false
-    });
+    // this.popup = new mapboxgl.Popup({
+    //   closeButton: false,
+    //   closeOnClick: false
+    // });
        
     this.map.on('mouseenter', layer, this.baseMouseenterFunction);
       
     this.map.on('mouseleave', layer, function() {
       that.map.getCanvas().style.cursor = '';
-      that.popup.remove();
+      // that.popup.remove();
+      // that.boxService.setPopupBox(null);
     });
 
   }
@@ -309,8 +310,11 @@ export class MapService {
 
       
     var coordinates = e.features[0].geometry.coordinates.slice();
-    console.log("Coordinates: ", coordinates)
+    console.log("Coordinates: ", e.features[0])
     let pixelPosition = this.map.project(coordinates);
+    let box = e.features[0].properties;
+    
+    this.boxService.setPopupBox({...box, sensors : JSON.parse(e.features[0].properties.sensors)});
     console.log(document.getElementById("popuptest"));
     document.getElementById("popuptest").style.top = pixelPosition.y + 'px';
     document.getElementById("popuptest").style.left = pixelPosition.x + 'px';
@@ -327,9 +331,9 @@ export class MapService {
       description += '<p>' + sensorItem.title + '</p>'
     }
 
-    this.popup.setLngLat(coordinates)
-      .setHTML(description)
-      .addTo(this.map);
+    // this.popup.setLngLat(coordinates)
+    //   .setHTML(description)
+    //   .addTo(this.map);
 
   }
 

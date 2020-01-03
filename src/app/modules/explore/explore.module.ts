@@ -22,10 +22,11 @@ import { BoxCompareValuesComponent } from './box/box-compare-values/box-compare-
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { PopupComponent } from './map/popup/popup.component';
+import { PopupContainerComponent } from './map/popup-container/popup-container.component';
 
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent],
   imports: [
     CommonModule,
     NgxChartsModule,

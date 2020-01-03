@@ -25,6 +25,7 @@ const light: Theme = {
     "--color-opposite-light": "rgba(200, 200, 200)",
     
     "--box-shadow-basic": "1px 1px 2px 1px rgba(50,50,50,0.3)",
+    "--box-shadow-small": "1px 1px 1px 1px rgba(50,50,50,0.2)",
     "--shadow-color": "rgba(50,50,50,0.3)",
     
     "--color-disabled": "rgba(200,200,200)" 
@@ -38,7 +39,7 @@ const dark: Theme = {
   properties: {
     "--text-color-primary": "#D3d3D3",
     "--text-color-secondary": "#eee",
-
+    
     "--color-primary": "#4EAF47",
     
     "--background-primary": "rgba(56, 56, 56, 0.9)",
@@ -47,10 +48,11 @@ const dark: Theme = {
     
     "--background-secondary": "#4EAF47",
     "--background-secondary-light": "#68C961",
-
+    
     "--color-opposite-light": "rgba(80, 80, 80)",
     
     "--box-shadow-basic": "1px 1px 2px 1px rgba(220,220,220,0.3)",
+    "--box-shadow-small": "1px 1px 1px 1px rgba(220,220,220,0.2)",
     "--shadow-color": "rgba(0,0,0,0.3)",
 
     "--color-disabled": "rgb(45,45,45)"

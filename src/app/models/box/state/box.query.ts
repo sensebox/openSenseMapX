@@ -22,6 +22,7 @@ export class BoxQuery extends QueryEntity<BoxState> {
   selectDataInit$ = this.select(state => state.ui.dataInit);
   selectCompareTo$ = this.select(state => state.ui.compareTo);
   selectCompareModus$ = this.select(state => state.ui.compareModus);
+  selectPopupBox$ = this.select(state => state.ui.popupBox);
 
 
   // get ui() {

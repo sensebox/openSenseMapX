@@ -15,6 +15,7 @@ export interface BoxState extends EntityState<Box>, ActiveState {
     mapInit: boolean;
     dataInit: boolean;
     compareModus: boolean;
+    popupBox: Box;
   }
 }
 export interface BoxUIState extends EntityState<BoxUI> {}
@@ -29,7 +30,8 @@ const initialState = {
     displayTimeSlider: null,
     mapInit: false,
     dataInit: false,
-    compareModus: false
+    compareModus: false,
+    popupBox: null
   }
 }
 
@@ -87,5 +89,9 @@ export class BoxStore extends EntityStore<BoxState> {
         return { ui: {...state.ui, compareTo: newCompareTo}}
       }
     })
+  }
+
+  setPopupBox(box){
+    this.update( state => ({ ui: { ...state.ui , popupBox: box }}));
   }
 }
