@@ -28,7 +28,7 @@ export class BoxService {
     const box = new schema.Entity('boxes', {sensors: [sensor] }, { idAttribute: '_id' });
 
 
-    return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587`).pipe(tap(entities => {
+    return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587&full=true`).pipe(tap(entities => {
       
       //normalize Data 
       let res  = normalize(entities, [box]);
@@ -37,7 +37,6 @@ export class BoxService {
       this.boxStore.set(res.entities.boxes);
 
       //TODO: find better way than this
-      console.log(res.entities.boxes);
       for (let box in res.entities.boxes) {
         res.entities.boxes[box].sensors.forEach(sensor => {
           res.entities.sensors[sensor].boxes_id = res.entities.boxes[box]._id;

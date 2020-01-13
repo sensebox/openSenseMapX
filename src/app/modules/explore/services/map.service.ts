@@ -10,6 +10,7 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { arrayRemove } from '../box/osem-line-chart/helper/helpers';
 import { withLatestFrom } from 'rxjs/operators';
+import { environment } from './../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +66,7 @@ export class MapService {
     let that = this;
 
     // this.boxService.get().subscribe();
-    (mapboxgl as typeof mapboxgl).accessToken = "pk.eyJ1IjoidW11dDAwIiwiYSI6ImNqbnVkbnFxNDB2YnIzd3M1eTNidTA3MjUifQ.3gqG1JYEQvckOiiQ8B3NQQ";
+    (mapboxgl as typeof mapboxgl).accessToken = environment.mapbox_token;
     this.map = new Map({
       container: elementName,
       style: 'mapbox://styles/mapbox/light-v9',
