@@ -62,7 +62,6 @@ export class MapService {
 
   generateMap(elementName) {
     
-    console.log("Initmap")
     let that = this;
 
     // this.boxService.get().subscribe();
@@ -78,7 +77,6 @@ export class MapService {
     this.map.addControl(new NavigationControl());
 
     this.map.on('style.load', function(){
-      console.log("LOADING");
       that.boxService.setMapInit(true);
     })
     
