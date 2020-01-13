@@ -6,6 +6,7 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'osem-filter-container',
@@ -32,6 +33,7 @@ export class FilterContainerComponent implements OnInit {
   ngOnInit() {
     let that = this;
     // this.selectDateRange$.subscribe(res => console.log(res));
+   
     combineLatest(this.selectDateRange$, this.selectedPheno$).subscribe(res => {
       if(res[0] && res[1]){
         this.boxService.getValues(res[1].title, res[0]).subscribe();

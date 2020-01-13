@@ -9,5 +9,12 @@
 
     "SETTINGS": "Einstellungen",
     "THEME": "Theme",
-    "LANGUAGE": "Sprache"
+    "LANGUAGE": "Sprache",
+
+    "COMPARE_MODUS_HEADER": "Vergleichs-Modus",
+    "COMPARE_MODUS_HELP": "Zum vergleichen auf eine Station auf der Karte klicken.",
+    "COMPARE_MODUS_END": "Vergleichs-Modus beenden",
+
+    "LEGEND": "Legend"
+
 }

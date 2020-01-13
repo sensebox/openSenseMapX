@@ -3,6 +3,11 @@
     background: var(--background-primary-full);
     min-width: 350px;
     padding: 0.6em 0.3em;
+
+    .date {
+      text-align: right;
+      font-weight: bold;
+    }
 }
 
 input[type=range] {

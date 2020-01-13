@@ -18,6 +18,7 @@ export class BoxSingleValuesComponent {
   
   @Output() valueSelected = new EventEmitter();
   @Output() valueAdded = new EventEmitter();
+  @Output() boxClosed = new EventEmitter();
 
   constructor() { }
 
@@ -27,5 +28,9 @@ export class BoxSingleValuesComponent {
   
   addValue(sensor) {
     this.valueAdded.emit(sensor);
+  }
+
+  closeBox(){
+    this.boxClosed.emit();
   }
 }

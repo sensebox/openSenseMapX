@@ -8,6 +8,7 @@
       background: var(--background-secondary);;
       justify-content: space-around;
       align-items: center;
+      position: relative;
       color: var(--text-color-primary);
       
       .name {
@@ -42,7 +43,7 @@
         padding: 0.3em 0.5em;
         margin: 0.2em 0.2em;
         &:hover {
-          background: var(--background-primary);
+          background: var(--hover-color);
           cursor: pointer;
         }
         // border: 1px solid rgb(121, 117, 117);
@@ -71,13 +72,22 @@
         .title {
           text-align: center;
         }
-        .add-button {
-          cursor: pointer;
+        .add-button-container {
           position: absolute;
           bottom: 0;
-          right: 3px;
-          &:hover {
-            font-weight: bold;
+          right: 0;
+          font-size: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .add-button {
+            width: 20px;
+            height: 20px;
+            // border: 1px solid #ccc;
+            cursor: pointer;
+            &:hover {
+              background: var(--color-primary);
+            }
           }
         }
       }

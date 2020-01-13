@@ -10,6 +10,8 @@ export class LegendContainerComponent implements OnInit {
 
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   gradient = "";
+
+  legendVisible = true;
   constructor(private uiQuery: UiQuery) { }
 
   ngOnInit() {
@@ -27,6 +29,10 @@ export class LegendContainerComponent implements OnInit {
       }
     })
 
+  }
+
+  toggleLegend(){
+    this.legendVisible = !this.legendVisible;
   }
 
 }

@@ -89,3 +89,11 @@ export const slideInOutHorizontalBoolean =
         transition('1 => 0', animate('400ms ease-in-out')),
         transition('0 => 1', animate('400ms ease-in-out'))
     ]);
+
+export const legendAnimation = 
+    trigger('legendAnimation', [
+        state('1', style({height: '*', width: '*'})),
+        state('0', style({height: "0px", width: "0px"})),
+        transition('1 => 0', animate('200ms ease-in-out')),
+        transition('0 => 1', animate('200ms ease-in-out'))
+    ]);

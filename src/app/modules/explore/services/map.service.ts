@@ -245,7 +245,10 @@ export class MapService {
 
   baseClickFunction = e => {
     if(e.features.length > 0){
-      this.router.navigate(['/explore/'+e.features[0].properties._id]);
+      this.router.navigate(['/explore/'+e.features[0].properties._id],  {
+        relativeTo: this.activatedRoute,
+        queryParamsHandling: 'merge'
+      });
     }
   }
 
@@ -293,7 +296,7 @@ export class MapService {
     this.map.on('mouseleave', layer, function() {
       that.map.getCanvas().style.cursor = '';
       // that.popup.remove();
-      // that.boxService.setPopupBox(null);
+      that.boxService.setPopupBox(null);
     });
 
   }
@@ -310,26 +313,26 @@ export class MapService {
 
       
     var coordinates = e.features[0].geometry.coordinates.slice();
-    console.log("Coordinates: ", e.features[0])
     let pixelPosition = this.map.project(coordinates);
     let box = e.features[0].properties;
     
     this.boxService.setPopupBox({...box, sensors : JSON.parse(e.features[0].properties.sensors)});
-    console.log(document.getElementById("popuptest"));
+
     document.getElementById("popuptest").style.top = pixelPosition.y + 'px';
     document.getElementById("popuptest").style.left = pixelPosition.x + 'px';
     document.getElementById("popuptest").style.display = 'block';
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
 
-    let description = "<h3>" + e.features[0].properties.name + '</h3>' + e.features[0].properties.values
+    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    // }
 
-    let sensors = JSON.parse(e.features[0].properties.sensors);
-    for(let sensor in sensors) {
-      let sensorItem = sensors[sensor];
-      description += '<p>' + sensorItem.title + '</p>'
-    }
+    // let description = "<h3>" + e.features[0].properties.name + '</h3>' + e.features[0].properties.values
+
+    // let sensors = JSON.parse(e.features[0].properties.sensors);
+    // for(let sensor in sensors) {
+    //   let sensorItem = sensors[sensor];
+    //   description += '<p>' + sensorItem.title + '</p>'
+    // }
 
     // this.popup.setLngLat(coordinates)
     //   .setHTML(description)
@@ -342,22 +345,32 @@ export class MapService {
 
       
     var coordinates = e.features[0].geometry.coordinates.slice();
-      
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
+    let pixelPosition = this.map.project(coordinates);
+    let box = e.features[0].properties;
 
-    let description = "<h3>" + e.features[0].properties.name + '</h3>' + e.features[0].properties.values
+    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    // }
 
-    let sensors = JSON.parse(e.features[0].properties.sensors);
-    for(let sensor in sensors) {
-      let sensorItem = sensors[sensor];
-      description += '<p>' + sensorItem.title + '</p>'
-    }
+    // let description = "<h3>" + e.features[0].properties.name + '</h3>' + e.features[0].properties.values
 
-    this.popup.setLngLat(coordinates)
-      .setHTML(description)
-      .addTo(this.map);
+    // let sensors = JSON.parse(e.features[0].properties.sensors);
+    // for(let sensor in sensors) {
+    //   let sensorItem = sensors[sensor];
+    //   description += '<p>' + sensorItem.title + '</p>'
+    // }
+
+    this.boxService.setPopupBox({...box, sensors : JSON.parse(e.features[0].properties.sensors)});
+
+    document.getElementById("popuptest").style.top = pixelPosition.y + 'px';
+    document.getElementById("popuptest").style.left = pixelPosition.x + 'px';
+    document.getElementById("popuptest").style.display = 'block';
+
+
+
+    // this.popup.setLngLat(coordinates)
+    //   .setHTML(description)
+    //   .addTo(this.map);
   }
 
 
@@ -441,109 +454,138 @@ export class MapService {
       map.setLayoutProperty('number-layer', 'text-field', element.paint['circle-color'][2]);
     });
   }
+  
+  
+  updateActiveLayer(id, theme){
 
+    if(id !== undefined){
+      let paint;
+      if(theme === 'dark'){
+        paint = {
+          'text-color': '#f6f6f6',
+          'text-halo-blur': 4,
+          'text-halo-color': '#383838',
+          'text-halo-width': 1
+        }
+      } else {
+          paint = {
+            'text-color': '#383838',
+            'text-halo-blur': 4,
+            'text-halo-color': '#f6f6f4',
+            'text-halo-width': 1
+          }
+      }
+      if(!this.map.getLayer('active-layer')){
+        this.map.addLayer({
+          'id': 'active-layer-text',
+          'type': 'symbol',
+          'source': 'boxes',
+          'filter': ["==", id, ["get", "_id"]],
+          "paint": paint,
+          "layout": {
+            "text-field": ['format', ["get", "name"], { 'font-scale': 1.2 }],
+            "text-variable-anchor": ["top"],
+            "text-offset": [0,1],
+            // "text-font": [
+            //   "DIN Offc Pro Medium",
+            //   "Arial Unicode MS Bold"
+            // ],
+            "text-size": 18
+          } 
+        });
+        this.map.addLayer({
+          'id': 'active-layer',
+          'type': 'circle',
+          'source': 'boxes',
+          'filter': ["==", id, ["get", "_id"]],
+          // 'filter': ["match", ["get", "_id"], ["5da0a27f25683a001a59271b", "5bf837bf86f11b001aae7f82"], true, false ],
+          'paint': {
+          'circle-radius': {
+            'base': 1.75,
+            'stops': [[1, 10], [22, 3580]]
+          },
+          'circle-blur': 0.6,
+          // 'circle-stroke-width': 1,
+          'circle-opacity': 0.6,
+          'circle-color': '#FFFFFF'
+          } 
+        }, 'base-layer');
+        
+      } else {
+  
+        this.map.setFilter('active-layer', ["==", id, ["get", "_id"]]);
+        this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
+        // this.map.setFilter('active-layer', ["match", ["get", "_id"], ["5da0a27f25683a001a59271b", "5bf837bf86f11b001aae7f82"], true, false ]);
+        // this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
+      }
 
-  updateActiveLayer(id){
-   
-    if(!this.map.getLayer('active-layer')){
-      this.map.addLayer({
-        'id': 'active-layer-text',
-        'type': 'symbol',
-        'source': 'boxes',
-        'filter': ["==", id, ["get", "_id"]],
-        "paint": {
-          'text-color': '#FFFFFF',
-          'text-halo-blur': 2,
-          'text-halo-color': '#000000',
-          'text-halo-width': 2
-        },
-        "layout": {
-          "text-field": ["get", "name"],
-          "text-variable-anchor": ["top"],
-          "text-offset": [0,1],
-          // "text-font": [
-          //   "DIN Offc Pro Medium",
-          //   "Arial Unicode MS Bold"
-          // ],
-          "text-size": 15
-        } 
-      });
-      this.map.addLayer({
-        'id': 'active-layer',
-        'type': 'circle',
-        'source': 'boxes',
-        'filter': ["==", id, ["get", "_id"]],
-        // 'filter': ["match", ["get", "_id"], ["5da0a27f25683a001a59271b", "5bf837bf86f11b001aae7f82"], true, false ],
-        'paint': {
-        'circle-radius': {
-          'base': 1.75,
-          'stops': [[1, 10], [22, 3580]]
-        },
-        'circle-blur': 0.6,
-        // 'circle-stroke-width': 1,
-        'circle-opacity': 0.6,
-        'circle-color': '#FFFFFF'
-        } 
-      }, 'base-layer');
-      
-    } else {
-      this.map.setFilter('active-layer', ["==", id, ["get", "_id"]]);
-      this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
-      // this.map.setFilter('active-layer', ["match", ["get", "_id"], ["5da0a27f25683a001a59271b", "5bf837bf86f11b001aae7f82"], true, false ]);
-      // this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
     }
   }
   
-  updateActiveLayerCompare(data){
-    if(!this.map.getLayer('active-layer')){
-      this.map.addLayer({
-        'id': 'active-layer-text',
-        'type': 'symbol',
-        'source': 'boxes',
-        'filter': ["match", ["get", "_id"], data, true, false ],
-        // 'filter': ["==", id, ["get", "_id"]],
-        "paint": {
-          'text-color': '#FFFFFF',
-          'text-halo-blur': 2,
-          'text-halo-color': '#000000',
-          'text-halo-width': 2
-        },
-        "layout": {
-          "text-field": ["get", "name"],
-          "text-variable-anchor": ["top"],
-          "text-offset": [0,1],
-          // "text-font": [
-          //   "DIN Offc Pro Medium",
-          //   "Arial Unicode MS Bold"
-          // ],
-          "text-size": 15
-        } 
-      });
-      this.map.addLayer({
-        'id': 'active-layer',
-        'type': 'circle',
-        'source': 'boxes',
-        // 'filter': ["==", id, ["get", "_id"]],
-        'filter': ["match", ["get", "_id"], data, true, false ],
-        'paint': {
-        'circle-radius': {
-          'base': 1.75,
-          'stops': [[1, 10], [22, 2580]]
-        },
-        'circle-blur': 0.6,
-        // 'circle-stroke-width': 1,
-        'circle-opacity': 0.6,
-        'circle-color': '#eee'
-        } 
-      }, 'base-layer');
-      
-    } else {
-      // this.map.setFilter('active-layer', ["==", data, ["get", "_id"]]);
-      // this.map.setFilter('active-layer-text', ["==", data, ["get", "_id"]]);
-      this.map.setFilter('active-layer-text', ["match", ["get", "_id"], data, true, false ]);
-      this.map.setFilter('active-layer', ["match", ["get", "_id"], data, true, false ]);
-      // this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
-    }    
+  updateActiveLayerCompare(data, theme){
+    if(data.length > 0){
+      let paint;
+      if(theme === 'dark'){
+        paint = {
+          'text-color': '#f6f6f6',
+          'text-halo-blur': 4,
+          'text-halo-color': '#383838',
+          'text-halo-width': 1
+        }
+      } else {
+          paint = {
+            'text-color': '#383838',
+            'text-halo-blur': 4,
+            'text-halo-color': '#f6f6f4',
+            'text-halo-width': 1
+          }
+      }
+      if(!this.map.getLayer('active-layer')){
+        this.map.addLayer({
+          'id': 'active-layer-text',
+          'type': 'symbol',
+          'source': 'boxes',
+          'filter': ["match", ["get", "_id"], data, true, false ],
+          // 'filter': ["==", id, ["get", "_id"]],
+          "paint": paint,
+          "layout": {
+            "text-field": ['format', ["get", "name"], { 'font-scale': 1.2 }],
+            "text-variable-anchor": ["top"],
+            "text-offset": [0,1],
+            // "text-font": [
+            //   "DIN Offc Pro Medium",
+            //   "Arial Unicode MS Bold"
+            // ],
+            "text-size": 18
+          } 
+        });
+        this.map.addLayer({
+          'id': 'active-layer',
+          'type': 'circle',
+          'source': 'boxes',
+          // 'filter': ["==", id, ["get", "_id"]],
+          'filter': ["match", ["get", "_id"], data, true, false ],
+          'paint': {
+          'circle-radius': {
+            'base': 1.75,
+            'stops': [[1, 10], [22, 2580]]
+          },
+          'circle-blur': 0.6,
+          // 'circle-stroke-width': 1,
+          'circle-opacity': 0.6,
+          'circle-color': '#eee'
+          } 
+        }, 'base-layer');
+        
+      } else {
+        // this.map.setFilter('active-layer', ["==", data, ["get", "_id"]]);
+        // this.map.setFilter('active-layer-text', ["==", data, ["get", "_id"]]);
+        console.log(data);
+        this.map.setFilter('active-layer-text', ["match", ["get", "_id"], data, true, false ]);
+        this.map.setFilter('active-layer', ["match", ["get", "_id"], data, true, false ]);
+        // this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
+      }    
+    }
   }
   
   addNumberLayer(){
@@ -583,7 +625,7 @@ export class MapService {
     this.map.setFilter('number-layer', this.oldFilter);
   }
   
-  colorActives(colors){
+  colorActives(colors, theme){
 //     'match',
 // ['get', 'ethnicity'],
 // 'White',
@@ -598,7 +640,11 @@ export class MapService {
     colors.domain.forEach(domain => {
       colorArray.push(domain, colors.getColor(domain));
     });
-    colorArray.push('#FFFFFF')
+    if(theme === 'dark'){
+      colorArray.push('#FFFFFF')
+    } else {
+      colorArray.push('#383838')
+    }
     console.log("COLORARRAY:" ,colorArray);
     this.map.setPaintProperty('active-layer-text', 'text-color', colorArray);
     // this.map.setPaintProperty('active-layer', 'circle-stroke-width', 2);
@@ -621,6 +667,9 @@ export class MapService {
       } 
     }
   );
+  this.map.setPaintProperty('active-layer-text', 'text-color', '#383838');
+  this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#f6f6f6');
+
     // this.uiService.setLayers([
       //   {
         //     'id': 'base-layer',
@@ -677,6 +726,8 @@ export class MapService {
                           } 
                         } 
                       );
+                      this.map.setPaintProperty('active-layer-text', 'text-color', 'white');
+                      this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#383838');
     this.map.setStyle("mapbox://styles/mapbox/dark-v9");
     // this.boxService.setMapInit(false);
     // this.map.once('style.load', () => {

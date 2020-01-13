@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { SensorQuery } from 'src/app/models/sensor/state/sensor.query';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { withLatestFrom, ignoreElements } from 'rxjs/operators';
 import { slideInOutAnimation } from 'src/app/helper/animations';
@@ -43,6 +43,7 @@ export class BoxSingleContainerComponent implements OnInit {
     private sensorQuery: SensorQuery, 
     private sensorService: SensorService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private boxService: BoxService,
     private cd: ChangeDetectorRef,
     private uiQuery: UiQuery,
@@ -123,6 +124,8 @@ export class BoxSingleContainerComponent implements OnInit {
         // this.boxService.getSingleBox(params.id).subscribe();
         this.boxService.setActive(params.id);
         // this.sensorService.resetActive();
+      } else {
+        this.boxService.setActive(null);
       }
     });
 
@@ -169,6 +172,13 @@ export class BoxSingleContainerComponent implements OnInit {
     //TODO: remove this somehow
     // console.log(data);
     // this.cd.detectChanges();
+  }
+
+  closeBox(){
+    this.router.navigate([''],    {
+      relativeTo: this.activatedRoute,
+      queryParamsHandling: 'merge'
+    });
   }
 
 }

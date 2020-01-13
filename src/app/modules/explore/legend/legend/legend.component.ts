@@ -1,14 +1,20 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { legendAnimation } from 'src/app/helper/animations';
 
 @Component({
   selector: 'osem-legend',
   templateUrl: './legend.component.html',
-  styleUrls: ['./legend.component.scss']
+  styleUrls: ['./legend.component.scss'],
+  animations: [legendAnimation],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LegendComponent implements OnInit, OnChanges {
 
   @Input() selectedPheno;
   @Input() gradient;
+  @Input() legendVisible;
+
+  @Output() legendToggled = new EventEmitter();
   
   constructor() { }
 
@@ -17,6 +23,10 @@ export class LegendComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     console.log(this.selectedPheno);
+  }
+
+  toggleLegend(){
+    this.legendToggled.emit();
   }
 
 }

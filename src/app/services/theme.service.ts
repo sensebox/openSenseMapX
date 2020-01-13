@@ -18,6 +18,7 @@ const light: Theme = {
     "--background-primary": "rgba(255, 255, 255, 0.7)",
     "--background-primary-light": "rgba(255, 255, 255, 0.1)",
     "--background-primary-full": "rgba(255,255,255,1)",
+    "--background-bubbles": "rgba(255, 255, 255,1)",
     
     "--background-secondary": "#4EAF47",
     "--background-secondary-light": "#68C961",
@@ -28,7 +29,9 @@ const light: Theme = {
     "--box-shadow-small": "1px 1px 1px 1px rgba(50,50,50,0.2)",
     "--shadow-color": "rgba(50,50,50,0.3)",
     
-    "--color-disabled": "rgba(200,200,200)" 
+    "--color-disabled": "rgba(200,200,200)",
+    "--hover-color": "#f6f6f6"
+    
     
     
   }
@@ -45,6 +48,7 @@ const dark: Theme = {
     "--background-primary": "rgba(56, 56, 56, 0.9)",
     "--background-primary-light": "rgba(56, 56, 56, 0.1)",
     "--background-primary-full": "rgba(56,56,56,1)",
+    "--background-bubbles": "rgba(80,80,80,0.9)",
     
     "--background-secondary": "#4EAF47",
     "--background-secondary-light": "#68C961",
@@ -54,8 +58,9 @@ const dark: Theme = {
     "--box-shadow-basic": "1px 1px 2px 1px rgba(220,220,220,0.3)",
     "--box-shadow-small": "1px 1px 1px 1px rgba(220,220,220,0.2)",
     "--shadow-color": "rgba(0,0,0,0.3)",
-
-    "--color-disabled": "rgb(45,45,45)"
+    
+    "--color-disabled": "rgb(45,45,45)",
+    "--hover-color": "rgb(80,80,80)"
   }
 };
 

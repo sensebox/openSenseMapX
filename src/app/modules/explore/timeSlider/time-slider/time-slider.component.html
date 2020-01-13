@@ -3,7 +3,7 @@
     *ngIf="dateRange && selectedPheno" 
     [@slideInOutHorizontal]="dateRange">
 
-    <div *ngIf="selectedDate; else noDate">
+    <div *ngIf="selectedDate; else noDate" class="date">
         {{selectedDate | date:'medium'}}
     </div>
     <ng-template #noDate>Loading...</ng-template>

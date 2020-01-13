@@ -15,6 +15,8 @@ export class BoxCompareValuesComponent implements OnInit {
   @Input() activePhenos;
 
   @Output() phenoSelected = new EventEmitter();
+  @Output() boxRemoved = new EventEmitter();
+  @Output() compareClosed = new EventEmitter();
 
   constructor() { }
 
@@ -24,6 +26,14 @@ export class BoxCompareValuesComponent implements OnInit {
   selectPheno(pheno){
     console.log(pheno);
     this.phenoSelected.emit(pheno);
+  }
+
+  removeBox(id){
+    this.boxRemoved.emit(id);
+  }
+
+  closeCompare(){
+    this.compareClosed.emit();
   }
 
 }

@@ -29,6 +29,7 @@ export class BaseMapContainerComponent implements OnInit {
   compareModus$ = this.boxQuery.selectCompareModus$;
   compareTo$ = this.boxQuery.selectCompareTo$;
   colors$ = this.uiQuery.selectColors$;
+  theme$ = this.uiQuery.selectTheme$;
   ui$;
 
   boxSub;
@@ -36,6 +37,7 @@ export class BaseMapContainerComponent implements OnInit {
   layerSub;
   activeSub;
   compareToFilterSub;
+  colorSub;
   
 
   ngOnInit() {
@@ -63,24 +65,27 @@ export class BaseMapContainerComponent implements OnInit {
     this.dataInit$.subscribe(res => {
       console.log("DATAINIT", res);
       if(res){
+        if(this.layerSub)
+          this.unsubscribeAll();
         this.layerSub = this.baseLayer$.subscribe(res => { 
           //convert to Array because drawLayers expects an array
           console.log("BASELAYER:", res);
           this.mapService.setMapLayers([res]); 
         });
-        this.activeSub = this.activeBox$.subscribe(res => {
-          if(res)
-            this.mapService.updateActiveLayer(res);
-        });
-        this.compareToSub = this.compareTo$.subscribe(res => {
-          if(res.length > 0)
-            this.mapService.updateActiveLayerCompare(res);
-        });
-        this.colors$.subscribe(res => {
+        this.activeSub = this.activeBox$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
           console.log(res);
-          if(res){
+          if(res)
+            this.mapService.updateActiveLayer(res[0], res[1]);
+        });
+        this.compareToSub = this.compareTo$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
+          if(res.length > 0)
+            this.mapService.updateActiveLayerCompare(res[0], res[1]);
+        });
+        this.colorSub = this.colors$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
+          console.log(res);
+          if(res[0]){
             // if(res.domain)
-            this.mapService.colorActives(res);
+            this.mapService.colorActives(res[0], res[1]);
           }
         })
       }
@@ -97,11 +102,17 @@ export class BaseMapContainerComponent implements OnInit {
     // console.log(this.boxQuery.select().subscribe(res => console.log(res)));
   }
 
-  ngOnDestroy(){
+  unsubscribeAll(){
     this.boxSub.unsubscribe();
     this.layerSub.unsubscribe();
     this.activeSub.unsubscribe();
     this.compareToSub.unsubscribe();
+    this.colorSub.unsubscribe();
+
+  }
+
+  ngOnDestroy(){
+    this.unsubscribeAll();
   }
 
   removeAllOtherBoxes(){

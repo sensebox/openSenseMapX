@@ -9,5 +9,12 @@
 
     "SETTINGS": "Settings",
     "THEME": "Theme",
-    "LANGUAGE": "Language"
+    "LANGUAGE": "Language",
+
+    "COMPARE_MODUS_HEADER": "Compare-Mode",
+    "COMPARE_MODUS_HELP": "Click on a marker to compare.",
+    "COMPARE_MODUS_END": "End Compare-Mode",
+
+    "LEGEND": "Legende"
+
 }

@@ -1,21 +1,73 @@
-.values {
-    background: #ccc;
-    overflow-x: auto;
+.bottom-bar-container {
+    background: var(--background-primary);
+    
+    .box-header {
+        display: flex;
+        background: var(--background-secondary);;
+        justify-content: space-around;
+        align-items: center;
+        color: var(--text-color-primary);
+        position: relative;
+        
+        .name {
+            cursor: default;
+            font-weight: bold;
+            font-size: 1.4em;
+            padding: 0.2em 0;
+        }
+        .small-description {
+            cursor: default;
+        }
+    }
+}
 
+.values {
+    background: var(--background-primary-full);
+    overflow-x: auto;
+    
     .box-row {
         white-space: nowrap;
-
+        padding-left: 143px;
+        padding-top: 0.2em;
+        
         // display: flex;
-
+        
         .box-name {
-            width: 140px;
+            background: var(--background-primary-full);
+            width: 134px;
             display: inline-block;
+            font-weight: bold;
+            position: fixed;
+            left: 0px;
+            padding-left: 6px;
+            padding-right: 3px;
+            overflow: hidden;
+            cursor: default;
+
+            &:hover {
+                overflow: visible;
+                width: auto;
+                min-width: 134px;
+            }
+            
+        }
+        .pheno-name {
+            font-weight: bold;
+            cursor: pointer;
+            overflow: hidden;
         }
         
         .value-item {
+            cursor: pointer;
             width: 120px;
             display: inline-block;
-            border: 1px solid white;
+            border: 1px solid var(--background-primary-full);
+
+            .value-inner.active {
+                background: #cccc00;
+                // border-left: 1px solid black;
+                // border-right: 1px solid black;
+            }
         }
     }
 }

@@ -2,10 +2,12 @@ html {
     --text-color-primary: #383838;
     --text-color-secondary: #eee;
     --color-primary: #4EAF47;
+    --color-primary-light: #81E27A;
 
     --background-primary: rgba(255, 255, 255, 0.7);
     --background-primary-light: rgba(255, 255, 255, 0.1);
     --background-primary-full: rgba(255,255,255,1);
+    --background-bubbles: rgba(255, 255, 255,1);
 
     --background-secondary: #4EAF47;
     --background-secondary-light: #68C961;
@@ -17,4 +19,9 @@ html {
     --shadow-color: rgba(50,50,50,0.3);
 
     --color-disabled: rgba(200,200,200); 
+
+    --alert-color: rgba(200,0,0);
+    --alert-color-dark: rgba(150,0,0);
+
+    --hover-color: #f6f6f6;
 }

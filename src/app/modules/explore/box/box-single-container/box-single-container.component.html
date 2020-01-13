@@ -6,6 +6,7 @@
         [activeSensorTypes]="activeSensorTypes$ | async" 
         [activeSensors]="activeSensors$ | async"
         (valueSelected)="toggleValue($event)" 
+        (boxClosed)="closeBox()" 
         (valueAdded)="toggleAddValue($event)" 
     
     ></osem-box-single-values> 

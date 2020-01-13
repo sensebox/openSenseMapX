@@ -1,13 +1,15 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'osem-phenomenon',
   templateUrl: './phenomenon.component.html',
-  styleUrls: ['./phenomenon.component.scss']
+  styleUrls: ['./phenomenon.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhenomenonComponent implements OnInit {
 
-  @Output() phenoSelected = new EventEmitter<String>();
+  @Output() phenoSelected = new EventEmitter();
   @Input() selectedPheno;
 
   phenos = [
@@ -190,13 +192,27 @@ export class PhenomenonComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      if(params.mapPheno){
+        this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === params.mapPheno));
+      }
+    })
   }
 
   selectPheno(pheno){
-    this.phenoSelected.emit(pheno);
+    // this.phenoSelected.emit(pheno);
+    this.router.navigate(
+      [], 
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: { mapPheno: pheno.title },
+        queryParamsHandling: 'merge'
+      });
+    // this.boxService.toggleCompareTo(e.features[0].properties._id);
   }
 
 }

@@ -8,6 +8,7 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { map, withLatestFrom } from 'rxjs/operators';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { SensorQuery } from 'src/app/models/sensor/state/sensor.query';
+import { arrayRemove } from '../../box/osem-line-chart/helper/helpers';
 
 @Component({
   selector: 'osem-box-compare-container',
@@ -182,6 +183,36 @@ export class BoxCompareContainerComponent implements OnInit {
     //TODO: remove this somehow
     console.log("COLORS: ", data);
     // this.cd.detectChanges();
+  }
+
+  removeBox(id){
+    let newIds = [];
+      if(this.activatedRoute.snapshot.queryParams.id){
+        if(Array.isArray(this.activatedRoute.snapshot.queryParams.id)){
+          if(this.activatedRoute.snapshot.queryParams.id.indexOf(id) != -1){
+            newIds = arrayRemove(this.activatedRoute.snapshot.queryParams.id, id)
+          } else {
+            newIds = [...this.activatedRoute.snapshot.queryParams.id, id]
+          }
+        } else {
+          if(this.activatedRoute.snapshot.queryParams.id === id){
+            newIds = []
+          } else {
+            newIds = [this.activatedRoute.snapshot.queryParams.id, id]
+          }
+        }
+      }
+      this.router.navigate(
+        [], 
+        {
+          relativeTo: this.activatedRoute,
+          queryParams: { id: newIds },
+          queryParamsHandling: 'merge'
+        });
+  }
+
+  closeCompare(){
+    this.router.navigate(['']);
   }
 
 }

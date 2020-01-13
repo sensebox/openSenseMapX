@@ -1,9 +1,5 @@
 <div class="osem-bottom-bar-container" *ngIf="box">
 
-    <div *ngIf="compareModus">
-        CLICK BOX TO COMPARE YOOOO
-    </div>
-
     <div *ngFor="let box of compareTo">
       {{box.name}} 
       <span (click)="removeCompare(box)">x</span>
