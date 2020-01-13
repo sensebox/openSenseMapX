@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'https://api.testing.opensensemap.org'
+  api_url: process.env.API_URL
 };
 
 /*

@@ -42,6 +42,7 @@ export class BaseMapContainerComponent implements OnInit {
 
   ngOnInit() {
     //GET ALL THE DATA
+    console.log("ENVVV", process.env)
     this.boxService.get().subscribe();
 
     //SUBSCRIBE TO ALL BOXES and Layers after map is initiatet
