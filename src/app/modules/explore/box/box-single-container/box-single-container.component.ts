@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener, ContentChild, ElementRef } from '@angular/core';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { SensorQuery } from 'src/app/models/sensor/state/sensor.query';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
@@ -36,6 +36,10 @@ export class BoxSingleContainerComponent implements OnInit {
   colors$ = this.uiQuery.selectColors$;
   doCheck = false;
   activeSensorTypes = [];
+  windowWidth = window.innerWidth;
+  scrollDivWidth = 0;
+
+  @ContentChild('sensors', {static: false}) sensors: ElementRef;
 
 
   constructor(
@@ -45,7 +49,7 @@ export class BoxSingleContainerComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private boxService: BoxService,
-    private cd: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     private uiQuery: UiQuery,
     private uiService: UiService) { }
 
@@ -181,4 +185,16 @@ export class BoxSingleContainerComponent implements OnInit {
     });
   }
 
+
+  // @HostListener('window:resize', ['$event.target']) 
+  // onResize(event) { 
+  //   // this.windowWidth = event.innerWidth;
+  //   console.log("sensors", this.sensors)
+  // }
+
+  changeScrollDivWidth(width){
+    this.scrollDivWidth = width[0];
+    this.windowWidth = width[1];
+    this.cdr.detectChanges();
+  }
 }

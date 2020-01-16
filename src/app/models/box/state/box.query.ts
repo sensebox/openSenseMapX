@@ -3,7 +3,7 @@ import { QueryEntity, EntityUIQuery, combineQueries, ID } from '@datorama/akita'
 import { BoxStore, BoxState, BoxUIState, BoxUI } from './box.store';
 import { Box } from './box.model';
 import { SensorQuery } from '../../sensor/state/sensor.query';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, merge } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -156,9 +156,11 @@ export class BoxQuery extends QueryEntity<BoxState> {
   }
 
   selectCompareToWithSensors(){
+    console.log("STORE VALUE", this.store._value().ui.compareTo)
     console.log("ONCE")
     return this.selectCompareTo$.pipe(mergeMap(res => {
       if(res.length > 0){
+        console.log('ALSO ONCE',res);
         return this.selectManyWithSensors(res);
       } else {
         // return new Observable();
@@ -166,6 +168,10 @@ export class BoxQuery extends QueryEntity<BoxState> {
     }))
   }
 
+  // selectCompareToWithSensorsNew(){
+  //   console.log(this.store._value().ui.compareTo);
+  //   return this.selectManyWithSensors(this.store._value().ui.compareTo);
+  // }
 
   constructor(protected store: BoxStore, private sensorQuery: SensorQuery) {
     super(store);

@@ -15,6 +15,7 @@ export class TimeSliderContainerComponent implements OnInit {
   dateRange$ = this.uiQuery.selectDateRange$;
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
+  filterVisible$ = this.uiQuery.selectFilterVisible$;
   selectedDate;
 
   constructor(

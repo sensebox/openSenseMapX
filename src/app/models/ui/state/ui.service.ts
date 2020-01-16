@@ -65,4 +65,11 @@ export class UiService {
   updateBaseLayer(layer){
     this.uiStore.updateBaseLayer(layer);
   }
+  
+  toggleFilterVisible(){
+    this.uiStore.update( state => ({ ...state , fitlerVisible: !state.fitlerVisible }));
+  }
+  setFilterVisible(filter){
+    this.uiStore.update( state => ({ ...state , fitlerVisible: filter }));
+  }
 }

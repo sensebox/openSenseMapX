@@ -19,24 +19,26 @@ export class FilterContainerComponent implements OnInit {
   // selectUI$ = this.boxQuery.selectUI$;
   selectDateRange$ = this.uiQuery.selectDateRange$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
+  filterVisible$ = this.uiQuery.selectFilterVisible$;
   activeTab = 'phenos';
 
   minimizedBoolean = false;
-  minimizedFilter = false;
+  // minimizedFilter = false;
 
   constructor(
-    private boxService: BoxService, 
+    private boxService: BoxService,
     private sensorService: SensorService,
     private uiService: UiService, 
     private uiQuery: UiQuery) { }
 
   ngOnInit() {
-    let that = this;
-    // this.selectDateRange$.subscribe(res => console.log(res));
    
     combineLatest(this.selectDateRange$, this.selectedPheno$).subscribe(res => {
       if(res[0] && res[1]){
         this.boxService.getValues(res[1].title, res[0]).subscribe();
+        if(window.matchMedia("(max-width: 768px)").matches){
+          this.uiService.setFilterVisible(false);
+        }
       }
     })
   }
@@ -69,6 +71,6 @@ export class FilterContainerComponent implements OnInit {
   }
 
   toggleMinimizeFilter(){
-    this.minimizedFilter = !this.minimizedFilter;
+    this.uiService.toggleFilterVisible();
   }
 }

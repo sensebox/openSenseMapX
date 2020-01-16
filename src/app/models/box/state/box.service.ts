@@ -3,7 +3,7 @@ import { ID } from '@datorama/akita';
 import { HttpClient } from '@angular/common/http';
 import { BoxStore } from './box.store';
 import { Box } from './box.model';
-import { tap } from 'rxjs/operators';
+import { tap, share } from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
 
 import { schema, normalize } from 'normalizr';
@@ -78,7 +78,7 @@ export class BoxService {
       this.uiService.setSelectedDate(dateRange[0]);
 
       this.boxStore.upsertMany(entities);
-    })); 
+    }), share());
   }
 
   getSingleBox(id){

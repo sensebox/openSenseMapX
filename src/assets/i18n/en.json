@@ -15,6 +15,10 @@
     "COMPARE_MODUS_HELP": "Click on a marker to compare.",
     "COMPARE_MODUS_END": "End Compare-Mode",
 
-    "LEGEND": "Legende"
+    "LEGEND": "Legende",
+
+    "LAST_MEASUREMENT": "Last measurement",
+    "NO_RECENT_MEASUREMENT": "No recent measurement",
+    "COMPARE_TO": "Compare to other boxes"
 
 }

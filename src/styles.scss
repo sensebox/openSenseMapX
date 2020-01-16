@@ -19,11 +19,12 @@ $fa-font-path: "~font-awesome/fonts";
   src: url(styles/fonts/BrixSlab-Bold.otf);  
 }
 
+
 body, html {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-family: BrixSlab,Helvetica,sans-serif;
   color: var(--text-color-primary);
   overflow: hidden;

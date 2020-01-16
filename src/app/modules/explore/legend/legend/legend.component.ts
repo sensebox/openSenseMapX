@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { legendAnimation } from 'src/app/helper/animations';
 
 @Component({
@@ -8,7 +8,7 @@ import { legendAnimation } from 'src/app/helper/animations';
   animations: [legendAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LegendComponent implements OnInit, OnChanges {
+export class LegendComponent implements OnInit {
 
   @Input() selectedPheno;
   @Input() gradient;
@@ -20,11 +20,7 @@ export class LegendComponent implements OnInit, OnChanges {
 
   ngOnInit() {
   }
-
-  ngOnChanges() {
-    console.log(this.selectedPheno);
-  }
-
+  
   toggleLegend(){
     this.legendToggled.emit();
   }

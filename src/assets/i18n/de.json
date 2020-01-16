@@ -15,6 +15,11 @@
     "COMPARE_MODUS_HELP": "Zum vergleichen auf eine Station auf der Karte klicken.",
     "COMPARE_MODUS_END": "Vergleichs-Modus beenden",
 
-    "LEGEND": "Legend"
+    "LEGEND": "Legend",
+
+    "LAST_MEASUREMENT": "Letzte Messung",
+    "NO_RECENT_MEASUREMENT": "Keine aktuellen Messungen",
+    "COMPARE_TO": "Mit anderer Box vergleichen"
+
 
 }

@@ -13,8 +13,10 @@ osem-nav-container {
 osem-filter-container {
     position: absolute;
     top: 0;
+    width: $filterWidth;
     @media screen and(max-width: $secondBreak){
         top: $headerHeight;
+        width: calc(100% - 20px);
     }
     left: 0;
     z-index: 20;
@@ -38,7 +40,7 @@ osem-phenomenon-container {
 osem-legend-container {
     position: absolute;
     right: 10px;
-    top: 140px;
+    top: 150px;
     z-index: 15;
     background: var(--background-primary-full);
 
@@ -47,10 +49,13 @@ osem-legend-container {
 osem-time-slider-container {
     position: absolute;
     // left: 50%;
-    left: 273px;
+    left: $filterWidth;
     // transform: translateX(-50%);
     top: 0;
     z-index: 9;
     min-width: 200px;
+    @media screen and(max-width: $secondBreak){
+        top: $headerHeight;
+    }
 
 }

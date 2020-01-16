@@ -1,5 +1,7 @@
 import { trigger, state, animate, transition, style } from '@angular/animations';
 
+export const filterSize = 273;
+
 export const slideInOutAnimation =
     // trigger name for attaching this animation to an element using the [@triggerName] syntax
     trigger('slideInOutAnimation', [
@@ -85,7 +87,7 @@ export const shrinkVertical =
 export const slideInOutHorizontalBoolean = 
     trigger('slideInOutHorizontalBoolean', [
         state('1', style({transform: 'translate3d(0, 0, 0)'})),
-        state('0', style({transform: 'translate3d(-100%, 0, 0)'})),
+        state('0', style({transform: 'translate3d(calc(100% *-1), 0, 0)'})),
         transition('1 => 0', animate('400ms ease-in-out')),
         transition('0 => 1', animate('400ms ease-in-out'))
     ]);

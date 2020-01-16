@@ -1,7 +1,9 @@
 <div id="timeslider-container" 
     class="osem-box-shadow-basic" 
     *ngIf="dateRange && selectedPheno" 
-    [@slideInOutHorizontal]="dateRange">
+    [@slideInOutHorizontal]="dateRange"
+    [@slideInOutHorizontalBoolean]="filterVisible"
+>
 
     <div *ngIf="selectedDate; else noDate" class="date">
         {{selectedDate | date:'medium'}}

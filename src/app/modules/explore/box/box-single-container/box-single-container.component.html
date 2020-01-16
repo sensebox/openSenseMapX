@@ -5,9 +5,12 @@
         [colors]="colors$ | async"
         [activeSensorTypes]="activeSensorTypes$ | async" 
         [activeSensors]="activeSensors$ | async"
+        [windowWidth]="windowWidth"
+        [scrollDivWidth]="scrollDivWidth"
         (valueSelected)="toggleValue($event)" 
         (boxClosed)="closeBox()" 
         (valueAdded)="toggleAddValue($event)" 
+        (sizeChanged)="changeScrollDivWidth($event)" 
     
     ></osem-box-single-values> 
     

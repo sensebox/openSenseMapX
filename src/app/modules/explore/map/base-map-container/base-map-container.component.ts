@@ -50,7 +50,7 @@ export class BaseMapContainerComponent implements OnInit {
       if(res[0]){
         this.boxSub = this.boxes$.subscribe(res => {
           if(res) {
-            console.log(res);
+            console.log("SETTING NEW MAP DATA");
             this.mapService.setMapData(res);  
           }
         });

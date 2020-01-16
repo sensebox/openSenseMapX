@@ -11,6 +11,7 @@ export class UiQuery extends Query<UiState> {
   selectDateRange$ = this.select(state => state.dateRange);
   selectDateRangeChart$ = this.select(state => state.dateRangeChart);
   selectSelectedDate$ = this.select(state => state.selectedDate);
+  selectFilterVisible$ = this.select(state => state.fitlerVisible);
   
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);

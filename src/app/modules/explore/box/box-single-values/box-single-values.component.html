@@ -2,6 +2,9 @@
   <div class="box-header">
     <div class="name">
       {{box.name}}
+      <div id="compare-to-button" [routerLink]="['/compare']" [queryParams]="{id: [box._id], activeTypes: activeSensorTypes}" title="{{'COMPARE_TO' | translate}}">
+        <i class="fa fa-balance-scale"></i>
+      </div>
     </div>
     <div class="last-measurement" *ngIf="box.lastMeasurementAt;else noMeasurement">
       {{'LAST_MEASUREMENT' | translate}}: {{box.lastMeasurementAt | date:'M/d/yy, h:mm a'}}
@@ -9,39 +12,46 @@
     <ng-template #noMeasurement>
       {{'NO_RECENT_MEASUREMENT' | translate}}
     </ng-template>
-    <div>
-      <a [routerLink]="['/compare']" [queryParams]="{id: [box._id], activeTypes: activeSensorTypes}">{{'COMPARE' | translate}}</a>
-    </div>
     <div class="osem-close-text" (click)="closeBox()">X</div>
   </div>
 
+  <div class="scroll-wrapper" [class.scrollable]="windowWidth < scrollDivWidth">
 
-  <div class="max-width-scroll">
-    <div class="osem-sensors">
-      <div class="osem-sensor" *ngFor="let sensor of box.sensors">
-        <div>  
-          <div 
-            *ngIf="sensor" 
-            [style.color]="(colors && activeSensorTypes && activeSensorTypes.indexOf(sensor.title) != -1) ? colors.getColor(sensor.title) : 'inherit'"
-            (click)="selectValue(sensor)">
-            <div class="icon-value-unit">
-              <div class="icon">
-                <i *ngIf="sensor.icon" class="osem-icon {{sensor.icon}}"></i>
+    <div class="arrow arrow-left" (click)="scrollLeft()">
+      <i class="fa fa-chevron-left"></i>
+    </div>
+    <div class="arrow arrow-right" (click)="scrollRight()">
+      <i class="fa fa-chevron-right"></i>
+    </div>
+    <div class="max-width-scroll" #scrollable [class.scrollable]="windowWidth < scrollDivWidth">
+      <div class="osem-sensors">
+        <div class="osem-sensors-inner"  #sensors>
+          <div class="osem-sensor" *ngFor="let sensor of box.sensors">
+            <div>  
+              <div 
+                *ngIf="sensor" 
+                [style.color]="(colors && activeSensorTypes && activeSensorTypes.indexOf(sensor.title) != -1) ? colors.getColor(sensor.title) : 'inherit'"
+                (click)="selectValue(sensor)">
+                <div class="icon-value-unit">
+                  <div class="icon">
+                    <i *ngIf="sensor.icon" class="osem-icon {{sensor.icon}}"></i>
+                  </div>
+                  <div class="value">
+                    <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value.split('.')[0]}}</b><span class="osem-small-bottom">.<span *ngIf="sensor.lastMeasurement.value.split('.')[1]; else zeros">{{sensor.lastMeasurement.value.split('.')[1].padEnd(2, '0') }}</span></span>
+                    <ng-template #zeros>00</ng-template>
+                    <b *ngIf="!sensor.lastMeasurement">N/A</b>
+                  </div>
+                  <div *ngIf="sensor.unit" class="unit">
+                    {{sensor.unit}}
+                  </div>
+                </div>
+                <div class="title">{{sensor.title}}</div>
               </div>
-              <div class="value">
-                <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value.split('.')[0]}}</b><span class="osem-small-bottom">.<span *ngIf="sensor.lastMeasurement.value.split('.')[1]; else zeros">{{sensor.lastMeasurement.value.split('.')[1].padEnd(2, '0') }}</span></span>
-                <ng-template #zeros>00</ng-template>
-                <b *ngIf="!sensor.lastMeasurement">N/A</b>
-              </div>
-              <div *ngIf="sensor.unit" class="unit">
-                {{sensor.unit}}
+              <div class="add-button-container">
+                <div class="add-button" *ngIf="activeSensorTypes.length < 2 && activeSensorTypes.indexOf(sensor.title) === -1" (click)="addValue(sensor)">+</div>
+                <div class="add-button" *ngIf="activeSensorTypes.indexOf(sensor.title) != -1" (click)="addValue(sensor)">-</div>
               </div>
             </div>
-            <div class="title">{{sensor.title}}</div>
-          </div>
-          <div class="add-button-container">
-            <div class="add-button" *ngIf="activeSensorTypes.length < 2 && activeSensorTypes.indexOf(sensor.title) === -1" (click)="addValue(sensor)">+</div>
-            <div class="add-button" *ngIf="activeSensorTypes.indexOf(sensor.title) != -1" (click)="addValue(sensor)">-</div>
           </div>
         </div>
       </div>

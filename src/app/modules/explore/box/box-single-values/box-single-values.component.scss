@@ -5,25 +5,83 @@
   
     .box-header {
       display: flex;
+      z-index: 5;
       background: var(--background-secondary);;
       justify-content: space-around;
       align-items: center;
       position: relative;
       color: var(--text-color-primary);
+      padding-right: 30px;
       
       .name {
         font-weight: bold;
-        font-size: 1.4em;
-        padding: 0.2em 0;
+        font-size: 1.3em;
+        padding: 0.3em 0;
+        cursor: default;
+        @media screen and (max-width: $secondBreak){
+          font-size: 1.1em;
+        }
+
+        #compare-to-button {
+          display: inline-block;
+          cursor: pointer;
+        }
       }
       .last-measurement {
         font-style: italic;
+        font-size: 0.7em;
+        cursor: default;
       }
     }
+    .scroll-wrapper {
+      position: relative;
+      &.scrollable {
+        .arrow {
+          display: flex;
+        }
+      }
+      .arrow {
+        overflow-y: hidden;
+        box-shadow: 0px 0 10px rgba(0,0,0,.35);
+        display: none;
+        position: absolute;
+        height: 100%;
+        z-index: 2;
+        // background: var(--color-primary);
+        background: var(--arrow-color);
+        align-items: center;
+        justify-content: center;
+        // opacity: 0.8;
+        color: white;
+        cursor: pointer;
 
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .arrow-left {
+        left: 0;
+        width: 1.5em;
+      }
+      .arrow-right {
+        right: 0;
+        width: 1.5em;
+      }
+
+    }
     .max-width-scroll {
       width: 100%;
+      box-sizing: border-box;
       overflow: auto;
+      -ms-overflow-style: none;
+      &.scrollable {
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     .osem-sensors {
       // display: flex;
@@ -32,6 +90,11 @@
       color: var(--text-color-primary);
       white-space: nowrap;
       text-align: center;
+      position: relative;
+
+      .osem-sensors-inner {
+        white-space: nowrap;
+      }
   
       .osem-sensor {
         display: inline-block;
@@ -76,7 +139,7 @@
           position: absolute;
           bottom: 0;
           right: 0;
-          font-size: 20px;
+          font-size: 1.2em;
           display: flex;
           justify-content: center;
           align-items: center;

@@ -18,7 +18,7 @@
                 <span>&nbsp;</span>
             </div>
             <div *ngFor="let pheno of combinedData | keyvalue" class="value-item pheno-name" (click)="selectPheno(pheno)">
-                {{pheno.key}}
+                {{pheno.key}} <i class="fa fa-line-chart"></i>
             </div>
         </div>
         <div *ngFor="let box of boxes">

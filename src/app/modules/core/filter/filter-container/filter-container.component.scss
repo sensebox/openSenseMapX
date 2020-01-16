@@ -1,4 +1,8 @@
+@import '../../../../../styles/variables.scss';
+
 .filter-container {
+    
+  
     
     .filter-inner {
         background: var(--background-primary);
@@ -16,21 +20,44 @@
     background: var(--background-primary-full);
     display: inline-block;
     top: 50%;
-    width: 20px;
-    height: 40px;
+    width: 24px;
+    height: 45px;
     text-align: center;
     cursor: pointer;
+    @media screen and(max-width: $secondBreak){
+        background: var(--arrow-color);
+        height: 100%;
+        &.minimized {
+            background: var(--background-primary-full);
+        }
+    }
+
     // animation: height 1200ms linear;
     // overflow: hidden;
 
     &.minimized {
-        height: 80px;
+        height: 100px;
+        width: 28px;
     }
-    .osem-chevron {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate3d(-50%, -50%, 0);
+    .osem-chevron-container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        i {
+            padding: 0.4em 0;
+
+            &.bottom-border {
+                border-bottom: 1px solid #ccc;
+            }
+        }
+        // position: absolute;
+        // height: 18px;
+        // top: 50%;
+        // left: 50%;
+        // transform: translate3d(-50%, -50%, 0);
     }
 
 }

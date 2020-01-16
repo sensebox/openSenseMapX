@@ -17,7 +17,7 @@ import { arrayRemove } from '../../box/osem-line-chart/helper/helpers';
 })
 export class BoxCompareContainerComponent implements OnInit {
 
-  phenos = [];
+  // phenos = [];
   combinedData;
   currentIds;
 
@@ -27,6 +27,7 @@ export class BoxCompareContainerComponent implements OnInit {
 
 
   compareToWithSensors$ = this.boxQuery.selectCompareToWithSensors();
+  // compareToWithSensors$ = this.boxQuery.selectCompareToWithSensorsNew();
   compareTo$ = this.boxQuery.selectCompareTo$;
   activePhenos$ = this.uiQuery.selectActiveSensorTypes$;
   dateRange$ = this.uiQuery.selectDateRange$;
@@ -35,6 +36,8 @@ export class BoxCompareContainerComponent implements OnInit {
   activeSensorIds$ = this.sensorQuery.selectActiveId();
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   colors$ = this.uiQuery.selectColors$;
+  
+  sensorsPhenoSub;
 
   activeSensorSub;
 
@@ -61,23 +64,25 @@ export class BoxCompareContainerComponent implements OnInit {
         this.uiService.setActiveSensorTypes(res.pheno);
     });
     
-    this.compareToWithSensors$.subscribe(res => {
-      console.log(res);
-      if(this.currentIds != res.map(compareTo => compareTo._id)){
-        this.currentIds = res.map(compareTo => compareTo._id);
-        this.phenos = [];
-        res.map(box => {
-          box.sensors.forEach(sensor => {
-            if(this.phenos.indexOf(sensor.title) === -1)
-              this.phenos.push(sensor.title);
-          });
-        });
-        this.combinedData = this.combineData(res);
-      }
-    });
+    // this.compareToWithSensors$.subscribe(res => {
+    //   console.log('COMPARETOWITHSENSORS');
+    //   if(this.currentIds != res.map(compareTo => compareTo._id)){
+    //     this.currentIds = res.map(compareTo => compareTo._id);
+    //     // this.phenos = [];
+
+    //     // res.map(box => {
+    //     //   box.sensors.forEach(sensor => {
+    //     //     if(this.phenos.indexOf(sensor.title) === -1)
+    //     //       this.phenos.push(sensor.title);
+    //     //   });
+    //     // });
+
+    //     this.combinedData = this.combineData(res);
+    //   }
+    // });
 
 
-    combineLatest(this.compareToWithSensors$, this.activePhenos$).pipe(map(res => {
+    this.sensorsPhenoSub = combineLatest(this.compareToWithSensors$, this.activePhenos$).pipe(map(res => {
       console.log('733333333333333333333',res);
       if(res[0] && res[1]){
         let sensorsToActive = res[0].map(box => box.sensors.filter(sensor => sensor.title === res[1]))
@@ -213,6 +218,10 @@ export class BoxCompareContainerComponent implements OnInit {
 
   closeCompare(){
     this.router.navigate(['']);
+  }
+
+  ngOnDestroy(){
+    this.sensorsPhenoSub.unsubscribe();
   }
 
 }

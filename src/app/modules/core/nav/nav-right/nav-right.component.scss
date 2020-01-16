@@ -25,7 +25,7 @@
         justify-content: space-between;
         background: var(--background-primary-full);
     }
-    width: 246px;
+    width: 281px;
     
     .nav-item-container {
         display: flex;
@@ -34,7 +34,7 @@
     .nav-item {
         background: var(--background-secondary);
         color: var(--text-color-secondary);
-        line-height: 26px;
+        line-height: 38px;
         cursor: pointer;
         padding: 0.2em 0.3em;
         font-weight: bold;
@@ -45,7 +45,7 @@
     position: absolute;
     background: var(--background-primary-full);
     right: 0;
-    width: 246px;
+    width: 281px;
     z-index: -1;
     box-sizing: border-box;
 

@@ -196,6 +196,16 @@ export class PhenomenonComponent implements OnInit {
 
   ngOnInit() {
 
+    if(this.activatedRoute.snapshot.params.mapPheno != this.selectedPheno){
+      this.router.navigate(
+        [],
+        {
+          relativeTo: this.activatedRoute,
+          queryParams: { mapPheno: this.selectedPheno.title },
+          queryParamsHandling: 'merge'
+        });
+    }
+
     this.activatedRoute.queryParams.subscribe(params => {
       if(params.mapPheno){
         this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === params.mapPheno));
@@ -206,7 +216,7 @@ export class PhenomenonComponent implements OnInit {
   selectPheno(pheno){
     // this.phenoSelected.emit(pheno);
     this.router.navigate(
-      [], 
+      [''], 
       {
         relativeTo: this.activatedRoute,
         queryParams: { mapPheno: pheno.title },
