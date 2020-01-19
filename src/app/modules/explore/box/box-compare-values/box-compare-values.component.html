@@ -13,34 +13,36 @@
     </div>
 
     <div class="values osem-padding-small" *ngIf="boxes">
-        <div class="box-row">
-            <div class="box-name">
-                <span>&nbsp;</span>
-            </div>
-            <div *ngFor="let pheno of combinedData | keyvalue" class="value-item pheno-name" (click)="selectPheno(pheno)">
-                {{pheno.key}} <i class="fa fa-line-chart"></i>
-            </div>
-        </div>
-        <div *ngFor="let box of boxes">
+        <div class="center">
             <div class="box-row">
-                <div class="box-name"
-                    [style.color]="colors ? colors.colorDomain[colors.domain.indexOf(box._id)]: 'inherit'">
-                    <div class="osem-close-button" (click)="removeBox(box._id)">x</div> {{box.name}}
+                <div class="box-name">
+                    <span>&nbsp;</span>
                 </div>
-                <div *ngFor="let pheno of combinedData | keyvalue" class="value-item" (click)="selectPheno(pheno)">
-                    <div *ngIf="pheno && pheno.value">
-                        <div *ngIf="pheno.value[box._id]?.lastMeasurement; else noValue" [class.active]="(activePhenos == pheno.value[box._id].title)" class="value-inner">
-                            <div [style.color]="colors && (activePhenos == pheno.value[box._id].title) ? colors.colorDomain[colors.domain.indexOf(box._id)] : 'inherit'">
-                                {{pheno.value[box._id].lastMeasurement.value}}
+                <div *ngFor="let pheno of combinedData | keyvalue" class="value-item pheno-name" (click)="selectPheno(pheno)">
+                    {{pheno.key}} <i class="fa fa-line-chart"></i>
+                </div>
+            </div>
+            <div *ngFor="let box of boxes">
+                <div class="box-row">
+                    <div class="box-name"
+                        [style.color]="colors ? colors.colorDomain[colors.domain.indexOf(box._id)]: 'inherit'">
+                        <div class="osem-close-button" (click)="removeBox(box._id)">x</div> {{box.name}}
+                    </div>
+                    <div *ngFor="let pheno of combinedData | keyvalue" class="value-item" (click)="selectPheno(pheno)">
+                        <div *ngIf="pheno && pheno.value">
+                            <div *ngIf="pheno.value[box._id]?.lastMeasurement; else noValue" [class.active]="(activePhenos == pheno.value[box._id].title)" class="value-inner">
+                                <div [style.color]="colors && (activePhenos == pheno.value[box._id].title) ? colors.colorDomain[colors.domain.indexOf(box._id)] : 'inherit'">
+                                    {{pheno.value[box._id].lastMeasurement.value}}
+                                </div>
                             </div>
                         </div>
+                        <ng-template #noValue>
+                            N/a
+                        </ng-template>
+                        <!-- <div *ngIf="!pheno.value[box._id]">
+                            N/a
+                        </div> -->
                     </div>
-                    <ng-template #noValue>
-                        N/a
-                    </ng-template>
-                    <!-- <div *ngIf="!pheno.value[box._id]">
-                        N/a
-                    </div> -->
                 </div>
             </div>
         </div>

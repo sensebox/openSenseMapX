@@ -1,6 +1,5 @@
 import { ID } from '@datorama/akita';
 import { Box } from '../../box/state/box.model';
-import { Measurement } from '../../measurement/state/measurement.model';
 
 export interface Sensor {
   id: ID;
@@ -8,7 +7,7 @@ export interface Sensor {
   title: string;
   sensorType: string;
   unit: string;
-  lastMeasurement: Measurement;
+  lastMeasurement: Object;
   values: Object;
   rawValues: Object;
   boxes_id: string;

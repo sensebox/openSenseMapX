@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { slideInOutHorizontal, slideInOutHorizontalBoolean } from 'src/app/helper/animations';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'osem-time-slider',
@@ -15,6 +16,7 @@ export class TimeSliderComponent implements OnInit {
   @Input() selectedPheno; 
   @Input() filterVisible; 
   @Output() dateSelected = new EventEmitter();
+  @Output() dateRangeRemoved = new EventEmitter();
   
   selectDate = 1572966000000;
   step = 3600000;
@@ -26,6 +28,10 @@ export class TimeSliderComponent implements OnInit {
 
   changed(ev){
     this.dateSelected.emit(new Date(this.selectedDate));
+  }
+
+  removeDateRange(){
+    this.dateRangeRemoved.emit();
   }
 
 }

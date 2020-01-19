@@ -21,33 +21,8 @@ export function createInitialState(): UiState {
   return {
     colors: null,
     activeSensorTypes: [],
-    selectedPheno: {
-      title: "PM10",
-        layer: {
-          'id': 'base-layer',
-          'type': 'circle',
-          'source': 'boxes',
-          'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live"]]]],
-          'paint': {
-            'circle-radius': {
-              'base': 1.75,
-              'stops': [[1, 2], [22, 3080]]
-            },
-            'circle-color': [
-              'interpolate',
-              ['linear'],
-              [ "get", "PM10", ["object", ["get", "live"]]],
-              0, '#9900cc',
-              15, '#0000ff',
-              30, '#0099ff',
-              45, '#ffff00',
-              60, '#ff0000',
-            ]
-          }
-        },
-      icon: "osem-cloud"
-    },
-    dateRange: [new Date('2019-12-31T15:00:00.000Z'), new Date('2020-01-01T15:00:00.000Z')],
+    selectedPheno: null,
+    dateRange: null,
     dateRangeChart: [new Date("2019-11-05T14:00:00.000Z"), new Date("2019-11-06T14:00:00.000Z")],
     selectedDate: null,
     language: 'en',

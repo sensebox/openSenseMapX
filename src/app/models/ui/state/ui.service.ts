@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
-import { HttpClient } from '@angular/common/http';
 import { UiStore } from './ui.store';
 import { Ui } from './ui.model';
-import { tap } from 'rxjs/operators';
 import { ColorHelper } from '@swimlane/ngx-charts';
 
 @Injectable({ providedIn: 'root' })

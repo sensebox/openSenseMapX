@@ -11,28 +11,17 @@ export class BoxQuery extends QueryEntity<BoxState> {
 
   ui: EntityUIQuery<BoxUIState, BoxUI>;
 
-  selectUI$ = this.select('ui');
-  // selectselectedPheno$ = this.select('ui');
-  // selectDateRange$ = this.select(state => state.ui.dateRange);
-  
+  selectUI$ = this.select('ui');  
   selectDisplayTimeSlider$ = this.select(state => state.ui.displayTimeSlider);
-
-  // selectSelectedPheno$ = this.select(state => state.ui.selectedPheno);
   selectMapInit$ = this.select(state => state.ui.mapInit);
   selectDataInit$ = this.select(state => state.ui.dataInit);
   selectCompareTo$ = this.select(state => state.ui.compareTo);
   selectCompareModus$ = this.select(state => state.ui.compareModus);
   selectPopupBox$ = this.select(state => state.ui.popupBox);
 
-
-  // get ui() {
-  //   return this.getValue().ui;
-  // }
-
   selectBoxes(){
     return combineQueries([
       this.selectAll(),
-      // this.selectActive()
       this.sensorQuery.selectAll({ asObject: true })])
     .pipe(
       map(([boxes, sensors]) => {
@@ -67,7 +56,7 @@ export class BoxQuery extends QueryEntity<BoxState> {
     const box = this.selectActive();
     const boxUI = this.ui.selectAll({ asObject: true });
     const sensors = this.sensorQuery.selectAll({ asObject: true });
-    console.log(boxUI);
+    
     return combineLatest(
       box,
       boxUI,
@@ -101,6 +90,7 @@ export class BoxQuery extends QueryEntity<BoxState> {
       }
     }))
   }
+
   selectBoxesWithSensorAndUI(id: ID[]){
     const boxes = this.selectMany(id);
     const boxUI = this.ui.selectAll({ asObject: true });
@@ -124,7 +114,6 @@ export class BoxQuery extends QueryEntity<BoxState> {
 
   selectActiveWithSensor(){
     return combineQueries([
-      // this.selectAll(),
       this.selectActive(),
       this.sensorQuery.selectAll({ asObject: true })])
     .pipe(
@@ -156,22 +145,23 @@ export class BoxQuery extends QueryEntity<BoxState> {
   }
 
   selectCompareToWithSensors(){
-    console.log("STORE VALUE", this.store._value().ui.compareTo)
-    console.log("ONCE")
-    return this.selectCompareTo$.pipe(mergeMap(res => {
-      if(res.length > 0){
-        console.log('ALSO ONCE',res);
-        return this.selectManyWithSensors(res);
-      } else {
-        // return new Observable();
-      }
-    }))
-  }
-
-  // selectCompareToWithSensorsNew(){
-  //   console.log(this.store._value().ui.compareTo);
-  //   return this.selectManyWithSensors(this.store._value().ui.compareTo);
-  // }
+    return combineQueries([
+      this.selectCompareTo$,
+      this.selectAll({ asObject: true }),
+      this.sensorQuery.selectAll({ asObject: true })])
+    .pipe(
+      map(([ids, boxes, sensors]) => {
+        if(Object.keys(boxes).length > 0) {
+          return ids.map(id => {
+            return {
+              ...boxes[id],
+              sensors: boxes[id].sensors ? boxes[id].sensors.map(sensorId => sensors[sensorId]) : null
+            };
+          });
+        }
+      })
+    );
+   }
 
   constructor(protected store: BoxStore, private sensorQuery: SensorQuery) {
     super(store);

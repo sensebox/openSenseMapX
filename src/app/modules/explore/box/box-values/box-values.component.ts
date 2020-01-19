@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Box } from 'src/app/models/box/state/box.model';
 
+//This component displays the values of a single sensebox
 @Component({
   selector: 'osem-box-values',
   templateUrl: './box-values.component.html',
@@ -23,7 +24,6 @@ export class BoxValuesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // console.log(this.compareData);
   }
 
   selectValue(sensor){

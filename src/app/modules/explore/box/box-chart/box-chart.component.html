@@ -1,5 +1,5 @@
 <div class="chart-wrapper">
-    <div id="osem-chart-container" *ngIf="data.length > 0">
+    <div id="osem-chart-container" *ngIf="data?.length > 0">
         <osem-osem-line-chart 
             [results]="data" 
             [selectedDate]="selectedDate"
@@ -18,11 +18,10 @@
             [legend]="false"
             [legendPosition]="'right'"
             (colorsChanged)="changeColors($event)"
-            ></osem-osem-line-chart>
+        ></osem-osem-line-chart>
             <!-- [showRefLines]="true" -->
             <!-- [xAxisTicks]="xAxisTicks" -->
             <!-- [referenceLines]="[{name: 'yoo', value: 10.1}]" -->
-        <!-- <ngx-charts-bubble-chart [results]="[{'name': 'test', 'series': data}]" ></ngx-charts-bubble-chart> -->
     </div>
 </div>
 

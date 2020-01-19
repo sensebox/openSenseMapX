@@ -30,8 +30,6 @@ export class BoxContainerComponent implements OnInit {
   activeSensorTypes = [];
   activeBoxLonely$;
 
-  // selectedSensors = [];
-  // dateRange$ = this.boxQuery.selectDateRange$;
   dateRange;
   chartData;
 
@@ -53,14 +51,11 @@ export class BoxContainerComponent implements OnInit {
     this.activeBox$.subscribe(data => {
       if(data){
         // TODO: MUSS WOANDERS HIN
-        console.log("NEW ACTIVE?!");
         if(this.displayBox && this.displayBox._id != data._id) {
           this.displayBox = data;
           let sensorsToActive = [];
           
           data.sensors.forEach(res => {
-            // console.log(res);
-            // console.log(this.activeSensorTypes);
             if(this.activeSensorTypes.indexOf(res.title) != -1){
               sensorsToActive.push(res._id);
               if(this.cachedSensors.indexOf(data._id) === -1){
@@ -68,7 +63,6 @@ export class BoxContainerComponent implements OnInit {
               }           
             }
           })
-          // console.log('ToActive', sensorsToActive);
           this.sensorService.setActive(sensorsToActive);
         } else {
           this.displayBox = data;
@@ -76,15 +70,10 @@ export class BoxContainerComponent implements OnInit {
       }
     });
 
-    // this.dateRange$.subscribe(res => {
-    //   this.dateRange = res;
-    // })
-
     this.activatedRoute.params.subscribe(params => {
       if(params.id){
         this.boxService.getSingleBox(params.id).subscribe();
         this.boxService.setActive(params.id);
-        // this.sensorService.resetActive();
       }
     });
     this.activeSensorTypes$.subscribe(res => {

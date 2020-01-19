@@ -133,7 +133,6 @@ export class OsemLineChartComponent extends BaseChartComponent  {
 
   update(): void {
     super.update();
-    console.log("UUUUPDATE CHART YOOOO")
     
     let width = this.width - 70;
     //make space for the second y-Axis, TODO: animation
@@ -268,7 +267,6 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   }
   
   getYDomains(): any[] {
-  console.log('RESULTS', this.results)
     const domain = {};
 
     for (const results of this.results) {
@@ -297,9 +295,6 @@ export class OsemLineChartComponent extends BaseChartComponent  {
       for(let singleDom in domain){
         let min = Math.min(...domain[singleDom]);
         const max = Math.max(...domain[singleDom]);
-        // const minMax = this.yRightAxisScaleFactor(min, max);
-        // newDomains.push([Math.min(0, minMax.min), minMax.max, singleDom]);
-        // newDomains.push([minMax.min, minMax.max, singleDom]);
         min = Math.min(0, min);
         newDomains.push([min, max, singleDom]);
       }
@@ -345,7 +340,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   }
 
   getYScales(domain, height): any {
-    console.log('domain', domain);
+    // console.log('domain', domain);
       let lines = {};
       for(let dom of domain){
           const scale = scaleLinear()

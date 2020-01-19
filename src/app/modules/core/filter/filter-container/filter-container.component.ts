@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BoxService } from 'src/app/models/box/state/box.service';
-import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { combineLatest } from 'rxjs';
+
+import { BoxService } from 'src/app/models/box/state/box.service';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'osem-filter-container',
@@ -16,14 +15,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FilterContainerComponent implements OnInit {
 
-  // selectUI$ = this.boxQuery.selectUI$;
   selectDateRange$ = this.uiQuery.selectDateRange$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
   activeTab = 'phenos';
 
   minimizedBoolean = false;
-  // minimizedFilter = false;
 
   constructor(
     private boxService: BoxService,

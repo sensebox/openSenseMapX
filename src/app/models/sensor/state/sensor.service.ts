@@ -17,12 +17,6 @@ export class SensorService {
     private http: HttpClient) {
   }
 
-  // get() {
-  //   // return this.http.get<Sensor[]>('https://api.com').pipe(tap(entities => {
-  //   //   this.sensorStore.set(entities);
-  //   // }));
-  // }
-
   getValues(pheno, dateRange) {
 
   }
@@ -30,7 +24,6 @@ export class SensorService {
   getSingleSensorValues(boxId, sensorId, fromDate, toDate){
     //TODO: CHECK CACHE HERE
     this.sensorStore.ui.upsert(sensorId, {hasData:true});
-    console.log(fromDate);
     return this.http.get<any[]>(`${environment.api_url}/boxes/${boxId}/data/${sensorId}?from-date=${fromDate.toISOString()}&to-date=${toDate.toISOString()}`).pipe(tap(data => {
       let mapData = data.map(item => {return {name: new Date(item.createdAt), value: item.value}})
       let upsert = {
@@ -38,9 +31,6 @@ export class SensorService {
         rawValues: mapData
       }
       this.sensorStore.upsert(sensorId, upsert);
-      // this.sensorStore.addActive([sensorId]);
-      // console.log(sensorId);
-      // this.sensorStore.ui.upsert(sensorId, {hasData: true} )
     }));
   }
   
@@ -76,17 +66,12 @@ export class SensorService {
   resetCache(){
     this.sensorStore.resetCached();
   }
-  // toggleSelectedSensorTypes(type){
-  //   this.sensorStore.toggleSelectedSensorTypes(type);
-  // }
   setActiveSensorTypes(type){
     this.sensorStore.setActiveSensorTypes(type);
   }
 
   setActiveMax(data){
-    console.log(data)
     let actives = this.sensorQuery.getActive();
-    console.log(actives)
     if (actives.map(actives => actives._id).indexOf(data) != -1){
       this.sensorStore.toggleActive(data);
     } else {

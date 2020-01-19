@@ -81,7 +81,6 @@ export class BoxStore extends EntityStore<BoxState> {
 
   toggleCompareTo(box){
     this.update( state => {
-      // box = state.entities[box]
       if(state.ui.compareTo.indexOf(box) === -1){
         return { ui: {...state.ui, compareTo: [...state.ui.compareTo, box ]}}
       } else {

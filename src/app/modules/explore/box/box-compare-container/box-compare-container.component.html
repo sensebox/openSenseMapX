@@ -2,12 +2,20 @@
     [boxes]="compareToWithSensors$ | async" 
     [colors]="colors$ | async"
     [activePhenos]="activePhenos$ | async"
+    [combinedData]="combinedData"
+    (boxRemoved)="removeBox($event)"
+    (compareClosed)="closeCompare()"
+    (phenoSelected)="selectPheno($event)"></osem-box-compare-values>
+<!-- <osem-box-compare-values 
+    [boxes]="compareToWithSensors$ | async" 
+    [colors]="colors$ | async"
+    [activePhenos]="activePhenos$ | async"
     [compareTo]="compareTo$ | async"
     [combinedData]="combinedData"
     (boxRemoved)="removeBox($event)"
     (compareClosed)="closeCompare()"
     (phenoSelected)="selectPheno($event)"></osem-box-compare-values>
-
+ -->
 
 <div>
     <osem-box-chart 

@@ -3,4 +3,5 @@
     [selectedPheno]="selectedPheno$ | async"
     [filterVisible]="filterVisible$ | async"
     [selectedDate]="selectedDate" 
-    (dateSelected)="dateSelected($event)"></osem-time-slider>
+    (dateSelected)="dateSelected($event)"
+    (dateRangeRemoved)="removeDateRange()"></osem-time-slider>

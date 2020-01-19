@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Box } from 'src/app/models/box/state/box.model';
 
-//TODO: Make this OnPush again (the display of scroll arrows not working atm)
 @Component({
   selector: 'osem-box-single-values',
   templateUrl: './box-single-values.component.html',
@@ -49,8 +48,6 @@ export class BoxSingleValuesComponent implements OnChanges, AfterViewChecked {
   ngAfterViewChecked(){
     if(this.sensorsDiv && this.sensorsDiv.nativeElement.scrollWidth != this.scrollDivWidth)
       this.sizeChanged.emit([this.sensorsDiv.nativeElement.scrollWidth, window.innerWidth])
-
-
   }
 
   public scrollRight(): void {
@@ -63,8 +60,6 @@ export class BoxSingleValuesComponent implements OnChanges, AfterViewChecked {
 
   @HostListener('window:resize', ['$event.target']) 
   onResize(event) { 
-    // this.windowWidth = event.innerWidth;
-    // console.log("sensors", this.sensors)
     this.sizeChanged.emit([this.sensorsDiv.nativeElement.scrollWidth, event.innerWidth])
   }
   

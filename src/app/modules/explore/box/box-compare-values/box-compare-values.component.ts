@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
+//Displays the values for comparing different boxes
 @Component({
   selector: 'osem-box-compare-values',
   templateUrl: './box-compare-values.component.html',
@@ -24,7 +25,6 @@ export class BoxCompareValuesComponent implements OnInit {
   }
 
   selectPheno(pheno){
-    console.log(pheno);
     this.phenoSelected.emit(pheno);
   }
 
