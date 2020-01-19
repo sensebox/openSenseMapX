@@ -4,6 +4,7 @@
     "TO": "Bis",
 
     "CHOOSE_DATERANGE": "Wähle Daten",
+    "REMOVE_DATERANGE": "Zeitspanne entfernen",
     "FILTER": "Filter",
     "PHENOMENA": "Phänomene",
 
@@ -19,7 +20,18 @@
 
     "LAST_MEASUREMENT": "Letzte Messung",
     "NO_RECENT_MEASUREMENT": "Keine aktuellen Messungen",
-    "COMPARE_TO": "Mit anderer Box vergleichen"
+    "COMPARE_TO": "Mit anderer Box vergleichen",
+
+
+    "INTRO_HEADLINE": "Willkommen auf der Datenanalyse Platform der openSenseMap",
+    "INTRO_TEXT_1": "Dies ist eine Beta Version! Zurzeit gibt es nur Daten in Berlin und vom 31.12.2019-01.01.2020.",
+    "INTRO_TEXT_2": "Das Ziel dieser Platform ist es die Daten die auf der openSenseMap gesammelt werden leichter zugänglich und analysierbar zu machen.",
+
+    "FEATURE1": "Live Karten für beliebte Phänomene",
+    "FEATURE2": "Vergleiche die zeitliche Entwicklung von Messwerten",
+    "FEATURE3": "Vergleiche verschiedene Stationen und Orts",
+    "FEATURE4": "Erforsche räumliche und zeitliche Entwicklungen auf der Karte.",
+    "GO": "Los gehts!"
 
 
 }

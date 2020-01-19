@@ -62,12 +62,14 @@ export class BoxService {
         }
       })
       
-      //TODO: find a better place for this
-      this.setDisplayTimeSlider(true);
-      this.uiService.setSelectedDate(dateRange[0]);
-
+      
       this.boxStore.upsertMany(entities);
       this.boxStore.setLoading(false);
+      
+      //TODO: find a better place for this fix calling twice :o
+      // this.setDisplayTimeSlider(true);
+      this.uiService.setSelectedDate(dateRange[0]);
+      this.uiService.setSelectedDate(dateRange[0]);
     }), share());
   }
 

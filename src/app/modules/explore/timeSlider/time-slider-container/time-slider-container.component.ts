@@ -3,6 +3,7 @@ import { combineLatest } from 'rxjs';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'osem-time-slider-container',
@@ -28,8 +29,7 @@ export class TimeSliderContainerComponent implements OnInit {
     ) { }
 
   ngOnInit() { 
-    this.combineSub = combineLatest(this.selectedDate$, this.selectedPheno$).subscribe(res => {
-      
+    this.combineSub = this.selectedDate$.pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
       if(res[1] != this.selectedPheno || (res[0] && res[0].getTime() != this.selectedDate)){
         console.log("SELECTEDDATA AND PHENOOOO")
         console.log(res[0] == this.selectedDate)
@@ -53,7 +53,10 @@ export class TimeSliderContainerComponent implements OnInit {
           newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live"]]];
           this.uiService.updateBaseLayer(newLayer);
         }
-      }
+      }  
+    }) 
+    this.combineSub = combineLatest(this.selectedDate$, this.selectedPheno$).subscribe(res => {
+      
     });
   }
 

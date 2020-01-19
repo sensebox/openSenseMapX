@@ -10,7 +10,9 @@ import { slideInOutHorizontalBoolean } from './helper/animations';
   animations: [slideInOutHorizontalBoolean]
 })
 export class AppComponent {
+
   title = 'openSenseMapX';
+  intro = true;
 
   language$ = this.uiQuery.selectLanguage$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
@@ -24,5 +26,9 @@ export class AppComponent {
       this.language$.subscribe(lang => {
         translate.use(lang);
       })
+  }
+
+  closeIntro(){
+    this.intro = false;
   }
 }

@@ -3,7 +3,8 @@
     "FROM": "From",
     "TO": "To",
 
-    "CHOOSE_DATERANGE": "Choose Date range",
+    "CHOOSE_DATERANGE": "Choose date range",
+    "REMOVE_DATERANGE": "Remove date range",
     "FILTER": "Filter",
     "PHENOMENA": "Phenomena",
 
@@ -19,6 +20,16 @@
 
     "LAST_MEASUREMENT": "Last measurement",
     "NO_RECENT_MEASUREMENT": "No recent measurement",
-    "COMPARE_TO": "Compare to other boxes"
+    "COMPARE_TO": "Compare to other boxes",
+
+    "INTRO_HEADLINE": "Welcome to the Data Platform of openSenseMap",
+    "INTRO_TEXT_1": "This is a beta version! Currently only Data for Berlin from 31.12.2019 to 01.01.2020.",
+    "INTRO_TEXT_2": "The platforms aims to make the data collected by the openSenseMap more accessible and easier to analyse.",
+
+    "FEATURE1": "Live overview of popular phenomenons",
+    "FEATURE2": "Compare the temporal development of different phenomena",
+    "FEATURE3": "Compare different boxes and locations",
+    "FEATURE4": "Explore temporal and spatial development on the map",
+    "GO": "Let's go!"
 
 }

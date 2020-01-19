@@ -1,3 +1,18 @@
+<div id="intro-layer" *ngIf="intro">
+    <div class="intro-text osem-padding">
+        <h2>{{'INTRO_HEADLINE' | translate}}</h2>
+        <p>{{'INTRO_TEXT_1' | translate}}</p>
+        <p>{{'INTRO_TEXT_2' | translate}}</p>
+        <ul>
+            <li>{{'FEATURE1' | translate}}</li>
+            <li>{{'FEATURE2' | translate}}</li>
+            <li>{{'FEATURE3' | translate}}</li>
+            <li>{{'FEATURE4' | translate}}</li>
+        </ul>
+        <button class="osem-button" (click)="closeIntro()">{{'GO' | translate}}</button>
+    </div>
+</div>
+
 <osem-nav-container></osem-nav-container>
 <osem-base-map-container></osem-base-map-container>
 

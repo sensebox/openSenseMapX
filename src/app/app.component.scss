@@ -10,6 +10,26 @@ osem-nav-container {
     }
 }
 
+#intro-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .intro-text {
+        max-width: 400px;
+        background: var(--background-primary-full);
+        .osem-button {
+            float: right;
+        }
+    }
+}
+
 osem-filter-container {
     position: absolute;
     top: 0;

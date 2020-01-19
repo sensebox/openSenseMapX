@@ -7,7 +7,7 @@
 
     <div *ngIf="selectedDate; else noDate" class="date">
         {{selectedDate | date:'medium'}}
-        <div class="osem-close-button" (click)="removeDateRange()">x</div>
+        <div class="osem-close-button" (click)="removeDateRange()" title="{{'REMOVE_DATERANGE' | translate}}">x</div>
     </div>
     <ng-template #noDate>Loading...</ng-template>
      
