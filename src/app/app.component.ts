@@ -22,7 +22,7 @@ export class AppComponent {
     private translate: TranslateService,
     private uiQuery: UiQuery){
 
-      translate.setDefaultLang('en');
+      translate.setDefaultLang('de');
       this.language$.subscribe(lang => {
         translate.use(lang);
       })

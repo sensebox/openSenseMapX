@@ -31,23 +31,18 @@ export class TimeSliderContainerComponent implements OnInit {
   ngOnInit() { 
     this.combineSub = this.selectedDate$.pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
       if(res[1] != this.selectedPheno || (res[0] && res[0].getTime() != this.selectedDate)){
-        console.log("SELECTEDDATA AND PHENOOOO")
-        console.log(res[0] == this.selectedDate)
-        console.log(res[1] == this.selectedPheno)
         if(res[0])
           this.selectedDate = res[0].getTime();
         if(res[1])
           this.selectedPheno = res[1];
         
         if(res[0] && res[1]){
-          console.log("HELLO 111111")
           let newLayer = JSON.parse(JSON.stringify(res[1].layer))
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
           this.uiService.updateBaseLayer(newLayer);
   
         } else if(res[1] && !res[0] && this.selectedDate){
-          console.log("HELLO ???")
           let newLayer = JSON.parse(JSON.stringify(res[1].layer))
           newLayer.filter = [ "get", res[1].title, ["object", ["get", "live"]]];
           newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live"]]];

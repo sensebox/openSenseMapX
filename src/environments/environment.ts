@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api_url: "http://localhost:8000",
+  api_url: "https://api.testing.opensensemap.org",
+  // api_url: "http://localhost:8000",
   mapbox_token: "pk.eyJ1IjoidW11dDAwIiwiYSI6ImNqbnVkbnFxNDB2YnIzd3M1eTNidTA3MjUifQ.3gqG1JYEQvckOiiQ8B3NQQ"
 };
 

@@ -68,7 +68,6 @@ export class BaseMapContainerComponent implements OnInit {
         if(this.layerSub)
           this.unsubscribeAll();
         this.layerSub = this.baseLayer$.subscribe(res => {
-          console.log(res); 
           //convert to Array because drawLayers expects an array
           this.mapService.setMapLayers([res]); 
         });

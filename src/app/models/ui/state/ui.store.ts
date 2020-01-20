@@ -23,9 +23,9 @@ export function createInitialState(): UiState {
     activeSensorTypes: [],
     selectedPheno: null,
     dateRange: null,
-    dateRangeChart: [new Date("2019-11-05T14:00:00.000Z"), new Date("2019-11-06T14:00:00.000Z")],
+    dateRangeChart: [new Date("2020-01-19T14:00:00.000Z"), new Date("2020-01-20T14:00:00.000Z")],
     selectedDate: null,
-    language: 'en',
+    language: 'de',
     theme: 'light',
     baseLayer: {
       'id': 'base-layer',
