@@ -16,10 +16,10 @@
     
     <div class="osem-padding-small owl-date-time-trigger" [owlDateTimeTrigger]="dt1" title="{{('CHOOSE_DATERANGE' | translate)}}">
         <div class="osem-inline osem-border-radius-5">    
-            <input class="date-input" placeholder="{{'FROM' | translate}}" [value]="dateRange ? dateRange[0].toLocaleString() : ''" disabled>
+            <input class="date-input" placeholder="{{now | date}}" [value]="dateRange ? dateRange[0].toLocaleString() : ''" disabled>
         </div>
         <div class="osem-inline osem-border-radius-5">
-            <input class="date-input" placeholder="{{'TO' | translate}}" [value]="dateRange ? dateRange[1].toLocaleString() : ''" disabled>
+            <input class="date-input" placeholder="{{'LIVE' | translate}}" [value]="dateRange ? dateRange[1].toLocaleString() : ''" disabled>
         </div>
         <div class="osem-inline">
             <div class="osem-simple-button">

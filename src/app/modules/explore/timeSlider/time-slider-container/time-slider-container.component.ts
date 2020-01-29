@@ -4,6 +4,7 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { withLatestFrom } from 'rxjs/operators';
+import { IntervalTimer } from '../../../../helper/IntervalTimer';
 
 @Component({
   selector: 'osem-time-slider-container',
@@ -20,6 +21,10 @@ export class TimeSliderContainerComponent implements OnInit {
   selectedPheno;
 
   combineSub;
+
+  step = 3600000;
+  interval;
+  intervalPlaying = false;
 
   constructor(
     private uiQuery: UiQuery, 
@@ -49,10 +54,11 @@ export class TimeSliderContainerComponent implements OnInit {
           this.uiService.updateBaseLayer(newLayer);
         }
       }  
-    }) 
-    this.combineSub = combineLatest(this.selectedDate$, this.selectedPheno$).subscribe(res => {
-      
-    });
+    })
+
+    this.dateRange$.subscribe(res => {
+      this.interval = null;
+    })
   }
 
   ngOnDestroy(){
@@ -72,5 +78,28 @@ export class TimeSliderContainerComponent implements OnInit {
         queryParams: newQueryParams
       }
     );
+  }
+
+  play(){
+    this.intervalPlaying = true;
+
+    if(this.interval){
+      this.interval.resume();
+      return;
+    }
+    this.interval = new IntervalTimer('timeSlider', this.forward, 3000, 10, this);
+    this.interval.start();
+  }
+
+  pause(){
+    this.intervalPlaying = false;
+    this.interval.pause();
+  }
+
+  backward(){
+    this.uiService.setSelectedDate(new Date(this.selectedDate - this.step));
+  }
+  forward(that){
+    that.uiService.setSelectedDate(new Date(that.selectedDate + that.step));
   }
 }

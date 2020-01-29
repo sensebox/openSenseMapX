@@ -1,194 +1,213 @@
-@import '../../../../../styles/variables.scss';
+// @import '../../../../../styles/variables.scss';
 
-@keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
+// @keyframes pulse {
+//     0% {
+//       transform: scale(1);
+//     }
     
-    25% {
-      transform: scale(1.015);
-    }
+//     25% {
+//       transform: scale(1.015);
+//     }
     
-    50% {
-      transform: scale(1);
-    }
-  }
+//     50% {
+//       transform: scale(1);
+//     }
+//   }
 
-@mixin distribute-on-circle( 
-  $nb-items,
-  $circle-size,
-  $item-size,
-  $class-for-IE: false
-) {
-  $half-item: ($item-size / 2);
-  $half-parent: ($circle-size / 2);
+// @mixin distribute-on-circle( 
+//   $nb-items,
+//   $circle-size,
+//   $item-size,
+//   $class-for-IE: false
+// ) {
+//   $half-item: ($item-size / 2);
+//   $half-parent: ($circle-size / 2);
   
-//   position: relative; /* 1 */
-  width:  $circle-size;
-  height: $circle-size;
-  padding: 0;
-  border-radius: 50%; 
-  list-style: none; /* 2 */ 
-  box-sizing: content-box; /* 3 */ 
+// //   position: relative; /* 1 */
+//   width:  $circle-size;
+//   height: $circle-size;
+//   padding: 0;
+//   border-radius: 50%; 
+//   list-style: none; /* 2 */ 
+//   box-sizing: content-box; /* 3 */ 
   
-  > * { /* 4 */
-    display: block;
-    position: absolute;
-    top:  50%; 
-    left: 50%;
-    width:  $item-size;
-    height: $item-size;
-    margin: -$half-item;
-  }
+//   > * { /* 4 */
+//     display: block;
+//     position: absolute;
+//     top:  50%; 
+//     left: 50%;
+//     width:  $item-size;
+//     height: $item-size;
+//     margin: -$half-item;
+//   }
   
-  $nb-items-new : (-1 + $nb-items);
-  $angle: (180 / $nb-items-new);
-  $rot: 180;
+//   $nb-items-new : (-1 + $nb-items);
+//   $angle: (180 / $nb-items-new);
+//   $rot: 180;
 
-  @for $i from 1 through $nb-items {
-    @if not $class-for-IE {
-      > :nth-of-type(#{$i}) {
-        transform: rotate($rot * 1deg) translate($half-parent) rotate($rot * -1deg);
-        animation: 0.23s ease pulse;
-        animation-iteration-count: 1;
-        // animation-delay: calc(i * 1)s;
-      }
-     > :nth-last-child(1) {
-        transform: rotate(360 * 1deg) translate($half-parent) rotate(360 * -1deg) !important; 
-    }
-    > :nth-first-child(1) {
-        transform: rotate(180 * 1deg) translate($half-parent) rotate(180 * -1deg) !important; 
-     }
-    } @else {
-      > .#{$class-for-IE}#{$i} {
-        // If CSS transforms are not supported
-        $mt: sin($rot * pi() / 180) * $half-parent - $half-item;
-        $ml: cos($rot * pi() / 180) * $half-parent - $half-item;
-        margin: $mt 0 0 $ml;
-      }
-    }
+//   @for $i from 1 through $nb-items {
+//     @if not $class-for-IE {
+//       > :nth-of-type(#{$i}) {
+//         transform: rotate($rot * 1deg) translate($half-parent) rotate($rot * -1deg);
+//         animation: 0.23s ease pulse;
+//         animation-iteration-count: 1;
+//         // animation-delay: calc(i * 1)s;
+//       }
+//      > :nth-last-child(1) {
+//         transform: rotate(360 * 1deg) translate($half-parent) rotate(360 * -1deg) !important; 
+//     }
+//     > :nth-first-child(1) {
+//         transform: rotate(180 * 1deg) translate($half-parent) rotate(180 * -1deg) !important; 
+//      }
+//     } @else {
+//       > .#{$class-for-IE}#{$i} {
+//         // If CSS transforms are not supported
+//         $mt: sin($rot * pi() / 180) * $half-parent - $half-item;
+//         $ml: cos($rot * pi() / 180) * $half-parent - $half-item;
+//         margin: $mt 0 0 $ml;
+//       }
+//     }
 
-    $rot: ($rot + $angle);
-  }
-}
+//     $rot: ($rot + $angle);
+//   }
+// }
+// #popup {
+//     position: relative;
+//     text-align: center;
+//     pointer-events: none;
+
+//     .popup-name {
+//         background: var(--background-primary-full);
+//         border-radius: 5px;
+//         padding: 0.2em 0.3em;
+//         display: inline-block;
+//         position: relative;
+//         transform: translate3d(-50%, 51px, 0);
+
+//         h2 {
+//             margin: 0;
+//         }
+//     }
+//     // transform: translate3d(-50%, 20px, 0);
+
+//     .sensor-icons {
+//         position: absolute;
+//         transform: translate3d(-50%, -70px, 0);
+//         // display: flex;
+//         // justify-content: space-around;
+//         &.sensor-icons-2{
+//             @include distribute-on-circle(
+//                 $nb-items: 2,
+//                 $circle-size: 8em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-3{
+//             @include distribute-on-circle(
+//                 $nb-items: 3,
+//                 $circle-size: 8em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-4{
+//             @include distribute-on-circle(
+//                 $nb-items: 4,
+//                 $circle-size: 9em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-5{
+//             @include distribute-on-circle(
+//                 $nb-items: 5,
+//                 $circle-size: 10em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-6{
+//             @include distribute-on-circle(
+//                 $nb-items: 6,
+//                 $circle-size: 12em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-7{
+//             @include distribute-on-circle(
+//                 $nb-items: 7,
+//                 $circle-size: 14em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-8{
+//             @include distribute-on-circle(
+//                 $nb-items: 8,
+//                 $circle-size: 14em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-9{
+//             @include distribute-on-circle(
+//                 $nb-items: 9,
+//                 $circle-size: 14em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-10{
+//             @include distribute-on-circle(
+//                 $nb-items: 10,
+//                 $circle-size: 14em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-11{
+//             @include distribute-on-circle(
+//                 $nb-items: 11,
+//                 $circle-size: 14em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-12{
+//             @include distribute-on-circle(
+//                 $nb-items: 12,
+//                 $circle-size: 14em,
+//                 $item-size: 2em
+//             );
+//         }
+//         &.sensor-icons-13{
+//             @include distribute-on-circle(
+//                 $nb-items: 13,
+//                 $circle-size: 14em,
+//                 $item-size: 2em
+//             );
+//         }
+//         .sensor-icon {
+//             border-radius: 50%;
+            
+//             background: var(--background-bubbles);
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             transform: none;
+//         }
+
+//     }
+// }
+
 #popup {
-    position: relative;
-    text-align: center;
-    pointer-events: none;
-
-    .popup-name {
-        background: var(--background-primary-full);
-        border-radius: 5px;
-        padding: 0.2em 0.3em;
-        display: inline-block;
-        position: relative;
-        transform: translate3d(-50%, 51px, 0);
-
-        h2 {
-            margin: 0;
-        }
-    }
-    // transform: translate3d(-50%, 20px, 0);
-
+    background: var(--background-primary-full);
+    max-width: 320px;
+    border-radius: 5px;
+    border: 1px solid var(--color-primary);
     .sensor-icons {
-        position: absolute;
-        transform: translate3d(-50%, -70px, 0);
         // display: flex;
         // justify-content: space-around;
-        &.sensor-icons-2{
-            @include distribute-on-circle(
-                $nb-items: 2,
-                $circle-size: 8em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-3{
-            @include distribute-on-circle(
-                $nb-items: 3,
-                $circle-size: 8em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-4{
-            @include distribute-on-circle(
-                $nb-items: 4,
-                $circle-size: 9em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-5{
-            @include distribute-on-circle(
-                $nb-items: 5,
-                $circle-size: 10em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-6{
-            @include distribute-on-circle(
-                $nb-items: 6,
-                $circle-size: 12em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-7{
-            @include distribute-on-circle(
-                $nb-items: 7,
-                $circle-size: 14em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-8{
-            @include distribute-on-circle(
-                $nb-items: 8,
-                $circle-size: 14em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-9{
-            @include distribute-on-circle(
-                $nb-items: 9,
-                $circle-size: 14em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-10{
-            @include distribute-on-circle(
-                $nb-items: 10,
-                $circle-size: 14em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-11{
-            @include distribute-on-circle(
-                $nb-items: 11,
-                $circle-size: 14em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-12{
-            @include distribute-on-circle(
-                $nb-items: 12,
-                $circle-size: 14em,
-                $item-size: 2em
-            );
-        }
-        &.sensor-icons-13{
-            @include distribute-on-circle(
-                $nb-items: 13,
-                $circle-size: 14em,
-                $item-size: 2em
-            );
-        }
-        .sensor-icon {
-            border-radius: 50%;
-            
-            background: var(--background-bubbles);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: none;
-        }
-
+    }
+    .sensor-icon {
+        border-radius: 50%;
+        // display: inline-block;
+        width: 26px;
+        height: 26px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
     }
 }
-

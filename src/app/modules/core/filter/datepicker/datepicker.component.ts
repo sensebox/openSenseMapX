@@ -14,6 +14,8 @@ export class DatepickerComponent implements OnInit {
   startAt = new Date('2019-12-31T15:00:00.000Z');
   minDate = new Date('2019-12-31T00:00:00.000Z');
   maxDate = new Date('2020-01-01T23:00:00.000Z');
+
+  now = new Date();
   
   @Input() dateRange;
   @Output() dateChanged = new EventEmitter<any>();

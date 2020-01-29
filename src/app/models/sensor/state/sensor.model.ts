@@ -11,6 +11,7 @@ export interface Sensor {
   values: Object;
   rawValues: Object;
   boxes_id: string;
+  boxes_name: string;
 }
 
 /**

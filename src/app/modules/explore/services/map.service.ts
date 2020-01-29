@@ -28,6 +28,9 @@ export class MapService {
   dataInit = false;
   oldFilter;
 
+  deactivatePopupTimer;
+  activatePopupTimer;
+
   constructor(
     private boxQuery: BoxQuery,
     private boxService: BoxService,
@@ -193,13 +196,34 @@ export class MapService {
   addPopup(layer) {
     let that = this;
 
-    this.map.on('mouseenter', layer, this.baseMouseenterFunction);
+    this.map.on('mouseenter', layer, 
+      function(e){
+        that.activatePopupTimer = setTimeout(function(){
+          that.baseMouseenterFunction(e);
+        }, 100);
+      }
+    );
 
     this.map.on('mouseleave', layer, function () {
       that.map.getCanvas().style.cursor = '';
-      that.boxService.setPopupBox(null);
+      clearTimeout(that.activatePopupTimer);
+      that.deactivatePopupTimer = setTimeout(function(){
+        that.boxService.setPopupBox(null);
+      }, 320)
     });
-
+    
+  }
+  
+  mouseEnterPopup(){
+    clearTimeout(this.deactivatePopupTimer);
+    this.deactivatePopupTimer = 0;
+  }
+  
+  mouseLeavePopup(){
+    let that = this;
+    this.deactivatePopupTimer = setTimeout(function(){
+      that.boxService.setPopupBox(null);
+    }, 320);
   }
 
   setCompareModusClickFunctions() {
@@ -210,6 +234,7 @@ export class MapService {
   }
 
   baseMouseenterFunction = e => {
+    clearTimeout(this.deactivatePopupTimer);
     this.map.getCanvas().style.cursor = 'pointer';
     var coordinates = e.features[0].geometry.coordinates.slice();
     let pixelPosition = this.map.project(coordinates);
@@ -341,7 +366,7 @@ export class MapService {
             'circle-blur': 0.6,
             // 'circle-stroke-width': 1,
             'circle-opacity': 0.6,
-            'circle-color': '#FFFFFF'
+            'circle-color': theme === 'dark' ? '#ffffff' :'#383838'
           }
         }, 'base-layer');
 
@@ -403,7 +428,7 @@ export class MapService {
             'circle-blur': 0.6,
             // 'circle-stroke-width': 1,
             'circle-opacity': 0.6,
-            'circle-color': '#eee'
+            'circle-color': theme === 'dark' ? '#ffffff' :'#383838'
           }
         }, 'base-layer');
 
@@ -491,10 +516,11 @@ export class MapService {
     );
     this.map.setPaintProperty('active-layer-text', 'text-color', '#383838');
     this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#f6f6f6');
+    this.map.setPaintProperty('active-layer', 'circle-color', '#383838');
     this.map.setStyle("mapbox://styles/mapbox/light-v9");
-
+    
   }
-
+  
   setThemeDark() {
     this.boxService.setMapInit(false);
     this.boxService.setDataInit(false);
@@ -509,9 +535,10 @@ export class MapService {
           'circle-blur': 0.8,
         }
       }
-    );
-    this.map.setPaintProperty('active-layer-text', 'text-color', 'white');
-    this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#383838');
+      );
+      this.map.setPaintProperty('active-layer-text', 'text-color', 'white');
+      this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#383838');
+      this.map.setPaintProperty('active-layer', 'circle-color', '#ffffff');
     this.map.setStyle("mapbox://styles/mapbox/dark-v9");
 
   }

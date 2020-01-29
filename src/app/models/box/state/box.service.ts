@@ -39,6 +39,7 @@ export class BoxService {
       for (let box in res.entities.boxes) {
         res.entities.boxes[box].sensors.forEach(sensor => {
           res.entities.sensors[sensor].boxes_id = res.entities.boxes[box]._id;
+          res.entities.sensors[sensor].boxes_name = res.entities.boxes[box].name;
         })
       }
       this.sensorStore.set(res.entities.sensors);

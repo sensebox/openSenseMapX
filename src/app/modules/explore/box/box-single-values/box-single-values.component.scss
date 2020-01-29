@@ -25,6 +25,17 @@
         #compare-to-button {
           display: inline-block;
           cursor: pointer;
+          width: 100px;
+          border: 1px dashed var(--text-color-primary);
+          // padding-left: 0.5em;
+          margin-left: 0.5em;
+          span {
+            font-size: 0.7em;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0.2em;
+          }
         }
       }
       .last-measurement {

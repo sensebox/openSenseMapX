@@ -1,4 +1,4 @@
-<div *ngIf="box" id="popup">
+<!-- <div *ngIf="box" id="popup">
     <div class="sensor-icons sensor-icons-{{box.sensors.length}}">
         <div
             *ngFor="let sensor of box.sensors"
@@ -9,4 +9,45 @@
     <div class="popup-name osem-box-shadow-small">
         <h2>{{box.name}}</h2>
     </div>
+</div> -->
+
+
+<div *ngIf="box" id="popup" class="osem-padding-small">
+    <h2>{{box.name}}</h2>
+    <p>{{'STATE' | translate}}: <b>{{box.state}}</b></p>
+    <p>{{'LOCATION' | translate}}: <b>{{box.exposure}}</b></p>
+    <h4>{{'SENSORS' | translate}}:</h4>
+    <div class="sensor-icons">
+        <div
+            *ngFor="let sensor of box.sensors"
+            class="sensor-icon osem-box-shadow-small" title="{{sensor.title}}">
+            <i *ngIf="sensor.icon" class="osem-icon map-icon {{sensor.icon}}"></i>
+        </div>
+    </div>
+    <br>
+    <button 
+        *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1" 
+        class="osem-button"
+        (click)="compareToOther(box._id)"
+    >{{'COMPARE_TO_OTHER_BOX' | translate}}</button>
+    <button 
+        *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+        class="osem-button"
+        (click)="compareToCurrent(box._id)"
+    >{{'COMPARE_TO_CURRENT_BOX' | translate}}</button>
+    <button 
+        *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1" 
+        class="osem-button"
+        (click)="details(box._id)"
+    >{{'DETAILS' | translate}}</button>
+    <button 
+        *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1" 
+        class="osem-button"
+        (click)="addToCompare(box._id)"
+    >{{'ADD_TO_COMPARE' | translate}}</button>
+    <button 
+        *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1" 
+        class="osem-button"
+        (click)="removeFromCompare(box._id)"
+    >{{'REMOVE_FROM_COMPARE' | translate}}</button>
 </div>

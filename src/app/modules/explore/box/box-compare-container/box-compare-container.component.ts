@@ -53,7 +53,11 @@ export class BoxCompareContainerComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(res => {
       if(res.id){
-        this.boxService.setCompareTo(res.id);
+        if(Array.isArray(res.id)){
+          this.boxService.setCompareTo(res.id);
+        } else {
+          this.boxService.setCompareTo([res.id]);
+        }
       }
       if(res.pheno)
       this.uiService.setActiveSensorTypes(res.pheno);
@@ -62,6 +66,7 @@ export class BoxCompareContainerComponent implements OnInit {
     this.dataInit$.subscribe(res => {
       if(res){
         this.compareToWithSensors$.subscribe(res => {
+          // console.log(res);
           if(this.currentIds != res.map(compareTo => compareTo._id)){
             this.currentIds = res.map(compareTo => compareTo._id);
             this.combinedData = this.combineData(res);
@@ -83,7 +88,7 @@ export class BoxCompareContainerComponent implements OnInit {
             let localChartData = sensors.filter(sensor => sensor.rawValues).map(sensor => {
               if(sensor.rawValues){
                 return {
-                  name: sensor.boxes_id, 
+                  name: sensor.boxes_name, 
                   series: sensor.rawValues, 
                   extra: {  
                     title: sensor.title, 

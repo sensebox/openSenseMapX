@@ -23,4 +23,11 @@
         (input)="changed($event)" 
         (change)="changed($event)"
         [(ngModel)]="selectedDate" />
+
+    <div id="controls">
+        <div class="control-item" (click)="backward()"><i class="fa fa-backward"></i></div>
+        <div *ngIf="!intervalPlaying" class="control-item" (click)="play()"><i class="fa fa-play"></i></div>
+        <div *ngIf="intervalPlaying" class="control-item" (click)="pause()"><i class="fa fa-pause"></i></div>
+        <div class="control-item" (click)="forward()"><i class="fa fa-forward"></i></div>
+    </div>
 </div>

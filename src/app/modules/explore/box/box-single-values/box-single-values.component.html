@@ -1,9 +1,11 @@
 <div class="bottom-bar-container" *ngIf="box">
   <div class="box-header">
     <div class="name">
-      {{box.name}}
+      <span>{{box.name}}</span>
       <div id="compare-to-button" [routerLink]="['/compare']" [queryParams]="{id: [box._id], activeTypes: activeSensorTypes}" title="{{'COMPARE_TO' | translate}}">
-        <i class="fa fa-balance-scale"></i>
+        <span>
+          <i class="fa fa-plus"></i>
+        </span>
       </div>
     </div>
     <div class="last-measurement" *ngIf="box.lastMeasurementAt;else noMeasurement">
@@ -37,7 +39,7 @@
                     <i *ngIf="sensor.icon" class="osem-icon {{sensor.icon}}"></i>
                   </div>
                   <div class="value">
-                    <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value.split('.')[0]}}</b><span class="osem-small-bottom">.<span *ngIf="sensor.lastMeasurement.value.split('.')[1]; else zeros">{{sensor.lastMeasurement.value.split('.')[1].padEnd(2, '0') }}</span></span>
+                    <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value.split('.')[0]}}</b><span class="osem-small-bottom">.<span *ngIf="sensor.lastMeasurement && sensor.lastMeasurement.value.split('.')[1]; else zeros">{{sensor.lastMeasurement.value.split('.')[1].padEnd(2, '0') }}</span></span>
                     <ng-template #zeros>00</ng-template>
                     <b *ngIf="!sensor.lastMeasurement">N/A</b>
                   </div>

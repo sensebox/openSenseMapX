@@ -15,8 +15,13 @@ export class TimeSliderComponent implements OnInit {
   @Input() selectedDate; 
   @Input() selectedPheno; 
   @Input() filterVisible; 
+  @Input() intervalPlaying; 
   @Output() dateSelected = new EventEmitter();
   @Output() dateRangeRemoved = new EventEmitter();
+  @Output() backwardPressed = new EventEmitter();
+  @Output() playPressed = new EventEmitter();
+  @Output() forwardPressed = new EventEmitter();
+  @Output() pausePressed = new EventEmitter();
   
   selectDate = 1572966000000;
   step = 3600000;
@@ -32,6 +37,19 @@ export class TimeSliderComponent implements OnInit {
 
   removeDateRange(){
     this.dateRangeRemoved.emit();
+  }
+
+  backward(){
+    this.backwardPressed.emit()
+  }
+  play(){
+    this.playPressed.emit()
+  }
+  pause(){
+    this.pausePressed.emit()
+  }
+  forward(){
+    this.forwardPressed.emit()
   }
 
 }

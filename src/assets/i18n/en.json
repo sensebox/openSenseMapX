@@ -30,6 +30,15 @@
     "FEATURE2": "Compare the temporal development of different phenomena",
     "FEATURE3": "Compare different boxes and locations",
     "FEATURE4": "Explore temporal and spatial development on the map",
-    "GO": "Let's go!"
+    "GO": "Let's go!",
+
+    "STATE" : "Status",
+    "LOCATION": "Exposure",
+    "COMPARE_TO_OTHER_BOX": "Compare to another Box",
+    "COMPARE_TO_CURRENT_BOX": "Compare to current Box",
+    "DETAILS": "Details",
+    "ADD_TO_COMPARE": "Add to comparison",
+    "REMOVE_FROM_COMPARE": "Remove from comparison"
+
 
 }

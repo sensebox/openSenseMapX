@@ -155,6 +155,23 @@ h2,h3,h4 {
     // }
 }
 
+.osem-button {
+    border-radius: 3px;
+    background: var(--color-primary);
+    border: none;
+    box-shadow: none;
+    padding: 0.4em 0.7em;
+    color: var(--text-color-primary);
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+        color: var(--text-color-secondary);
+    }
+
+    
+}
+
 
 .osem-overflow-hidden {
     overflow:hidden;
