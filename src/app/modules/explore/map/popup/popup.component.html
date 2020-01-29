@@ -14,6 +14,7 @@
 
 <div *ngIf="box" id="popup" class="osem-padding-small">
     <h2>{{box.name}}</h2>
+    <p>{{'CREATED_AT' | translate}}: {{box.createdAt | date}}</p>
     <p>{{'STATE' | translate}}: <b>{{box.state}}</b></p>
     <p>{{'LOCATION' | translate}}: <b>{{box.exposure}}</b></p>
     <h4>{{'SENSORS' | translate}}:</h4>

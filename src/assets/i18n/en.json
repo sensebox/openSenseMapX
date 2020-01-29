@@ -32,6 +32,8 @@
     "FEATURE4": "Explore temporal and spatial development on the map",
     "GO": "Let's go!",
 
+    "CREATED_AT": "Online since",
+    "SENSORS": "Sensors",
     "STATE" : "Status",
     "LOCATION": "Exposure",
     "COMPARE_TO_OTHER_BOX": "Compare to another Box",

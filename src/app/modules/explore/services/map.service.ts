@@ -134,6 +134,7 @@ export class MapService {
             name: item.name,
             _id: item._id,
             exposure: item.exposure,
+            createdAt: item.createdAt,
             state: item.state,
             sensors: item.sensors,
             values: item.values ? item.values : null,
@@ -195,7 +196,6 @@ export class MapService {
 
   addPopup(layer) {
     let that = this;
-
     this.map.on('mouseenter', layer, 
       function(e){
         that.activatePopupTimer = setTimeout(function(){
@@ -204,14 +204,15 @@ export class MapService {
       }
     );
 
-    this.map.on('mouseleave', layer, function () {
-      that.map.getCanvas().style.cursor = '';
-      clearTimeout(that.activatePopupTimer);
-      that.deactivatePopupTimer = setTimeout(function(){
-        that.boxService.setPopupBox(null);
-      }, 320)
-    });
-    
+    this.map.on('mouseleave', layer, this.mouseLeave(this));
+  }
+
+  mouseLeave(that){
+    that.map.getCanvas().style.cursor = '';
+    clearTimeout(that.activatePopupTimer);
+    that.deactivatePopupTimer = setTimeout(function(){
+      that.boxService.setPopupBox(null);
+    }, 320)
   }
   
   mouseEnterPopup(){
@@ -522,6 +523,7 @@ export class MapService {
   }
   
   setThemeDark() {
+    this.map.off('mouseleave', 'base-layer', this.mouseLeave);
     this.boxService.setMapInit(false);
     this.boxService.setDataInit(false);
     this.uiService.updateBaseLayer(
@@ -535,11 +537,10 @@ export class MapService {
           'circle-blur': 0.8,
         }
       }
-      );
-      this.map.setPaintProperty('active-layer-text', 'text-color', 'white');
-      this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#383838');
-      this.map.setPaintProperty('active-layer', 'circle-color', '#ffffff');
+    );
+    this.map.setPaintProperty('active-layer-text', 'text-color', 'white');
+    this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#383838');
+    this.map.setPaintProperty('active-layer', 'circle-color', '#ffffff');
     this.map.setStyle("mapbox://styles/mapbox/dark-v9");
-
   }
 }
