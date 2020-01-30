@@ -6,6 +6,9 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
+import { BoxQuery } from 'src/app/models/box/state/box.query';
+import { startWith, switchMap } from 'rxjs/operators';
+import { MapService } from 'src/app/modules/explore/services/map.service';
 
 @Component({
   selector: 'osem-filter-container',
@@ -18,14 +21,19 @@ export class FilterContainerComponent implements OnInit {
   selectDateRange$ = this.uiQuery.selectDateRange$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
-  activeTab = 'phenos';
+  searchTerm$ = this.uiQuery.selectSearchTerm$;
 
+  activeTab = 'phenos';
+  searchTimeout;
+  autoCompleteResults$;
   minimizedBoolean = false;
 
   constructor(
     private boxService: BoxService,
+    private boxQuery: BoxQuery,
     private sensorService: SensorService,
-    private uiService: UiService, 
+    private uiService: UiService,
+    private mapService: MapService,
     private uiQuery: UiQuery) { }
 
   ngOnInit() {
@@ -38,6 +46,22 @@ export class FilterContainerComponent implements OnInit {
         }
       }
     })
+    this.autoCompleteResults$ = this.searchTerm$.pipe(
+      startWith(''),
+      switchMap(value => this.boxQuery.selectAll({
+         filterBy: entity => entity.name.toLowerCase().includes(value)
+      }))
+    );
+
+    // this.searchTerm$.subscribe(res => {
+    //   clearTimeout(this.searchTimeout);
+    //   let that = this;
+    //   this.searchTimeout = setTimeout(function(){
+    //     console.log(that.boxQuery.search(res));
+    //   },150)
+    // })
+
+
   }
 
   changeDateRange(range){
@@ -69,5 +93,12 @@ export class FilterContainerComponent implements OnInit {
 
   toggleMinimizeFilter(){
     this.uiService.toggleFilterVisible();
+  }
+
+  search(searchTerm){
+    this.uiService.setSearchTerm(searchTerm);
+  }
+  selectResult(box){
+    this.mapService.flyTo(box.currentLocation.coordinates);
   }
 }

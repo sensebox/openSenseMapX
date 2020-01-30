@@ -14,7 +14,8 @@ export interface UiState {
   language: string,
   theme: string,
   baseLayer: any,
-  fitlerVisible: boolean
+  fitlerVisible: boolean,
+  searchTerm: string
 }
 
 export function createInitialState(): UiState {
@@ -73,7 +74,8 @@ export function createInitialState(): UiState {
         ]
       } 
     }],
-    fitlerVisible: true
+    fitlerVisible: true,
+    searchTerm: ""
   };
 }
 

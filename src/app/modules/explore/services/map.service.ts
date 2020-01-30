@@ -31,6 +31,8 @@ export class MapService {
   deactivatePopupTimer;
   activatePopupTimer;
 
+  mouseLeaveFunction;
+
   constructor(
     private boxQuery: BoxQuery,
     private boxService: BoxService,
@@ -203,11 +205,16 @@ export class MapService {
         }, 100);
       }
     );
-
-    this.map.on('mouseleave', layer, this.mouseLeave(this));
+    this.mouseLeaveFunction = this.mouseLeave.bind(this);
+    this.map.on('mouseleave', layer, this.mouseLeaveFunction);
+    // this.map.on('mouseleave', layer, function(){
+    //   console.log("LEAVE YOOO")
+    //   that.mouseLeave(that);
+    // });
   }
 
-  mouseLeave(that){
+  mouseLeave(){
+    let that = this;
     that.map.getCanvas().style.cursor = '';
     clearTimeout(that.activatePopupTimer);
     that.deactivatePopupTimer = setTimeout(function(){
@@ -501,6 +508,7 @@ export class MapService {
   }
 
   setThemeLight() {
+    this.map.off('mouseleave', 'base-layer', this.mouseLeaveFunction);
     this.boxService.setMapInit(false);
     this.boxService.setDataInit(false);
     this.uiService.updateBaseLayer(
@@ -523,7 +531,7 @@ export class MapService {
   }
   
   setThemeDark() {
-    this.map.off('mouseleave', 'base-layer', this.mouseLeave);
+    this.map.off('mouseleave', 'base-layer', this.mouseLeaveFunction);
     this.boxService.setMapInit(false);
     this.boxService.setDataInit(false);
     this.uiService.updateBaseLayer(
@@ -542,5 +550,9 @@ export class MapService {
     this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#383838');
     this.map.setPaintProperty('active-layer', 'circle-color', '#ffffff');
     this.map.setStyle("mapbox://styles/mapbox/dark-v9");
+  }
+
+  flyTo(coordinates){
+    this.map.flyTo({center: coordinates, zoom: 13});
   }
 }

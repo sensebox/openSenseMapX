@@ -69,4 +69,7 @@ export class UiService {
   setFilterVisible(filter){
     this.uiStore.update( state => ({ ...state , fitlerVisible: filter }));
   }
+  setSearchTerm(searchTerm){
+    this.uiStore.update( state => ({ ...state , searchTerm: searchTerm }));
+  }
 }

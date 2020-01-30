@@ -1,6 +1,34 @@
 <div class="osem-padding-small secondary-background">
     <div class="search-container osem-border-radius-5">
-        <input class="osem-padding-small" type="text" placeholder="{{ 'SEARCH' | translate}}">
+        <input 
+            class="osem-padding-small" 
+            type="text" 
+            [(ngModel)]="searchTerm"
+            (input)="changeSearchTerm()"
+            (keydown)="keydown($event)"
+            placeholder="{{ 'SEARCH' | translate}}">
         <i class="fa fa-search"></i>
     </div>
+</div>
+
+
+<div id="autocomplete-results" *ngIf="searchTerm.length > 1">
+    <div 
+        class="autocomplete-list-item osem-padding-small" 
+        *ngFor="let box of autoCompleteResults; let i = index"
+        [class.active]="i === selectedAutocomplete"
+        (click)="selectResult(box)"
+    >
+        <h4>{{box.name}}</h4>
+        <div class="result-content">
+            <div class="last-measure" *ngIf="box.lastMeasurementAt; else nomeasure">
+                {{box.lastMeasurementAt | date}}
+            </div>
+            <ng-template #nomeasure>
+                {{'NO_LAST_MEASUREMENT' | translate}}
+            </ng-template>
+            <div class="active-circle" [title]="box.active ? 'activ' : 'inactive'"[class.boxinactive]="!box.active" [class.boxactive]="box.active"></div>
+        </div>
+    </div>
+    <div class="number-results"> {{autoCompleteResults.length}} {{'RESULTS' | translate}}</div>
 </div>

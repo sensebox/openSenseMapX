@@ -1,8 +1,12 @@
 <div class="filter-container">
     <div class="filter-inner">
-        <osem-search></osem-search>
+        <osem-search
+            (changedSearchTerm)="search($event)"
+            (resultSelected)="selectResult($event)"
+            [autoCompleteResults]="autoCompleteResults$ | async"
+        ></osem-search>
         <osem-datepicker 
-            [dateRange]="selectDateRange$ | async" 
+            [dateRange]="selectDateRange$ | async"
             (dateChanged)="changeDateRange($event)"></osem-datepicker>
         
         <osem-filter-switcher

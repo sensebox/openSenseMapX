@@ -168,4 +168,8 @@ export class BoxQuery extends QueryEntity<BoxState> {
     this.createUIQuery();
   }
 
+  search(term){
+    return this.selectAll({ asObject: true});
+  }
+
 }
