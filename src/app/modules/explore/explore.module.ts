@@ -36,6 +36,6 @@ import { PopupContainerComponent } from './map/popup-container/popup-container.c
     TranslateModule
   ],
   providers: [MapService],
-  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent]
+  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent]
 })
 export class ExploreModule { }

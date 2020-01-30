@@ -5,10 +5,6 @@
 </div> -->
 
 
-<div style="position: absolute; display: none" id="osem-popup">
-    <osem-popup-container></osem-popup-container>
-</div>
-
 
 <div id="loading" *ngIf="(loading$ | async) || !(mapInit$ | async) || (loadingSensor$ | async)">
     <div class="loading">

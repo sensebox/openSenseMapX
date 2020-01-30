@@ -49,7 +49,7 @@ export class FilterContainerComponent implements OnInit {
     this.autoCompleteResults$ = this.searchTerm$.pipe(
       startWith(''),
       switchMap(value => this.boxQuery.selectAll({
-         filterBy: entity => entity.name.toLowerCase().includes(value)
+         filterBy: entity => entity.name.toLowerCase().includes(value.toLowerCase())
       }))
     );
 
