@@ -4,6 +4,7 @@
             (changedSearchTerm)="search($event)"
             (resultSelected)="selectResult($event)"
             [autoCompleteResults]="autoCompleteResults$ | async"
+            [locationAutocompleteResults]="locationAutocompleteResults$ | async"
         ></osem-search>
         <osem-datepicker 
             [dateRange]="selectDateRange$ | async"

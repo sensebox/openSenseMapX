@@ -251,7 +251,7 @@ export class MapService {
     this.boxService.setPopupBox({ ...box, sensors: JSON.parse(e.features[0].properties.sensors) });
 
     document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
-    document.getElementById("osem-popup").style.left = pixelPosition.x + 'px';
+    document.getElementById("osem-popup").style.left = (pixelPosition.x+10) + 'px';
     document.getElementById("osem-popup").style.display = 'block';
 
   }
@@ -265,7 +265,7 @@ export class MapService {
     this.boxService.setPopupBox({ ...box, sensors: JSON.parse(e.features[0].properties.sensors) });
 
     document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
-    document.getElementById("osem-popup").style.left = pixelPosition.x + 'px';
+    document.getElementById("osem-popup").style.left = (pixelPosition.x+10) + 'px';
     document.getElementById("osem-popup").style.display = 'block';
   }
 
@@ -479,6 +479,25 @@ export class MapService {
     this.map.setFilter('number-layer', ["match", ["get", "_id"], boxes, true, false]);
   }
 
+  setSearchLayerFilter(boxes) {
+    if(this.map && this.map.getLayer('base-layer') && boxes.length > 0){
+      this.oldFilter = this.map.getFilter('base-layer');
+      // this.map.setFilter('base-layer', ["match", ["get", "_id"], boxes, true, false]);
+      this.map.setPaintProperty('base-layer', 'circle-opacity', ['match', ['get', '_id'], boxes, 1, 0.2]);
+      this.map.setPaintProperty('base-layer', 'circle-stroke-opacity', ['match', ['get', '_id'], boxes, 1, 0.2]);
+      // this.map.setPaintProperty('base-layer', 'circle-radius',  "interpolate",
+      // ["exponential", 1],
+      // ["zoom"],
+      // 4, ["sqrt", ["*", ['match', ["get", '_id'], boxes, 100, 1]]],
+      // 8, ["sqrt", ["*", ['match', ["get", '_id'], boxes, 1000, 1]]]);
+      this.map.setFilter('number-layer', ["match", ["get", "_id"], boxes, true, false]);
+    } else if(this.map && this.map.getLayer('base-layer')) {
+      this.map.setPaintProperty('base-layer', 'circle-opacity', 1);
+      this.map.setPaintProperty('base-layer', 'circle-stroke-opacity',1);
+      
+    }
+  }
+
   resetBaseFilter() {
     this.map.setFilter('base-layer', this.oldFilter);
     this.map.setFilter('number-layer', this.oldFilter);
@@ -554,5 +573,62 @@ export class MapService {
 
   flyTo(coordinates){
     this.map.flyTo({center: coordinates, zoom: 13});
+  }
+
+  addSearchResultLayer(results, theme){
+    if (results && results.length > 0) {
+      let paint;
+      if (theme === 'dark') {
+        paint = {
+          'text-color': '#f6f6f6',
+          'text-halo-blur': 4,
+          'text-halo-color': '#383838',
+          'text-halo-width': 1
+        }
+      } else {
+        paint = {
+          'text-color': '#383838',
+          'text-halo-blur': 4,
+          'text-halo-color': '#f6f6f4',
+          'text-halo-width': 1
+        }
+      }
+      if (!this.map.getSource('search')) {
+        this.map.addSource('search', {
+          type: "geojson",
+          data: this.toGeoJson(results)
+        });
+      } else {
+        this.map.getSource('search').setData(this.toGeoJson(results));
+      }
+      
+      if (!this.map.getLayer('search-layer')) {
+        this.map.addLayer({
+          'id': 'search-layer',
+          'type': 'circle',
+          'source': 'search',
+          'paint': {
+            'circle-radius': {
+              'base': 1.75,
+              'stops': [[1, 10], [22, 3580]]
+            },
+            'circle-blur': 0.6,
+            // 'circle-stroke-width': 1,
+            'circle-opacity': 0.6,
+            'circle-color': theme === 'dark' ? '#ffffff' :'#383838'
+          }
+        }, 'base-layer');
+
+      } else {
+
+        // this.map.setFilter('active-layer', ["==", id, ["get", "_id"]]);
+        // this.map.setFilter('active-layer-text', ["==", id, ["get", "_id"]]);
+      }
+
+    } else {
+      if(this.map && this.map.getLayer('search-layer')){
+        this.map.removeLayer('search-layer');
+      }
+    }
   }
 }

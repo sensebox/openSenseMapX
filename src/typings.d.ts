@@ -7,8 +7,9 @@ interface Process {
 
 
 interface Env {
-    MAPBOX_TOKEN: string
-    API_URL: string
+    MAPBOX_TOKEN: string;
+    API_URL: string;
+    LOCATIONIQ_TOKEN: string;
 }
 
 interface GlobalEnvironment{

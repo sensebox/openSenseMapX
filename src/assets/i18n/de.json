@@ -2,6 +2,8 @@
     "SEARCH": "Suche nach Boxen oder Orten",
     "FROM": "Von",
     "TO": "Bis",
+    "SHOW_ALL": "alle anzeigen",
+    "BOXES": "Boxen",
 
     "CHOOSE_DATERANGE": "Wähle Daten",
     "REMOVE_DATERANGE": "Zeitspanne entfernen",

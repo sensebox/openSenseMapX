@@ -232,3 +232,13 @@ h2,h3,h4 {
     transform: translateY(-50%);
     font-weight: bold;
 }
+
+.sensor-icon {
+    border-radius: 50%;
+    // display: inline-block;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}

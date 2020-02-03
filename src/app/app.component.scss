@@ -16,7 +16,7 @@ osem-nav-container {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 99;
+    z-index: 110;
     background: rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
@@ -39,14 +39,14 @@ osem-filter-container {
         width: calc(100% - 20px);
     }
     left: 0;
-    z-index: 20;
+    z-index: 95;
 }
 
 osem-bottom-bar-container {
     position: absolute;
     bottom: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 90;
 }
 
 osem-phenomenon-container {

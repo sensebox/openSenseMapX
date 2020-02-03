@@ -2,6 +2,8 @@
     "SEARCH": "Search for Places or Boxes",
     "FROM": "From",
     "TO": "To",
+    "SHOW_ALL": "show all",
+    "BOXES": "Boxes",
 
     "CHOOSE_DATERANGE": "Choose date range",
     "REMOVE_DATERANGE": "Remove date range",

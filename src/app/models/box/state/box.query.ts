@@ -163,6 +163,26 @@ export class BoxQuery extends QueryEntity<BoxState> {
     );
    }
 
+   selectSearchResultsWithSensors(value){
+
+    return combineQueries([
+      this.selectAll({
+        filterBy: entity => entity.name.toLowerCase().includes(value.toLowerCase())
+      }),
+      this.sensorQuery.selectAll({ asObject: true })])
+    .pipe(
+      map(([boxes, sensors]) => {
+        return boxes.map(box => {
+          return {
+            ...box,
+            sensors: box.sensors ? box.sensors.map(sensorId => sensors[sensorId]) : null
+          };
+        });
+      })
+    );
+  }
+
+
   constructor(protected store: BoxStore, private sensorQuery: SensorQuery) {
     super(store);
     this.createUIQuery();

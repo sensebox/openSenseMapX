@@ -6,29 +6,71 @@
             [(ngModel)]="searchTerm"
             (input)="changeSearchTerm()"
             (keydown)="keydown($event)"
+            (focus)="enter()"
+            (focusout)="leave()"
             placeholder="{{ 'SEARCH' | translate}}">
         <i class="fa fa-search"></i>
     </div>
 </div>
-
-
-<div id="autocomplete-results" *ngIf="searchTerm.length > 1">
-    <div 
-        class="autocomplete-list-item osem-padding-small" 
-        *ngFor="let box of autoCompleteResults; let i = index"
-        [class.active]="i === selectedAutocomplete"
-        (click)="selectResult(box)"
-    >
-        <h4>{{box.name}}</h4>
-        <div class="result-content">
-            <div class="last-measure" *ngIf="box.lastMeasurementAt; else nomeasure">
-                {{box.lastMeasurementAt | date}}
+<!-- <div id="autocomplete-results" class="osem-box-shadow-basic" [@appear]="searchTerm.length > 1 && resultsActive" *ngIf="searchTerm.length > 1 && resultsActive">     -->
+<div id="autocomplete-results" class="osem-box-shadow-basic">    
+    <div class="scroll">
+        <div 
+            [@appear]="searchTerm.length > 1 && resultsActive"
+            class="autocomplete-list-item osem-padding-small" 
+            *ngFor="let box of autocompleteToShow; let i = index"
+            [class.active]="i === selectedAutocomplete"
+            (click)="openDetails(box)"
+        >
+            <div class="left-search-result">
+                <i class="fa fa-cube"></i>
             </div>
-            <ng-template #nomeasure>
-                {{'NO_LAST_MEASUREMENT' | translate}}
-            </ng-template>
-            <div class="active-circle" [title]="box.active ? 'activ' : 'inactive'"[class.boxinactive]="!box.active" [class.boxactive]="box.active"></div>
+            <div class="middle-search-result">
+                <h4>{{box.name}}</h4>
+                <div class="sensor-icons">
+                    <div
+                        *ngFor="let sensor of box.sensors"
+                        class="sensor-icon osem-box-shadow-small" title="{{sensor.title}}">
+                        <i *ngIf="sensor.icon" class="osem-icon map-icon {{sensor.icon}}"></i>
+                    </div>
+                </div>
+            
+                <!-- <div class="last-measure" *ngIf="box.lastMeasurementAt; else nomeasure">
+                    {{box.lastMeasurementAt | date}}
+                </div>
+                <ng-template #nomeasure>
+                    {{'NO_LAST_MEASUREMENT' | translate}}
+                </ng-template> -->
+            </div>
+            <div class="right-search-result">
+                <div class="detail-button" title="{{'SHOW_ON_MAP' | translate}}" (click)="selectResult($event, box)"><i class="fa fa-eye"></i></div>
+                <div class="active-circle" [title]="box.active ? 'activ' : 'inactive'"[class.boxinactive]="!box.active" [class.boxactive]="box.active"></div>
+            </div>
+        </div>
+        <div class="number-results osem-padding-small" *ngIf="autoCompleteResults"> 
+            <span>{{autoCompleteResults.length}} {{'BOXES' | translate}}</span>
+            <span *ngIf="autoCompleteResults.length > 3" class="show-all" (click)="displayAll()">{{'SHOW_ALL' | translate}}</span>
+        </div>
+        <div class="divider">
+
+        </div>
+        <div            
+            class="autocomplete-list-item osem-padding-small" 
+            *ngFor="let res of locationAutocompleteResults; let i = index"
+            (click)="selectLocationResult($event, res)"
+            [class.active]="i === (selectedAutocomplete - autocompleteToShow.length)"
+
+        >
+            <div class="left-search-result">
+                <i class="fa fa-map-marker"></i>
+            </div>
+            <div class="middle-search-result">
+                <h4>{{res.display_name}}</h4>    
+            </div>
+            
+            <div class="right-search-result">
+                <div class="detail-button" title="{{'SHOW_ON_MAP' | translate}}" (click)="showLocationResult($event, res)" ><i class="fa fa-eye"></i></div>
+            </div>
         </div>
     </div>
-    <div class="number-results"> {{autoCompleteResults.length}} {{'RESULTS' | translate}}</div>
 </div>

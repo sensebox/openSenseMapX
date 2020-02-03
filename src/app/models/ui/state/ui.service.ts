@@ -2,11 +2,34 @@ import { Injectable } from '@angular/core';
 import { UiStore } from './ui.store';
 import { Ui } from './ui.model';
 import { ColorHelper } from '@swimlane/ngx-charts';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { first, tap } from 'rxjs/operators';
+import { environment } from './../../../../environments/environment';
+
 
 @Injectable({ providedIn: 'root' })
 export class UiService {
 
-  constructor(private uiStore: UiStore) {
+  LOCATIONIQ_TOKEN = environment.locationiq_token;
+
+
+  constructor(
+    private uiStore: UiStore, 
+    private http: HttpClient) {
+  }
+
+  fetchGeocodeResults(searchstring){
+    const params = new HttpParams()
+      .set('format', "json")
+      .set('key', this.LOCATIONIQ_TOKEN)
+      .set('addressdetails', "1")
+      .set('limit', "4")
+      .set('q', searchstring)
+ 
+
+    return this.http.get("//locationiq.org/v1/search.php", {params: params}).pipe(first()).pipe(tap((res:any) => {
+      this.uiStore.update(state => ({ ...state , locationAutocompleteResults: res }))
+    }));
   }
 
   update(ui: Partial<Ui>) {
@@ -71,5 +94,8 @@ export class UiService {
   }
   setSearchTerm(searchTerm){
     this.uiStore.update( state => ({ ...state , searchTerm: searchTerm }));
+  }
+  setSearchResults(results){
+    this.uiStore.update( state => ({ ...state , searchResults: results }));
   }
 }

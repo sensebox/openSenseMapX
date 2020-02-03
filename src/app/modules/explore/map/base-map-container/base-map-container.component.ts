@@ -32,6 +32,7 @@ export class BaseMapContainerComponent implements OnInit {
   compareTo$ = this.boxQuery.selectCompareTo$;
   colors$ = this.uiQuery.selectColors$;
   theme$ = this.uiQuery.selectTheme$;
+  searchResults$ = this.uiQuery.selectSearchResults$;
   ui$;
 
   boxSub;
@@ -40,6 +41,7 @@ export class BaseMapContainerComponent implements OnInit {
   activeSub;
   compareToFilterSub;
   colorSub;
+  searchSub;
   
 
   ngOnInit() {
@@ -62,7 +64,7 @@ export class BaseMapContainerComponent implements OnInit {
       }
     });
     
-    //ADD LAYERS WHEN DATA IS INITIALLISED
+    //ADD LAYERS WHEN DATA IS INITIALISED
     this.dataInit$.subscribe(res => {
       if(res){
         if(this.layerSub)
@@ -83,9 +85,16 @@ export class BaseMapContainerComponent implements OnInit {
           if(res[0]){
             this.mapService.colorActives(res[0], res[1]);
           }
-        })
+        });
       }
     })
+
+    console.log(this.searchSub);
+    this.searchSub = this.searchResults$.subscribe(res => {
+      console.log("RES", res)
+      this.mapService.setSearchLayerFilter(res.map(item => item._id));
+      // this.mapService.addSearchResultLayer(res, 'light');
+    });
   }
 
   unsubscribeAll(){
@@ -94,6 +103,7 @@ export class BaseMapContainerComponent implements OnInit {
     this.activeSub.unsubscribe();
     this.compareToSub.unsubscribe();
     this.colorSub.unsubscribe();
+    this.searchSub.unsubscribe();
 
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable, empty, of } from 'rxjs';
 
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
@@ -7,7 +7,7 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
-import { startWith, switchMap } from 'rxjs/operators';
+import { startWith, switchMap, withLatestFrom } from 'rxjs/operators';
 import { MapService } from 'src/app/modules/explore/services/map.service';
 
 @Component({
@@ -22,6 +22,7 @@ export class FilterContainerComponent implements OnInit {
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
   searchTerm$ = this.uiQuery.selectSearchTerm$;
+  locationAutocompleteResults$ = this.uiQuery.selectLocationAutocompleteResults$;
 
   activeTab = 'phenos';
   searchTimeout;
@@ -46,13 +47,23 @@ export class FilterContainerComponent implements OnInit {
         }
       }
     })
+
     this.autoCompleteResults$ = this.searchTerm$.pipe(
       startWith(''),
-      switchMap(value => this.boxQuery.selectAll({
-         filterBy: entity => entity.name.toLowerCase().includes(value.toLowerCase())
-      }))
+      switchMap(value => {
+        if(value && value.length > 2){
+          return this.boxQuery.selectSearchResultsWithSensors(value);
+        } else {
+          return of([]);
+        }
+      })
     );
 
+    this.autoCompleteResults$.subscribe(res => {
+      console.log("SETTING SEARCH RESULTS")
+      
+      this.uiService.setSearchResults(res);
+    })
     // this.searchTerm$.subscribe(res => {
     //   clearTimeout(this.searchTimeout);
     //   let that = this;
@@ -96,6 +107,11 @@ export class FilterContainerComponent implements OnInit {
   }
 
   search(searchTerm){
+    this.uiService.fetchGeocodeResults(searchTerm).subscribe(res => {
+      console.log(res);
+    }, (err) => {
+      console.log(err)
+    });
     this.uiService.setSearchTerm(searchTerm);
   }
   selectResult(box){

@@ -97,3 +97,27 @@ export const legendAnimation =
         transition('1 => 0', animate('200ms ease-in-out')),
         transition('0 => 1', animate('200ms ease-in-out'))
     ]);
+
+
+// export const appear = 
+// trigger('appear', [
+//     state('1', style({opacity: '1'})),
+//     state('0', style({opacity: "0"})),
+//     transition(':leave', animate('200ms ease-in-out')),
+//     transition(':enter', animate('200ms ease-in-out'))
+// ]);
+
+export const appear = 
+    trigger('appear', [
+        transition(':enter',[ 
+            style({opacity: 0}),
+            animate('60ms ease-in-out'), style({
+                opacity: 1
+            })
+        ]),
+        transition(':leave',[
+            animate('60ms ease-in-out'), style({
+                opacity: 0
+            })
+        ])
+    ]);

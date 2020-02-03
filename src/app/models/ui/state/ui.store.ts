@@ -15,7 +15,9 @@ export interface UiState {
   theme: string,
   baseLayer: any,
   fitlerVisible: boolean,
-  searchTerm: string
+  searchTerm: string,
+  searchResults: any[],
+  locationAutocompleteResults: any[]
 }
 
 export function createInitialState(): UiState {
@@ -75,7 +77,9 @@ export function createInitialState(): UiState {
       } 
     }],
     fitlerVisible: true,
-    searchTerm: ""
+    searchTerm: "",
+    searchResults: [],
+    locationAutocompleteResults: []
   };
 }
 
