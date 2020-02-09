@@ -90,7 +90,6 @@ export class BoxSingleContainerComponent implements OnInit {
 
     this.activeSensors$.subscribe(sensors => {
       if(sensors instanceof Array) {
-
         this.chartData = sensors.filter(sensor => sensor.rawValues).map(sensor => {
           if(sensor.rawValues){
             return {

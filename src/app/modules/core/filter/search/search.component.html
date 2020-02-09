@@ -12,8 +12,8 @@
         <i class="fa fa-search"></i>
     </div>
 </div>
-<!-- <div id="autocomplete-results" class="osem-box-shadow-basic" [@appear]="searchTerm.length > 1 && resultsActive" *ngIf="searchTerm.length > 1 && resultsActive">     -->
-<div id="autocomplete-results" class="osem-box-shadow-basic">    
+<!-- <div id="autocomplete-results" class="osem-box-shadow-basic">     -->
+<div id="autocomplete-results" class="osem-box-shadow-basic" [@appear]="searchTerm.length > 1 && resultsActive" *ngIf="searchTerm.length > 1 && resultsActive">    
     <div class="scroll">
         <div 
             [@appear]="searchTerm.length > 1 && resultsActive"
@@ -57,7 +57,7 @@
         <div            
             class="autocomplete-list-item osem-padding-small" 
             *ngFor="let res of locationAutocompleteResults; let i = index"
-            (click)="selectLocationResult($event, res)"
+            (click)="selectLocationResult(res)"
             [class.active]="i === (selectedAutocomplete - autocompleteToShow.length)"
 
         >

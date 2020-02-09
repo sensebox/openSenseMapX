@@ -15,6 +15,8 @@ export class UiQuery extends Query<UiState> {
   selectSearchTerm$ = this.select(state => state.searchTerm);
   selectSearchResults$ = this.select(state => state.searchResults);
   selectLocationAutocompleteResults$ = this.select(state => state.locationAutocompleteResults);
+  selectClustering$ = this.select(state => state.clustering);
+  selectCluster$ = this.select(state => state.cluster);
   
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);

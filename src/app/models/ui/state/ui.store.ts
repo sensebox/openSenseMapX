@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ui } from './ui.model';
 import { StoreConfig, Store } from '@datorama/akita';
 import { ColorHelper } from '@swimlane/ngx-charts';
+import { clusterLayerSolo, clusterLayer } from './layers';
 
 export interface UiState {
   colors: ColorHelper,
@@ -14,10 +15,13 @@ export interface UiState {
   language: string,
   theme: string,
   baseLayer: any,
+  clusterLayers: any,
   fitlerVisible: boolean,
   searchTerm: string,
   searchResults: any[],
-  locationAutocompleteResults: any[]
+  locationAutocompleteResults: any[],
+  clustering: boolean,
+  cluster: any
 }
 
 export function createInitialState(): UiState {
@@ -35,6 +39,9 @@ export function createInitialState(): UiState {
       'type': 'circle',
       'source': 'boxes',
       'filter': ["!=", 'old', ["get", "state"]],
+      'layout': {
+        'visibility': 'none'
+      },
       'paint': {
       'circle-radius': {
         'base': 1.75,
@@ -76,10 +83,13 @@ export function createInitialState(): UiState {
         ]
       } 
     }],
+    clusterLayers: [clusterLayer, clusterLayerSolo],
     fitlerVisible: true,
     searchTerm: "",
     searchResults: [],
-    locationAutocompleteResults: []
+    locationAutocompleteResults: [],
+    clustering: true,
+    cluster: null
   };
 }
 
@@ -95,19 +105,54 @@ export class UiStore extends Store<UiState> {
     this.update( state => ({...state, activeSensorTypes: types}));
   }
   updateSelectedPheno(pheno) {
-    this.update( state => ( {
-       ...state, 
-       selectedPheno: pheno, 
-       baseLayer: {
-        ...state.baseLayer,
-        filter: pheno.layer.filter,
-        paint: {
-          ...state.baseLayer.paint,
-          'circle-color': pheno.layer.paint['circle-color'],
-          'circle-radius': pheno.layer.paint['circle-radius']
+    this.update( state =>  {
+
+      //DEEP CLONE because immutable
+      let circleColorCluster =JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
+      circleColorCluster[2] = JSON.parse(JSON.stringify(state.clusterLayers[0].paint['circle-color']))[2];
+      circleColorCluster[2][1][1] = pheno.title;
+      let circleColorSolo = JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
+      circleColorSolo[2] = JSON.parse(JSON.stringify(state.clusterLayers[1].paint['circle-color']))[2];
+      circleColorSolo[2][1] = pheno.title;
+
+      return {
+        ...state, 
+        selectedPheno: pheno, 
+        baseLayer: {
+          ...state.baseLayer,
+          filter: pheno.layer.filter,
+          paint: {
+            ...state.baseLayer.paint,
+            'circle-color': pheno.layer.paint['circle-color'],
+            'circle-radius': pheno.layer.paint['circle-radius']
+          },
         },
-      }
-    }));
+        clusterLayers: [{
+          ...state.clusterLayers[0],
+          filter: [
+            'all',
+            ["!=", null, ['get', pheno.title]],
+            ['==', ['get', 'cluster'], true],
+            ['has', 'point_count']
+          ],
+          paint: {
+            ...state.clusterLayers[0].paint,
+            'circle-color': circleColorCluster
+          }
+        },{
+          ...state.clusterLayers[1],
+          filter:  [
+            'all',
+            ["!=", null, [ "get", pheno.title, ["object", ["get", "live"]]]],
+            ['!', ['has', 'point_count']]
+          ],
+          paint: {
+            ...state.clusterLayers[1].paint,
+            'circle-color': circleColorSolo
+          }
+        }
+      ]}
+    });
   }
   setLayers(layers){
     this.update( state => ( { ...state , layers: layers }));

@@ -196,7 +196,23 @@
     background: var(--background-primary-full);
     max-width: 320px;
     border-radius: 5px;
-    border: 1px solid var(--color-primary);
+    // border: 1px solid var(--color-primary);
+
+    .popup-header {
+        background: var(--color-primary);
+        h3 {
+            color: var(--text-color-secondary);
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+        
+        li {
+        }
+    }
     
     .sensor-icons {
         // display: flex;
@@ -210,5 +226,26 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+#cluster-popup {
+    background: var(--background-primary-full);
+    display: inline-block;
+    .cluster-header {
+        background: var(--color-primary);
+        position: relative;
+    }
+    .cluster-items {
+        max-height: 350px;
+        max-width: 300px;
+        overflow-y: auto;
+        .cluster-item {
+            
+            &:hover {
+                background: var(--hover-color);
+                cursor: pointer;
+            }
+        }
     }
 }

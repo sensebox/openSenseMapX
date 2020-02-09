@@ -98,4 +98,13 @@ export class UiService {
   setSearchResults(results){
     this.uiStore.update( state => ({ ...state , searchResults: results }));
   }
+  setClustering(clustering){
+    this.uiStore.update( state => ({ ...state , clustering: clustering }));
+  }
+  toggleClustering(){
+    this.uiStore.update( state => ({ ...state , clustering: !state.clustering }));
+  }
+  setCluster(cluster){
+    this.uiStore.update( state => ({ ...state , cluster: cluster }));
+  }
 }

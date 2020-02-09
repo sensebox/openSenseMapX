@@ -130,11 +130,11 @@ export class PhenomenonComponent implements OnInit {
             'interpolate',
             ['linear'],
             [ "get", "UV-Intensität", ["object", ["get", "live"]]],
-            -5, '#9900cc',
-            0, '#0000ff',
-            10, '#0099ff',
-            20, '#ffff00',
-            30, '#ff0000',
+            0, '#9900cc',
+            100, '#0000ff',
+            200, '#0099ff',
+            300, '#ffff00',
+            400, '#ff0000',
           ]
         }
       },

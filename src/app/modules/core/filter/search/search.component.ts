@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
 
   @Output() changedSearchTerm = new EventEmitter();
   @Output() resultSelected = new EventEmitter();
+  @Output() locResultSelected = new EventEmitter();
   @Input() autoCompleteResults;
   @Input() locationAutocompleteResults;
   
@@ -88,7 +89,8 @@ export class SearchComponent implements OnInit {
     this.resultSelected.emit(box);
   }
 
-  selectLocationResult(box){
+  selectLocationResult(loc){
+    this.locResultSelected.emit(loc);
     // e.stopPropagation();
     // this.router.navigate(['/explore/' + box._id], {
     //   relativeTo: this.activatedRoute,

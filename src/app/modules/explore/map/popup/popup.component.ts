@@ -1,14 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'osem-popup',
   templateUrl: './popup.component.html',
-  styleUrls: ['./popup.component.scss']
+  styleUrls: ['./popup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PopupComponent implements OnInit {
 
   @Input() box;
+  @Input() cluster;
+  @Output() closed = new EventEmitter();
 
   constructor(public router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -63,6 +66,14 @@ export class PopupComponent implements OnInit {
       relativeTo: this.activatedRoute,
       queryParamsHandling: 'merge'
     });
+  }
+
+  selectBox(box){
+    this.details(box.properties._id);
+  }
+
+  closePopup(){
+    this.closed.emit();
   }
 
 }

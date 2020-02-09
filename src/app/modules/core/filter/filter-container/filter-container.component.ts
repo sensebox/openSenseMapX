@@ -60,8 +60,6 @@ export class FilterContainerComponent implements OnInit {
     );
 
     this.autoCompleteResults$.subscribe(res => {
-      console.log("SETTING SEARCH RESULTS")
-      
       this.uiService.setSearchResults(res);
     })
     // this.searchTerm$.subscribe(res => {
@@ -107,14 +105,19 @@ export class FilterContainerComponent implements OnInit {
   }
 
   search(searchTerm){
-    this.uiService.fetchGeocodeResults(searchTerm).subscribe(res => {
-      console.log(res);
-    }, (err) => {
-      console.log(err)
-    });
-    this.uiService.setSearchTerm(searchTerm);
+    if(searchTerm.length > 1){
+      this.uiService.fetchGeocodeResults(searchTerm).subscribe(res => {
+        // console.log(res);
+      }, (err) => {
+        // console.log(err)
+      });
+      this.uiService.setSearchTerm(searchTerm);
+    }
   }
   selectResult(box){
     this.mapService.flyTo(box.currentLocation.coordinates);
+  }
+  selectLocResult(loc){
+    this.mapService.flyTo([loc.lon, loc.lat]);
   }
 }

@@ -1,5 +1,7 @@
 <osem-popup 
     (mouseenter)="mouseenter()"
     (mouseleave)="mouseleave()"
+    (closed)="closePopup()"
     [box]="popupBox$ | async"
+    [cluster]="cluster$ | async"
 ></osem-popup>

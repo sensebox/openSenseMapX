@@ -28,10 +28,12 @@ export class MapService {
   dataInit = false;
   oldFilter;
 
+  currentClusterLayers;
+  
+  mouseLeaveFunction;
   deactivatePopupTimer;
   activatePopupTimer;
 
-  mouseLeaveFunction;
 
   constructor(
     private boxQuery: BoxQuery,
@@ -49,11 +51,21 @@ export class MapService {
           this.map.off('click', 'base-layer', this.baseClickFunction);
           this.map.on('mouseenter', 'base-layer', this.compareMouseenterFunction);
           this.map.on('click', 'base-layer', this.compareClickFunction);
+         
+          this.map.off('mouseenter', 'boxes-no-cluster', this.baseMouseenterFunction);
+          this.map.off('click', 'boxes-no-cluster', this.baseClickFunction);
+          this.map.on('mouseenter', 'boxes-no-cluster', this.compareMouseenterFunction);
+          this.map.on('click', 'boxes-no-cluster', this.compareClickFunction);
         } else {
           this.map.off('click', 'base-layer', this.compareClickFunction);
           this.map.off('mouseenter', 'base-layer', this.compareMouseenterFunction);
           this.map.on('mouseenter', 'base-layer', this.baseMouseenterFunction);
           this.map.on('click', 'base-layer', this.baseClickFunction);
+         
+          this.map.off('click', 'boxes-no-cluster', this.compareClickFunction);
+          this.map.off('mouseenter', 'boxes-no-cluster', this.compareMouseenterFunction);
+          this.map.on('mouseenter', 'boxes-no-cluster', this.baseMouseenterFunction);
+          this.map.on('click', 'boxes-no-cluster', this.baseClickFunction);
         }
 
         if (res[1].length > 0) {
@@ -156,6 +168,9 @@ export class MapService {
   addClickFuntion(layer) {
     this.map.on('click', layer, this.baseClickFunction);
   }
+  addClusterClickFunction(layer) {
+    this.map.on('click', layer, this.clusterClickFunction);
+  }
 
   baseClickFunction = e => {
     if (e.features.length > 0) {
@@ -164,6 +179,27 @@ export class MapService {
         queryParamsHandling: 'merge'
       });
     }
+  }
+  clusterClickFunction = e => {
+    let that = this;
+    this.map.getCanvas().style.cursor = 'pointer';
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    let pixelPosition = this.map.project(coordinates);
+    // let box = e.features[0].properties;
+    let clusterSource = this.map.getSource('cluster-boxes');
+    var clusterId = e.features[0].properties.cluster_id,
+    point_count = e.features[0].properties.point_count;
+
+    // Get all points under a cluster
+    clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures){
+     
+      that.uiService.setCluster(aFeatures);
+    });
+
+
+    document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
+    document.getElementById("osem-popup").style.left = (pixelPosition.x+10) + 'px';
+    document.getElementById("osem-popup").style.display = 'block';
   }
 
   compareClickFunction = e => {
@@ -196,6 +232,37 @@ export class MapService {
     }
   }
 
+  clusterMouseoverFunction = e => {
+    if (e.features.length > 0) {
+      let that = this;
+      var features = this.map.queryRenderedFeatures(e.point, { layers: ['boxes-cluster'] });
+      var clusterId = features[0].properties.cluster_id,
+      point_count = features[0].properties.point_count,
+      clusterSource = this.map.getSource('cluster-boxes');
+    
+      // Get Next level cluster Children
+      // 
+      // clusterSource.getClusterChildren(clusterId, function(err, aFeatures){
+      //   console.log('getClusterChildren', err, aFeatures);
+      // });
+    
+      // Get all points under a cluster
+      clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures){
+        //MAKE LAYER AND SOURCE ADD TO MAP
+        that.map.getSource('cluster-hover').setData({
+          type: 'FeatureCollection',
+          features: aFeatures
+        });
+      });
+    }
+  }
+
+  clusterMouseleaveFunction = e => {
+    this.map.getSource('cluster-hover').setData({
+      type: 'FeatureCollection',
+      features: []
+    });
+  }
   addPopup(layer) {
     let that = this;
     this.map.on('mouseenter', layer, 
@@ -211,6 +278,32 @@ export class MapService {
     //   console.log("LEAVE YOOO")
     //   that.mouseLeave(that);
     // });
+  }
+
+  addHoverCluster(layer){
+    this.map.addSource('cluster-hover', {
+      type: "geojson",
+      data: {
+        type: 'FeatureCollection',
+        features: []
+      }
+    });
+
+    this.map.addLayer({
+      'id': 'cluster-hover-layer',
+      'type': 'circle',
+      'source': 'cluster-hover',
+      'paint': {
+        'circle-radius': {
+        'base': 1.75,
+        'stops': [[1, 6], [22, 580]]
+        },
+        'circle-opacity': 0.4,
+        'circle-color': 'black'
+      }
+    });
+    this.map.on('mouseenter', layer, this.clusterMouseoverFunction);
+    this.map.on('mouseleave', layer, this.clusterMouseleaveFunction);
   }
 
   mouseLeave(){
@@ -248,6 +341,7 @@ export class MapService {
     let pixelPosition = this.map.project(coordinates);
     let box = e.features[0].properties;
 
+    this.uiService.setCluster(null);
     this.boxService.setPopupBox({ ...box, sensors: JSON.parse(e.features[0].properties.sensors) });
 
     document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
@@ -270,57 +364,143 @@ export class MapService {
   }
 
 
-  setMapData(boxes) {
-    this.updateBoxesData(boxes, this.map);
+  setMapData(boxes, pheno, clusterLayers) {
+    this.updateBoxesData(boxes, pheno, this.map, clusterLayers);
+  }
+
+  filterByProperty(data, property){
+    let newData = data["features"].filter(res => {
+      if(res['properties']['live'] && res['properties']['live'][property]){
+        return res;
+      }
+    })
+    return {type: "FeatureCollection", features: newData};
   }
 
 
-  updateBoxesData(boxes, map) {
+  updateBoxesData(boxes, pheno, map, clusterLayers) {
     boxes = this.convertLastMeasurement(boxes);
 
     if (!map.getSource('boxes')) {
+ 
+      // source for single Boxes
       map.addSource('boxes', {
         type: "geojson",
         data: this.toGeoJson(boxes)
-      })
+      });
+
+      //Source for clusterlayer, TODO: Dynamically add phenomena when sensor-wiki is finished
+      if(boxes && pheno){
+        this.addClusterSource(boxes, pheno.title, map);
+        this.drawClusterLayers(clusterLayers, map);
+      }
+
     } else {
       map.getSource('boxes').setData(this.toGeoJson(boxes));
     }
     this.boxService.setDataInit(true);
   }
 
+  addClusterSource(boxes, property, map) {
 
-  setMapLayers(layers) {
-    this.drawLayers(layers, this.map);
+    if(map.getLayer('boxes-cluster')){
+      map.removeLayer('boxes-no-cluster')
+      map.removeLayer('boxes-cluster')
+      map.removeLayer('cluster-number-layer')
+      map.removeLayer('no-cluster-number')
+    }
+    if(map.getSource('cluster-boxes')){
+      map.removeSource('cluster-boxes');
+    }
+    
+    //Source for clusterlayer, TODO: Dynamically add phenomena when sensor-wiki is finished
+    map.addSource('cluster-boxes', {
+      'type': 'geojson',
+      'data': this.filterByProperty(this.toGeoJson(boxes), property),
+      'cluster': true,
+      'clusterRadius': 65,
+      'clusterProperties': { 
+        'Temperatur': ['+', ['case', ["!=", null, [ "get", "Temperatur", ["object", ["get", "live"]]]], [ "get", "Temperatur", ["object", ["get", "live"]]], null]],
+        'Luftdruck': ['+', ['case', ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live"]]]], [ "get", "Luftdruck", ["object", ["get", "live"]]], null]],
+        'rel. Luftfeuchte': ['+', ['case', ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live"]]]], [ "get", "rel. Luftfeuchte", ["object", ["get", "live"]]], null]],
+        'PM10': ['+', ['case', ["!=", null, [ "get", "PM10", ["object", ["get", "live"]]]], [ "get", "PM10", ["object", ["get", "live"]]], null]],
+        'PM2.5': ['+', ['case', ["!=", null, [ "get", "PM2.5", ["object", ["get", "live"]]]], [ "get", "PM2.5", ["object", ["get", "live"]]], null]],
+        'Beleuchtungsstärke': ['+', ['case', ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]]], [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]], null]],
+        'UV-Intensität': ['+', ['case', ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live"]]]], [ "get", "UV-Intensität", ["object", ["get", "live"]]], null]],
+      }
+    });
   }
 
 
-  drawLayers(layers, map) {
+  setMapBaseLayer(layer) {
+    this.drawBaseLayer(layer, this.map);
+  }
 
-    layers.forEach(element => {
+  drawBaseLayer(layer, map) {
 
-      if (!map.getLayer(element.id)) {
-        map.addLayer(element);
+    if (!map.getLayer(layer.id)) {
+      map.addLayer(layer);
 
-        if (map.getLayer('active-layer-text'))
-          map.moveLayer(element.id, 'active-layer-text');
+      if (map.getLayer('active-layer-text'))
+        map.moveLayer(layer.id, 'active-layer-text');
 
+    } else {
+
+      map.setPaintProperty(layer.id, 'circle-color', layer.paint['circle-color']);
+
+      if (layer.filter) {
+        map.setFilter(layer.id, layer.filter);
       } else {
+        map.setFilter(layer.id);
+      }
+    }
+    if (!map.getLayer('number-layer')) {
+      this.addNumberLayer();
+    }
+    map.setPaintProperty('number-layer', 'text-color', layer.paint['circle-color']);
+    map.setLayoutProperty('number-layer', 'text-field', layer.paint['circle-color'][2]);
+  }
 
-        map.setPaintProperty(element.id, 'circle-color', element.paint['circle-color']);
+  setMapClusterLayers(layers, boxes){
+    if(layers){
+      boxes = this.convertLastMeasurement(boxes);
+      this.addClusterSource(boxes, layers[0]['paint']['circle-color'][2][1][1], this.map);
+      this.drawClusterLayers(layers, this.map);
+      this.map.setPaintProperty('cluster-hover-layer', 'circle-color', layers[1]['paint']['circle-color']);
+    }
+  }
 
-        if (element.filter) {
-          map.setFilter(element.id, element.filter);
+  drawClusterLayers(layers, map) {
+
+    this.currentClusterLayers = layers;
+
+    layers.forEach(layer => {
+
+      if (!map.getLayer(layer.id)) {
+        map.addLayer(layer);
+        // if (map.getLayer('active-layer-text'))
+        //   map.moveLayer(layer.id, 'active-layer-text');
+  
+      } else {
+  
+        map.setPaintProperty(layer.id, 'circle-color', layer.paint['circle-color']);
+  
+        if (layer.filter) {
+          map.setFilter(layer.id, layer.filter);
         } else {
-          map.setFilter(element.id);
+          map.setFilter(layer.id);
         }
       }
-      if (!map.getLayer('number-layer')) {
-        this.addNumberLayer();
-      }
-      map.setPaintProperty('number-layer', 'text-color', element.paint['circle-color']);
-      map.setLayoutProperty('number-layer', 'text-field', element.paint['circle-color'][2]);
     });
+
+    if (!map.getLayer('cluster-number-layer')) {
+      this.addClusterNumberLayers();
+    }
+    let textField = ["concat", ['/',['round',[ '*', ['/', ["get", layers[0].paint['circle-color'][2][1][1]], ["get", "point_count"]], 100]],100], ""];
+    map.setPaintProperty('no-cluster-number', 'text-color', layers[0].paint['circle-color']);
+    map.setLayoutProperty('cluster-number-layer', 'text-field', textField);
+    map.setLayoutProperty('no-cluster-number', 'text-field', layers[1].paint['circle-color'][2]);
+
   }
 
 
@@ -465,12 +645,84 @@ export class MapService {
         ]
       },
       "layout": {
+        'visibility': 'none',
         "text-field": "",
         "text-variable-anchor": ["bottom"],
         "text-offset": [0, 1],
         "text-size": 15
       }
     }, 'base-layer');
+  }
+
+  addClusterNumberLayers(){
+       // map.addLayer({
+      //   'id': 'cluster-label',
+      //   'type': 'symbol',
+      //   'source': 'cluster-boxes',
+      //   'filter': [
+      //     'all',
+      //     // ["get", "Temperatur", ["object", ["get", "live"]]],
+      //     // ['==', ['get', 'cluster'], true]
+      //     ['has', 'point_count']
+      //   ],
+      //   'layout': {
+      //     // 'text-field': ['format', ['/', ["get", "temp"], ["get", "point_count"]], { 'font-scale': 1.2 }],
+      //     // 'text-field': ['format', ([ "/", ["get", "temp"],2]),  { 'font-scale': 1.2 }],
+      //     // 'text-field': [ "match", ["get","temp"], "10",["get","temp"], "TZZZZ" ],
+      //     // 'text-field': ['/', ["get", "temp"], ["get", "point_count"]],
+      //     'text-field': ["concat", ['/',['round',[ '*', ['/', ["get", "temp"], ["get", "point_count"]], 100]],100], ""],
+      //     'text-font': ['Montserrat Bold', 'Arial Unicode MS Bold'],
+      //     'text-size': 13
+      //   },
+      //   'paint': {
+      //     'text-color': 'white'
+      //   }
+      // });
+    this.map.addLayer({
+      'id': 'cluster-number-layer',
+      'type': 'symbol',
+      'source': 'cluster-boxes',
+      'filter':  ['has', 'point_count'],
+        //     'all',
+        //     // ["get", "Temperatur", ["object", ["get", "live"]]],
+        //     // ['==', ['get', 'cluster'], true]
+        //     ['has', 'point_count']
+        //   ],
+      "paint": {
+        'text-color': "white"
+      },
+      "layout": {
+        // "text-field": "TTTESSSTTT",
+        "text-field": ["concat", ['/',['round',[ '*', ['/', ["get", "Temperatur"], ["get", "point_count"]], 100]],100], ""],
+        "text-size": 15,
+        'text-font': ['Montserrat Bold', 'Arial Unicode MS Bold'],
+      }
+    });
+    
+    this.map.addLayer({
+      'id': 'no-cluster-number',
+      'type': 'symbol',
+      'source': 'cluster-boxes',
+      'filter': ['!', ['has', 'point_count']],
+      "paint": {
+        'text-color': [
+          'interpolate',
+          ['linear'],
+          ["get", "Temperatur", ["object", ["get", "live"]]],
+          -5, '#9900cc',
+          0, '#0000ff',
+          10, '#0099ff',
+          20, '#ffff00',
+          30, '#ff0000'
+        ]
+      },
+      "layout": {
+        "text-field": ["get", "Temperatur", ["object", ["get", "live"]]],
+        "text-variable-anchor": ["bottom"],
+        "text-offset": [0, 1],
+        "text-size": 15
+      }
+    });
   }
 
   setBaseLayerFilter(boxes) {
@@ -629,6 +881,31 @@ export class MapService {
       if(this.map && this.map.getLayer('search-layer')){
         this.map.removeLayer('search-layer');
       }
+    }
+  }
+
+  toggleLayerVisibility(layer){
+    var visibility = this.map.getLayoutProperty(layer, 'visibility');
+ 
+    if (visibility === 'visible') {
+      this.map.setLayoutProperty(layer, 'visibility', 'none');
+      // this.className = '';
+    } else {
+      // this.className = 'active';
+      this.map.setLayoutProperty(layer, 'visibility', 'visible');
+    }
+  }
+
+  setClustering(res){
+    if(this.map.getLayer('base-layer')){
+      this.map.setLayoutProperty('base-layer', 'visibility', res ? 'none' : 'visible' );
+      this.map.setLayoutProperty('number-layer', 'visibility', res ? 'none' : 'visible' );
+    }
+    if(this.map.getLayer('boxes-cluster')){
+      this.map.setLayoutProperty('boxes-no-cluster', 'visibility', res ? 'visible' : 'none' );
+      this.map.setLayoutProperty('boxes-cluster', 'visibility', res ? 'visible' : 'none' );
+      this.map.setLayoutProperty('cluster-number-layer', 'visibility', res ? 'visible' : 'none' );
+      this.map.setLayoutProperty('no-cluster-number', 'visibility', res ? 'visible' : 'none' );
     }
   }
 }

@@ -1,0 +1,6 @@
+<div>
+    <div *ngFor="let layer of layers" (click)="toggleVisibility(layer)">
+        {{layer}}
+    </div>
+    <div (click)="toggleClustering()">CLUSTER</div>
+</div>

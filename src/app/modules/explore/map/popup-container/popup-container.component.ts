@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { MapService } from '../../services/map.service';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
+import { UiService } from 'src/app/models/ui/state/ui.service';
 
 @Component({
   selector: 'osem-popup-container',
@@ -11,8 +13,13 @@ import { MapService } from '../../services/map.service';
 export class PopupContainerComponent implements OnInit {
 
   popupBox$ = this.boxQuery.selectPopupBox$;
+  cluster$ = this.uiQuery.selectCluster$;
 
-  constructor(private boxQuery: BoxQuery, private mapService: MapService) { }
+  constructor(
+    private boxQuery: BoxQuery, 
+    private mapService: MapService, 
+    private uiService: UiService,
+    private uiQuery: UiQuery) { }
 
   mouseenter(){
     this.mapService.mouseEnterPopup();
@@ -22,6 +29,10 @@ export class PopupContainerComponent implements OnInit {
   }
   
   ngOnInit() {
+  }
+
+  closePopup(){
+    this.uiService.setCluster(null);
   }
 
 }

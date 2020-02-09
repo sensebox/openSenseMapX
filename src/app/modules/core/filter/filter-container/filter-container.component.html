@@ -3,6 +3,7 @@
         <osem-search
             (changedSearchTerm)="search($event)"
             (resultSelected)="selectResult($event)"
+            (locResultSelected)="selectLocResult($event)"
             [autoCompleteResults]="autoCompleteResults$ | async"
             [locationAutocompleteResults]="locationAutocompleteResults$ | async"
         ></osem-search>

@@ -12,13 +12,25 @@
 </div> -->
 
 
-<div *ngIf="box" id="popup" class="osem-padding-small">
-    <h2>{{box.name}}</h2>
-    <p>{{'CREATED_AT' | translate}}: {{box.createdAt | date}}</p>
-    <p>{{'STATE' | translate}}: <b>{{box.state}}</b></p>
-    <p>{{'LOCATION' | translate}}: <b>{{box.exposure}}</b></p>
-    <h4>{{'SENSORS' | translate}}:</h4>
-    <div class="sensor-icons">
+<div *ngIf="box" id="popup">
+    <div class="popup-header osem-padding-small">
+        <h3>{{box.name}}</h3>
+    </div>
+    <div class="osem-padding small">
+        <ul>
+            <li>
+                {{'CREATED_AT' | translate}}: {{box.createdAt | date}}
+            </li>
+            <li>
+                {{'STATE' | translate}}: <b>{{box.state}}</b>
+            </li>
+            <li>
+                {{'LOCATION' | translate}}: <b>{{box.exposure}}</b>
+            </li>
+        </ul>
+    </div>
+    <div class="sensor-icons osem-padding-small">
+        <h4>{{'SENSORS' | translate}}:</h4>
         <div
             *ngFor="let sensor of box.sensors"
             class="sensor-icon osem-box-shadow-small" title="{{sensor.title}}">
@@ -26,29 +38,46 @@
         </div>
     </div>
     <br>
-    <button 
-        *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1" 
-        class="osem-button"
-        (click)="compareToOther(box._id)"
-    >{{'COMPARE_TO_OTHER_BOX' | translate}}</button>
-    <button 
-        *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
-        class="osem-button"
-        (click)="compareToCurrent(box._id)"
-    >{{'COMPARE_TO_CURRENT_BOX' | translate}}</button>
-    <button 
-        *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1" 
-        class="osem-button"
-        (click)="details(box._id)"
-    >{{'DETAILS' | translate}}</button>
-    <button 
-        *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1" 
-        class="osem-button"
-        (click)="addToCompare(box._id)"
-    >{{'ADD_TO_COMPARE' | translate}}</button>
-    <button 
-        *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1" 
-        class="osem-button"
-        (click)="removeFromCompare(box._id)"
-    >{{'REMOVE_FROM_COMPARE' | translate}}</button>
+    <div class="osem-padding-small">
+        <button 
+            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1" 
+            class="osem-button"
+            (click)="compareToOther(box._id)"
+        >{{'COMPARE_TO_OTHER_BOX' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+            class="osem-button"
+            (click)="compareToCurrent(box._id)"
+        >{{'COMPARE_TO_CURRENT_BOX' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1" 
+            class="osem-button"
+            (click)="details(box._id)"
+        >{{'DETAILS' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1" 
+            class="osem-button"
+            (click)="addToCompare(box._id)"
+        >{{'ADD_TO_COMPARE' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1" 
+            class="osem-button"
+            (click)="removeFromCompare(box._id)"
+        >{{'REMOVE_FROM_COMPARE' | translate}}</button>
+    </div>
+</div>
+
+
+<div *ngIf="cluster && !box" id="cluster-popup">
+    <div class="cluster-header osem-padding-small">
+        {{cluster.length}} {{'BOXES' | translate}}
+        <div class="osem-close-text" (click)="closePopup()">x</div>
+    </div>
+    <div class="cluster-items">
+        <div *ngFor="let box of cluster">
+            <div (click)="selectBox(box)" class="cluster-item osem-padding-small">
+                {{box.properties.name}}
+            </div>
+        </div>
+    </div>
 </div>

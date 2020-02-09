@@ -23,8 +23,9 @@ export class BaseMapContainerComponent implements OnInit {
   boxes$ = this.boxQuery.selectBoxes();
   loading$ = this.boxQuery.selectLoading();
   loadingSensor$ = this.sensorQuery.selectLoading();
-  layers$ = this.uiQuery.select(ent => ent.layers);
+  // layers$ = this.uiQuery.select(ent => ent.layers);
   baseLayer$ = this.uiQuery.select(ent => ent.baseLayer);
+  clusterLayers$ = this.uiQuery.select(ent => ent.clusterLayers);
   mapInit$ = this.boxQuery.selectMapInit$;
   dataInit$ = this.boxQuery.selectDataInit$;
   activeBox$ = this.boxQuery.selectActiveId();
@@ -33,6 +34,8 @@ export class BaseMapContainerComponent implements OnInit {
   colors$ = this.uiQuery.selectColors$;
   theme$ = this.uiQuery.selectTheme$;
   searchResults$ = this.uiQuery.selectSearchResults$;
+  selectedPheno$ = this.uiQuery.selectSelectedPheno$;
+  clustering$ = this.uiQuery.selectClustering$;
   ui$;
 
   boxSub;
@@ -42,6 +45,7 @@ export class BaseMapContainerComponent implements OnInit {
   compareToFilterSub;
   colorSub;
   searchSub;
+  clusterLayerSub;
   
 
   ngOnInit() {
@@ -51,13 +55,19 @@ export class BaseMapContainerComponent implements OnInit {
     //SUBSCRIBE TO ALL BOXES and Layers after map is initiatet
     this.mapInit$.pipe(withLatestFrom(this.compareModus$)).subscribe(res => {
       if(res[0]){
-        this.boxSub = this.boxes$.subscribe(res => {
-          if(res) {
-            this.mapService.setMapData(res);  
+        this.boxSub = this.boxes$.pipe(withLatestFrom(this.selectedPheno$)).pipe(withLatestFrom(this.clusterLayers$)).subscribe(res => {
+          if(res[0]) {
+            this.mapService.setMapData(res[0][0], res[0][1], res[1]);  
           }
         });
         this.mapService.addPopup('base-layer');
         this.mapService.addClickFuntion('base-layer');
+        this.mapService.addPopup('boxes-no-cluster');
+        this.mapService.addClickFuntion('boxes-no-cluster');
+
+        this.mapService.addClusterClickFunction('boxes-cluster');
+        console.log(res);
+        this.mapService.addHoverCluster('boxes-cluster');
         if(res[1]){
           this.mapService.setCompareModusClickFunctions();
         }
@@ -70,8 +80,10 @@ export class BaseMapContainerComponent implements OnInit {
         if(this.layerSub)
           this.unsubscribeAll();
         this.layerSub = this.baseLayer$.subscribe(res => {
-          //convert to Array because drawLayers expects an array
-          this.mapService.setMapLayers([res]); 
+          this.mapService.setMapBaseLayer(res);
+        });
+        this.clusterLayerSub = this.clusterLayers$.pipe(withLatestFrom(this.boxes$)).subscribe(res => {
+          this.mapService.setMapClusterLayers(res[0], res[1]);
         });
         this.activeSub = this.activeBox$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
           if(res)
@@ -86,12 +98,13 @@ export class BaseMapContainerComponent implements OnInit {
             this.mapService.colorActives(res[0], res[1]);
           }
         });
+        this.clustering$.subscribe(res => {
+          this.mapService.setClustering(res);
+        })
       }
     })
 
-    console.log(this.searchSub);
     this.searchSub = this.searchResults$.subscribe(res => {
-      console.log("RES", res)
       this.mapService.setSearchLayerFilter(res.map(item => item._id));
       // this.mapService.addSearchResultLayer(res, 'light');
     });

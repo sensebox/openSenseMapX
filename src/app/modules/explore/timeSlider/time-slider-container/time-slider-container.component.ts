@@ -46,7 +46,7 @@ export class TimeSliderContainerComponent implements OnInit {
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
           this.uiService.updateBaseLayer(newLayer);
-  
+          
         } else if(res[1] && !res[0] && this.selectedDate){
           let newLayer = JSON.parse(JSON.stringify(res[1].layer))
           newLayer.filter = [ "get", res[1].title, ["object", ["get", "live"]]];

@@ -23,10 +23,12 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { PopupComponent } from './map/popup/popup.component';
 import { PopupContainerComponent } from './map/popup-container/popup-container.component';
+import { MapOptionsContainerComponent } from './map/map-options-container/map-options-container.component';
+import { MapOptionsComponent } from './map/map-options/map-options.component';
 
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent],
   imports: [
     CommonModule,
     NgxChartsModule,
@@ -36,6 +38,6 @@ import { PopupContainerComponent } from './map/popup-container/popup-container.c
     TranslateModule
   ],
   providers: [MapService],
-  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent]
+  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent]
 })
 export class ExploreModule { }
