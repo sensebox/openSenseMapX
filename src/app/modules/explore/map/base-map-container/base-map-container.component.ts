@@ -66,7 +66,6 @@ export class BaseMapContainerComponent implements OnInit {
         this.mapService.addClickFuntion('boxes-no-cluster');
 
         this.mapService.addClusterClickFunction('boxes-cluster');
-        console.log(res);
         this.mapService.addHoverCluster('boxes-cluster');
         if(res[1]){
           this.mapService.setCompareModusClickFunctions();

@@ -198,7 +198,8 @@ export class PhenomenonComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
       if(params.mapPheno){
-        this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === params.mapPheno));
+        if(!this.selectedPheno || this.selectedPheno.title != params.mapPheno)
+          this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === params.mapPheno));
       }
     })
   }
@@ -212,5 +213,4 @@ export class PhenomenonComponent implements OnInit {
         queryParamsHandling: 'merge'
       });
   }
-
 }
