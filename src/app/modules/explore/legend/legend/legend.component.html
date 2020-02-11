@@ -1,17 +1,16 @@
-<div *ngIf="selectedPheno && selectedPheno.title" [@legendAnimation]="legendVisible" id="anim-container"> 
-    <div class="osem-minimize-button" title="{{'LEGEND' | translate}}" (click)="toggleLegend()">-</div>
-    <h3>{{selectedPheno.title}}</h3>
+<!-- <div *ngIf="selectedPheno && selectedPheno.title" [@legendAnimation]="legendVisible" id="anim-container">  -->
+    <!-- <div class="osem-minimize-button" title="{{'LEGEND' | translate}}" (click)="toggleLegend()">-</div> -->
+    <!-- <h3>{{selectedPheno.title}}</h3> -->
     <div id="legend-container">
         <div id="legend-labels">
-        <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
-            <div *ngIf="i>2">
-                <div  class="legend-label" *ngIf=" i%2">
-                    <div class="content-container">{{prop}}</div>
+            <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
+                <div class="legend-label-outer" *ngIf="i>2">
+                    <div  class="legend-label" *ngIf=" i%2">
+                        <div class="content-container">{{prop}}</div>
+                    </div>
                 </div>
-                
-            </div>
-        </ng-container>
-    </div>
+            </ng-container>
+        </div>
         <div id="legend-gradient" [style.background]="'linear-gradient('+gradient+')'"></div>
     </div>
-</div>
+<!-- </div> -->

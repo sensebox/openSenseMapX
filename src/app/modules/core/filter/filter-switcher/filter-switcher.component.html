@@ -19,7 +19,9 @@
 <div [@shrinkVertical]="!minimizedBoolean" class="osem-overflow-hidden">
     <osem-phenomenon *ngIf="activeTab === 'phenos'"
         [selectedPheno]="selectedPheno"
+        [changeVariable]="change"
         (phenoSelected)="selectPheno($event)"
+        (changeToggled)="toggleChange($event)"
         ></osem-phenomenon>
     
     <osem-filter *ngIf="activeTab === 'filter'">

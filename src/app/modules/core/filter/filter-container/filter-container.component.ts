@@ -28,6 +28,7 @@ export class FilterContainerComponent implements OnInit {
   searchTimeout;
   autoCompleteResults$;
   minimizedBoolean = false;
+  change:boolean = false;
 
   constructor(
     private boxService: BoxService,
@@ -88,6 +89,7 @@ export class FilterContainerComponent implements OnInit {
 
   selectPheno(pheno){
     this.uiService.updateSelectedPheno(pheno);
+    this.change = false;
   }
 
   setActiveTab(activeTab){
@@ -119,5 +121,10 @@ export class FilterContainerComponent implements OnInit {
   }
   selectLocResult(loc){
     this.mapService.flyTo([loc.lon, loc.lat]);
+  }
+
+  toggleChange(){
+    console.log(this.change)
+    this.change = !this.change;
   }
 }

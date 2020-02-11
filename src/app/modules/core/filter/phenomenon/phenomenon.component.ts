@@ -5,16 +5,19 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'osem-phenomenon',
   templateUrl: './phenomenon.component.html',
   styleUrls: ['./phenomenon.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhenomenonComponent implements OnInit {
 
   @Output() phenoSelected = new EventEmitter();
+  @Output() changeToggled = new EventEmitter();
   @Input() selectedPheno;
+  @Input() changeVariable: boolean = false;
 
   phenos = [
     {
       title: 'Temperatur',
+      unit: '°C',
       layer: {
         'id': 'base-layer',
         'type': 'circle',
@@ -27,19 +30,20 @@ export class PhenomenonComponent implements OnInit {
           },
           'circle-color': [
             'interpolate',
-          ['linear'],
-          [ "get", "Temperatur", ["object", ["get", "live"]]],
-          -5, '#9900cc',
-          0, '#0000ff',
-          10, '#0099ff',
-          20, '#ffff00',
-          30, '#ff0000'
+            ['linear'],
+            [ "get", "Temperatur", ["object", ["get", "live"]]],
+            -5, '#9900cc',
+            0, '#0000ff',
+            10, '#0099ff',
+            20, '#ffff00',
+            30, '#ff0000'
           ]
         }
       },
       icon: "osem-thermometer",
     }, {
       title: 'rel. Luftfeuchte',
+      unit: '%',
       layer : { 
         'id': 'base-layer',
         'type': 'circle',
@@ -66,6 +70,7 @@ export class PhenomenonComponent implements OnInit {
     },
     {
       title: 'Luftdruck',
+      unit: 'hPa',
       layer : { 
         'id': 'base-layer',
         'type': 'circle',
@@ -91,6 +96,7 @@ export class PhenomenonComponent implements OnInit {
       icon: "osem-barometer"
     },
     { title: 'Beleuchtungsstärke', 
+      unit: 'lux',
       layer: {
         'id': 'base-layer',
         'type': 'circle',
@@ -103,19 +109,21 @@ export class PhenomenonComponent implements OnInit {
           },
           'circle-color': [
             'interpolate',
-          ['linear'],
+            ['linear'],
           [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]],
           0, '#9900cc',
           300, '#0000ff',
           600, '#0099ff',
           900, '#ffff00',
           1200, '#ff0000',
-          ]
-        }
+        ]
+      }
       },
       icon: "osem-brightness"
     },
-    { title: 'UV-Intensität', 
+    { 
+      title: 'UV-Intensität', 
+      unit: 'μW/cm²',
       layer: {
         'id': 'base-layer',
         'type': 'circle',
@@ -141,6 +149,7 @@ export class PhenomenonComponent implements OnInit {
       icon: "osem-brightness"
     },
     { title: "PM10",
+      unit: 'µg/m³',
       layer: {
         'id': 'base-layer',
         'type': 'circle',
@@ -165,7 +174,9 @@ export class PhenomenonComponent implements OnInit {
       },
       icon: "osem-cloud"
     },
-    { title: "PM2.5", 
+    { 
+      title: "PM2.5", 
+      unit: 'µg/m³',
       layer: {
         'id': 'base-layer',
         'type': 'circle',
@@ -212,5 +223,11 @@ export class PhenomenonComponent implements OnInit {
         queryParams: { mapPheno: pheno.title },
         queryParamsHandling: 'merge'
       });
+  }
+
+  toggleChange(){
+    this.changeToggled.emit();
+    // this.changeVariable = !this.changeVariable;
+    // console.log(this.changeVariable)
   }
 }

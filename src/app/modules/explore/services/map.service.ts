@@ -234,6 +234,7 @@ export class MapService {
 
   clusterMouseoverFunction = e => {
     if (e.features.length > 0) {
+      this.map.getCanvas().style.cursor = 'pointer';
       let that = this;
       var features = this.map.queryRenderedFeatures(e.point, { layers: ['boxes-cluster'] });
       var clusterId = features[0].properties.cluster_id,
@@ -258,6 +259,7 @@ export class MapService {
   }
 
   clusterMouseleaveFunction = e => {
+    this.map.getCanvas().style.cursor = '';
     this.map.getSource('cluster-hover').setData({
       type: 'FeatureCollection',
       features: []

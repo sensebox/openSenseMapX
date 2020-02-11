@@ -42,7 +42,11 @@
     "COMPARE_TO_CURRENT_BOX": "Compare to current Box",
     "DETAILS": "Details",
     "ADD_TO_COMPARE": "Add to comparison",
-    "REMOVE_FROM_COMPARE": "Remove from comparison"
+    "REMOVE_FROM_COMPARE": "Remove from comparison",
 
+    "IMPRESSUM": "ABOUT",
+    "RESPONSIBLE": "Responsible",
+    "SPONSORED_BY": "Sponsored By",
+    "THANKS_TO": "Thanks to:"
 
 }

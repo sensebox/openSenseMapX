@@ -1,28 +1,99 @@
 @import '../../../../../styles/variables.scss';
 
-#phenomene-selector {
-    
-    .pheno {
+// #phenomene-selector {
+
+//     display: inline-block;
+//     .pheno {
+//         display: flex;
+//         align-items: center;
+//         cursor: pointer;
+//         i {
+//             padding: 0 0.8em 0 0.4em;
+//             flex-grow: 0;
+//             width: 25px;
+//         }
+//         &.active {
+//             background: var(--background-primary-full);
+//             color: var(--color-primary);
+//         }
+//         &:hover {
+//             background: var(--background-primary-full);
+//             color: var(--color-primary);
+//         }
+//         .name {
+//             flex-grow: 1;
+//             text-align: left;
+//         }
+//     }
+// }
+
+// #legend-wrapper {
+//     display: inline-block;
+// }
+
+#phenomen-selector {
+
+    .top-bar {
+        .pheno-name {
+            padding-left: 1.5em;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .osem-icon-container {
+            display: inline-flex;
+        }
+        // i {
+        //     padding-right: 0.8em;
+        // }
+    }
+    .bottom-content {
+        position: relative;
         display: flex;
-        align-items: center;
-        cursor: pointer;
-        i {
-            padding: 0 0.8em 0 0.4em;
-            flex-grow: 0;
-            width: 25px;
+        justify-content: space-between;
+        #phenos {
+            display: inline-block;
+            .pheno {
+                padding: 0.2em 0;
+                display: flex;
+                // flex-direction: column;
+                align-items: center;
+                cursor: pointer;
+                border-right: 1px solid #ccc;
+
+                &.active {
+                    background: var(--background-primary-full);
+                    color: var(--color-primary);
+                    border: none;
+                }
+                &:hover {
+                    background: var(--background-primary-full);
+                    color: var(--color-primary);
+                }
+            }
         }
-        &.active {
-            background: var(--background-primary);
-            color: var(--color-primary);
+
+        #legend {
+            display: inline-block;
+            // height: 100%;
         }
-        &:hover {
-            background: var(--background-primary-full);
-            color: var(--color-primary);
-        }
-        .name {
-            flex-grow: 1;
-            text-align: left;
+
+        #legend-info {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-width: 110px;
+            // height: 100%;
+
+            .unit {
+                font-size: 1.5em;
+                font-weight: bold;
+                text-decoration: underline;
+            }
+            .fa {
+                font-size: 1.7em;
+            }
+
         }
     }
-    
 }

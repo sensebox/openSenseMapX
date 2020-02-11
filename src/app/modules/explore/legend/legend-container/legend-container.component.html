@@ -1,7 +1,5 @@
-<div>
-    <osem-legend 
-        [legendVisible]="legendVisible"
-        (legendToggled)="toggleLegend()"
-        [selectedPheno]="selectedPheno$ | async" 
-        [gradient]="gradient"></osem-legend>
-</div>
+<osem-legend 
+    [legendVisible]="legendVisible"
+    (legendToggled)="toggleLegend()"
+    [selectedPheno]="selectedPheno$ | async" 
+    [gradient]="gradient"></osem-legend>

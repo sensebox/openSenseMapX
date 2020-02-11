@@ -43,6 +43,11 @@
     "COMPARE_TO_CURRENT_BOX": "Mit ausgewählter Box vergleichen",
     "DETAILS": "Details",
     "ADD_TO_COMPARE": "Zum Vergleich hinzufügen",
-    "REMOVE_FROM_COMPARE": "Vom Vergleich entfernen"
+    "REMOVE_FROM_COMPARE": "Vom Vergleich entfernen",
+
+    "IMPRESSUM": "Impressum",
+    "RESPONSIBLE": "Verantwortlich",
+    "SPONSORED_BY": "Gesponsort von",
+    "THANKS_TO": "Dankeschön an:"
 
 }

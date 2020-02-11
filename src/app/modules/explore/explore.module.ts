@@ -38,6 +38,6 @@ import { MapOptionsComponent } from './map/map-options/map-options.component';
     TranslateModule
   ],
   providers: [MapService],
-  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent]
+  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent, LegendContainerComponent]
 })
 export class ExploreModule { }

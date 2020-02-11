@@ -13,8 +13,10 @@ export class FilterSwitcherComponent implements OnInit {
   @Input() activeTab;
   @Input() selectedPheno;
   @Input() minimizedBoolean; 
+  @Input() change; 
   @Output() activeChanged = new EventEmitter();
   @Output() phenoSelected = new EventEmitter();
+  @Output() changeToggled = new EventEmitter();
   @Output() minimized = new EventEmitter();
 
   constructor() { }
@@ -32,6 +34,9 @@ export class FilterSwitcherComponent implements OnInit {
 
   minimize(){
     this.minimized.emit();
+  }
+  toggleChange(){
+    this.changeToggled.emit();
   }
 
 

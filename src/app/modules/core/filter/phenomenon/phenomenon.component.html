@@ -1,12 +1,70 @@
-
+<!-- 
 <div class="" id="phenomene-selector">
+    <div class="pheno osem-padding-small">
+        <i *ngIf="!selectedPheno" class="fa fa-search"></i>
+        <i *ngIf="selectedPheno" class="fa fa-refresh"></i>
+        <input *ngIf="!selectedPheno" type="text">
+    </div>
     <div *ngFor="let pheno of phenos" 
         (click)="selectPheno(pheno)" 
         [class.active]="pheno?.title === selectedPheno?.title"
         class="pheno osem-padding-small">
         <i class="osem-icon {{pheno.icon}}"></i>
-        <div class="osem-inline name">
+        <div class="osem-inline name" *ngIf="!selectedPheno">
             {{pheno.title}}
+        </div>
+    </div>
+</div>
+
+<div id="legend-wrapper" *ngIf="selectedPheno">
+    <osem-legend-container class="osem-padding-small"></osem-legend-container>
+</div> -->
+
+
+<div id="phenomen-selector">
+    <div class="osem-padding-small">
+        <div class="top-bar">
+            <div class="pheno-icon">
+                <div class="osem-icon-container" (click)="toggleChange()">
+                    <i *ngIf="!selectedPheno || changeVariable; else change" class="fa fa-search"></i>
+                    <ng-template #change> 
+                        <i class="fa fa-refresh"></i>
+                    </ng-template>
+                </div>
+                <input *ngIf="!selectedPheno || changeVariable; else phenoName" type="text">
+                <ng-template #phenoName>
+                    <div class="pheno-name">
+                        {{selectedPheno.title}}
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <hr>
+        <div class="bottom-content">
+            <div id="phenos">
+                <div 
+                    *ngFor="let pheno of phenos" 
+                    (click)="selectPheno(pheno)" 
+                    [class.active]="pheno?.title === selectedPheno?.title"
+                    class="pheno">
+                    <div class="osem-icon-container">
+                        <i class="osem-icon {{pheno.icon}}"></i>
+                    </div>
+                    <div class="osem-inline name" *ngIf="!selectedPheno || changeVariable">
+                        {{pheno.title}}
+                    </div>
+                </div>
+            </div>
+            <div id="legend" *ngIf="selectedPheno && !changeVariable">
+                <osem-legend-container></osem-legend-container>
+            </div>
+            <div id="legend-info" *ngIf="selectedPheno && !changeVariable">
+                <div class="unit">
+                    {{selectedPheno.unit}}
+                </div>
+                <!-- <i class="osem-icon {{selectedPheno.icon}}"></i> -->
+                <i class="fa fa-info"></i>
+            </div>                 
         </div>
     </div>
 </div>
