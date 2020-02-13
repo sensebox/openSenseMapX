@@ -1,5 +1,11 @@
 <osem-map-options
     [layers]="layers"
-    (visibilityToggled)="toggleLayerVisibility($event)"
+    [visible]="visible"
+    [clustering]="clustering$ | async"
+    [numbers]="numbers$ | async"
+    [circles]="circles$ | async"
+    (visibilityToggled)="toggleVisibility()"
     (clusteringToggled)="toggleClustering()"
+    (circlesToggled)="toggleCircles()"
+    (numbersToggled)="toggleNumbers()"
 ></osem-map-options>

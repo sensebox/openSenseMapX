@@ -8,20 +8,34 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class MapOptionsComponent implements OnInit {
 
   @Input() layers;
+  @Input() visible;
+  @Input() clustering;
+  @Input() numbers;
+  @Input() circles;
+
   @Output() visibilityToggled = new EventEmitter();
   @Output() clusteringToggled = new EventEmitter();
+  @Output() numbersToggled = new EventEmitter();
+  @Output() circlesToggled = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  toggleVisibility(layer){
-    this.visibilityToggled.emit(layer);
+  toggleMapOptions(){
+    this.visibilityToggled.emit();
   }
 
   toggleClustering(){
     this.clusteringToggled.emit();
   }
 
+  toggleNumbers(){
+    this.numbersToggled.emit();
+  }
+
+  toggleCircles(){
+    this.circlesToggled.emit();
+  }
 }

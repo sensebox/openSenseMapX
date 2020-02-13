@@ -7,7 +7,7 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
-import { startWith, switchMap, withLatestFrom } from 'rxjs/operators';
+import { startWith, switchMap } from 'rxjs/operators';
 import { MapService } from 'src/app/modules/explore/services/map.service';
 
 @Component({

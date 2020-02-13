@@ -21,7 +21,7 @@
         [selectedPheno]="selectedPheno"
         [changeVariable]="change"
         (phenoSelected)="selectPheno($event)"
-        (changeToggled)="toggleChange($event)"
+        (changeToggled)="toggleChange()"
         ></osem-phenomenon>
     
     <osem-filter *ngIf="activeTab === 'filter'">

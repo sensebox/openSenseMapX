@@ -9,6 +9,7 @@ import { environment } from './../../../../environments/environment';
 import { schema, normalize } from 'normalizr';
 import { SensorStore } from '../../sensor/state/sensor.store';
 import { UiService } from '../../ui/state/ui.service';
+import { BoxQuery } from './box.query';
 
 @Injectable({ providedIn: 'root' })
 export class BoxService {
@@ -16,6 +17,7 @@ export class BoxService {
   constructor(
     private boxStore: BoxStore, 
     private sensorStore: SensorStore, 
+    private boxQuery: BoxQuery, 
     private uiService: UiService,
     private http: HttpClient) {
   }
@@ -35,7 +37,7 @@ export class BoxService {
       //set Data in storess
       this.boxStore.set(res.entities.boxes);
 
-      //TODO: find better way than this
+      //TODO: find better way than this (reference from sensor to box)
       for (let box in res.entities.boxes) {
         res.entities.boxes[box].sensors.forEach(sensor => {
           res.entities.sensors[sensor].boxes_id = res.entities.boxes[box]._id;
@@ -66,8 +68,10 @@ export class BoxService {
       
       this.boxStore.upsertMany(entities);
       this.boxStore.setLoading(false);
+      console.log(this.boxQuery.selectAll({asObject: true}))
       
-      //TODO: find a better place for this fix calling twice :o
+      console.log("MAKE CLUSTER SOURCE HERE?!?!", entities)
+      //TODO: find a better place for this + fix calling twice :o
       // this.setDisplayTimeSlider(true);
       this.uiService.setSelectedDate(dateRange[0]);
       this.uiService.setSelectedDate(dateRange[0]);

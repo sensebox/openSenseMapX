@@ -1,0 +1,32 @@
+#map-options {
+    background: var(--background-primary-full);
+    
+    .toggle-button {
+        cursor: pointer;
+        position: absolute;
+        background: var(--background-primary-full);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+
+        &.active {   
+            border: none;
+        }
+    }
+    
+    .options {
+        padding-top: 2em;
+
+        .checkbox {
+            width: 30px;
+            display: inline-block;
+            padding: 0.2em 0;
+        }
+    }
+}

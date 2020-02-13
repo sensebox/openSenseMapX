@@ -1,6 +1,38 @@
-<div>
-    <div *ngFor="let layer of layers" (click)="toggleVisibility(layer)">
-        {{layer}}
+<div id="map-options" class="osem-padding-small">
+    <div class="toggle-button" [class.active]="visible">
+        <div *ngIf="visible" class="osem-minimize-button" title="{{'MAP_OPTIONS' | translate}}" (click)="toggleMapOptions()">-</div>
+        <div *ngIf="!visible"  title="{{'MAP_OPTIONS' | translate}}" (click)="toggleMapOptions()">
+            <i class="fa fa-search"></i>
+        </div>
     </div>
-    <div (click)="toggleClustering()">CLUSTER</div>
+
+    <div *ngIf="visible" class="options">
+        <!-- <div *ngFor="let layer of layers" (click)="toggleLayerVisibility(layer)">
+            {{layer}}
+        </div> -->
+        <div (click)="toggleClustering()" title="{{'TOGGLE_CLUSTERING' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="!clustering" class="fa fa-square-o"></i>
+                <i *ngIf="clustering" class="fa fa-check-square-o checked"></i>
+            </div>
+            <span>{{'CLUSTERING' | translate}}</span>
+        </div>
+        <div (click)="toggleNumbers()" title="{{'TOGGLE_NUMBERS' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="!numbers" class="fa fa-square-o not-checked"></i>
+                <i *ngIf="numbers" class="fa fa-check-square-o checked"></i>
+            </div>
+            <span>{{'NUMBERS' | translate}}</span>
+        </div>
+        <div (click)="toggleCircles()" title="{{'TOGGLE_NUMBERS' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="!circles" class="fa fa-square-o not-checked"></i>
+                <i *ngIf="circles" class="fa fa-check-square-o checked"></i>
+            </div>
+            <span>{{'CIRCLES' | translate}}</span>
+        </div>
+        <!-- <div (click)="toggleNumbers()">Numbers</div> -->
+        <!-- <div (click)="toggleCircles()">Circles</div> -->
+
+    </div>
 </div>

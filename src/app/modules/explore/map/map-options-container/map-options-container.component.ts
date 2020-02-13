@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MapService } from '../../services/map.service';
 import { UiService } from 'src/app/models/ui/state/ui.service';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
 
 @Component({
   selector: 'osem-map-options-container',
@@ -9,19 +9,33 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 })
 export class MapOptionsContainerComponent implements OnInit {
 
-  layers = ['base-layer', 'boxes-cluster', 'no-cluster-number', 'cluster-label', 'boxes-no-cluster']
+  layers = ['base-layer', 'boxes-cluster', 'no-cluster-number', 'cluster-label', 'boxes-no-cluster'];
+  visible = false;
 
-  constructor(private mapService: MapService, private uiService: UiService) { }
+  clustering$ = this.uiQuery.selectClustering$;
+  circles$ = this.uiQuery.selectCircles$;
+  numbers$ = this.uiQuery.selectNumbers$;
+
+  constructor(
+    private uiService: UiService,
+    private uiQuery: UiQuery) { }
 
   ngOnInit() {
   }
 
-  toggleLayerVisibility(layer){
-    this.mapService.toggleLayerVisibility(layer);
+  toggleVisibility(){
+    this.visible = !this.visible;
   }
 
   toggleClustering(){
     this.uiService.toggleClustering();
   }
 
+  toggleCircles(){
+    this.uiService.toggleCircles();
+  }
+
+  toggleNumbers(){
+    this.uiService.toggleNumbers();
+  }
 }

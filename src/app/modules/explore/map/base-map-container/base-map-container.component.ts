@@ -36,6 +36,8 @@ export class BaseMapContainerComponent implements OnInit {
   searchResults$ = this.uiQuery.selectSearchResults$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   clustering$ = this.uiQuery.selectClustering$;
+  // selectedDate$ = this.uiQuery.selectSelectedDate$;
+
   ui$;
 
   boxSub;
@@ -56,6 +58,7 @@ export class BaseMapContainerComponent implements OnInit {
     this.mapInit$.pipe(withLatestFrom(this.compareModus$)).subscribe(res => {
       if(res[0]){
         this.boxSub = this.boxes$.pipe(withLatestFrom(this.selectedPheno$)).pipe(withLatestFrom(this.clusterLayers$)).subscribe(res => {
+          console.log("RES",res);
           if(res[0]) {
             this.mapService.setMapData(res[0][0], res[0][1], res[1]);  
           }

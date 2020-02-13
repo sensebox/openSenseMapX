@@ -5,6 +5,7 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { withLatestFrom } from 'rxjs/operators';
 import { IntervalTimer } from '../../../../helper/IntervalTimer';
+import { BoxQuery } from 'src/app/models/box/state/box.query';
 
 @Component({
   selector: 'osem-time-slider-container',
@@ -17,6 +18,7 @@ export class TimeSliderContainerComponent implements OnInit {
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
+  boxes$ = this.boxQuery.selectBoxes();
   selectedDate;
   selectedPheno;
 
@@ -29,6 +31,7 @@ export class TimeSliderContainerComponent implements OnInit {
   constructor(
     private uiQuery: UiQuery, 
     private uiService: UiService,
+    private boxQuery: BoxQuery,
     private router: Router,
     private activatedRoute: ActivatedRoute
     ) { }
@@ -46,6 +49,7 @@ export class TimeSliderContainerComponent implements OnInit {
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
           this.uiService.updateBaseLayer(newLayer);
+          // this.uiService.updateClusterLayer(res[0].toISOString());
           
         } else if(res[1] && !res[0] && this.selectedDate){
           let newLayer = JSON.parse(JSON.stringify(res[1].layer))
@@ -54,6 +58,13 @@ export class TimeSliderContainerComponent implements OnInit {
           this.uiService.updateBaseLayer(newLayer);
         }
       }  
+    })
+
+    this.boxes$.pipe(withLatestFrom(this.selectedDate$)).pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
+      if(res[1]) {
+        console.log(res);
+        console.log("MAKE CLUSTER SOURCE HERE");
+      }
     })
 
     this.dateRange$.subscribe(res => {

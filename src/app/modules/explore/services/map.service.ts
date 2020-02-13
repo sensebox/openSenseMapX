@@ -398,6 +398,7 @@ export class MapService {
       }
 
     } else {
+      console.log("SET DATA: ", boxes)
       map.getSource('boxes').setData(this.toGeoJson(boxes));
     }
     this.boxService.setDataInit(true);

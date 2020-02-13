@@ -1,8 +1,17 @@
 .impressum-header {
     background: var(--color-primary);
-    color: var(--text-color-primary);
+    position: relative;
+
+    h2 {
+        margin: 0;
+        color: var(--text-color-primary);
+    }
 }
 
 .impressum-content {
     background: var(--background-primary-full);
+    
+    h3 {
+        margin: 0;
+    }
 }

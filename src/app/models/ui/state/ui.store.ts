@@ -21,7 +21,9 @@ export interface UiState {
   searchResults: any[],
   locationAutocompleteResults: any[],
   clustering: boolean,
-  cluster: any
+  cluster: any,
+  numbers: boolean,
+  circles: boolean
 }
 
 export function createInitialState(): UiState {
@@ -89,7 +91,9 @@ export function createInitialState(): UiState {
     searchResults: [],
     locationAutocompleteResults: [],
     clustering: true,
-    cluster: null
+    cluster: null,
+    numbers: true,
+    circles: true
   };
 }
 
@@ -185,6 +189,7 @@ export class UiStore extends Store<UiState> {
   setTheme(theme){
     this.update( state => ({ ...state , theme: theme }));
   }
+
 
   updateBaseLayer(layer){
     this.update( state => ( {

@@ -104,6 +104,12 @@ export class UiService {
   toggleClustering(){
     this.uiStore.update( state => ({ ...state , clustering: !state.clustering }));
   }
+  toggleCircles(){
+    this.uiStore.update( state => ({ ...state , circles: !state.circles }));
+  }
+  toggleNumbers(){
+    this.uiStore.update( state => ({ ...state , numbers: !state.numbers }));
+  }
   setCluster(cluster){
     this.uiStore.update( state => ({ ...state , cluster: cluster }));
   }
