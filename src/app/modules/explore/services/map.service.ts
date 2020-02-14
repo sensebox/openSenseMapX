@@ -8,7 +8,7 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 
 import { Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
-import { arrayRemove, extractDateSteps, setLayerSource } from '../box/osem-line-chart/helper/helpers';
+import { arrayRemove, extractDateSteps, setLayerSource, extractSteps } from '../box/osem-line-chart/helper/helpers';
 import { environment } from './../../../../environments/environment';
 import { Map, NavigationControl } from 'mapbox-gl';
 import * as mapboxgl from 'mapbox-gl';
@@ -201,7 +201,7 @@ export class MapService {
 
     document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
     document.getElementById("osem-popup").style.left = (pixelPosition.x+10) + 'px';
-    document.getElementById("osem-popup").style.display = 'block';
+    // document.getElementById("osem-popup").style.display = 'block';
   }
 
   compareClickFunction = e => {
@@ -321,25 +321,26 @@ export class MapService {
   }
 
   mouseLeave(){
-    let that = this;
-    that.map.getCanvas().style.cursor = '';
-    clearTimeout(that.activatePopupTimer);
-    that.deactivatePopupTimer = setTimeout(function(){
-      that.boxService.setPopupBox(null);
-    }, 320)
-  }
-  
-  mouseEnterPopup(){
-    console.log("HALLLOOOO")
-    clearTimeout(this.deactivatePopupTimer);
-    this.deactivatePopupTimer = 0;
+    // let that = this;
+    this.map.getCanvas().style.cursor = '';
+    this.boxService.setPopupBox(null);
+    // clearTimeout(that.activatePopupTimer);
+    // that.deactivatePopupTimer = setTimeout(function(){
+      // }, 320)
+    }
+    
+    mouseEnterPopup(box){
+      // console.log("HALLLOOOO")
+      // clearTimeout(this.deactivatePopupTimer);
+    // this.deactivatePopupTimer = 0;
+    this.boxService.setPopupBox(box)
   }
   
   mouseLeavePopup(){
-    let that = this;
-    this.deactivatePopupTimer = setTimeout(function(){
-      that.boxService.setPopupBox(null);
-    }, 320);
+    // let that = this;
+    this.boxService.setPopupBox(null);
+    // this.deactivatePopupTimer = setTimeout(function(){
+    // }, 320);
   }
 
   setCompareModusClickFunctions() {
@@ -361,7 +362,7 @@ export class MapService {
 
     document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
     document.getElementById("osem-popup").style.left = (pixelPosition.x+10) + 'px';
-    document.getElementById("osem-popup").style.display = 'block';
+    // document.getElementById("osem-popup").style.display = 'block';
 
   }
 
@@ -375,7 +376,7 @@ export class MapService {
 
     document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
     document.getElementById("osem-popup").style.left = (pixelPosition.x+10) + 'px';
-    document.getElementById("osem-popup").style.display = 'block';
+    // document.getElementById("osem-popup").style.display = 'block';
   }
 
 
@@ -672,7 +673,6 @@ export class MapService {
       boxes = this.convertLastMeasurement(boxes);
       this.addClusterSource(boxes, pheno, this.map, dateRange);
       this.drawClusterLayers(layers, this.map, dateRange);
-      console.log("SETTING PAINT FOR HOVER", pheno)
       
       this.map.setPaintProperty('cluster-hover-layer', 'circle-color', pheno['layer']['paint']['circle-color']);
       // console.log
@@ -964,9 +964,16 @@ export class MapService {
     }
     this.map.setPaintProperty('active-layer-text', 'text-color', colorArray);
   }
-
-  setThemeLight() {
+  
+  setThemeLight(dateRange) {
+    if(dateRange){
+      let steps = extractDateSteps(dateRange);
+      steps.forEach(step => {
+        this.map.off('mouseleave', 'boxes-no-cluster'+step.toISOString(), this.mouseLeaveFunction);
+      })
+    }
     this.map.off('mouseleave', 'base-layer', this.mouseLeaveFunction);
+    this.map.off('mouseleave', 'boxes-no-cluster', this.mouseLeaveFunction);
     this.boxService.setMapInit(false);
     this.boxService.setDataInit(false);
     this.uiService.updateBaseLayer(
@@ -988,9 +995,15 @@ export class MapService {
     
   }
   
-  setThemeDark() {
+  setThemeDark(dateRange) {
+    if(dateRange){
+      let steps = extractDateSteps(dateRange);
+      steps.forEach(step => {
+        this.map.off('mouseleave', 'boxes-no-cluster'+step.toISOString(), this.mouseLeaveFunction);
+      })
+    }
     this.map.off('mouseleave', 'base-layer', this.mouseLeaveFunction);
-    this.mouseLeaveFunction = null;
+    this.map.off('mouseleave', 'boxes-no-cluster', this.mouseLeaveFunction);
     this.boxService.setMapInit(false);
     this.boxService.setDataInit(false);
     this.uiService.updateBaseLayer(

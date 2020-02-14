@@ -63,7 +63,6 @@ export class BaseMapContainerComponent implements OnInit {
             this.mapService.setMapData(res[0], res[1], res[2], res[3]);  
           }
         });
-        console.log("MAPINIT")
         this.mapService.addPopup('base-layer');
         this.mapService.addClickFuntion('base-layer');
         this.mapService.addPopup('boxes-no-cluster');

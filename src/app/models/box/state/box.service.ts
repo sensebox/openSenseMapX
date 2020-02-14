@@ -14,6 +14,8 @@ import { BoxQuery } from './box.query';
 @Injectable({ providedIn: 'root' })
 export class BoxService {
 
+  popupBoxTimeout;
+
   constructor(
     private boxStore: BoxStore, 
     private sensorStore: SensorStore, 
@@ -128,7 +130,19 @@ export class BoxService {
     this.boxStore.setCompareTo(compareTo);
   }
 
+  // setPopupBox(box){
+  //   this.boxStore.setPopupBox(box);
+  // }
   setPopupBox(box){
-    this.boxStore.setPopupBox(box);
+    if(!box){
+      clearTimeout(this.popupBoxTimeout);
+      this.popupBoxTimeout = setTimeout(() => {
+        this.boxStore.setPopupBox(box);
+      }, 250)
+    } else {
+      clearTimeout(this.popupBoxTimeout);
+      this.boxStore.setPopupBox(box);
+    }
   }
+
 }

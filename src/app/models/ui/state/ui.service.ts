@@ -12,6 +12,8 @@ export class UiService {
 
   LOCATIONIQ_TOKEN = environment.locationiq_token;
 
+  clusterTimeout;
+
 
   constructor(
     private uiStore: UiStore, 
@@ -111,6 +113,13 @@ export class UiService {
     this.uiStore.update( state => ({ ...state , numbers: !state.numbers }));
   }
   setCluster(cluster){
-    this.uiStore.update( state => ({ ...state , cluster: cluster }));
+    if(!cluster){
+      this.clusterTimeout = setTimeout(() => {
+        this.uiStore.update( state => ({ ...state , cluster: cluster }));
+      },250)
+    } else {
+      clearTimeout(this.clusterTimeout);
+      this.uiStore.update( state => ({ ...state , cluster: cluster }));
+    }
   }
 }

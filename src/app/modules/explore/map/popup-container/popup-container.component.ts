@@ -15,6 +15,7 @@ export class PopupContainerComponent implements OnInit {
   popupBox$ = this.boxQuery.selectPopupBox$;
   cluster$ = this.uiQuery.selectCluster$;
 
+  box;
   constructor(
     private boxQuery: BoxQuery, 
     private mapService: MapService, 
@@ -22,13 +23,16 @@ export class PopupContainerComponent implements OnInit {
     private uiQuery: UiQuery) { }
 
   mouseenter(){
-    this.mapService.mouseEnterPopup();
+    this.mapService.mouseEnterPopup(this.box);
   }
   mouseleave(){
     this.mapService.mouseLeavePopup();
   }
   
   ngOnInit() {
+    this.popupBox$.subscribe(box => {
+      this.box = box;
+    })
   }
 
   closePopup(){
