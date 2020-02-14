@@ -66,10 +66,11 @@ export class BoxCompareContainerComponent implements OnInit {
     this.dataInit$.subscribe(res => {
       if(res){
         this.compareToWithSensors$.subscribe(res => {
-          // console.log(res);
-          if(this.currentIds != res.map(compareTo => compareTo._id)){
-            this.currentIds = res.map(compareTo => compareTo._id);
-            this.combinedData = this.combineData(res);
+          if(res){
+            if(this.currentIds != res.map(compareTo => compareTo._id)){
+              this.currentIds = res.map(compareTo => compareTo._id);
+              this.combinedData = this.combineData(res);
+            }
           }
         });
     

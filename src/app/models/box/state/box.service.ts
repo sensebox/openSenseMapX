@@ -65,12 +65,8 @@ export class BoxService {
         }
       })
       
-      
       this.boxStore.upsertMany(entities);
       this.boxStore.setLoading(false);
-      console.log(this.boxQuery.selectAll({asObject: true}))
-      
-      console.log("MAKE CLUSTER SOURCE HERE?!?!", entities)
       //TODO: find a better place for this + fix calling twice :o
       // this.setDisplayTimeSlider(true);
       this.uiService.setSelectedDate(dateRange[0]);

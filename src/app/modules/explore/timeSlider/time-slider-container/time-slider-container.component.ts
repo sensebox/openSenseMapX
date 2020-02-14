@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { withLatestFrom } from 'rxjs/operators';
 import { IntervalTimer } from '../../../../helper/IntervalTimer';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
+import { MapService } from '../../services/map.service';
 
 @Component({
   selector: 'osem-time-slider-container',
@@ -15,6 +16,7 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 export class TimeSliderContainerComponent implements OnInit {
 
   dateRange$ = this.uiQuery.selectDateRange$;
+  dateRange;
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
@@ -33,18 +35,23 @@ export class TimeSliderContainerComponent implements OnInit {
     private uiService: UiService,
     private boxQuery: BoxQuery,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private mapService: MapService
     ) { }
 
   ngOnInit() { 
     this.combineSub = this.selectedDate$.pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
       if(res[1] != this.selectedPheno || (res[0] && res[0].getTime() != this.selectedDate)){
+        if(this.selectedDate){
+          this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
+        }
         if(res[0])
           this.selectedDate = res[0].getTime();
         if(res[1])
           this.selectedPheno = res[1];
         
         if(res[0] && res[1]){
+          this.mapService.addDateLayer(new Date(this.selectedDate).toISOString());
           let newLayer = JSON.parse(JSON.stringify(res[1].layer))
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
@@ -55,20 +62,21 @@ export class TimeSliderContainerComponent implements OnInit {
           let newLayer = JSON.parse(JSON.stringify(res[1].layer))
           newLayer.filter = [ "get", res[1].title, ["object", ["get", "live"]]];
           newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live"]]];
-          this.uiService.updateBaseLayer(newLayer);
+          this.uiService.updateBaseLayer(newLayer); 
         }
       }  
     })
 
-    this.boxes$.pipe(withLatestFrom(this.selectedDate$)).pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
-      if(res[1]) {
-        console.log(res);
-        console.log("MAKE CLUSTER SOURCE HERE");
-      }
-    })
+    // this.boxes$.pipe(withLatestFrom(this.selectedDate$)).pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
+    //   if(res[1]) {
+    //     console.log(res);
+    //     console.log("MAKE CLUSTER SOURCE HERE");
+    //   }
+    // })
 
     this.dateRange$.subscribe(res => {
       this.interval = null;
+      this.dateRange = res;
     })
   }
 
@@ -98,7 +106,8 @@ export class TimeSliderContainerComponent implements OnInit {
       this.interval.resume();
       return;
     }
-    this.interval = new IntervalTimer('timeSlider', this.forward, 3000, 10, this);
+    let numSteps =  (this.dateRange[1].getTime() -this.dateRange[0].getTime())/this.step;
+    this.interval = new IntervalTimer('timeSlider', this.forward, 2500, numSteps, this);
     this.interval.start();
   }
 
