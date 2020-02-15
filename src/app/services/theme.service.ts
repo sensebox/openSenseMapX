@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MapService } from '../modules/explore/services/map.service';
 import { UiQuery } from '../models/ui/state/ui.query';
+import { withLatestFrom } from 'rxjs/operators';
 
 interface Theme {
   name: string;
@@ -70,10 +71,11 @@ const dark: Theme = {
 export class ThemeService {
 
   theme$ = this.uiQuery.selectTheme$;
+  dateRange$ = this.uiQuery.selectDateRange$;
   constructor(private mapService: MapService, private uiQuery: UiQuery) {
-    this.theme$.subscribe(theme => {
-      if(theme != this.active.name){
-        this.toggleTheme();
+    this.theme$.pipe(withLatestFrom(this.dateRange$)).subscribe(theme => {
+      if(theme[0] != this.active.name){
+        this.toggleTheme(theme[1]);
       }
     })
   }
@@ -101,13 +103,13 @@ export class ThemeService {
   setLightTheme(): void {
     this.setActiveTheme(light);
   }
-  toggleTheme(){
+  toggleTheme(dateRange){
     if(this.isDarkTheme()){
       this.setActiveTheme(light);
-      this.mapService.setThemeLight();
+      this.mapService.setThemeLight(dateRange);
     } else {
       this.setActiveTheme(dark);
-      this.mapService.setThemeDark();
+      this.mapService.setThemeDark(dateRange);
     }
   }
 

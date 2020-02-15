@@ -5,7 +5,7 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { combineLatest, Observable } from 'rxjs';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map, withLatestFrom, mergeMap } from 'rxjs/operators';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { SensorQuery } from 'src/app/models/sensor/state/sensor.query';
 import { arrayRemove } from '../../box/osem-line-chart/helper/helpers';
@@ -36,6 +36,7 @@ export class BoxCompareContainerComponent implements OnInit {
   
   sensorsPhenoSub;
   activeSensorSub;
+  routeSub;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -51,7 +52,7 @@ export class BoxCompareContainerComponent implements OnInit {
   ngOnInit() {
     this.boxService.setCompareModus(true);
 
-    this.activatedRoute.queryParams.subscribe(res => {
+    this.routeSub = this.activatedRoute.queryParams.subscribe(res => {
       if(res.id){
         if(Array.isArray(res.id)){
           this.boxService.setCompareTo(res.id);
@@ -60,7 +61,7 @@ export class BoxCompareContainerComponent implements OnInit {
         }
       }
       if(res.pheno)
-      this.uiService.setActiveSensorTypes(res.pheno);
+        this.uiService.setActiveSensorTypes(res.pheno);
     });
     
     this.dataInit$.subscribe(res => {
@@ -74,15 +75,21 @@ export class BoxCompareContainerComponent implements OnInit {
           }
         });
     
-        this.sensorsPhenoSub = combineLatest(this.compareToWithSensors$, this.activePhenos$).pipe(map(res => {
-          if(res[0] && res[1]){
+        if(this.sensorsPhenoSub)
+          this.sensorsPhenoSub.unsubscribe();
+
+        this.sensorsPhenoSub = combineLatest(this.compareToWithSensors$, this.activePhenos$).subscribe(res => {
+          // TODO: THIS FIRES MANY TIMES for some reason when switching between dark and light mode and closing compare mode if not checking for length
+          if(res[0].length > 0 && res[1].length > 0){
             let sensorsToActive = res[0].map(box => box.sensors.filter(sensor => sensor.title === res[1]))
             sensorsToActive = [].concat(...sensorsToActive).map(sensor => sensor._id);
-            return sensorsToActive;
+            if(sensorsToActive.length > 0){
+              this.sensorService.setActive(sensorsToActive);
+            } else {
+              this.sensorService.setActive(null);
+            }
           }
-        })).subscribe(res => {
-          this.sensorService.setActive(res);
-        });
+        })
     
         this.activeSensors$.subscribe(sensors => {
           if(sensors instanceof Array) {
@@ -181,11 +188,20 @@ export class BoxCompareContainerComponent implements OnInit {
   }
 
   closeCompare(){
-    this.router.navigate(['']);
+    this.sensorsPhenoSub.unsubscribe();
+    this.router.navigate(
+      [''], 
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: { id: [] },
+        queryParamsHandling: 'merge'
+      }
+    );
   }
 
   ngOnDestroy(){
     this.sensorsPhenoSub.unsubscribe();
+    this.routeSub.unsubscribe();
     this.boxService.setCompareModus(false);
   }
 

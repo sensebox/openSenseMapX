@@ -32,3 +32,24 @@ export function setLayerSource (layerId, source, sourceLayer, map) {
     map.removeLayer(layerId);
     map.addLayer(layerDef, before);
 }
+
+export function positionPopup(pixelPosition){
+
+    if((window.innerWidth - pixelPosition.x) < 300) {
+        document.getElementById("osem-popup").style.right = (window.innerWidth -( pixelPosition.x-10)) + 'px';
+        document.getElementById("osem-popup").style.left = '';
+    } else {
+        document.getElementById("osem-popup").style.left = (pixelPosition.x+10) + 'px';
+        document.getElementById("osem-popup").style.right = '';
+    }
+
+    if((window.innerHeight - pixelPosition.y) < 350) {
+        document.getElementById("osem-popup").style.bottom = (window.innerHeight - pixelPosition.y) + 'px';
+        document.getElementById("osem-popup").style.top = '';
+    } else {
+        document.getElementById("osem-popup").style.top = (pixelPosition.y) + 'px';
+        document.getElementById("osem-popup").style.bottom = '';
+    }
+    // document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
+
+}

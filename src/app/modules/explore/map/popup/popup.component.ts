@@ -68,8 +68,12 @@ export class PopupComponent implements OnInit {
     });
   }
 
-  selectBox(box){
-    this.details(box.properties._id);
+  selectClusterBox(box){
+    if(this.router.url.indexOf('compare') != -1){
+      this.addToCompare(box.properties._id)
+    } else {
+      this.details(box.properties._id);
+    }
   }
 
   closePopup(){
