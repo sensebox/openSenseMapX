@@ -28,7 +28,7 @@ export class FilterContainerComponent implements OnInit {
   searchTimeout;
   autoCompleteResults$;
   minimizedBoolean = false;
-  change:boolean = false;
+  change:boolean = true;
 
   constructor(
     private boxService: BoxService,
