@@ -8,7 +8,7 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 
 import { Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
-import { arrayRemove, extractDateSteps, setLayerSource, extractSteps, positionPopup } from '../box/osem-line-chart/helper/helpers';
+import { arrayRemove, extractDateSteps, positionPopup } from '../box/osem-line-chart/helper/helpers';
 import { environment } from './../../../../environments/environment';
 import { Map, NavigationControl } from 'mapbox-gl';
 import * as mapboxgl from 'mapbox-gl';
