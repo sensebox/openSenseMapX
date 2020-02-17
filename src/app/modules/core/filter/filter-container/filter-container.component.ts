@@ -124,7 +124,10 @@ export class FilterContainerComponent implements OnInit {
   }
 
   toggleChange(){
-    console.log(this.change)
     this.change = !this.change;
+  }
+  
+  selectInfoPheno(pheno){
+    this.uiService.setInfoPheno(pheno);
   }
 }

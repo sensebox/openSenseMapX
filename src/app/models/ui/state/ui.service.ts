@@ -122,4 +122,8 @@ export class UiService {
       this.uiStore.update( state => ({ ...state , cluster: cluster }));
     }
   }
+
+  setInfoPheno(infoPheno){
+    this.uiStore.update( state => ({ ...state, infoPheno: infoPheno}))
+  }
 }

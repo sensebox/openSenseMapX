@@ -91,4 +91,6 @@ osem-map-options-container {
 
 #osem-popup {
     display: inline-block;
+    z-index: 900;
+    position: absolute;
 }

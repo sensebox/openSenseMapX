@@ -24,9 +24,12 @@
 
 <osem-bottom-bar-container></osem-bottom-bar-container>
 
-<div style="position: absolute;z-index: 10000" id="osem-popup">
+<div id="osem-popup">
     <osem-popup-container></osem-popup-container>
 </div>
 
 
 <osem-map-options-container></osem-map-options-container>
+
+
+<osem-modal *ngIf="infoPheno$ | async"></osem-modal>

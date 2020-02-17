@@ -11,6 +11,7 @@ export class PhenomenonComponent implements OnInit {
 
   @Output() phenoSelected = new EventEmitter();
   @Output() changeToggled = new EventEmitter();
+  @Output() infoPhenoSelected = new EventEmitter();
   @Input() selectedPheno;
   @Input() changeVariable: boolean = false;
 
@@ -112,10 +113,10 @@ export class PhenomenonComponent implements OnInit {
             ['linear'],
           [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]],
           0, '#9900cc',
-          300, '#0000ff',
-          600, '#0099ff',
-          900, '#ffff00',
-          1200, '#ff0000',
+          1000, '#0000ff',
+          2000, '#0099ff',
+          3000, '#ffff00',
+          4000, '#ff0000',
         ]
       }
       },
@@ -229,5 +230,9 @@ export class PhenomenonComponent implements OnInit {
     this.changeToggled.emit();
     // this.changeVariable = !this.changeVariable;
     // console.log(this.changeVariable)
+  }
+
+  showInfo(pheno){
+    this.infoPhenoSelected.emit(pheno);
   }
 }

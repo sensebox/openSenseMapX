@@ -16,6 +16,7 @@ export class AppComponent {
 
   language$ = this.uiQuery.selectLanguage$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
+  infoPheno$ = this.uiQuery.selectInfoPheno$;
 
 
   constructor(

@@ -19,6 +19,7 @@ export class UiQuery extends Query<UiState> {
   selectNumbers$ = this.select(state => state.numbers);
   selectCircles$ = this.select(state => state.circles);
   selectCluster$ = this.select(state => state.cluster);
+  selectInfoPheno$ = this.select(state => state.infoPheno);
   
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);

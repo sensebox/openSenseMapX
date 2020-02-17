@@ -22,7 +22,7 @@
 
 
 <div id="phenomen-selector">
-    <div class="osem-padding-small">
+    <div class="">
         <div class="top-bar">
             <div class="pheno-icon">
                 <div class="osem-icon-container" (click)="toggleChange()">
@@ -41,7 +41,7 @@
         </div>
         <hr>
         <div class="bottom-content">
-            <div id="phenos">
+            <div id="phenos" [class.small]="(selectedPheno && !changeVariable) || !changeVariable">
                 <div 
                     *ngFor="let pheno of phenos" 
                     (click)="selectPheno(pheno)" 
@@ -60,10 +60,24 @@
             </div>
             <div id="legend-info" *ngIf="selectedPheno && !changeVariable">
                 <div class="unit">
-                    {{selectedPheno.unit}}
+                    {{'UNIT' | translate}}:
+                    <div class="unit-symbol">
+                        {{selectedPheno.unit}}
+                    </div>
+                </div>
+                <div class="top-score">
+                    <div>
+                        Highest
+                    </div>
+                    <div>
+                        Lowest
+                    </div>
+                </div>
+                <div class="info" (click)="showInfo(selectedPheno.title)">
+                    {{selectedPheno.title}}?<br>
+                    <i class="fa fa-info"></i>
                 </div>
                 <!-- <i class="osem-icon {{selectedPheno.icon}}"></i> -->
-                <i class="fa fa-info"></i>
             </div>                 
         </div>
     </div>

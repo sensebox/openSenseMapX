@@ -34,6 +34,7 @@
 #phenomen-selector {
 
     .top-bar {
+        padding-top: 0.2em;
         .pheno-name {
             padding-left: 1.5em;
             display: inline-block;
@@ -59,16 +60,27 @@
                 // flex-direction: column;
                 align-items: center;
                 cursor: pointer;
-                border-right: 1px solid #ccc;
 
                 &.active {
                     background: var(--background-primary-full);
                     color: var(--color-primary);
-                    border: none;
+                    // border: none;
                 }
                 &:hover {
                     background: var(--background-primary-full);
                     color: var(--color-primary);
+                }
+            }
+
+            &.small{
+                .pheno {
+                    background: var(--hover-color);
+                    border-right: 1px solid #ccc;
+
+                    &.active {
+                        background: var(--background-primary-full);
+                        border: none;
+                    }
                 }
             }
         }
@@ -83,15 +95,24 @@
             flex-direction: column;
             justify-content: space-around;
             min-width: 110px;
+            text-align: center;
+            padding-right: 0.3em;
             // height: 100%;
-
-            .unit {
-                font-size: 1.5em;
-                font-weight: bold;
-                text-decoration: underline;
-            }
             .fa {
                 font-size: 1.7em;
+            }
+
+            .unit {
+                // text-decoration: underline;
+                text-align: center;
+                .unit-symbol {
+                    font-size: 1.5em;
+                    font-weight: bold;
+
+                }
+            }
+            .info {
+                font-size: 0.9em;
             }
 
         }

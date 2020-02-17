@@ -23,7 +23,8 @@ export interface UiState {
   clustering: boolean,
   cluster: any,
   numbers: boolean,
-  circles: boolean
+  circles: boolean,
+  infoPheno: string
 }
 
 export function createInitialState(): UiState {
@@ -93,7 +94,8 @@ export function createInitialState(): UiState {
     clustering: true,
     cluster: null,
     numbers: true,
-    circles: true
+    circles: true,
+    infoPheno: null
   };
 }
 
