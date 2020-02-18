@@ -1,27 +1,35 @@
 <div class="chart-wrapper">
-    <div id="osem-chart-container" *ngIf="data?.length > 0">
-        <osem-osem-line-chart 
-            [results]="data" 
-            [selectedDate]="selectedDate"
-            [xAxis]="true"
-            [xAxisLabel]="'XXX'"
-            [yAxis]="true"
-            [yAxisLabel]="'HALLO'"
-            [autoScale]="true"
-            [showYAxisLabel]="true"
-            [showXAxisLabel]="false"
-            [gradient]="true"
-            [showGridLines]="true"
-            [trimXAxisTicks]="true"
-            [maxXAxisTickLength]="10"
-            [roundDomains]="true"
-            [legend]="false"
-            [legendPosition]="'right'"
-            (colorsChanged)="changeColors($event)"
-        ></osem-osem-line-chart>
-            <!-- [showRefLines]="true" -->
-            <!-- [xAxisTicks]="xAxisTicks" -->
-            <!-- [referenceLines]="[{name: 'yoo', value: 10.1}]" -->
+    <div *ngIf="activeSensors.length > 0">
+
+        <div class="osem-chart-container" *ngIf="data && data?.length > 0; else noData">
+            <osem-osem-line-chart 
+                [results]="data" 
+                [selectedDate]="selectedDate"
+                [xAxis]="true"
+                [xAxisLabel]="'XXX'"
+                [yAxis]="true"
+                [yAxisLabel]="'HALLO'"
+                [autoScale]="true"
+                [showYAxisLabel]="true"
+                [showXAxisLabel]="false"
+                [gradient]="true"
+                [showGridLines]="true"
+                [trimXAxisTicks]="true"
+                [maxXAxisTickLength]="10"
+                [roundDomains]="true"
+                [legend]="false"
+                [legendPosition]="'right'"
+                (colorsChanged)="changeColors($event)"
+            ></osem-osem-line-chart>
+                <!-- [showRefLines]="true" -->
+                <!-- [xAxisTicks]="xAxisTicks" -->
+                <!-- [referenceLines]="[{name: 'yoo', value: 10.1}]" -->
+        </div>
+        <ng-template #noData>
+            <div class="osem-chart-container center-text">
+                {{'NO_DATA_AVAILABLE' | translate}}
+            </div>
+        </ng-template>
     </div>
 </div>
 

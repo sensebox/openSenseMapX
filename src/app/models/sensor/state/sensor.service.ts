@@ -23,6 +23,7 @@ export class SensorService {
 
   getSingleSensorValues(boxId, sensorId, fromDate, toDate){
     //TODO: CHECK CACHE HERE
+    this.sensorStore.setLoading(true);
     this.sensorStore.ui.upsert(sensorId, {hasData:true});
     return this.http.get<any[]>(`${environment.api_url}/boxes/${boxId}/data/${sensorId}?from-date=${fromDate.toISOString()}&to-date=${toDate.toISOString()}`).pipe(tap(data => {
       let mapData = data.map(item => {return {name: new Date(item.createdAt), value: item.value}})
@@ -31,6 +32,7 @@ export class SensorService {
         rawValues: mapData
       }
       this.sensorStore.upsert(sensorId, upsert);
+      this.sensorStore.setLoading(false);
     }));
   }
   

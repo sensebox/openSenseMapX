@@ -93,8 +93,7 @@ export class BoxCompareContainerComponent implements OnInit {
     
         this.activeSensors$.subscribe(sensors => {
           if(sensors instanceof Array) {
-            let localChartData = sensors.filter(sensor => sensor.rawValues).map(sensor => {
-              if(sensor.rawValues){
+            let localChartData = sensors.filter(sensor => sensor.rawValues && sensor.rawValues.length > 0).map(sensor => {
                 return {
                   name: sensor.boxes_name, 
                   series: sensor.rawValues, 
@@ -103,12 +102,8 @@ export class BoxCompareContainerComponent implements OnInit {
                     displayName: `${sensor.title} (${sensor.unit})`
                   }
                 }
-              } else {
-                return undefined
-              }
             })
             this.chartData = localChartData;
-          } else {
           }
         })
     

@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Box } from 'src/app/models/box/state/box.model';
 
 @Component({
   selector: 'osem-box-chart',
@@ -11,13 +10,14 @@ export class BoxChartComponent implements OnInit {
 
   @Input() data;
   @Input() selectedDate;
+  @Input() activeSensors;
+  @Input() loading;
 
   @Output() colorsChanged = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
-
   }
 
   test(e){

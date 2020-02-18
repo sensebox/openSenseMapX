@@ -118,3 +118,22 @@
         }
     }
 }
+
+
+#no-pheno-help {
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    border: 2px solid var(--alert-color);
+    #text {
+        position: absolute;
+        top: 0;
+        transform: translateY(-50%);
+        right: 0;
+        color: var(--alert-color);
+        background: var(--background-primary-full);
+    }
+}

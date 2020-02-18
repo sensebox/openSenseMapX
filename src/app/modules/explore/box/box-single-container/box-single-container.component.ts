@@ -39,6 +39,8 @@ export class BoxSingleContainerComponent implements OnInit {
   windowWidth = window.innerWidth;
   scrollDivWidth = 0;
 
+  sensorsLoading$ = this.sensorQuery.selectLoading();
+
   @ContentChild('sensors', {static: false}) sensors: ElementRef;
 
 
@@ -90,8 +92,8 @@ export class BoxSingleContainerComponent implements OnInit {
 
     this.activeSensors$.subscribe(sensors => {
       if(sensors instanceof Array) {
-        this.chartData = sensors.filter(sensor => sensor.rawValues).map(sensor => {
-          if(sensor.rawValues){
+        this.chartData = sensors.filter(sensor => sensor.rawValues && sensor.rawValues.length > 0).map(sensor => {
+          // if(sensor.rawValues.length > 0){
             return {
               name: sensor.title, 
               series: sensor.rawValues,
@@ -100,11 +102,8 @@ export class BoxSingleContainerComponent implements OnInit {
                 displayName: `${sensor.title} (${sensor.unit})`, 
               }
             }
-          } else {
-            return undefined
-          }
+          // }
         })
-      } else {
       }
     })
     this.activeRouteSub = this.activatedRoute.params.subscribe(params => {

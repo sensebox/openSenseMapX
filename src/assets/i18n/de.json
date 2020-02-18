@@ -55,6 +55,7 @@
     "UNIT": "Einheit",
     "INTERPRETATION": "Interpretation",
     "INFLUENCE": "Einflüsse",
+    "FUN_FACT": "Fun Fact",
 
     "Temperatur_DEFINITION": "Die Lufttemperatur gibt den Wärmezustand der Atmosphäre an. Sie wird – wenn möglich - in zwei Metern Höhe und im Schatten gemessen, da weder die abstrahlende Bodenwärme noch die durch die Sonne erzeugte Strahlung berücksichtigt werden dürfen. Sie würden den Wert künstlich erhöhen.",
     "Temperatur_UNIT": "Grad Celsius (°C)",
@@ -85,9 +86,11 @@
     "PM10_UNIT": "Feinstaub wird unabhängig vom Durchmesser der Teilchen in µm/m³ angebgegen.</br></br>Seit dem 1. Januar 2005 beträgt der einzuhaltende Tagesmittelwert für PM10 in der EU 50 µg/m³ bei 35 zugelassenen Überschreitungen im Kalenderjahr.</br></br>Feinstaub wird heute im Wesentlichen für die Auswirkungen von Luftverschmutzungen auf die Gesundheit verantwortlich gemacht. Auswirkungen sind u.a. die Verstärkung von Allergiesymptomen, die Zunahme von asthmatischen Anfällen, Atemwegsbeschwerden und Lungenkrebs sowie ein gesteigertes Risiko von Mittelohrentzündungen bei Kindern und Beeinträchtigungen des Nervensystems. Daneben werden auch Auswirkungen auf Herz-Kreislauf-Erkrankungen (z. B. Herzinfarkt) angenommen. Das Ausmaß der Auswirkung von Partikeln auf die Atemwege hängt neben der chemischen Zusammensetzung auch von der Größe der Partikel ab: Je kleiner ein Partikel ist, desto tiefer kann es in die Lunge eindringen.</br></br>Es gibt verschiede Möglichkeiten Feinstaub zu messen. Für die senseBox nutzen wir den Lasergestützten Sensor SDS011.",
     "PM10_INTERPRETATION": "Feinstaubmessungen, insb. Rohdaten von Einzelmessungen sollten mit Vorsicht genossen werden. Wie die Grenzwerte es schon andeuten werden normalerweise Mittelwerte aus vielen einzelnen Messungen über eine Stunde oder über einen Tag berechnet.",
     "PM10_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen)..",
+    "PM10_FUN_FACT": "Entschuldige bitte, aber wir kennen kein Spass bei Luftverschmutzung.",
     "PM25_DEFINITION": "Feinstaub sind besonders kleine Teilchen des in der Luft befindlichen Schwebstaubs. Man bezeichnet diese auch als “Particulate Matter” (kurz PM) und unterscheidet anhand der Durchmesser der Staubteilchen zw. PM10 (kleiner als 10µm) , PM2.5 (kleiner als 2,5 µm), PM1 (kleiner als 1µm). Feinstaub kann aus natürlichen Quellen (z.B. Sahara-Staub, Pilzsporen, Seesalz, Pollen) stammen (ca. 90%) oder anthropogenen (menschlichen) Ursprungs sein, überwiegend durch die Verbrennung von Kohlenstoffverbindungen (ca. 10%).",
     "PM25_UNIT": "Feinstaub wird unabhängig vom Durchmesser der Teilchen in µm/m³ angebgegen.</br></br>Seit dem 1. Januar 2005 beträgt der einzuhaltende Tagesmittelwert für PM10 in der EU 50 µg/m³ bei 35 zugelassenen Überschreitungen im Kalenderjahr.</br></br>Feinstaub wird heute im Wesentlichen für die Auswirkungen von Luftverschmutzungen auf die Gesundheit verantwortlich gemacht. Auswirkungen sind u.a. die Verstärkung von Allergiesymptomen, die Zunahme von asthmatischen Anfällen, Atemwegsbeschwerden und Lungenkrebs sowie ein gesteigertes Risiko von Mittelohrentzündungen bei Kindern und Beeinträchtigungen des Nervensystems. Daneben werden auch Auswirkungen auf Herz-Kreislauf-Erkrankungen (z. B. Herzinfarkt) angenommen. Das Ausmaß der Auswirkung von Partikeln auf die Atemwege hängt neben der chemischen Zusammensetzung auch von der Größe der Partikel ab: Je kleiner ein Partikel ist, desto tiefer kann es in die Lunge eindringen.</br></br>Es gibt verschiede Möglichkeiten Feinstaub zu messen. Für die senseBox nutzen wir den Lasergestützten Sensor SDS011.",
     "PM25_INTERPRETATION": "Feinstaubmessungen, insb. Rohdaten von Einzelmessungen sollten mit Vorsicht genossen werden. Wie die Grenzwerte es schon andeuten werden normalerweise Mittelwerte aus vielen einzelnen Messungen über eine Stunde oder über einen Tag berechnet.",
-    "PM25_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen).."
-  
+    "PM25_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen)..",
+    "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen kein Spass bei Luftverschmutzung."
+
 }

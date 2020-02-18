@@ -78,7 +78,13 @@
                     <i class="fa fa-info"></i>
                 </div>
                 <!-- <i class="osem-icon {{selectedPheno.icon}}"></i> -->
-            </div>                 
+            </div>     
+            <div id="no-pheno-help" *ngIf="!selectedPheno">
+                <div id="text">
+                    {{'SELECT_PHENO' | translate}}
+                </div>
+            </div>            
         </div>
     </div>
 </div>
+
