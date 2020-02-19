@@ -254,3 +254,31 @@ h2,h3,h4 {
     //     padding-right: 0.8em;
     // }
 }
+
+
+//DATEPICKER
+
+.datepicker-container {
+    position: relative;
+    
+    .owl-date-time-trigger {
+        display: flex;
+        justify-content: space-evenly;
+        cursor: pointer;
+        &:hover {
+            background: var(--background-secondary);
+        }
+        .date-input {
+            max-width: 130px;
+            padding: 0 0 0 0.2em;
+            pointer-events: none;
+            background: none;
+        }
+
+        .calendar-button {
+            background: var(--background-primary-full);
+            padding: 0.1em 0.2em;
+            align-items: center;
+        }
+    }
+}

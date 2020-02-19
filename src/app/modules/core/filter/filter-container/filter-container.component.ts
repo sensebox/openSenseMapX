@@ -24,6 +24,8 @@ export class FilterContainerComponent implements OnInit {
   searchTerm$ = this.uiQuery.selectSearchTerm$;
   locationAutocompleteResults$ = this.uiQuery.selectLocationAutocompleteResults$;
 
+  exposure$ = this.uiQuery.selectExposure$;
+
   activeTab = 'phenos';
   searchTimeout;
   autoCompleteResults$;
@@ -129,5 +131,9 @@ export class FilterContainerComponent implements OnInit {
   
   selectInfoPheno(pheno){
     this.uiService.setInfoPheno(pheno);
+  }
+
+  setExposure(exposure) {
+    this.uiService.setExposure(exposure);
   }
 }

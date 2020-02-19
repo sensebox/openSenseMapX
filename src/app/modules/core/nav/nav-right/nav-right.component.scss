@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     font-weight: bold;
-    background: var(--background-primary-full);
+    // background: var(--background-primary-full);
     right: 0;
     color: var(--color-primary);
     padding: 0 1em;
@@ -49,6 +49,9 @@
     width: 281px;
     z-index: -1;
     box-sizing: border-box;
+    margin-top: -3em;
+    padding-top: 3.5em;
+    opacity: 1;
 
     h2 {
         margin: 0;

@@ -16,11 +16,14 @@
             [selectedPheno]="selectedPheno$ | async"
             [minimizedBoolean]="minimizedBoolean"
             [change]="change"
+            [exposure]="exposure$ | async"
             (activeChanged)="setActiveTab($event)"
             (phenoSelected)="selectPheno($event)"
             (changeToggled)="toggleChange()"
             (infoPhenoSelected)="selectInfoPheno($event)"
             (minimized)="minimize()"
+            (exposureSet)="setExposure($event)"
+
         ></osem-filter-switcher>
     </div>
     

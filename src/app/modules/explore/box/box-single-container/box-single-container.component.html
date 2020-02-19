@@ -18,7 +18,10 @@
         <osem-box-chart 
             *ngIf="activeSensors$ | async" 
             (colorsChanged)="changeColors($event)" 
-            [data]="chartData" 
+            (dateRangeChanged)="changeDateRange($event)"
+            [data]="chartData"
+            [dateRangeChart]="dateRangeChart$ | async"
+            [dateRange]="dateRange$ | async"
             [activeSensors]="activeSensors$ | async"
             [loading]="sensorsLoading$ | async"
             [selectedDate]="selectedDate$ | async">

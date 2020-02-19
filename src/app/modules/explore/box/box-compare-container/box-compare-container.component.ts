@@ -107,9 +107,9 @@ export class BoxCompareContainerComponent implements OnInit {
           }
         })
     
-        this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$, this.dateRange$, this.dateRangeChart$)).subscribe(data => {
+        this.activeSensorSub = combineLatest(this.activeSensorIds$, this.dateRange$, this.dateRangeChart$).pipe(withLatestFrom(this.activeSensors$)).subscribe(data => {
           if(data && data.length > 0){
-            let dateRange = data[2] ? data[2] : data[3]
+            let dateRange = data[0][1] ? data[0][1] : data[0][2]
             data[1].forEach(sensor => {
               if(!sensor.hasData){
                 this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, dateRange[0], dateRange[1]).subscribe();
@@ -200,4 +200,8 @@ export class BoxCompareContainerComponent implements OnInit {
     this.boxService.setCompareModus(false);
   }
 
+  changeDateRange(dateRange){
+    this.sensorService.resetHasData();
+    this.uiService.setDateRangeChart(dateRange);
+  }
 }

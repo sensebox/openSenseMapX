@@ -4,11 +4,11 @@ import { SensorQuery } from 'src/app/models/sensor/state/sensor.query';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxService } from 'src/app/models/box/state/box.service';
-import { withLatestFrom, ignoreElements } from 'rxjs/operators';
+import { withLatestFrom, ignoreElements, combineAll } from 'rxjs/operators';
 import { slideInOutAnimation } from 'src/app/helper/animations';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
-import { Observable } from 'rxjs';
+import { Observable, zip, forkJoin, combineLatest } from 'rxjs';
 
 //Container for displaying values of a single box
 @Component({
@@ -77,18 +77,30 @@ export class BoxSingleContainerComponent implements OnInit {
       }
     });
 
-    //subscribe to sensorIds so this does not trigger when the sensor itself changes (e.g. data loaded)
-    this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$, this.dateRange$, this.dateRangeChart$)).subscribe(data => {
-      if(data && data.length > 0){
-        let dateRange = data[2] ? data[2] : data[3]
-        this.uiService.setActiveSensorTypes([...new Set(data[1].map(sensor => sensor.title))]);
-        data[1].forEach(sensor => {
+    this.activeSensorSub = combineLatest(this.activeSensorIds$, this.dateRange$, this.dateRangeChart$).pipe(withLatestFrom(this.activeSensors$)).subscribe(res => {
+      if(res && res.length > 0){
+        let dateRange = res[0][1] ? res[0][1] : res[0][2];
+        this.uiService.setActiveSensorTypes([...new Set(res[1].map(sensor => sensor.title))]);
+        res[1].forEach(sensor => {
           if(!sensor.hasData){
             this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, dateRange[0], dateRange[1]).subscribe();
           }
         })
       }
-    });
+    })
+    //subscribe to sensorIds so this does not trigger when the sensor itself changes (e.g. data loaded)
+    // this.activeSensorSub = this.activeSensorIds$.pipe(withLatestFrom(this.activeSensors$, this.dateRange$, this.dateRangeChart$)).subscribe(data => {
+    //   if(data && data.length > 0){
+    //     let dateRange = data[2] ? data[2] : data[3];
+    //     this.uiService.setActiveSensorTypes([...new Set(data[1].map(sensor => sensor.title))]);
+    //     data[1].forEach(sensor => {
+    //       if(!sensor.hasData){
+    //         console.log("GETTING DATA")
+    //         this.sensorService.getSingleSensorValues(sensor.boxes_id, sensor._id, dateRange[0], dateRange[1]).subscribe();
+    //       }
+    //     })
+    //   }
+    // });
 
     this.activeSensors$.subscribe(sensors => {
       if(sensors instanceof Array) {
@@ -144,5 +156,10 @@ export class BoxSingleContainerComponent implements OnInit {
     this.scrollDivWidth = width[0];
     this.windowWidth = width[1];
     this.cdr.detectChanges();
+  }
+
+  changeDateRange(dateRange){
+    this.sensorService.resetHasData();
+    this.uiService.setDateRangeChart(dateRange);
   }
 }

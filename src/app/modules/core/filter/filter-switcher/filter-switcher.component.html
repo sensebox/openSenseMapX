@@ -25,7 +25,10 @@
         (changeToggled)="toggleChange()"
         ></osem-phenomenon>
     
-    <osem-filter *ngIf="activeTab === 'filter'">
-    
+    <osem-filter *ngIf="activeTab === 'filter'"
+        [exposure]="exposure"
+        (exposureSet)="setExposure($event)"
+    >
+
     </osem-filter>
 </div>

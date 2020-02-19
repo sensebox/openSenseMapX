@@ -1,7 +1,12 @@
 <div class="chart-wrapper">
     <div *ngIf="activeSensors.length > 0">
+        <osem-chart-datepicker
+            [dateRange]="dateRange ? dateRange : dateRangeChart"
+            [dateRangeGlobal]="dateRange"
+            (dateChanged)="changeDateRangeChart($event)"
+        ></osem-chart-datepicker>
 
-        <div class="osem-chart-container" *ngIf="data && data?.length > 0; else noData">
+        <div class="osem-chart-container" *ngIf="data && data?.length > 0 && !loading; else noData">
             <osem-osem-line-chart 
                 [results]="data" 
                 [selectedDate]="selectedDate"
@@ -27,7 +32,12 @@
         </div>
         <ng-template #noData>
             <div class="osem-chart-container center-text">
-                {{'NO_DATA_AVAILABLE' | translate}}
+                <div *ngIf="!loading">
+                    {{'NO_DATA_AVAILABLE' | translate}}
+                </div>
+                <div *ngIf="loading">
+                    {{'LOADING' | translate}}
+                </div>
             </div>
         </ng-template>
     </div>

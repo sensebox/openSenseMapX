@@ -46,14 +46,16 @@ export const slideInOutAnimation =
 export const slideInOutMenu = 
     trigger('slideInOutMenu', [
         transition(':enter',[ 
-            style({transform: 'translate3d(0, -100%, 0)'}),
+            style({transform: 'translate3d(0, -100%, 0)', opacity: 0}),
             animate('400ms ease-in-out'), style({
-                transform: 'translate3d(0, 0, 0)'
+                transform: 'translate3d(0, 0, 0)',
+                opacity: 1
             })
         ]),
         transition(':leave',[
             animate('400ms ease-in-out'), style({
-                transform: 'translate3d(0, -100%, 0)'
+                transform: 'translate3d(0, -100%, 0)',
+                opacity: 0,
             })
         ])
     ]);

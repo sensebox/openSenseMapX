@@ -1,1 +1,27 @@
-<p>filter works!</p>
+<div>
+    <div class="options">
+        <h3>{{'EXPOSURE' | translate}}</h3>
+        <div (click)="setExposure('outdoor')" title="{{'OUTDOOR' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="exposure != 'outdoor'" class="fa fa-square-o not-checked"></i>
+                <i *ngIf="exposure === 'outdoor'" class="fa fa-check-square-o checked"></i>
+            </div>
+            <span>{{'OUTDOOR' | translate}}</span>
+        </div>
+        <div (click)="setExposure('indoor')" title="{{'INDOOR' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="exposure != 'indoor'" class="fa fa-square-o not-checked"></i>
+                <i *ngIf="exposure === 'indoor'" class="fa fa-check-square-o checked"></i>
+            </div>
+            <span>{{'INDOOR' | translate}}</span>
+        </div>
+        <div (click)="setExposure('all')" title="{{'ALL' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="exposure != 'all'" class="fa fa-square-o not-checked"></i>
+                <i *ngIf="exposure === 'all'" class="fa fa-check-square-o checked"></i>
+            </div>
+            <span>{{'ALL' | translate}}</span>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="datepicker-container" [class.disabled]="dateRangeGlobal">
+    <div class="datepicker-inner" [class.disabled]="dateRangeGlobal">
+
+        <input class="osem-hidden"
+            [owlDateTime]="dt1" 
+            [owlDateTimeTrigger]="dt1" 
+            [selectMode]="'range'"
+            [min]="minDate"
+            [max]="maxDate"
+            (dateTimeInput)="dateChange($event)"
+            [(ngModel)]="dateRange"
+            placeholder="From Date Time">
+        <owl-date-time 
+            [stepMinute]="60"
+            [startAt]="startAt"
+        #dt1></owl-date-time>
+        
+        <div class="osem-padding-small owl-date-time-trigger" [owlDateTimeTrigger]="dt1" title="{{('CHOOSE_DATERANGE' | translate)}}">
+            <div class="osem-inline osem-border-radius-5">   
+                FROM 
+                <input class="date-input" placeholder="{{now | date}}" [value]="dateRange ? dateRange[0].toLocaleString() : ''" disabled>
+            </div>
+            <div class="osem-inline osem-border-radius-5">
+                TO
+                <input class="date-input" placeholder="{{'LIVE' | translate}}" [value]="dateRange ? dateRange[1].toLocaleString() : ''" disabled>
+            </div>
+            <div class="osem-inline">
+                <div class="osem-simple-button">
+                    <i class="fa fa-calendar osem-center-horizontal"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

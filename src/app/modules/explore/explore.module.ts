@@ -25,17 +25,21 @@ import { PopupComponent } from './map/popup/popup.component';
 import { PopupContainerComponent } from './map/popup-container/popup-container.component';
 import { MapOptionsContainerComponent } from './map/map-options-container/map-options-container.component';
 import { MapOptionsComponent } from './map/map-options/map-options.component';
+import { ChartDatepickerComponent } from './box/chart-datepicker/chart-datepicker.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent],
   imports: [
     CommonModule,
     NgxChartsModule,
     BrowserAnimationsModule,
     FormsModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule
   ],
   providers: [MapService],
   exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent, LegendContainerComponent]

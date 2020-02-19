@@ -90,6 +90,7 @@ export class TimeSliderContainerComponent implements OnInit {
 
   removeDateRange(){
     const { fromDate, toDate, ...newQueryParams} = this.activatedRoute.snapshot.queryParams;
+    this.uiService.updateDateRange(null);
     this.router.navigate(
       [], 
       {

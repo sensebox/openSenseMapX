@@ -12,7 +12,10 @@ export class BoxChartComponent implements OnInit {
   @Input() selectedDate;
   @Input() activeSensors;
   @Input() loading;
-
+  @Input() dateRange;
+  @Input() dateRangeChart;
+  
+  @Output() dateRangeChanged = new EventEmitter();
   @Output() colorsChanged = new EventEmitter();
 
   constructor() { }
@@ -26,6 +29,10 @@ export class BoxChartComponent implements OnInit {
 
   changeColors(data){
     this.colorsChanged.emit(data);
+  }
+
+  changeDateRangeChart(dateRange){
+    this.dateRangeChanged.emit(dateRange);
   }
 
 }

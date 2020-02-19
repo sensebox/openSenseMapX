@@ -64,7 +64,7 @@ export class UiService {
   updateEndDate(date) {
     this.uiStore.updateEndDate(date);
   }
-  updateDateRangeChart(dateRange) {
+  setDateRangeChart(dateRange) {
     this.uiStore.updateDateRangeChart(dateRange);
   }
   updateStartDateChart(date) {
@@ -124,6 +124,10 @@ export class UiService {
   }
 
   setInfoPheno(infoPheno){
-    this.uiStore.update( state => ({ ...state, infoPheno: infoPheno}))
+    this.uiStore.update( state => ({ ...state, infoPheno: infoPheno}));
+  }
+
+  setExposure(exposure){
+    this.uiStore.update( state => ({ ...state, exposure: exposure}));
   }
 }

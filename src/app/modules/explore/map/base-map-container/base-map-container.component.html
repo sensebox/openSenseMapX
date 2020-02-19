@@ -6,7 +6,8 @@
 
 
 
-<div id="loading" *ngIf="(loading$ | async) || !(mapInit$ | async) || (loadingSensor$ | async)">
+<!-- <div id="loading" *ngIf="(loading$ | async) || !(mapInit$ | async) || (loadingSensor$ | async)"> -->
+<div id="loading" *ngIf="(loading$ | async) || !(mapInit$ | async)">
     <div class="loading">
         <i class="fa fa-2x fa-spinner fa-spin"></i> 
         <div class="text">

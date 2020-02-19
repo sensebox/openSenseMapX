@@ -24,7 +24,8 @@ export interface UiState {
   cluster: any,
   numbers: boolean,
   circles: boolean,
-  infoPheno: string
+  infoPheno: string,
+  exposure: string,
 }
 
 export function createInitialState(): UiState {
@@ -95,7 +96,8 @@ export function createInitialState(): UiState {
     cluster: null,
     numbers: true,
     circles: true,
-    infoPheno: null
+    infoPheno: null,
+    exposure: 'all'
   };
 }
 
