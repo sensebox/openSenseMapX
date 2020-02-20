@@ -5,6 +5,8 @@ import { MapService } from '../../services/map.service';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { withLatestFrom } from 'rxjs/operators';
 import { SensorQuery } from 'src/app/models/sensor/state/sensor.query';
+import { applyFilters } from '../../box/osem-line-chart/helper/helpers';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'osem-base-map-container',
@@ -37,6 +39,7 @@ export class BaseMapContainerComponent implements OnInit {
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   clustering$ = this.uiQuery.selectClustering$;
   dateRange$ = this.uiQuery.selectDateRange$;
+  filters$ = this.uiQuery.selectFilters$;
   // selectedDate$ = this.uiQuery.selectSelectedDate$;
 
   ui$;
@@ -57,12 +60,15 @@ export class BaseMapContainerComponent implements OnInit {
 
     //SUBSCRIBE TO ALL BOXES and Layers after map is initiatet
     this.mapInit$.pipe(withLatestFrom(this.compareModus$, this.selectedPheno$)).subscribe(res => {
-      if(res[0]){
-        this.boxSub = this.boxes$.pipe(withLatestFrom(this.selectedPheno$, this.clusterLayers$, this.dateRange$)).subscribe(res => {
+      
+      if(res[0]){   
+        this.boxSub = combineLatest(this.boxes$, this.filters$).pipe(withLatestFrom(this.selectedPheno$, this.clusterLayers$, this.dateRange$)).subscribe(res => {
           if(res[0]) {
-            this.mapService.setMapData(res[0], res[1], res[2], res[3]);  
+            let data = applyFilters(res[0][0], res[0][1]);
+            this.mapService.setMapData(data, res[1], res[2], res[3]);  
           }
         });
+
         this.mapService.addPopup('base-layer');
         this.mapService.addClickFuntion('base-layer');
         this.mapService.addPopup('boxes-no-cluster');
@@ -84,8 +90,8 @@ export class BaseMapContainerComponent implements OnInit {
         this.layerSub = this.baseLayer$.subscribe(res => {
           this.mapService.setMapBaseLayer(res);
         });
-        this.clusterLayerSub = this.clusterLayers$.pipe(withLatestFrom(this.boxes$, this.dateRange$, this.selectedPheno$)).subscribe(res => {
-          this.mapService.setMapClusterLayers(res[0], res[1], res[2], res[3]);
+        this.clusterLayerSub = combineLatest(this.clusterLayers$, this.filters$).pipe(withLatestFrom(this.boxes$, this.dateRange$, this.selectedPheno$)).subscribe(res => {
+          this.mapService.setMapClusterLayers(res[0][0], applyFilters(res[1], res[0][1]), res[2], res[3]);
         });
         this.activeSub = this.activeBox$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
           if(res)

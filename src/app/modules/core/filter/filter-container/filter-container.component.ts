@@ -23,7 +23,8 @@ export class FilterContainerComponent implements OnInit {
   filterVisible$ = this.uiQuery.selectFilterVisible$;
   searchTerm$ = this.uiQuery.selectSearchTerm$;
   locationAutocompleteResults$ = this.uiQuery.selectLocationAutocompleteResults$;
-
+  
+  filters$ = this.uiQuery.selectFilters$;
   exposure$ = this.uiQuery.selectExposure$;
 
   activeTab = 'phenos';
@@ -31,6 +32,7 @@ export class FilterContainerComponent implements OnInit {
   autoCompleteResults$;
   minimizedBoolean = false;
   change:boolean = true;
+
 
   constructor(
     private boxService: BoxService,
@@ -133,7 +135,7 @@ export class FilterContainerComponent implements OnInit {
     this.uiService.setInfoPheno(pheno);
   }
 
-  setExposure(exposure) {
-    this.uiService.setExposure(exposure);
+  setFilters(filters) {
+    this.uiService.setFilters(filters);
   }
 }

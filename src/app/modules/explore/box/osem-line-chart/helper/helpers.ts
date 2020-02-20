@@ -53,3 +53,17 @@ export function positionPopup(pixelPosition){
     // document.getElementById("osem-popup").style.top = pixelPosition.y + 'px';
 
 }
+
+
+export function applyFilters(data, filter){
+
+    return data.filter(dataItem => {
+        if(
+            (filter.exposure === 'all' || filter.exposure === dataItem.exposure) &&
+            (filter.model === null || filter.model === dataItem.model) &&
+            (filter.group === null || filter.group === dataItem.group)
+        ){
+            return dataItem;
+        }
+    })
+}

@@ -26,8 +26,8 @@
         ></osem-phenomenon>
     
     <osem-filter *ngIf="activeTab === 'filter'"
-        [exposure]="exposure"
-        (exposureSet)="setExposure($event)"
+        [filters]="filters"
+        (filtersSet)="setFilters($event)"
     >
 
     </osem-filter>

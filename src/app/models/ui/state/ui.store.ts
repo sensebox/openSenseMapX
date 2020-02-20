@@ -3,6 +3,7 @@ import { Ui } from './ui.model';
 import { StoreConfig, Store } from '@datorama/akita';
 import { ColorHelper } from '@swimlane/ngx-charts';
 import { clusterLayerSolo, clusterLayer } from './layers';
+import { Filter } from '../../filter/filter.model';
 
 export interface UiState {
   colors: ColorHelper,
@@ -26,6 +27,7 @@ export interface UiState {
   circles: boolean,
   infoPheno: string,
   exposure: string,
+  filters: Filter
 }
 
 export function createInitialState(): UiState {
@@ -97,7 +99,12 @@ export function createInitialState(): UiState {
     numbers: true,
     circles: true,
     infoPheno: null,
-    exposure: 'all'
+    exposure: 'all',
+    filters: {
+      exposure: 'all',
+      group: null,
+      model: null
+    }
   };
 }
 

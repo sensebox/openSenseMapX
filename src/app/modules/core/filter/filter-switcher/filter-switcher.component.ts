@@ -15,7 +15,7 @@ export class FilterSwitcherComponent implements OnInit {
   @Input() minimizedBoolean; 
   @Input() change;
 
-  @Input() exposure;
+  @Input() filters;
 
   @Output() activeChanged = new EventEmitter();
   @Output() phenoSelected = new EventEmitter();
@@ -23,7 +23,7 @@ export class FilterSwitcherComponent implements OnInit {
   @Output() minimized = new EventEmitter();
   @Output() infoPhenoSelected = new EventEmitter();
 
-  @Output() exposureSet = new EventEmitter();
+  @Output() filtersSet = new EventEmitter();
 
 
   constructor() { }
@@ -50,8 +50,12 @@ export class FilterSwitcherComponent implements OnInit {
     this.infoPhenoSelected.emit(pheno);
   }
 
-  setExposure(exposure){
-    this.exposureSet.emit(exposure);
+  // setExposure(exposure){
+  //   this.exposureSet.emit(exposure);
+  // }
+
+  setFilters(filters){
+    this.filtersSet.emit(filters);
   }
 
 
