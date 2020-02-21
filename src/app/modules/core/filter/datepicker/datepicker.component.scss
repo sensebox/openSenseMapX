@@ -10,11 +10,14 @@
         .date-input {
             color: var(--background-primary-full);
             border-bottom: 2px solid var(--background-primary-full);
-
+            
             &::placeholder {
                 color: var(--background-primary-full);
             }
         }
-
+        
+    }
+    .osem-simple-button {
+        color: var(--background-primary-full);
     }
 }
