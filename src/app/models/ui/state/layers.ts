@@ -32,7 +32,7 @@ export const clusterLayer = {
             30, '#ff0000'
         ],
         'circle-opacity': 0.7,
-        'circle-stroke-color': '#8dd3c7',
+        'circle-stroke-color': 'black',
         'circle-stroke-width': 2
     }
 }
