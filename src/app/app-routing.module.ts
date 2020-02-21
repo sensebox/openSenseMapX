@@ -9,7 +9,8 @@ const routes: Routes = [
   {path: '', component: BoxSingleContainerComponent},
   {path: 'explore/:id', component: BoxSingleContainerComponent},
   {path: 'compare', component: BoxCompareContainerComponent},
-  {path: 'impressum', component: ImpressumComponent}
+  {path: 'impressum', component: ImpressumComponent},
+  {path: 'about', component: ImpressumComponent}
 ];
 
 @NgModule({

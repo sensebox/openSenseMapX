@@ -10,8 +10,30 @@
 
 .impressum-content {
     background: var(--background-primary-full);
+    display: flex;
+    justify-content: center;
     
+    .content {
+        max-width: 600px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     h3 {
         margin: 0;
+    }
+
+    .images {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .image {
+        height: 150px;
+        position: relative;
+        display: inline-block;
+        img {
+            height: 100%;
+        }
     }
 }
