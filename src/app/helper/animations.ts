@@ -123,3 +123,18 @@ export const appear =
             })
         ])
     ]);
+
+export const appearPopup = 
+    trigger('appearPopup', [
+        transition(':enter',[ 
+            style({opacity: 0}),
+            animate('200ms ease-in-out'), style({
+                opacity: 1
+            })
+        ]),
+        transition(':leave',[
+            animate('100ms ease-in-out'), style({
+                opacity: 0
+            })
+        ])
+    ]);

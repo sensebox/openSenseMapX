@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { appearPopup } from 'src/app/helper/animations';
 
 @Component({
   selector: 'osem-popup',
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [appearPopup]
 })
 export class PopupComponent implements OnInit {
 

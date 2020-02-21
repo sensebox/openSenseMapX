@@ -12,7 +12,7 @@
 </div> -->
 
 
-<div *ngIf="box" id="popup">
+<div *ngIf="box" [@appearPopup]="box" id="popup">
     <div class="popup-header osem-padding-small">
         <h3>{{box.name}}</h3>
     </div>
@@ -68,7 +68,7 @@
 </div>
 
 
-<div *ngIf="cluster && !box" id="cluster-popup">
+<div *ngIf="cluster && !box" [@appearPopup]="cluster && !box" id="cluster-popup">
     <div class="cluster-header osem-padding-small">
         {{cluster.length}} {{'BOXES' | translate}}
         <div class="osem-close-text" (click)="closePopup()">x</div>
