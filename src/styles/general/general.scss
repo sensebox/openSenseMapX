@@ -270,10 +270,12 @@ h2,h3,h4 {
             background: var(--background-secondary);
         }
         .date-input {
-            max-width: 130px;
+            // max-width: 145px;
+            width: 145px;
             padding: 0 0 0 0.2em;
             pointer-events: none;
             background: none;
+            text-align: center;
         }
 
         .calendar-button {

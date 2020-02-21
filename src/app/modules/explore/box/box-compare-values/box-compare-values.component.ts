@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 //Displays the values for comparing different boxes
 @Component({
@@ -19,7 +20,7 @@ export class BoxCompareValuesComponent implements OnInit {
   @Output() boxRemoved = new EventEmitter();
   @Output() compareClosed = new EventEmitter();
 
-  constructor() { }
+  constructor(public translateService: TranslateService) { }
 
   ngOnInit() {
   }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UiQuery } from './models/ui/state/ui.query';
 import { slideInOutHorizontalBoolean } from './helper/animations';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 @Component({
   selector: 'osem-root',
@@ -21,11 +22,13 @@ export class AppComponent {
 
   constructor(
     private translate: TranslateService,
-    private uiQuery: UiQuery){
+    private uiQuery: UiQuery,
+    private dateTimeAdapter: DateTimeAdapter<any>){
 
-      translate.setDefaultLang('de');
+      translate.setDefaultLang('de-DE');
       this.language$.subscribe(lang => {
         translate.use(lang);
+        this.dateTimeAdapter.setLocale(lang);
       })
   }
 

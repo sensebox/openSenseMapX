@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="last-measurement" *ngIf="box.lastMeasurementAt;else noMeasurement">
-      {{'LAST_MEASUREMENT' | translate}}: {{box.lastMeasurementAt | date:'M/d/yy, h:mm a'}}
+      {{'LAST_MEASUREMENT' | translate}}: {{box.lastMeasurementAt | date:'short':'':translateService.currentLang}}
     </div>
     <ng-template #noMeasurement>
       {{'NO_RECENT_MEASUREMENT' | translate}}

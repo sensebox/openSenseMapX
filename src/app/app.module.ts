@@ -17,6 +17,12 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ThemeService } from './services/theme.service';
 
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+registerLocaleData(localeDe, 'de-DE');
+// registerLocaleData(localeEm, 'de-DE');
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,7 +51,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ThemeService],
+  providers: [
+    ThemeService,
+    { provide: LOCALE_ID, useValue: "de-DE" }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

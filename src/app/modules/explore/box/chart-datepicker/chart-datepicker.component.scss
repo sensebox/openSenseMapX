@@ -17,6 +17,10 @@
     }
     
     .owl-date-time-trigger {
+
+        .from-date {
+            padding-right: 0.7em;
+        }
         &:hover {
             background: var(--hover-color);
         }

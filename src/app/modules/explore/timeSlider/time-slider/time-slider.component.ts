@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { slideInOutHorizontal, slideInOutHorizontalBoolean } from 'src/app/helper/animations';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'osem-time-slider',
@@ -26,7 +27,7 @@ export class TimeSliderComponent implements OnInit {
   selectDate = 1572966000000;
   step = 3600000;
 
-  constructor() { }
+  constructor(public translateService: TranslateService) { }
 
   ngOnInit() {
   }

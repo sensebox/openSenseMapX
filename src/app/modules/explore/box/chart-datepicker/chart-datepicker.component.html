@@ -7,7 +7,7 @@
             [selectMode]="'range'"
             [min]="minDate"
             [max]="maxDate"
-            (dateTimeInput)="dateChange($event)"
+            (dateTimeInput)="dateChange()"
             [(ngModel)]="dateRange"
             placeholder="From Date Time">
         <owl-date-time 
@@ -16,13 +16,13 @@
         #dt1></owl-date-time>
         
         <div class="osem-padding-small owl-date-time-trigger" [owlDateTimeTrigger]="dt1" title="{{('CHOOSE_DATERANGE' | translate)}}">
-            <div class="osem-inline osem-border-radius-5">   
-                FROM 
-                <input class="date-input" placeholder="{{now | date}}" [value]="dateRange ? dateRange[0].toLocaleString() : ''" disabled>
+            <div class="osem-inline osem-border-radius-5 from-date">   
+                {{'FROM' | translate}}:
+                <input class="date-input" placeholder="{{now | date:'short':'':translateService.currentLang}}" [value]="(dateRange ? dateRange[0] : '') | date:'short':'':translateService.currentLang" disabled>
             </div>
             <div class="osem-inline osem-border-radius-5">
-                TO
-                <input class="date-input" placeholder="{{'LIVE' | translate}}" [value]="dateRange ? dateRange[1].toLocaleString() : ''" disabled>
+                {{'TO' | translate}}:
+                <input class="date-input" placeholder="{{'LIVE' | translate}}" [value]="(dateRange ? dateRange[1] : '') | date:'short':'':translateService.currentLang" disabled>
             </div>
             <div class="osem-inline">
                 <div class="osem-simple-button">

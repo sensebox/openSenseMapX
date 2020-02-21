@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Box } from 'src/app/models/box/state/box.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'osem-box-single-values',
@@ -26,7 +27,7 @@ export class BoxSingleValuesComponent implements OnChanges, AfterViewChecked {
   @ViewChild('sensors', {static: false}) sensorsDiv: ElementRef;
   @ViewChild('scrollable', {static: false}) scrollableDiv: ElementRef;
 
-  constructor() { }
+  constructor(public translateService: TranslateService) { }
 
   selectValue(sensor){
     this.valueSelected.emit(sensor);

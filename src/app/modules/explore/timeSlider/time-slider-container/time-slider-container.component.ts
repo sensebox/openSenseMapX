@@ -7,6 +7,7 @@ import { withLatestFrom } from 'rxjs/operators';
 import { IntervalTimer } from '../../../../helper/IntervalTimer';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { MapService } from '../../services/map.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'osem-time-slider-container',
@@ -52,14 +53,14 @@ export class TimeSliderContainerComponent implements OnInit {
         
         if(res[0] && res[1]){
           this.mapService.addDateLayer(new Date(this.selectedDate).toISOString());
-          let newLayer = JSON.parse(JSON.stringify(res[1].layer))
+          let newLayer = JSON.parse(JSON.stringify(res[1].layer));
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
           this.uiService.updateBaseLayer(newLayer);
           // this.uiService.updateClusterLayer(res[0].toISOString());
           
         } else if(res[1] && !res[0] && this.selectedDate){
-          let newLayer = JSON.parse(JSON.stringify(res[1].layer))
+          let newLayer = JSON.parse(JSON.stringify(res[1].layer));
           newLayer.filter = [ "get", res[1].title, ["object", ["get", "live"]]];
           newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live"]]];
           this.uiService.updateBaseLayer(newLayer); 

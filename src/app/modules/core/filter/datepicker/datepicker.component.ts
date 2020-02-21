@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, ChangeDetectionStrategy, EventEmitter
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/models/ui/state/ui.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'osem-datepicker',
@@ -24,8 +25,8 @@ export class DatepickerComponent implements OnInit {
     private dateTimeAdapter: DateTimeAdapter<any>,
     private uiService: UiService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
-    this.dateTimeAdapter.setLocale('de-DE');
+    private activatedRoute: ActivatedRoute,
+    public translateService: TranslateService) {
    }
 
   ngOnInit() {
@@ -39,7 +40,7 @@ export class DatepickerComponent implements OnInit {
     })
   }
 
-  dateChange(range){
+  dateChange(){
     this.selectDateRnge(this.dateRange)
   }
   dateInput(range){

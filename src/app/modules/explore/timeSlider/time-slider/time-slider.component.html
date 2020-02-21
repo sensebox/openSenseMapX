@@ -6,7 +6,7 @@
 >
 
     <div *ngIf="selectedDate; else noDate" class="date">
-        {{selectedDate | date:'medium'}}
+        {{selectedDate | date:'medium' : '' : translateService.currentLang}}
         <div class="osem-close-button" (click)="removeDateRange()" title="{{'REMOVE_DATERANGE' | translate}}">x</div>
     </div>
     <ng-template #noDate>Loading...</ng-template>

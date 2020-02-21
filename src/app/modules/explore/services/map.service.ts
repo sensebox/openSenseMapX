@@ -93,8 +93,16 @@ export class MapService {
 
     this.map.on('style.load', function () {
       that.boxService.setMapInit(true);
-    })
+      
+    });
 
+    //remove popups if click on map 
+    this.map.on('click', function(e){
+      if(!e.features){
+        that.uiService.setCluster(null);
+        that.boxService.setPopupBox(null);
+      }
+    })
     // this.map.on('styledataloading', function(){
     //   console.log("STYLE DATA loading")
     //   // that.boxService.setMapInit(true);
@@ -191,6 +199,7 @@ export class MapService {
     let clusterSource = this.map.getSource(this.map.getLayer(layer).source);
     var clusterId = e.features[0].properties.cluster_id,
     point_count = e.features[0].properties.point_count;
+
 
     // Get all points under a cluster
     clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures){
@@ -395,10 +404,12 @@ export class MapService {
   }
 
   filterByClusterProperty(data, property, time){
+    console.log(data);
     let newData = data["features"].filter(res => {
       if(res['properties']['values'] && res['properties']['values'][property] && res['properties']['values'][property][time])
         return res;
     });
+    console.log(newData);
     return {type: "FeatureCollection", features: newData};
   }
 
@@ -557,6 +568,7 @@ export class MapService {
                     [{zoom: 22, value: 100}, 6580],
                 ]
             },
+            'circle-opacity': 0.7,
             'circle-color': circleColorCluster,
             'circle-stroke-color': '#8dd3c7',
             'circle-stroke-width': 2
@@ -1119,12 +1131,14 @@ export class MapService {
 
   }
   addDateLayer(date){
-    this.map.setLayoutProperty('cluster'+date, 'visibility', 'visible');
-    this.map.setLayoutProperty('cluster-number-layer'+date, 'visibility', 'visible');
-    this.map.setLayoutProperty('no-cluster-number'+date, 'visibility', 'visible');
-    this.map.setLayoutProperty('boxes-no-cluster'+date, 'visibility', 'visible');
-    
-    this.map.setPaintProperty('cluster-hover-layer', 'circle-color', this.map.getPaintProperty('boxes-no-cluster'+date, 'circle-color'));
+    if(this.map.getLayer('cluster'+date)){
+      this.map.setLayoutProperty('cluster'+date, 'visibility', 'visible');
+      this.map.setLayoutProperty('cluster-number-layer'+date, 'visibility', 'visible');
+      this.map.setLayoutProperty('no-cluster-number'+date, 'visibility', 'visible');
+      this.map.setLayoutProperty('boxes-no-cluster'+date, 'visibility', 'visible');
+      
+      this.map.setPaintProperty('cluster-hover-layer', 'circle-color', this.map.getPaintProperty('boxes-no-cluster'+date, 'circle-color'));
+    }
 
   }
 }

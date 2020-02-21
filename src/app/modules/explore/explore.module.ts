@@ -27,17 +27,19 @@ import { MapOptionsContainerComponent } from './map/map-options-container/map-op
 import { MapOptionsComponent } from './map/map-options/map-options.component';
 import { ChartDatepickerComponent } from './box/chart-datepicker/chart-datepicker.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent],
   imports: [
     CommonModule,
+    SharedModule,
     NgxChartsModule,
     BrowserAnimationsModule,
     FormsModule,
     RouterModule,
-    TranslateModule,
+    // TranslateModule,
     OwlDateTimeModule, 
     OwlNativeDateTimeModule
   ],

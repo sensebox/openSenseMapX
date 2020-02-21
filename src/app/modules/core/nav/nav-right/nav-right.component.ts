@@ -32,10 +32,10 @@ export class NavRightComponent implements OnInit {
   }
 
   toggleLanguage(lang){
-    if(lang === "de") {
-      this.languageToggled.emit('en');
+    if(lang === "de-DE") {
+      this.languageToggled.emit('en-US');
     } else {
-      this.languageToggled.emit('de');
+      this.languageToggled.emit('de-DE');
     }
   }
 

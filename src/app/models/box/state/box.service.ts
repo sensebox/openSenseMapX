@@ -71,6 +71,7 @@ export class BoxService {
       this.boxStore.setLoading(false);
       //TODO: find a better place for this + fix calling twice :o
       // this.setDisplayTimeSlider(true);
+      console.log(dateRange[0].toISOString());
       this.uiService.setSelectedDate(dateRange[0]);
       this.uiService.setSelectedDate(dateRange[0]);
     }), share());

@@ -38,7 +38,7 @@ export function createInitialState(): UiState {
     dateRange: null,
     dateRangeChart: [new Date("2020-01-19T14:00:00.000Z"), new Date("2020-01-20T14:00:00.000Z")],
     selectedDate: null,
-    language: 'de',
+    language: 'de-DE',
     theme: 'light',
     baseLayer: {
       'id': 'base-layer',
