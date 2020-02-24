@@ -32,16 +32,24 @@ export class BoxService {
 
 
     return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587&full=true`).pipe(tap(entities => {
+    // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=5.98865807458,47.3024876979,15.0169958839,54.983104153&full=true`).pipe(tap(entities => {
+    // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&full=true`).pipe(tap(entities => {
+    // return this.http.get<any>(`/assets/data/start-data.json`).pipe(tap(entities => {
       
-      //normalize Data 
+      // console.log("FETCHED");
+      // //normalize Data 
+      // console.log(entities);
       let res  = normalize(entities, [box]);
-
-      //set Data in storess
+      console.log("normalized");
+      // console.log(res);
+      // //set Data in stores
       this.boxStore.set(res.entities.boxes);
-
+      // console.log("DATA SET");
+      
       //TODO: find better way than this (reference from sensor to box)
       for (let box in res.entities.boxes) {
         res.entities.boxes[box].sensors.forEach(sensor => {
+          // debugger
           res.entities.sensors[sensor].boxes_id = res.entities.boxes[box]._id;
           res.entities.sensors[sensor].boxes_name = res.entities.boxes[box].name;
         })
@@ -50,11 +58,13 @@ export class BoxService {
     }));
   }
 
-  getValues(pheno, dateRange) {
+  getValues(pheno, dateRange, bbox) {
     
     this.boxStore.setLoading(true);
 
-    return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587&format=json&columns=boxId&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
+    const bboxString  = `${bbox._sw.lng},${bbox._sw.lat},${bbox._ne.lng},${bbox._ne.lat}`;
+    
+    return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=${bboxString}&format=json&columns=boxId&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
       entities = entities.map(ent => {
         let { boxId, sensorId, ...noEnt} = ent;
         //TODO: find better place for vconverting to 2 decimal-diggits

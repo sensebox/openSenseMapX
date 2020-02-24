@@ -29,6 +29,7 @@ export class MapService {
   oldFilter;
 
   currentClusterLayers;
+  clusterLayers;
   
   mouseLeaveFunction;
   clusterMouseleaveFunctionSave;
@@ -88,6 +89,12 @@ export class MapService {
       zoom: 8,
       pitch: 21
     });
+
+    // disable map rotation using right click + drag
+    this.map.dragRotate.disable();
+ 
+    // disable map rotation using touch rotation gesture
+    this.map.touchZoomRotate.disableRotation();
 
     this.map.addControl(new NavigationControl());
 
@@ -404,17 +411,19 @@ export class MapService {
   }
 
   filterByClusterProperty(data, property, time){
-    console.log(data);
+    // console.log(data);
     let newData = data["features"].filter(res => {
       if(res['properties']['values'] && res['properties']['values'][property] && res['properties']['values'][property][time])
         return res;
     });
-    console.log(newData);
+    // console.log(newData);
     return {type: "FeatureCollection", features: newData};
   }
 
 
   updateBoxesData(boxes, pheno, map, clusterLayers, dateRange) {
+    console.log("UPDATE BOXES DATA")
+    // console.log(pheno)
     boxes = this.convertLastMeasurement(boxes);
 
     if (!map.getSource('boxes')) {
@@ -427,18 +436,21 @@ export class MapService {
 
       //Source for clusterlayer, TODO: Dynamically add phenomena when sensor-wiki is finished
       if(boxes && pheno){
+        // console.log(boxes);
         this.addClusterSource(boxes, pheno, map, dateRange);
         this.drawClusterLayers(clusterLayers, map, dateRange);
       }
-
+      
     } else {
       // console.log("SET DATA: ", boxes)
+      // console.log(boxes);
       map.getSource('boxes').setData(this.toGeoJson(boxes));
       //if dateRange is active new sources are being added
       if(dateRange) {
         this.addClusterSource(boxes, pheno, map, dateRange);
       }
     }
+    // console.log('dataInit')
     this.boxService.setDataInit(true);
   }
 
@@ -570,7 +582,7 @@ export class MapService {
             },
             'circle-opacity': 0.7,
             'circle-color': circleColorCluster,
-            'circle-stroke-color': '#8dd3c7',
+            'circle-stroke-color': 'black',
             'circle-stroke-width': 2
         }
       });
@@ -641,6 +653,8 @@ export class MapService {
         }
       });
     })
+    console.log("SHOULD BE HERE ONLY ONCE?!?!")
+    //TODO: MOVE THIS
     this.map.setLayoutProperty('cluster'+ steps[0].toISOString(), 'visibility', 'visible');
     this.map.setLayoutProperty('boxes-no-cluster'+ steps[0].toISOString(), 'visibility', 'visible');
     this.map.setLayoutProperty('cluster-number-layer'+ steps[0].toISOString(), 'visibility', 'visible');
@@ -682,6 +696,7 @@ export class MapService {
   }
 
   setMapClusterLayers(layers, boxes, dateRange, pheno){
+    console.log("SET MAP CLUSTER LAYERS")
     if(layers){
       boxes = this.convertLastMeasurement(boxes);
       this.addClusterSource(boxes, pheno, this.map, dateRange);
@@ -693,13 +708,18 @@ export class MapService {
   }
 
   drawClusterLayers(layers, map, dateRange) {
-
+    this.clusterLayers = layers;
     this.currentClusterLayers = layers;
 
     layers.forEach(layer => {
 
       if (!map.getLayer(layer.id)) {
-        map.addLayer(layer);
+        if (map.getLayer('active-layer-text')){
+          map.addLayer(layer, 'active-layer-text');
+        } else {
+          map.addLayer(layer);
+        }
+
         // if (map.getLayer('active-layer-text'))
         //   map.moveLayer(layer.id, 'active-layer-text');
   
@@ -712,11 +732,16 @@ export class MapService {
         } else {
           map.setFilter(layer.id);
         }
+        // console.log("LAAAAYER", layer)
+        // if(layer.layout && layer.layout.visibility != null){
+        //   console.log(layer.layout)
+        //   map.setLayoutProperty(layer.id, 'visibility', layer.layout.visibility);
+        // }
       }
     });
 
     if (!map.getLayer('cluster-number-layer')) {
-      this.addClusterNumberLayers();
+      this.addClusterNumberLayers(layers);
     }
     let textField = ["concat", ['/',['round',[ '*', ['/', ["get", layers[0].paint['circle-color'][2][1][1]], ["get", "point_count"]], 100]],100], ""];
     map.setPaintProperty('no-cluster-number', 'text-color', layers[0].paint['circle-color']);
@@ -876,8 +901,12 @@ export class MapService {
     }, 'base-layer');
   }
 
-  addClusterNumberLayers(){
-
+  addClusterNumberLayers(layers){
+    console.log(layers);
+    var insertBeforeActiveLLayer = false;
+    if(this.map.getLayer('active-layer-text')){
+      insertBeforeActiveLLayer = true;
+    }
     this.map.addLayer({
       'id': 'cluster-number-layer',
       'type': 'symbol',
@@ -892,12 +921,13 @@ export class MapService {
         'text-color': "white"
       },
       "layout": {
+        "visibility": layers[0].layout && layers[0].layout.visibility ? layers[0].layout.visibility : 'visible',
         // "text-field": "TTTESSSTTT",
         "text-field": ["concat", ['/',['round',[ '*', ['/', ["get", "Temperatur"], ["get", "point_count"]], 100]],100], ""],
         "text-size": 15,
         'text-font': ['Montserrat Bold', 'Arial Unicode MS Bold'],
       }
-    });
+    }, insertBeforeActiveLLayer ? 'active-layer-text' : null);
     
     this.map.addLayer({
       'id': 'no-cluster-number',
@@ -917,6 +947,7 @@ export class MapService {
         ]
       },
       "layout": {
+        "visibility": layers[0].layout && layers[0].layout.visibility ? layers[0].layout.visibility : 'visible',
         "text-field": ["get", "Temperatur", ["object", ["get", "live"]]],
         "text-variable-anchor": ["bottom"],
         "text-offset": [0, 1],
@@ -1110,35 +1141,64 @@ export class MapService {
     }
   }
 
-  setClustering(res){
+  setClustering(clustering, date){
+    console.log(date);
+    console.log(this.map.style)
     if(this.map.getLayer('base-layer')){
-      this.map.setLayoutProperty('base-layer', 'visibility', res ? 'none' : 'visible' );
-      this.map.setLayoutProperty('number-layer', 'visibility', res ? 'none' : 'visible' );
+      this.map.setLayoutProperty('base-layer', 'visibility', clustering ? 'none' : 'visible' );
+      this.map.setLayoutProperty('number-layer', 'visibility', clustering ? 'none' : 'visible' );
     }
     if(this.map.getLayer('boxes-cluster')){
-      this.map.setLayoutProperty('boxes-no-cluster', 'visibility', res ? 'visible' : 'none' );
-      this.map.setLayoutProperty('boxes-cluster', 'visibility', res ? 'visible' : 'none' );
-      this.map.setLayoutProperty('cluster-number-layer', 'visibility', res ? 'visible' : 'none' );
-      this.map.setLayoutProperty('no-cluster-number', 'visibility', res ? 'visible' : 'none' );
+      console.log(date);
+      if(date){
+        this.map.setLayoutProperty('boxes-no-cluster'+date.toISOString(), 'visibility', clustering ? 'visible' : 'none' );
+        this.map.setLayoutProperty('cluster'+date.toISOString(), 'visibility', clustering ? 'visible' : 'none' );
+        this.map.setLayoutProperty('cluster-number-layer'+date.toISOString(), 'visibility', clustering ? 'visible' : 'none' );
+        this.map.setLayoutProperty('no-cluster-number'+date.toISOString(), 'visibility', clustering ? 'visible' : 'none' );
+
+      } else {
+        console.log('NOOOO DATE')
+        this.map.setLayoutProperty('boxes-no-cluster', 'visibility', clustering ? 'visible' : 'none' );
+        this.map.setLayoutProperty('boxes-cluster', 'visibility', clustering ? 'visible' : 'none' );
+        this.map.setLayoutProperty('cluster-number-layer', 'visibility', clustering ? 'visible' : 'none' );
+        this.map.setLayoutProperty('no-cluster-number', 'visibility', clustering ? 'visible' : 'none' );
+      }
     }
   }
 
   removeDateLayer(date){
+    console.log("REMOVING", date)
     this.map.setLayoutProperty('cluster'+date, 'visibility', 'none');
     this.map.setLayoutProperty('cluster-number-layer'+date, 'visibility', 'none');
     this.map.setLayoutProperty('no-cluster-number'+date, 'visibility', 'none');
     this.map.setLayoutProperty('boxes-no-cluster'+date, 'visibility', 'none');
 
   }
-  addDateLayer(date){
+  addDateLayer(date, clustering){
+    console.log("ADDING DATE LAYER")
+    console.log(this.map.getLayer('cluster'+date))
     if(this.map.getLayer('cluster'+date)){
-      this.map.setLayoutProperty('cluster'+date, 'visibility', 'visible');
-      this.map.setLayoutProperty('cluster-number-layer'+date, 'visibility', 'visible');
-      this.map.setLayoutProperty('no-cluster-number'+date, 'visibility', 'visible');
-      this.map.setLayoutProperty('boxes-no-cluster'+date, 'visibility', 'visible');
+      this.map.setLayoutProperty('cluster'+date, 'visibility', clustering ? 'visible' : 'none');
+      this.map.setLayoutProperty('cluster-number-layer'+date, 'visibility', clustering ? 'visible' : 'none');
+      this.map.setLayoutProperty('no-cluster-number'+date, 'visibility', clustering ? 'visible' : 'none');
+      this.map.setLayoutProperty('boxes-no-cluster'+date, 'visibility', clustering ? 'visible' : 'none');
       
       this.map.setPaintProperty('cluster-hover-layer', 'circle-color', this.map.getPaintProperty('boxes-no-cluster'+date, 'circle-color'));
     }
 
+  }
+
+  reactivateBaseLayer(clustering){
+   
+    this.drawClusterLayers(this.clusterLayers, this.map, null);
+    this.setClustering(clustering, null);
+  }
+
+  getBounds(){
+    return this.map.getBounds();
+  }
+
+  fitBounds(bbox){
+    this.map.fitBounds(bbox);
   }
 }

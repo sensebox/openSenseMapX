@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Box } from 'src/app/models/box/state/box.model';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'osem-box-single-values',
@@ -27,7 +28,10 @@ export class BoxSingleValuesComponent implements OnChanges, AfterViewChecked {
   @ViewChild('sensors', {static: false}) sensorsDiv: ElementRef;
   @ViewChild('scrollable', {static: false}) scrollableDiv: ElementRef;
 
-  constructor(public translateService: TranslateService) { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public translateService: TranslateService) { }
 
   selectValue(sensor){
     this.valueSelected.emit(sensor);
@@ -64,4 +68,12 @@ export class BoxSingleValuesComponent implements OnChanges, AfterViewChecked {
     this.sizeChanged.emit([this.sensorsDiv.nativeElement.scrollWidth, event.innerWidth])
   }
   
+  openCompare(id){
+    this.router.navigate(
+      ['compare'], 
+      {
+        queryParams: { id: id},
+        queryParamsHandling: 'merge'
+      }
+    );  }
 }

@@ -19,11 +19,13 @@ import { ImpressumComponent } from './impressum/impressum.component';
 import { PhenoInfoComponent } from './pheno-info/pheno-info.component';
 import { ModalComponent } from './modal/modal.component';
 import { SharedModule } from '../shared/shared.module';
+import { VisContainerComponent } from './vis/vis-container/vis-container.component';
+import { VisComponent } from './vis/vis/vis.component';
 
 
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, PhenoInfoComponent, ModalComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, PhenoInfoComponent, ModalComponent, VisContainerComponent, VisComponent],
   imports: [
     CommonModule,
     RouterModule,

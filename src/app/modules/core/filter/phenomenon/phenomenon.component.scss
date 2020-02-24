@@ -129,6 +129,7 @@
     pointer-events: none;
     border: 2px solid var(--alert-color);
     #text {
+        padding: 0 0.2em;
         position: absolute;
         top: 0;
         transform: translateY(-50%);

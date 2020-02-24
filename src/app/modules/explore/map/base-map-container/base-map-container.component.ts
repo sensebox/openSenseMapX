@@ -40,7 +40,7 @@ export class BaseMapContainerComponent implements OnInit {
   clustering$ = this.uiQuery.selectClustering$;
   dateRange$ = this.uiQuery.selectDateRange$;
   filters$ = this.uiQuery.selectFilters$;
-  // selectedDate$ = this.uiQuery.selectSelectedDate$;
+  selectedDate$ = this.uiQuery.selectSelectedDate$;
 
   ui$;
 
@@ -62,9 +62,13 @@ export class BaseMapContainerComponent implements OnInit {
     this.mapInit$.pipe(withLatestFrom(this.compareModus$, this.selectedPheno$)).subscribe(res => {
       
       if(res[0]){   
+        this.boxes$.subscribe(res => {
+          console.log("boxes", res)
+        })
         this.boxSub = combineLatest(this.boxes$, this.filters$).pipe(withLatestFrom(this.selectedPheno$, this.clusterLayers$, this.dateRange$)).subscribe(res => {
           if(res[0]) {
             let data = applyFilters(res[0][0], res[0][1]);
+            console.log("SET MAP DATA")
             this.mapService.setMapData(data, res[1], res[2], res[3]);  
           }
         });
@@ -91,7 +95,8 @@ export class BaseMapContainerComponent implements OnInit {
           this.mapService.setMapBaseLayer(res);
         });
         this.clusterLayerSub = combineLatest(this.clusterLayers$, this.filters$).pipe(withLatestFrom(this.boxes$, this.dateRange$, this.selectedPheno$)).subscribe(res => {
-          this.mapService.setMapClusterLayers(res[0][0], applyFilters(res[1], res[0][1]), res[2], res[3]);
+          // if(!res[1][1])
+            this.mapService.setMapClusterLayers(res[0][0], applyFilters(res[1], res[0][1]), res[2], res[3]);
         });
         this.activeSub = this.activeBox$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
           if(res)
@@ -106,8 +111,8 @@ export class BaseMapContainerComponent implements OnInit {
             this.mapService.colorActives(res[0], res[1]);
           }
         });
-        this.clustering$.subscribe(res => {
-          this.mapService.setClustering(res);
+        this.clustering$.pipe(withLatestFrom(this.selectedDate$)).subscribe(res => {
+          this.mapService.setClustering(res[0], res[1]);
         })
       }
     })

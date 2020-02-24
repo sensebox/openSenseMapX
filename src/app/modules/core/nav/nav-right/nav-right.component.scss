@@ -75,4 +75,11 @@
             }
         }
     }
+
+    .links {
+        margin-top: 0.5em;
+        a {
+            color: var(--color-primary);
+        }
+    }
 }

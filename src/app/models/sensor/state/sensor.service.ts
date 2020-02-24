@@ -78,6 +78,7 @@ export class SensorService {
       this.sensorStore.toggleActive(data);
     } else {
       actives = [...new Set(actives.map(active => active.title))]
+      //allow only 2 selected Phenos (frontend does not allow for more, no need to handle it here for now)
       if(actives.length < 2 || actives.indexOf(data.title) != -1 ){
         this.sensorStore.toggleActive(data);
       } else {

@@ -33,3 +33,16 @@
 
 
 <osem-modal *ngIf="infoPheno$ | async"></osem-modal>
+
+<div id="backdrop" *ngIf="backdrop">
+
+</div>
+<div id="modal-container" [class.active]="backdrop">
+    <div id="modal-inner">
+        <div class="osem-close-button" (click)="closeModal()">x</div>
+        <router-outlet name="modal" id="modal-outlet" (activate)="onModalActivate($event)" (deactivate)="onModalDeactivate($event)"></router-outlet>
+    </div>
+
+    <!-- <router-outlet name="modal" id="modal-outlet" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"></router-outlet> -->
+</div>
+

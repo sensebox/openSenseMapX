@@ -9,6 +9,7 @@
     "REMOVE_DATERANGE": "Zeitspanne entfernen",
     "FILTER": "Filter",
     "PHENOMENA": "Phänomene",
+    "SELECT_PHENO": "Wähle Phänomen",
 
     "SETTINGS": "Einstellungen",
     "THEME": "Theme",
@@ -49,6 +50,8 @@
     "RESPONSIBLE": "Verantwortlich",
     "SPONSORED_BY": "Gesponsort von",
     "THANKS_TO": "Dankeschön an:",
+    "ABOUT": "About",
+    "ABOUT_TEXT": "Dies ist ein Datenvisualisierungsprojekt von openSenseMap.org. Alle Daten auf dieser Webseite wurden duch openSenseMap.org unter der 'Public Domain Dedication and License 1.0' veröffentlicht. Die Karte visualisiert Rohdaten, so wie sie die Benutzer hochgeladen haben. Dies ist eine Beta Version. Wir freuen uns über Unterstützung bei diesem Projekt: https://github.com/sensebox/opensensemapX.",
 
     "WHAT_IS": "Was ist",
     "DEFINITION": "Definition",

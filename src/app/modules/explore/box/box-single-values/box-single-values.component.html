@@ -2,7 +2,7 @@
   <div class="box-header">
     <div class="name">
       <span>{{box.name}}</span>
-      <div id="compare-to-button" [routerLink]="['/compare']" [queryParams]="{id: [box._id], activeTypes: activeSensorTypes}" title="{{'COMPARE_TO' | translate}}">
+      <div id="compare-to-button" (click)="openCompare(box._id)" title="{{'COMPARE_TO' | translate}}">
         <span>
           <i class="fa fa-plus"></i>
         </span>

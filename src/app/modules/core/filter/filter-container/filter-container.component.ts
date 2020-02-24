@@ -9,6 +9,7 @@ import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { startWith, switchMap } from 'rxjs/operators';
 import { MapService } from 'src/app/modules/explore/services/map.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'osem-filter-container',
@@ -32,6 +33,8 @@ export class FilterContainerComponent implements OnInit {
   autoCompleteResults$;
   minimizedBoolean = false;
   change:boolean = true;
+  // fetchValuesTimeout;
+  // currentValues;
 
 
   constructor(
@@ -40,13 +43,16 @@ export class FilterContainerComponent implements OnInit {
     private sensorService: SensorService,
     private uiService: UiService,
     private mapService: MapService,
+    private activatedRoute: ActivatedRoute,
     private uiQuery: UiQuery) { }
 
   ngOnInit() {
    
     combineLatest(this.selectDateRange$, this.selectedPheno$).subscribe(res => {
+      console.log("FETCHING", res)
       if(res[0] && res[1]){
-        this.boxService.getValues(res[1].title, res[0]).subscribe();
+        console.log("FETCHING DATA FOR MAP")
+        this.boxService.getValues(res[1].title, res[0], (this.activatedRoute.snapshot.params.bbox ? this.activatedRoute.snapshot.params.bbox : this.mapService.getBounds())).subscribe();
         if(window.matchMedia("(max-width: 768px)").matches){
           this.uiService.setFilterVisible(false);
         }

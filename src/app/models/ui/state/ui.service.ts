@@ -101,9 +101,49 @@ export class UiService {
     this.uiStore.update( state => ({ ...state , searchResults: results }));
   }
   setClustering(clustering){
+    debugger
+    this.uiStore.update( state => (
+      {...state, baseLayer: 
+          {
+            ...state.baseLayer, 
+            layout: 
+              {...state.baseLayer.layout, 
+                visibility: clustering ? 'none' : 'visible'}}}));
+    this.uiStore.update( state => (
+      {...state, clusterLayers: [
+        {...state.clusterLayers[0], layout: 
+          {...state.baseLayer.layout, 
+            visibility: clustering && !state.selectedDate ? 'visible' : 'none'}},
+            {...state.clusterLayers[1], layout: 
+              {...state.baseLayer.layout, 
+                visibility: clustering && !state.selectedDate ? 'visible' : 'none'}}
+    
+      ]} ));
+ 
     this.uiStore.update( state => ({ ...state , clustering: clustering }));
   }
   toggleClustering(){
+    this.uiStore.update( state => (
+      {...state, baseLayer: 
+          {
+            ...state.baseLayer, 
+            layout: 
+              {...state.baseLayer.layout, 
+                visibility: state.clustering ? 'none' : 'visible'}}}));
+
+    
+    this.uiStore.update( state => (
+      {...state, clusterLayers: [
+        {...state.clusterLayers[0], layout: 
+          {...state.baseLayer.layout, 
+            visibility: !state.clustering && !state.selectedDate ? 'visible' : 'none'}},
+            {...state.clusterLayers[1], layout: 
+              {...state.baseLayer.layout, 
+                visibility: !state.clustering && !state.selectedDate ? 'visible' : 'none'}}
+    
+      ]}
+    ));
+
     this.uiStore.update( state => ({ ...state , clustering: !state.clustering }));
   }
   toggleCircles(){

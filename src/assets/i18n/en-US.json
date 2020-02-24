@@ -9,6 +9,7 @@
     "REMOVE_DATERANGE": "Remove date range",
     "FILTER": "Filter",
     "PHENOMENA": "Phenomena",
+    "SELECT_PHENO": "Choose phenomenon",
 
     "SETTINGS": "Settings",
     "THEME": "Theme",
@@ -48,6 +49,8 @@
     "RESPONSIBLE": "Responsible",
     "SPONSORED_BY": "Sponsored By",
     "THANKS_TO": "Thanks to:",
+    "ABOUT": "About",
+    "ABOUT_TEXT": "This is a data-visualization project from openSenseMap.org. All data shown is published by openSenseMap under Public Domain Dedication and License 1.0. The map uses raw data as published by the users. The project is still in Beta phase, feel free to support us at: https://github.com/sensebox/opensensemapX.",
 
     "WHAT_IS": "What is",
     "DEFINITION": "Definition",

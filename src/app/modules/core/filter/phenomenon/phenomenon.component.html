@@ -47,7 +47,7 @@
                     (click)="selectPheno(pheno)" 
                     [class.active]="pheno?.title === selectedPheno?.title"
                     class="pheno">
-                    <div class="osem-icon-container">
+                    <div class="osem-icon-container" [title]="pheno.title">
                         <i class="osem-icon {{pheno.icon}}"></i>
                     </div>
                     <div class="osem-inline name" *ngIf="!selectedPheno || changeVariable">
@@ -66,16 +66,11 @@
                     </div>
                 </div>
                 <div class="top-score">
-                    <div>
-                        Highest
-                    </div>
-                    <div>
-                        Lowest
-                    </div>
+                    <a (click)="openVis(selectedPheno.title)">{{'FAV' | translate}}</a>
                 </div>
                 <div class="info" (click)="showInfo(selectedPheno.title)">
-                    <i class="fa fa-info"></i>
-                    {{selectedPheno.title}}<br>
+                    <i class="fa fa-info"></i><br>
+                    {{selectedPheno.title}}
                 </div>
                 <!-- <i class="osem-icon {{selectedPheno.icon}}"></i> -->
             </div>     

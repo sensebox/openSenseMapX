@@ -1,0 +1,41 @@
+<div id="vis-container">
+    <div id="phenos">
+        <div class="pheno"
+            (click)="selectPheno('')" 
+            [class.active]="selectedPheno === ''">
+            
+            <div class="osem-icon-container" [title]="'ALL' | translate">
+            {{'ALL' | translate}}
+            </div>
+        </div>
+        <div 
+            *ngFor="let pheno of phenos" 
+            (click)="selectPheno(pheno.title)" 
+            [class.active]="pheno?.title === selectedPheno"
+            class="pheno">
+            <div class="osem-icon-container" [title]="pheno.title">
+                <i class="osem-icon {{pheno.icon}}"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="vis-items-container osem-padding-small">
+        
+        <h2 *ngIf="selectedPheno; else all">{{selectedPheno}}</h2>
+        <ng-template #all>{{'ALL' | translate}}</ng-template>
+        <div class="vis-items">
+            
+            <div *ngFor="let visItem of vis" class="vis-item osem-padding-small" (click)="openVisItem(visItem)">
+                <div class="image">
+                    <img src="/assets/img/userimg/vis/{{visItem._id}}.png">
+                </div>
+                <div class="vis-content">
+                    <h3>{{visItem.name}}</h3>
+                    <p>{{visItem.description}}</p>
+                    <p>{{visItem.dateRange[0] | date:'short':'':translateService.currentLang }} - {{visItem.dateRange[1] | date:'short':'':translateService.currentLang }}</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

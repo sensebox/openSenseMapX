@@ -16,7 +16,7 @@ osem-nav-container {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 110;
+    z-index: 2010;
     background: rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
@@ -93,4 +93,44 @@ osem-map-options-container {
     display: inline-block;
     z-index: 900;
     position: absolute;
+}
+
+#backdrop {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background: rgba(0,0,0,0.7);
+    z-index: 1001;
+}
+
+#modal-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    &.active {
+        display: flex;
+    }
+
+    #modal-inner {
+        position: relative;
+        display: inline-block;
+        max-width: 700px;
+        min-width: 250px;
+        max-height: 80%;
+        overflow-y: auto;
+        background: var(--background-primary-full);
+        .osem-close-button {
+            right: 5px;
+            top: 5px;
+            position: absolute;
+        }
+    }
 }

@@ -8,6 +8,7 @@ import { IntervalTimer } from '../../../../helper/IntervalTimer';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { MapService } from '../../services/map.service';
 import { TranslateService } from '@ngx-translate/core';
+import { id } from '@swimlane/ngx-charts/release/utils';
 
 @Component({
   selector: 'osem-time-slider-container',
@@ -22,8 +23,10 @@ export class TimeSliderContainerComponent implements OnInit {
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
   boxes$ = this.boxQuery.selectBoxes();
+  clustering$ = this.uiQuery.selectClustering$;
   selectedDate;
   selectedPheno;
+  clustering;
 
   combineSub;
 
@@ -41,7 +44,8 @@ export class TimeSliderContainerComponent implements OnInit {
     ) { }
 
   ngOnInit() { 
-    this.combineSub = this.selectedDate$.pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
+    this.combineSub = this.selectedDate$.pipe(withLatestFrom(this.selectedPheno$, this.clustering$)).subscribe(res => {
+      this.clustering = res[2];
       if(res[1] != this.selectedPheno || (res[0] && res[0].getTime() != this.selectedDate)){
         if(this.selectedDate){
           this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
@@ -52,7 +56,8 @@ export class TimeSliderContainerComponent implements OnInit {
           this.selectedPheno = res[1];
         
         if(res[0] && res[1]){
-          this.mapService.addDateLayer(new Date(this.selectedDate).toISOString());
+          console.log("ADDING LAYER", new Date(this.selectedDate).toISOString())
+          this.mapService.addDateLayer(new Date(this.selectedDate).toISOString(), res[2]);
           let newLayer = JSON.parse(JSON.stringify(res[1].layer));
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
@@ -82,6 +87,7 @@ export class TimeSliderContainerComponent implements OnInit {
   }
 
   ngOnDestroy(){
+    // this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
     this.combineSub.unsubscribe();
   }
 
@@ -91,7 +97,9 @@ export class TimeSliderContainerComponent implements OnInit {
 
   removeDateRange(){
     const { fromDate, toDate, ...newQueryParams} = this.activatedRoute.snapshot.queryParams;
+    this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
     this.uiService.updateDateRange(null);
+    this.mapService.reactivateBaseLayer(this.clustering);
     this.router.navigate(
       [], 
       {

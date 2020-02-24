@@ -235,4 +235,14 @@ export class PhenomenonComponent implements OnInit {
   showInfo(pheno){
     this.infoPhenoSelected.emit(pheno);
   }
+
+  openVis(pheno){
+    this.router.navigate(
+      [{outlets: {modal: 'vis'}}],
+      {
+        relativeTo: this.activatedRoute,
+        queryParamsHandling: 'merge'
+      }
+    ); 
+  }
 }

@@ -193,6 +193,7 @@
 // }
 
 #popup {
+    font-size: 0.9em;
     background: var(--background-primary-full);
     max-width: 320px;
     border-radius: 5px;
@@ -231,6 +232,7 @@
 }
 
 #cluster-popup {
+    font-size: 0.9em;
     background: var(--background-primary-full);
     display: inline-block;
     .cluster-header {
@@ -241,6 +243,7 @@
         max-height: 350px;
         max-width: 300px;
         overflow-y: auto;
+        overflow-x: hidden;
         .cluster-item {
             
             &:hover {

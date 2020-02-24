@@ -201,7 +201,6 @@ export class UiStore extends Store<UiState> {
     this.update( state => ({ ...state , theme: theme }));
   }
 
-
   updateBaseLayer(layer){
     this.update( state => ( {
       baseLayer: {
