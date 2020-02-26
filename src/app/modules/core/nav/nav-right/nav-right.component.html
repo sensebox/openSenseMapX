@@ -1,9 +1,12 @@
 <div class="nav-right-container">
     <div class="logo" [routerLink]="['']">
        <img src="/assets/img/logos/osem.svg"> <span>openSenseMap</span>
+       <div id="beta-text" [title]="'BETA_TEXT' | translate">
+           BETA
+       </div>
     </div>
     <div class="nav-item-container osem-box-shadow-basic">
-        <div class="nav-item">
+        <div class="nav-item osem-disabled">
             Login
         </div>
         <div class="nav-item" (click)="toggleSettings()">

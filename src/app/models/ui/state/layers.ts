@@ -51,7 +51,7 @@ export const clusterLayerSolo = {
     'paint': {
         'circle-radius': {
         'base': 1.75,
-        'stops': [[1, 10], [22, 1580]]
+        'stops': [[1, 6], [22, 3000]]
         },
         'circle-color': [
             'interpolate',

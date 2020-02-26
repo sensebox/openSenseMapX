@@ -33,8 +33,7 @@ export class FilterContainerComponent implements OnInit {
   autoCompleteResults$;
   minimizedBoolean = false;
   change:boolean = true;
-  // fetchValuesTimeout;
-  // currentValues;
+  resultsActive = false;
 
 
   constructor(
@@ -49,9 +48,7 @@ export class FilterContainerComponent implements OnInit {
   ngOnInit() {
    
     combineLatest(this.selectDateRange$, this.selectedPheno$).subscribe(res => {
-      console.log("FETCHING", res)
       if(res[0] && res[1]){
-        console.log("FETCHING DATA FOR MAP")
         this.boxService.getValues(res[1].title, res[0], (this.activatedRoute.snapshot.params.bbox ? this.activatedRoute.snapshot.params.bbox : this.mapService.getBounds())).subscribe();
         if(window.matchMedia("(max-width: 768px)").matches){
           this.uiService.setFilterVisible(false);
@@ -73,15 +70,6 @@ export class FilterContainerComponent implements OnInit {
     this.autoCompleteResults$.subscribe(res => {
       this.uiService.setSearchResults(res);
     })
-    // this.searchTerm$.subscribe(res => {
-    //   clearTimeout(this.searchTimeout);
-    //   let that = this;
-    //   this.searchTimeout = setTimeout(function(){
-    //     console.log(that.boxQuery.search(res));
-    //   },150)
-    // })
-
-
   }
 
   changeDateRange(range){
@@ -131,6 +119,16 @@ export class FilterContainerComponent implements OnInit {
   }
   selectLocResult(loc){
     this.mapService.flyTo([loc.lon, loc.lat]);
+  }
+
+  enter(){
+    this.resultsActive = true;
+  }
+  leave(){
+    let that = this;
+    setTimeout(function(){
+      that.resultsActive = false;
+    },100)
   }
 
   toggleChange(){

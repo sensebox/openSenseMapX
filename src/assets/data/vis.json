@@ -3,7 +3,7 @@
         "_id": 0,
         "bbox": [12.91325319611073,52.31897932393551,13.82742514386689,52.71958782633621],
         "pheno": "Temperatur",
-        "dateRange":  ["2019-07-24T18:00:00.000Z","2019-07-25T05:00:00.000Z"],
+        "dateRange":  ["2019-07-24T16:00:00.000Z","2019-07-25T08:00:00.000Z"],
         "name": "Wärmeinsel Berlin im Sommer",
         "description": "Sehe wie die Stadt sich immer Sommer aufheizt."
     },

@@ -4,7 +4,8 @@
     .filter-item {
         width: 30%;
         flex-grow: 1;
-        padding: 0.2em;
+        padding: 0.4em 0.7em;
+        cursor: pointer;
         &.not-active {
             box-shadow: inset 3px -2px 1px 0px var(--shadow-color);
         }

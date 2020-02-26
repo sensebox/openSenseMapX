@@ -11,6 +11,11 @@
     "PHENOMENA": "Phenomena",
     "SELECT_PHENO": "Choose phenomenon",
 
+    "EXPOSURE": "Exposure",
+    "OUTDOOR": "outdoor",
+    "INDOOR": "indoor",
+    "ALL": "all",
+
     "SETTINGS": "Settings",
     "THEME": "Theme",
     "LANGUAGE": "Language",
@@ -20,13 +25,16 @@
     "COMPARE_MODUS_END": "End Compare-Mode",
 
     "LEGEND": "Legende",
+    "SCENARIOS": "Scenarios",
+
+    "BETA_TEXT": "This site is still development!! Proceed with care ;).",
 
     "LAST_MEASUREMENT": "Last measurement",
     "NO_RECENT_MEASUREMENT": "No recent measurement",
     "COMPARE_TO": "Compare to other boxes",
 
     "INTRO_HEADLINE": "Welcome to the Data Platform of openSenseMap",
-    "INTRO_TEXT_1": "This is a beta version! Currently only Data for Berlin from 31.12.2019 to 01.01.2020.",
+    "INTRO_TEXT_1": "This is a beta version! Currently queries are limited to Berlin and the latest data until the 7th February 2020.",
     "INTRO_TEXT_2": "The platforms aims to make the data collected by the openSenseMap more accessible and easier to analyse.",
 
     "FEATURE1": "Live overview of popular phenomenons",

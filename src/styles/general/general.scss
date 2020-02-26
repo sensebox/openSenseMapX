@@ -292,3 +292,19 @@ h2,h3,h4 {
     display: inline-block;
     padding: 0.2em 0;
 }
+
+
+a {
+    color: var(--color-primary);
+    cursor: pointer;    
+}
+
+
+.osem-disabled {
+    cursor: not-allowed !important;
+    // pointer-events: none;
+    div {
+        pointer-events: none;
+    }
+}
+

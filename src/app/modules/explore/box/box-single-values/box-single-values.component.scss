@@ -12,6 +12,9 @@
       position: relative;
       color: var(--text-color-primary);
       padding-right: 30px;
+      @media screen and(max-width: $secondBreak){
+        padding-left: 0.3em;
+      }
       
       .name {
         font-weight: bold;

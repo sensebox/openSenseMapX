@@ -22,6 +22,9 @@ export class BaseMapContainerComponent implements OnInit {
     private mapService: MapService,
     private uiQuery: UiQuery) { }
 
+
+  allBoxesPlain$ = this.boxQuery.selectAll();
+  reloadMapData$ = this.uiQuery.selectReloadMapData$;
   boxes$ = this.boxQuery.selectBoxes();
   loading$ = this.boxQuery.selectLoading();
   loadingSensor$ = this.sensorQuery.selectLoading();
@@ -58,17 +61,14 @@ export class BaseMapContainerComponent implements OnInit {
     //GET ALL THE DATA
     this.boxService.get().subscribe();
 
-    //SUBSCRIBE TO ALL BOXES and Layers after map is initiatet
+    //SUBSCRIBE TO ALL BOXES and Layers after map is initialised
     this.mapInit$.pipe(withLatestFrom(this.compareModus$, this.selectedPheno$)).subscribe(res => {
       
       if(res[0]){   
-        this.boxes$.subscribe(res => {
-          console.log("boxes", res)
-        })
+       
         this.boxSub = combineLatest(this.boxes$, this.filters$).pipe(withLatestFrom(this.selectedPheno$, this.clusterLayers$, this.dateRange$)).subscribe(res => {
           if(res[0]) {
             let data = applyFilters(res[0][0], res[0][1]);
-            console.log("SET MAP DATA")
             this.mapService.setMapData(data, res[1], res[2], res[3]);  
           }
         });
@@ -80,6 +80,7 @@ export class BaseMapContainerComponent implements OnInit {
 
         this.mapService.addClusterClickFunction('boxes-cluster');
         this.mapService.addHoverCluster('boxes-cluster', res[2]);
+        
         if(res[1]){
           this.mapService.setCompareModusClickFunctions();
         }
@@ -92,6 +93,7 @@ export class BaseMapContainerComponent implements OnInit {
         if(this.layerSub)
           this.unsubscribeAll();
         this.layerSub = this.baseLayer$.subscribe(res => {
+          console.log()
           this.mapService.setMapBaseLayer(res);
         });
         this.clusterLayerSub = combineLatest(this.clusterLayers$, this.filters$).pipe(withLatestFrom(this.boxes$, this.dateRange$, this.selectedPheno$)).subscribe(res => {

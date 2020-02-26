@@ -16,6 +16,11 @@ export class SearchComponent implements OnInit {
   @Output() changedSearchTerm = new EventEmitter();
   @Output() resultSelected = new EventEmitter();
   @Output() locResultSelected = new EventEmitter();
+
+  @Output() focused = new EventEmitter();
+  @Output() unfocused = new EventEmitter();
+
+  @Input() resultsActive;
   @Input() autoCompleteResults;
   @Input() locationAutocompleteResults;
   
@@ -23,7 +28,7 @@ export class SearchComponent implements OnInit {
 
   autocompleteToShow;
 
-  resultsActive = false;
+  // resultsActive = false;
   debounceTimeout;
 
   selectedAutocomplete = -1;
@@ -67,17 +72,20 @@ export class SearchComponent implements OnInit {
     } else if(key.keyCode == 13){
       if(this.autocompleteToShow.length > 0 && this.selectedAutocomplete > -1) {
         // this.navToProduct(this.autocompleteToShow[this.selectedAutocomplete].slug);
-        this.resultSelected.emit(this.autocompleteToShow[this.selectedAutocomplete])
+        if(this.autocompleteToShow[this.selectedAutocomplete]){
+          this.resultSelected.emit(this.autocompleteToShow[this.selectedAutocomplete])
+        } else {
+          this.locResultSelected.emit(this.locationAutocompleteResults[this.selectedAutocomplete - this.autocompleteToShow.length]);
+        }
         //HIGHLIGHT BOX
-        // this.autoCompleteResults = [];
-      } else {
-        // this.router.navigate(['/parts']);
       }
     } 
   }
 
   openDetails(box){
-    // e.stopPropagation();
+    //fly to Box
+    this.resultSelected.emit(box);
+    //open box
     this.router.navigate(['/explore/' + box._id], {
       relativeTo: this.activatedRoute,
       queryParamsHandling: 'merge'
@@ -91,11 +99,7 @@ export class SearchComponent implements OnInit {
 
   selectLocationResult(loc){
     this.locResultSelected.emit(loc);
-    // e.stopPropagation();
-    // this.router.navigate(['/explore/' + box._id], {
-    //   relativeTo: this.activatedRoute,
-    //   queryParamsHandling: 'merge'
-    // });  
+   
   }
 
   showLocationResult(e, box){
@@ -104,13 +108,10 @@ export class SearchComponent implements OnInit {
   }
 
   enter(){
-    this.resultsActive = true;
+    this.focused.emit();
   }
   leave(){
-    let that = this;
-    setTimeout(function(){
-      that.resultsActive = false;
-    },100)
+   this.unfocused.emit();
   }
 
   displayAll(){
@@ -121,5 +122,4 @@ export class SearchComponent implements OnInit {
       this.autocompleteToShow = this.autoCompleteResults;
     }
   }
-
 }

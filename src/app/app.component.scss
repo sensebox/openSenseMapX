@@ -122,8 +122,9 @@ osem-map-options-container {
     #modal-inner {
         position: relative;
         display: inline-block;
-        max-width: 700px;
-        min-width: 250px;
+        // max-width: 700px;
+        // min-width: 250px;
+        width: 80%;
         max-height: 80%;
         overflow-y: auto;
         background: var(--background-primary-full);

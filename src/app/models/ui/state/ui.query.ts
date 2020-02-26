@@ -22,6 +22,7 @@ export class UiQuery extends Query<UiState> {
   selectInfoPheno$ = this.select(state => state.infoPheno);
   selectExposure$ = this.select(state => state.exposure);
   selectFilters$ = this.select(state => state.filters);
+  selectReloadMapData$ = this.select(state => state.reloadMapData);
   
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);

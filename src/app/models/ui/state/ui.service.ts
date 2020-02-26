@@ -101,7 +101,6 @@ export class UiService {
     this.uiStore.update( state => ({ ...state , searchResults: results }));
   }
   setClustering(clustering){
-    debugger
     this.uiStore.update( state => (
       {...state, baseLayer: 
           {
@@ -173,5 +172,8 @@ export class UiService {
   
   setFilters(filters){
     this.uiStore.update( state => ({...state, filters: filters}))
+  }
+  setReloadMapData(mapData){
+    this.uiStore.update( state => ({...state, reloadMapData: mapData}))
   }
 }

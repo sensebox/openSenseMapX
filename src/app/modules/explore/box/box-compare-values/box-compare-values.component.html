@@ -29,7 +29,12 @@
                         <div *ngIf="pheno && pheno.value">
                             <div *ngIf="pheno.value[box._id]?.lastMeasurement; else noValue" [class.active]="(activePhenos == pheno.value[box._id].title)" class="value-inner">
                                 <div [style.color]="colors && (activePhenos == pheno.value[box._id].title) ? colors.colorDomain[colors.domain.indexOf(box._id)] : 'inherit'">
-                                    {{pheno.value[box._id].lastMeasurement.value}}
+                                    <div *ngIf="selectedDate && pheno.value[box._id].values">
+                                        {{pheno.value[box._id].values[selectedDate.toISOString()]}}
+                                    </div>
+                                    <div *ngIf="!selectedDate">
+                                        {{pheno.value[box._id].lastMeasurement.value}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

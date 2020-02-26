@@ -4,6 +4,9 @@
             (changedSearchTerm)="search($event)"
             (resultSelected)="selectResult($event)"
             (locResultSelected)="selectLocResult($event)"
+            (unfocused)="leave()"
+            (focused)="enter()"
+            [resultsActive]="resultsActive"
             [autoCompleteResults]="autoCompleteResults$ | async"
             [locationAutocompleteResults]="locationAutocompleteResults$ | async"
         ></osem-search>

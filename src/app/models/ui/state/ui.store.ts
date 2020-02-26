@@ -27,7 +27,8 @@ export interface UiState {
   circles: boolean,
   infoPheno: string,
   exposure: string,
-  filters: Filter
+  filters: Filter,
+  reloadMapData: boolean
 }
 
 export function createInitialState(): UiState {
@@ -36,7 +37,7 @@ export function createInitialState(): UiState {
     activeSensorTypes: [],
     selectedPheno: null,
     dateRange: null,
-    dateRangeChart: [new Date("2020-01-19T14:00:00.000Z"), new Date("2020-01-20T14:00:00.000Z")],
+    dateRangeChart: [new Date("2020-02-06T09:30:00.000Z"), new Date("2020-02-07T09:30:00.000Z")],
     selectedDate: null,
     language: 'de-DE',
     theme: 'light',
@@ -74,7 +75,7 @@ export function createInitialState(): UiState {
       'paint': {
       'circle-radius': {
         'base': 1.75,
-        'stops': [[1, 2], [22, 3080]]
+        'stops': [[1, 5], [22, 3080]]
       },
       'circle-stroke-width': 1,
       'circle-stroke-color': '#383838',
@@ -101,10 +102,11 @@ export function createInitialState(): UiState {
     infoPheno: null,
     exposure: 'all',
     filters: {
-      exposure: 'all',
+      exposure: 'outdoor',
       group: null,
       model: null
-    }
+    },
+    reloadMapData: false
   };
 }
 

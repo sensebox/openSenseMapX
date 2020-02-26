@@ -11,6 +11,17 @@
     color: var(--color-primary);
     padding: 0 1em;
     cursor: pointer;
+
+    #beta-text {
+        position: absolute;
+        display: inline-block;
+        bottom: 0;
+        right: -10px;
+        color: var(--alert-color);
+        transform: rotate(-25deg);
+        font-size: 1.1em;
+    }
+
     img {
         padding: 0 0.5em 0 0;
         height: 80%;
@@ -22,6 +33,7 @@
     position: relative;
     height: $headerHeight;
     @media screen and(max-width: $secondBreak){
+        box-shadow: var(--box-shadow-basic);
         width: 100%;
         justify-content: space-between;
         background: var(--background-primary-full);
@@ -49,8 +61,8 @@
     width: 281px;
     z-index: -1;
     box-sizing: border-box;
-    margin-top: -3em;
-    padding-top: 3.5em;
+    margin-top: -3.5em;
+    padding-top: 4.5em;
     opacity: 1;
 
     h2 {

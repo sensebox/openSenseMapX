@@ -10,7 +10,7 @@ export class VisComponent implements OnInit {
 
   @Output() visSelected = new EventEmitter();
   @Input() vis;
-  selectedPheno;
+  selectedPheno = 'all';
 
   phenos = [
     {

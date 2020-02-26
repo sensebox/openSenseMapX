@@ -5,6 +5,8 @@
     #phenos {
         flex-grow: 0;
         font-size: 1.3em;
+        background:  var(--hover-color);
+
         .pheno {
             padding: 0.2em 0;
             display: flex;
@@ -18,7 +20,6 @@
                 background: var(--background-primary-full);
                 border: none;
             }
-
 
             &.active {
                 background: var(--background-primary-full);
@@ -58,6 +59,10 @@
                 .vis-content {
                     p {
                         margin: 0;
+                    }
+                    p.date {
+                        font-weight: bold;
+                        font-size: 0.95em;
                     }
                 }
             }

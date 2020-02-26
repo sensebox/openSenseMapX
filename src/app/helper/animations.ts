@@ -1,4 +1,4 @@
-import { trigger, state, animate, transition, style } from '@angular/animations';
+import { trigger, state, animate, transition, style, query } from '@angular/animations';
 
 export const slideInOutAnimation =
     // trigger name for attaching this animation to an element using the [@triggerName] syntax
@@ -83,6 +83,14 @@ export const shrinkVertical =
         transition('0 => 1', animate('200ms'))
     ])
 
+export const appearModal = 
+    trigger('appearModal', [
+        state('1', style({opacity: 1, transform: 'translateY(0%)'})),
+        state('0', style({opacity: 0, transform: 'translateY(-10%)'})),
+        transition('1 => 0', animate('200ms')),
+        transition('0 => 1', animate('200ms'))
+    ])
+
 
 export const slideInOutHorizontalBoolean = 
     trigger('slideInOutHorizontalBoolean', [
@@ -92,8 +100,8 @@ export const slideInOutHorizontalBoolean =
         transition('0 => 1', animate('400ms ease-in-out'))
     ]);
 
-export const legendAnimation = 
-    trigger('legendAnimation', [
+export const growVertHorz = 
+    trigger('growVertHorz', [
         state('1', style({height: '*', width: '*'})),
         state('0', style({height: "0px", width: "0px"})),
         transition('1 => 0', animate('200ms ease-in-out')),
@@ -137,4 +145,28 @@ export const appearPopup =
                 opacity: 0
             })
         ])
+    ]);
+
+
+export const routingFadeIn = trigger('routingFadeIn', [
+    // The '* => *' will trigger the animation to change between any two states
+    transition('* => *', [
+        // The query function has three params.
+        // First is the event, so this will apply on entering or when the element is added to the DOM.
+        // Second is a list of styles or animations to apply.
+        // Third we add a config object with optional set to true, this is to signal
+        // angular that the animation may not apply as it may or may not be in the DOM.
+        query(':enter', [style({ opacity: 0, transform: 'translateY(-50%)' })], { optional: true }),
+        query(
+            ':leave',
+            // here we apply a style and use the animate function to apply the style over 0.3 seconds
+            [style({ opacity: 1 }), animate('1s ease-out', style({ opacity: 0, transform: 'translateY(-50%)' }))],
+            { optional: true }
+        ),
+        query(
+            ':enter',
+            [style({ opacity: 0 }), animate('1s ease-out', style({ opacity: 1, transform: 'translateY(0%)' }))],
+            { optional: true }
+        )
+    ])
     ]);

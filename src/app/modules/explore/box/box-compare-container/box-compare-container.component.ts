@@ -34,6 +34,7 @@ export class BoxCompareContainerComponent implements OnInit {
   colors$ = this.uiQuery.selectColors$;
   dataInit$ = this.boxQuery.selectDataInit$;
   sensorsLoading$ = this.sensorQuery.selectLoading();
+  // selectedDate$ = this.uiQuery.selectSelectedDate$;
   
   sensorsPhenoSub;
   activeSensorSub;
@@ -72,6 +73,7 @@ export class BoxCompareContainerComponent implements OnInit {
             if(this.currentIds != res.map(compareTo => compareTo._id)){
               this.currentIds = res.map(compareTo => compareTo._id);
               this.combinedData = this.combineData(res);
+              console.log(this.combinedData);
             }
           }
         });
@@ -131,10 +133,13 @@ export class BoxCompareContainerComponent implements OnInit {
       box.sensors.forEach(sensor => {
         if(sensor){
           if(sensorData[sensor.title]){
-            sensorData[sensor.title][box._id] = sensor;
+            sensorData[sensor.title][box._id] = {...sensor};
           } else {
             sensorData[sensor.title] = {};
-            sensorData[sensor.title][box._id] = sensor;
+            sensorData[sensor.title][box._id] = {...sensor};
+          }
+          if(box.values && box.values[sensor.title]){
+            sensorData[sensor.title][box._id].values = box.values[sensor.title]
           }
         }
       })

@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UiQuery } from './models/ui/state/ui.query';
-import { slideInOutHorizontalBoolean } from './helper/animations';
+import { slideInOutHorizontalBoolean, routingFadeIn, appearModal } from './helper/animations';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   selector: 'osem-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [slideInOutHorizontalBoolean]
+  animations: [slideInOutHorizontalBoolean, routingFadeIn, appearModal]
 })
 export class AppComponent {
 
