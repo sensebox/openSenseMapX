@@ -38,8 +38,6 @@ export class BoxService {
       
       // //normalize Data TODO: REMOVE THIS; SUPER SLOW WITH few thousand entries
       let res  = normalize(entities, [box]);
-      console.log("normalized");
-      // console.log(res);
       // //set Data in stores
       this.boxStore.set(res.entities.boxes);
       
@@ -61,7 +59,8 @@ export class BoxService {
 
     const bboxString  = `${bbox._sw.lng},${bbox._sw.lat},${bbox._ne.lng},${bbox._ne.lat}`;
     
-    return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=${bboxString}&format=json&columns=boxId&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
+    // return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=${bboxString}&format=json&columns=boxId&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
+    return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587&format=json&columns=boxId&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
       entities = entities.map(ent => {
         let { boxId, sensorId, ...noEnt} = ent;
         //TODO: find better place for vconverting to 2 decimal-diggits
