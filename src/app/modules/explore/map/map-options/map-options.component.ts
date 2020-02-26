@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { growVertHorz } from 'src/app/helper/animations';
+import { growVertHorz, slideInOutHorizontal, appear } from 'src/app/helper/animations';
 
 @Component({
   selector: 'osem-map-options',
   templateUrl: './map-options.component.html',
   styleUrls: ['./map-options.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [growVertHorz]
+  animations: [growVertHorz, slideInOutHorizontal, appear]
 })
 export class MapOptionsComponent implements OnInit {
 

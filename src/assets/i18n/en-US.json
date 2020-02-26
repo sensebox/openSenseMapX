@@ -58,7 +58,7 @@
     "SPONSORED_BY": "Sponsored By",
     "THANKS_TO": "Thanks to:",
     "ABOUT": "About",
-    "ABOUT_TEXT": "This is a data-visualization project from openSenseMap.org. All data shown is published by openSenseMap under Public Domain Dedication and License 1.0. The map uses raw data as published by the users. The project is still in Beta phase, feel free to support us at: https://github.com/sensebox/opensensemapX.",
+    "ABOUT_TEXT": "This is a data-visualization project from openSenseMap.org. <br>All data shown is published by openSenseMap under Public Domain Dedication and License 1.0. <b>The map uses raw data as published by the users. <br>The project is still in Beta phase, feel free to support us at: <a href='https://github.com/sensebox/'>Github</a>.",
 
     "WHAT_IS": "What is",
     "DEFINITION": "Definition",

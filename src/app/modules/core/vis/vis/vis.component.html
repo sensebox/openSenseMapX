@@ -2,7 +2,7 @@
     <div id="phenos">
         <div class="pheno"
             (click)="selectPheno('all')" 
-            [class.active]="selectedPheno === ''">
+            [class.active]="selectedPheno === 'all'">
             
             <div class="osem-icon-container" [title]="'ALL' | translate">
                 {{'ALL' | translate}}
@@ -26,9 +26,10 @@
         <div class="vis-items">
             
             <ng-container *ngFor="let visItem of vis">
-                <div *ngIf="selectedPheno === 'all' || visItem.pheno === selectedPheno" class="vis-item osem-padding-small" (click)="openVisItem(visItem)">
-                    <div class="image">
-                        <img src="/assets/img/userimg/vis/{{visItem._id}}.png">
+                <div *ngIf="selectedPheno === 'all' || visItem.pheno === selectedPheno" class="vis-item osem-padding-small osem-box-shadow-basic" (click)="openVisItem(visItem)">
+                    <!-- <div class="image" [style.background]="url('/assets/img/userimg/vis/'+visItem._id+'_thumb.jpg')"> -->
+                    <div class="image" [style.backgroundImage]="'url(/assets/img/userimg/vis/' + visItem._id + '_thumb.jpg)'">
+                        <!-- <img src="/assets/img/userimg/vis/{{visItem._id}}_thumb.jpg"> -->
                     </div>
                     <div class="vis-content">
                         <h3>{{visItem.name}}</h3>

@@ -26,7 +26,6 @@ export interface UiState {
   numbers: boolean,
   circles: boolean,
   infoPheno: string,
-  exposure: string,
   filters: Filter,
   reloadMapData: boolean
 }
@@ -100,7 +99,6 @@ export function createInitialState(): UiState {
     numbers: true,
     circles: true,
     infoPheno: null,
-    exposure: 'all',
     filters: {
       exposure: 'outdoor',
       group: null,

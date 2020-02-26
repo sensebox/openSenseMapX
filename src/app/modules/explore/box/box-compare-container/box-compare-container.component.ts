@@ -73,7 +73,6 @@ export class BoxCompareContainerComponent implements OnInit {
             if(this.currentIds != res.map(compareTo => compareTo._id)){
               this.currentIds = res.map(compareTo => compareTo._id);
               this.combinedData = this.combineData(res);
-              console.log(this.combinedData);
             }
           }
         });
@@ -122,8 +121,6 @@ export class BoxCompareContainerComponent implements OnInit {
         });
       }
     })
-
-
   }
 
   combineData(data){

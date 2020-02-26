@@ -93,7 +93,6 @@ export class BaseMapContainerComponent implements OnInit {
         if(this.layerSub)
           this.unsubscribeAll();
         this.layerSub = this.baseLayer$.subscribe(res => {
-          console.log()
           this.mapService.setMapBaseLayer(res);
         });
         this.clusterLayerSub = combineLatest(this.clusterLayers$, this.filters$).pipe(withLatestFrom(this.boxes$, this.dateRange$, this.selectedPheno$)).subscribe(res => {

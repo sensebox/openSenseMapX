@@ -36,15 +36,12 @@ export class BoxService {
     // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&full=true`).pipe(tap(entities => {
     // return this.http.get<any>(`/assets/data/start-data.json`).pipe(tap(entities => {
       
-      // console.log("FETCHED");
-      // //normalize Data 
-      // console.log(entities);
+      // //normalize Data TODO: REMOVE THIS; SUPER SLOW WITH few thousand entries
       let res  = normalize(entities, [box]);
       console.log("normalized");
       // console.log(res);
       // //set Data in stores
       this.boxStore.set(res.entities.boxes);
-      // console.log("DATA SET");
       
       //TODO: find better way than this (reference from sensor to box)
       for (let box in res.entities.boxes) {
@@ -80,10 +77,9 @@ export class BoxService {
       this.boxStore.upsertMany(entities);
       this.boxStore.setLoading(false);
       //TODO: find a better place for this + fix calling twice :o
-      // this.setDisplayTimeSlider(true);
       this.uiService.setSelectedDate(dateRange[0]);
       this.uiService.setSelectedDate(dateRange[0]);
-      this.uiService.setReloadMapData(true);
+      // this.uiService.setReloadMapData(true);
     }), share());
   }
 
@@ -141,9 +137,6 @@ export class BoxService {
     this.boxStore.setCompareTo(compareTo);
   }
 
-  // setPopupBox(box){
-  //   this.boxStore.setPopupBox(box);
-  // }
   setPopupBox(box){
     if(!box){
       clearTimeout(this.popupBoxTimeout);

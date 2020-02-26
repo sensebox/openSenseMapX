@@ -1,5 +1,6 @@
 #map-options {
     background: var(--background-primary-full);
+    overflow: hidden;
     
     .toggle-button {
         cursor: pointer;
@@ -30,5 +31,13 @@
     
     .options {
         padding-top: 2em;
+
+        .checkbox-container {
+            white-space: nowrap;
+
+            &.mouse-active {
+                cursor: pointer;
+            }
+        }
     }
 }

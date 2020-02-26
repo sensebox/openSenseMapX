@@ -937,16 +937,6 @@ export class MapService {
   }
 
   colorActives(colors, theme) {
-    //     'match',
-    // ['get', 'ethnicity'],
-    // 'White',
-    // '#fbb03b',
-    // 'Black',
-    // '#223b53',
-    // 'Hispanic',
-    // '#e55e5e',
-    // 'Asian',
-    // '#3bb2d0',
     let colorArray = ['match', ['get', '_id']];
     colors.domain.forEach(domain => {
       colorArray.push(domain, colors.getColor(domain));
@@ -1132,7 +1122,6 @@ export class MapService {
   }
 
   reactivateBaseLayer(clustering){
-   
     this.drawClusterLayers(this.clusterLayers, this.map, null);
     this.setClustering(clustering, null);
   }

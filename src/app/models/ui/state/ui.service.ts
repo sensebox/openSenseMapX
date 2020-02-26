@@ -165,11 +165,6 @@ export class UiService {
   setInfoPheno(infoPheno){
     this.uiStore.update( state => ({ ...state, infoPheno: infoPheno}));
   }
-
-  setExposure(exposure){
-    this.uiStore.update( state => ({ ...state, exposure: exposure}));
-  }
-  
   setFilters(filters){
     this.uiStore.update( state => ({...state, filters: filters}))
   }
