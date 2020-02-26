@@ -26,7 +26,6 @@ export class FilterContainerComponent implements OnInit {
   locationAutocompleteResults$ = this.uiQuery.selectLocationAutocompleteResults$;
   
   filters$ = this.uiQuery.selectFilters$;
-  exposure$ = this.uiQuery.selectExposure$;
 
   activeTab = 'phenos';
   searchTimeout;

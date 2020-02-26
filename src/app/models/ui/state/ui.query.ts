@@ -20,7 +20,6 @@ export class UiQuery extends Query<UiState> {
   selectCircles$ = this.select(state => state.circles);
   selectCluster$ = this.select(state => state.cluster);
   selectInfoPheno$ = this.select(state => state.infoPheno);
-  selectExposure$ = this.select(state => state.exposure);
   selectFilters$ = this.select(state => state.filters);
   selectReloadMapData$ = this.select(state => state.reloadMapData);
   
