@@ -1,0 +1,9 @@
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li
+      *ngFor="let menuitem of menuItems; last as isLast" 
+      [class.is-active]="isLast" >
+      <a [routerLink]="['',{outlets: { sidebar: menuitem.url.substr(1)}}]" href="#">{{menuitem.label}}</a>
+    </li>
+  </ul>
+</nav>

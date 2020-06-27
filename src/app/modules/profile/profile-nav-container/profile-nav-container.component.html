@@ -1,0 +1,20 @@
+<!-- <div (click)="navTo('boxes')" >TEST</div> -->
+<!-- <li><a [routerLink]="['boxes']" queryParamsHandling="merge">{{'MY_BOXES' | translate}}</a></li> -->
+
+<aside class="menu">
+  <p class="menu-label">
+    General
+  </p>
+  <ul class="menu-list">
+    <li><a [routerLink]="['boxes']" queryParamsHandling="merge">{{'MY_BOXES' | translate}}</a></li>
+    <li><a [routerLink]="['newbox']" queryParamsHandling="merge">{{'ADD_BOX' | translate}}</a></li>
+
+    <li (click)="navTo('/dashboard/boxes')"><a>MY VIS</a></li>
+  </ul>
+  <p class="menu-label">
+    Administration
+  </p>
+  <ul class="menu-list">
+    <li><a [routerLink]="[{ outlets: { sidebar: ['account'] }}]" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
+  </ul>
+</aside>
