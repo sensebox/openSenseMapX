@@ -10,6 +10,7 @@ import { schema, normalize } from 'normalizr';
 import { SensorStore } from '../../sensor/state/sensor.store';
 import { UiService } from '../../ui/state/ui.service';
 import { BoxQuery } from './box.query';
+import { processBoxData } from 'src/app/modules/explore/box/osem-line-chart/helper/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class BoxService {
@@ -35,23 +36,25 @@ export class BoxService {
     // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=5.98865807458,47.3024876979,15.0169958839,54.983104153&full=true`).pipe(tap(entities => {
     // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&full=true`).pipe(tap(entities => {
     return this.http.get<any>(`/assets/data/start-data.json`).pipe(tap(entities => {
-      
+
+      // this.boxStore.set(entities);
+      // 
       // //normalize Data TODO: REMOVE THIS; SUPER SLOW WITH few thousand entries
-      let res  = normalize(entities, [box]);
-      console.log("normalized");
+      // let res  = normalize(entities, [box]);
       // console.log(res);
-      // //set Data in stores
-      this.boxStore.set(res.entities.boxes);
+      let ownNormalize = processBoxData(entities);
+      // // //set Data in stores
+      this.boxStore.set(ownNormalize[0]);
       
       //TODO: find better way than this (reference from sensor to box)
-      for (let box in res.entities.boxes) {
-        res.entities.boxes[box].sensors.forEach(sensor => {
-          // debugger
-          res.entities.sensors[sensor].boxes_id = res.entities.boxes[box]._id;
-          res.entities.sensors[sensor].boxes_name = res.entities.boxes[box].name;
-        })
-      }
-      this.sensorStore.set(res.entities.sensors);
+      // for (let box in res.entities.boxes) {
+      //   res.entities.boxes[box].sensors.forEach(sensor => {
+      //     // debugger
+      //     res.entities.sensors[sensor].boxes_id = res.entities.boxes[box]._id;
+      //     res.entities.sensors[sensor].boxes_name = res.entities.boxes[box].name;
+      //   })
+      // }
+      this.sensorStore.set(ownNormalize[1]);
     }));
   }
 

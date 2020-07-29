@@ -67,3 +67,25 @@ export function applyFilters(data, filter){
         }
     })
 }
+
+export function processBoxData(data){
+    // console.log(data);
+    let boxes = [];
+    let sensors = [];
+    data.forEach(box => {
+        box.sensors.forEach(sensor => {
+            sensors.push({
+                ...sensor,
+                boxes_id: box._id,
+                boxes_name: box.name
+            });
+        })
+        boxes.push({
+            ...box,
+            sensors: box.sensors.map(sensor => sensor._id)
+        })
+    })
+    // console.log('BOXES', boxes);
+    // console.log('SENSORS', sensors);
+    return [boxes, sensors];
+}
