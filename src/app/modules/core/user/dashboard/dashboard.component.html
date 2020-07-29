@@ -1,0 +1,18 @@
+<aside class="menu">
+    <p class="menu-label">
+      General
+    </p>
+    <ul class="menu-list">
+      <li><a [routerLink]="['../boxes']" queryParamsHandling="merge">{{'MY_BOXES' | translate}}</a></li>
+      <li><a [routerLink]="[{ outlets: { sidebar: ['boxes'] }}]" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
+      <li (click)="navTo('/dashboard/boxes')"><a>MY VIS</a></li>
+    </ul>
+    <p class="menu-label">
+      Administration
+    </p>
+    <ul class="menu-list">
+      <li><a [routerLink]="[{ outlets: { sidebar: ['account'] }}]" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
+    </ul>
+  </aside>
+
+  <router-outlet></router-outlet>

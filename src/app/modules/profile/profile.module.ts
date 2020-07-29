@@ -1,5 +1,7 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileWrapperComponent } from './profile-wrapper/profile-wrapper.component';
@@ -10,15 +12,23 @@ import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { ProfileBreadcrumbsComponent } from './profile-breadcrumbs/profile-breadcrumbs.component';
 import { ProfileBoxesComponent } from './profile-boxes/profile-boxes.component';
-import { ProfileBoxCreateComponent } from './profile-box-create/profile-box-create.component';
 import { ProfileBoxCreateContainerComponent } from './profile-box-create-container/profile-box-create-container.component';
+import { ProfileBoxCreateDeviceComponent } from './profile-box-create-device/profile-box-create-device.component';
+import { ProfileBoxCreateDeviceContainerComponent } from './profile-box-create-device-container/profile-box-create-device-container.component';
+import { ProfileBoxCreateGeneralContainerComponent } from './profile-box-create-general-container/profile-box-create-general-container.component';
+import { ProfileBoxCreateGeneralComponent } from './profile-box-create-general/profile-box-create-general.component';
+import { ProfileBoxCreateSensorsContainerComponent } from './profile-box-create-sensors-container/profile-box-create-sensors-container.component';
+import { ProfileBoxCreateSensorsComponent } from './profile-box-create-sensors/profile-box-create-sensors.component';
 
 
 @NgModule({
-  declarations: [ProfileWrapperComponent, ProfileNavContainerComponent, ProfileBoxesContainerComponent, ProfileBreadcrumbsComponent, ProfileBoxesComponent, ProfileBoxCreateComponent, ProfileBoxCreateContainerComponent],
+  declarations: [ProfileWrapperComponent, ProfileNavContainerComponent, ProfileBoxesContainerComponent, ProfileBreadcrumbsComponent, ProfileBoxesComponent, ProfileBoxCreateContainerComponent, ProfileBoxCreateDeviceComponent, ProfileBoxCreateDeviceContainerComponent, ProfileBoxCreateGeneralContainerComponent, ProfileBoxCreateGeneralComponent, ProfileBoxCreateSensorsContainerComponent, ProfileBoxCreateSensorsComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

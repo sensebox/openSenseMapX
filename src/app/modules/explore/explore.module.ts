@@ -12,7 +12,7 @@ import { LegendContainerComponent } from './legend/legend-container/legend-conta
 import { LegendComponent } from './legend/legend/legend.component';
 import { TimeSliderContainerComponent } from './timeSlider/time-slider-container/time-slider-container.component';
 import { TimeSliderComponent } from './timeSlider/time-slider/time-slider.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OsemLineChartComponent } from './box/osem-line-chart/osem-line-chart.component';
 import { OsemLineSeriesComponent } from './box/osem-line-chart/osem-line-series/osem-line-series.component';
 import { BoxSingleContainerComponent } from './box/box-single-container/box-single-container.component';
@@ -38,6 +38,7 @@ import { SharedModule } from '../shared/shared.module';
     NgxChartsModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     // TranslateModule,
     OwlDateTimeModule, 

@@ -122,10 +122,11 @@ export class UiStore extends Store<UiState> {
   updateSelectedPheno(pheno) {
     this.update( state =>  {
 
-      //DEEP CLONE because immutable
+      //DEEP CLONE because immutable, apparently this is the most efficient way to do it
       let circleColorCluster =JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
       circleColorCluster[2] = JSON.parse(JSON.stringify(state.clusterLayers[0].paint['circle-color']))[2];
       circleColorCluster[2][1][1] = pheno.title;
+      
       let circleColorSolo = JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
       circleColorSolo[2] = JSON.parse(JSON.stringify(state.clusterLayers[1].paint['circle-color']))[2];
       circleColorSolo[2][1] = pheno.title;

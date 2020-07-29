@@ -4,6 +4,7 @@ import { UiQuery } from './models/ui/state/ui.query';
 import { slideInOutHorizontalBoolean, routingFadeIn, appearModal } from './helper/animations';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SessionService } from './models/session/state/session.service';
 
 @Component({
   selector: 'osem-root',
@@ -26,6 +27,7 @@ export class AppComponent {
     private translate: TranslateService,
     private router: Router,
     private uiQuery: UiQuery,
+    private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
     private dateTimeAdapter: DateTimeAdapter<any>){
 
@@ -34,6 +36,11 @@ export class AppComponent {
         translate.use(lang);
         this.dateTimeAdapter.setLocale(lang);
       })
+
+      console.log(window.localStorage.getItem('sb_refreshtoken'));
+      if(window.localStorage.getItem('sb_refreshtoken'))
+        this.sessionService.recoverSession(window.localStorage.getItem('sb_refreshtoken'))
+
   }
 
   closeIntro(){
@@ -58,6 +65,16 @@ export class AppComponent {
   closeModal(){
     this.router.navigate(
       [{outlets: {modal: null}}],
+      {
+        relativeTo: this.activatedRoute,
+        queryParamsHandling: 'merge'
+      }
+    );
+  }
+
+  closeSidebar(){
+    this.router.navigate(
+      [{outlets: {sidebar: null}}],
       {
         relativeTo: this.activatedRoute,
         queryParamsHandling: 'merge'

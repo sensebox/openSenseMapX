@@ -34,7 +34,7 @@
 
 <osem-modal *ngIf="infoPheno$ | async"></osem-modal>
 
-<div id="backdrop" *ngIf="backdrop">
+<div id="backdrop" *ngIf="backdrop || sidebarOutlet.isActivated">
 
 </div>
 <div id="modal-container" [class.active]="backdrop">
@@ -45,5 +45,17 @@
     </div>
 
     <!-- <router-outlet name="modal" id="modal-outlet" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"></router-outlet> -->
+</div>
+
+<div id="osem-sidebar" class="px-2 py-2" [class.active]="sidebarOutlet.isActivated">
+    <div id="sidebar-header" class="level">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <div class="osem-close-text" (click)="closeSidebar()">x</div>
+        </div>
+    </div>
+
+    <router-outlet name="sidebar" #sidebarOutlet="outlet"></router-outlet>
 </div>
 

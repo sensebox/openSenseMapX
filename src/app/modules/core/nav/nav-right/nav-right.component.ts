@@ -17,6 +17,7 @@ export class NavRightComponent implements OnInit {
   @Input() theme;
   @Input() language;
   @Input() settings;
+  @Input() user;
 
   constructor() { }
 

@@ -13,6 +13,9 @@ export class ProfileBoxesContainerComponent implements OnInit {
   constructor(private sessionQuery: SessionQuery) { }
 
   ngOnInit() {
+    this.boxes$.subscribe(res => {
+      console.log(res);
+    })
   }
 
 }

@@ -6,8 +6,11 @@
        </div>
     </div>
     <div class="nav-item-container osem-box-shadow-basic">
-        <div class="nav-item osem-disabled">
+        <div *ngIf="!user" class="nav-item osem-disabled" [routerLink]="[{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">
             Login
+        </div>
+        <div *ngIf="user" class="nav-item" [routerLink]="[{ outlets: { sidebar: ['profile'] }}]" queryParamsHandling="merge">
+            {{user.name}}
         </div>
         <div class="nav-item" (click)="toggleSettings()">
             <i class="fa fa-gears"></i>

@@ -2,6 +2,7 @@
     [settings]="settings"
     [language]="language$ | async"
     [theme]="theme$ | async"
+    [user]="user$ | async"
     (themeToggled)="toggleTheme($event)"
     (languageToggled)="setLanguage($event)"
     (settingsToggled)="toggleSettings()"

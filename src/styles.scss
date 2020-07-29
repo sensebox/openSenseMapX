@@ -6,8 +6,33 @@
 @import 'styles/general/general.scss';
 @import 'styles/general/mapbox.scss';
 
-$fa-font-path: "~font-awesome/fonts";
-@import '~font-awesome/scss/font-awesome';
+// $fa-font-path: "~@fortawesome/fontawesome-free/fonts";
+// @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+
+@import '~node_modules/bulma/bulma';
+// @import '~node_modules/bulma/sass/utilities/_all';
+// @import '~node_modules/bulma/sass/helpers/_all';
+// @import '~node_modules/bulma/sass/base/_all';
+// @import '~node_modules/bulma/sass/elements/button';
+// @import '~node_modules/bulma/sass/elements/container';
+// @import '~node_modules/bulma/sass/elements/title';
+// @import '~node_modules/bulma/sass/elements/image';
+// @import '~node_modules/bulma/sass/form/_all';
+// @import '~node_modules/bulma/sass/components/breadcrumb';
+// @import '~node_modules/bulma/sass/components/card';
+// @import '~node_modules/bulma/sass/components/media';
+// @import '~node_modules/bulma/sass/components/level';
+// @import '~node_modules/bulma/sass/components/menu';
+// @import '~node_modules/bulma/sass/components/tabs';
+// @import '~node_modules/bulma/sass/layout/section';
+// @import '~node_modules/bulma/sass/grid/_all';
+
+//BULMA FIXES
+.field {
+  margin-bottom: 0.75em;
+}
+
 
 @font-face {
   font-family: BrixSlab;
@@ -21,6 +46,7 @@ $fa-font-path: "~font-awesome/fonts";
 
 
 body, html {
+
   height: 100%;
   padding: 0;
   margin: 0;
@@ -28,6 +54,7 @@ body, html {
   font-family: BrixSlab,Helvetica,sans-serif;
   color: var(--text-color-primary);
   overflow: hidden;
+  overflow-y: hidden !important; //override bulma defaults
 }
 
 button {
