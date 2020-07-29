@@ -33,8 +33,8 @@ export class BoxService {
 
     // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=13.0882097323,52.3418234221,13.7606105539,52.6697240587&full=true`).pipe(tap(entities => {
     // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&bbox=5.98865807458,47.3024876979,15.0169958839,54.983104153&full=true`).pipe(tap(entities => {
-    return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&full=true`).pipe(tap(entities => {
-    // return this.http.get<any>(`/assets/data/start-data.json`).pipe(tap(entities => {
+    // return this.http.get<Box[]>(`${environment.api_url}/boxes?classify=true&full=true`).pipe(tap(entities => {
+    return this.http.get<any>(`/assets/data/start-data.json`).pipe(tap(entities => {
       
       // //normalize Data TODO: REMOVE THIS; SUPER SLOW WITH few thousand entries
       let res  = normalize(entities, [box]);

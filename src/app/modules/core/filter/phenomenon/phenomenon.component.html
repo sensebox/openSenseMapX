@@ -27,8 +27,8 @@
             <div class="pheno-icon">
                 <div class="osem-icon-container" (click)="toggleChange()">
                     <i *ngIf="!selectedPheno || changeVariable; else change" class="fa fa-search"></i>
-                    <ng-template #change> 
-                        <i class="fa fa-refresh"></i>
+                    <ng-template #change>
+                        <i class="fa fa-sync"></i>
                     </ng-template>
                 </div>
                 <input *ngIf="!selectedPheno || changeVariable; else phenoName" type="text">
@@ -82,4 +82,3 @@
         </div>
     </div>
 </div>
-
