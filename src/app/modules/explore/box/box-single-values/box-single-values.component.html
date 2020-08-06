@@ -10,11 +10,15 @@
     </div>
     <div class="last-measurement" *ngIf="box.lastMeasurementAt;else noMeasurement">
       {{'LAST_MEASUREMENT' | translate}}: {{box.lastMeasurementAt | date:'short':'':translateService.currentLang}}
+      <i class="fa fa-sync"></i>
     </div>
     <ng-template #noMeasurement>
       {{'NO_RECENT_MEASUREMENT' | translate}}
+      <i class="fa fa-sync"></i>
     </ng-template>
-    <div class="osem-close-text" (click)="closeBox()">X</div>
+    <div class="osem-close-text" (click)="closeBox()">
+      <button class="delete is-medium"></button>
+    </div>
   </div>
 
   <div class="scroll-wrapper" [class.scrollable]="windowWidth < scrollDivWidth">
@@ -35,7 +39,7 @@
                 [style.color]="(colors && activeSensorTypes && activeSensorTypes.indexOf(sensor.title) != -1) ? colors.getColor(sensor.title) : 'inherit'"
                 (click)="selectValue(sensor)">
                 <div class="icon-value-unit">
-                  <div class="icon">
+                  <div class="osem-icon">
                     <i *ngIf="sensor.icon" class="osem-icon {{sensor.icon}}"></i>
                   </div>
                   <div class="value">
@@ -47,7 +51,7 @@
                     {{sensor.unit}}
                   </div>
                 </div>
-                <div class="title">{{sensor.title}}</div>
+                <div class="osem-title">{{sensor.title}}</div>
               </div>
               <div class="add-button-container">
                 <div class="add-button" *ngIf="activeSensorTypes.length < 2 && activeSensorTypes.indexOf(sensor.title) === -1" (click)="addValue(sensor)">+</div>

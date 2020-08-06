@@ -37,7 +37,6 @@ export class AppComponent {
         this.dateTimeAdapter.setLocale(lang);
       })
 
-      console.log(window.localStorage.getItem('sb_refreshtoken'));
       if(window.localStorage.getItem('sb_refreshtoken'))
         this.sessionService.recoverSession(window.localStorage.getItem('sb_refreshtoken'))
 

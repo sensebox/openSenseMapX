@@ -121,6 +121,11 @@ export class MapService {
         that.boxService.setPopupBox(null);
       }
     })
+
+    // this.map.on('idle', (e) => {
+    //   // do things every time the map idles
+    //   console.log("IDLE")
+    // });
     // this.map.on('styledataloading', function(){
     //   console.log("STYLE DATA loading")
     //   // that.boxService.setMapInit(true);
@@ -137,6 +142,12 @@ export class MapService {
     // })
 
     // this.map.on('sourcedata', function(){
+
+    //   // if (that.map.areTilesLoaded()){
+    //   //   console.log(that.map.getLayer('base-layer'))
+    //   //   var numPoints = that.map.querySourceFeatures('boxes')
+    //   //   console.log(numPoints);
+    //   // }
     //   console.log("SOURCE DATA")
     //   // that.boxService.setMapInit(true);
     // })
@@ -164,6 +175,14 @@ export class MapService {
     return returnData;
   }
 
+
+  // round coordinates to 5 decimal places (1m), TODO: move this to backend?
+  roundCoordinates(coordinates){
+    coordinates = [Math.round((coordinates[0] + Number.EPSILON) * 100000) / 100000, Math.round((coordinates[1] + Number.EPSILON) * 10000) / 10000]
+    // console.log(coordinates)
+    return coordinates;
+  }
+
   //Convert the data to geoJson for mapbox
   toGeoJson(data) {
     let geojson = data.filter(item => item.currentLocation).map(item => {
@@ -172,7 +191,8 @@ export class MapService {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: item.currentLocation.coordinates,
+            coordinates: this.roundCoordinates(item.currentLocation.coordinates),
+            // coordinates: item.currentLocation.coordinates,
           },
           properties: {
             name: item.name,

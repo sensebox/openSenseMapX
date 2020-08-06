@@ -31,7 +31,9 @@
                         <i class="fa fa-sync"></i>
                     </ng-template>
                 </div>
-                <input *ngIf="!selectedPheno || changeVariable; else phenoName" type="text">
+                <div class="control">
+                    <input class="input" *ngIf="!selectedPheno || changeVariable; else phenoName" type="text">
+                </div>
                 <ng-template #phenoName>
                     <div class="pheno-name">
                         {{selectedPheno.title}}
@@ -39,7 +41,6 @@
                 </ng-template>
             </div>
         </div>
-        <hr>
         <div class="bottom-content">
             <div id="phenos" [class.small]="(selectedPheno && !changeVariable) || !changeVariable">
                 <div 

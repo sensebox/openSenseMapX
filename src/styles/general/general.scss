@@ -308,3 +308,9 @@ a {
     }
 }
 
+
+//BULMA OVERRIDES
+
+.modal {
+    z-index: 9999 !important;
+}

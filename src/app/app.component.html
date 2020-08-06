@@ -1,4 +1,30 @@
-<div id="intro-layer" *ngIf="intro">
+<div class="modal" [class.is-active]="intro" id="intro-layer">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">{{'INTRO_HEADLINE' | translate}}</p>
+          <button class="delete" aria-label="close" (click)="closeIntro()"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="content">
+                <p>{{'INTRO_TEXT_1' | translate}}</p>
+                <p>{{'INTRO_TEXT_2' | translate}}</p>
+                <ul>
+                    <li>{{'FEATURE1' | translate}}</li>
+                    <li>{{'FEATURE2' | translate}}</li>
+                    <li>{{'FEATURE3' | translate}}</li>
+                    <li>{{'FEATURE4' | translate}}</li>
+                    <li>...</li>
+                </ul>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="osem-button" (click)="closeIntro()">{{'GO' | translate}}</button>
+        </footer>
+    </div>
+</div>
+
+<!-- <div id="intro-layer" *ngIf="intro">
     <div class="intro-text osem-padding">
         <h2>{{'INTRO_HEADLINE' | translate}}</h2>
         <p>{{'INTRO_TEXT_1' | translate}}</p>
@@ -12,7 +38,7 @@
         </ul>
         <button class="osem-button" (click)="closeIntro()">{{'GO' | translate}}</button>
     </div>
-</div>
+</div> -->
 
 <osem-nav-container></osem-nav-container>
 <osem-base-map-container></osem-base-map-container>
@@ -34,18 +60,18 @@
 
 <osem-modal *ngIf="infoPheno$ | async"></osem-modal>
 
-<div id="backdrop" *ngIf="backdrop || sidebarOutlet.isActivated">
+<div id="backdrop" *ngIf="sidebarOutlet.isActivated">
 
 </div>
-<div id="modal-container" [class.active]="backdrop">
-    <div id="modal-inner" [@appearModal]="o.isActivated">
-        <div class="osem-close-button" (click)="closeModal()">x</div>
-        
+
+<div class="modal" [class.is-active]="backdrop">
+    <div class="modal-background"></div>
+    <div class="modal-content">
         <router-outlet #o="outlet" name="modal" id="modal-outlet" (activate)="onModalActivate($event)" (deactivate)="onModalDeactivate($event)"></router-outlet>
     </div>
-
-    <!-- <router-outlet name="modal" id="modal-outlet" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"></router-outlet> -->
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
 </div>
+
 
 <div id="osem-sidebar" class="px-2 py-2" [class.active]="sidebarOutlet.isActivated">
     <div id="sidebar-header" class="level">

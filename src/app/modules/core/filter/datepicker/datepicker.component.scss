@@ -1,11 +1,11 @@
 .datepicker-container {
     position: relative;
-    background: var(--background-secondary-light);
-
+    background: var(--background-secondary);
+    
     
     .owl-date-time-trigger {
         &:hover {
-            background: var(--background-secondary);
+            background: var(--background-secondary-light);
         }
         .date-input {
             color: var(--background-primary-full);

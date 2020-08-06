@@ -19,7 +19,7 @@
       .name {
         font-weight: bold;
         font-size: 1.3em;
-        padding: 0.3em 0;
+        padding: 0.5em 0;
         cursor: default;
         @media screen and (max-width: $secondBreak){
           font-size: 1.1em;
@@ -43,8 +43,12 @@
       }
       .last-measurement {
         font-style: italic;
-        font-size: 0.7em;
+        font-size: 0.8em;
         cursor: default;
+
+        i {
+          padding-left: 0.3em;
+        }
       }
     }
     .scroll-wrapper {
@@ -131,7 +135,7 @@
           height: 2.3em;
           justify-content: space-between;
           align-items: center;
-          .icon {
+          .osem-icon {
             font-size: 1.3em;
             padding: 0 0.2em;
           }
@@ -147,7 +151,7 @@
           }
         }
         
-        .title {
+        .osem-title {
           text-align: center;
         }
         .add-button-container {
@@ -159,8 +163,8 @@
           justify-content: center;
           align-items: center;
           .add-button {
-            width: 20px;
-            height: 20px;
+            width: 1.1em;
+            height: 1.1em;
             // border: 1px solid #ccc;
             cursor: pointer;
             &:hover {
