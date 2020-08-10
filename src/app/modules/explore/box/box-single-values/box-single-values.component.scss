@@ -7,29 +7,36 @@
       display: flex;
       z-index: 5;
       background: var(--background-secondary);;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       position: relative;
       color: var(--text-color-primary);
       padding-right: 30px;
-      @media screen and(max-width: $secondBreak){
-        padding-left: 0.3em;
-      }
+      // @media screen and(max-width: $secondBreak){
+      //   padding-left: 0.3em;
+      // }
       
       .name {
+        text-align: center;
         font-weight: bold;
         font-size: 1.3em;
-        padding: 0.5em 0;
+        padding: 0.5em 1.3em 0.5em 1em;
         cursor: default;
+        clip-path: polygon(0 0, 100% 0%, 92% 100%, 0 100%);
+        background: var(--background-primary);
+        width: 40%;
+        
         @media screen and (max-width: $secondBreak){
+          width: auto;
           font-size: 1.1em;
+          padding: 0.5em 1em 0.5em 0.3em;
         }
 
         #compare-to-button {
           display: inline-block;
           cursor: pointer;
-          width: 100px;
-          border: 1px dashed var(--text-color-primary);
+          // width: 100px;
+          // border: 1px dashed var(--text-color-primary);
           // padding-left: 0.5em;
           margin-left: 0.5em;
           span {
@@ -45,9 +52,11 @@
         font-style: italic;
         font-size: 0.8em;
         cursor: default;
+        text-align: center;
 
         i {
           padding-left: 0.3em;
+          padding-right: 2em;
         }
       }
     }
@@ -122,7 +131,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 0.5em 0.7em;
+        padding: 0.75em 0.7em 0.6em 0.7em;
         // margin: 0.2em 0.2em;
         &:hover {
           background: var(--hover-color);

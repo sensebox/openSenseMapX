@@ -27,7 +27,8 @@ export interface UiState {
   circles: boolean,
   infoPheno: string,
   filters: Filter,
-  reloadMapData: boolean
+  reloadMapData: boolean,
+  mapLoading: boolean
 }
 
 export function createInitialState(): UiState {
@@ -36,7 +37,7 @@ export function createInitialState(): UiState {
     activeSensorTypes: [],
     selectedPheno: null,
     dateRange: null,
-    dateRangeChart: [new Date("2020-02-06T09:30:00.000Z"), new Date("2020-02-07T09:30:00.000Z")],
+    dateRangeChart: [new Date("2020-03-27T13:47:54.186Z"), new Date("2020-03-27T14:47:54.186Z")],
     selectedDate: null,
     language: 'de-DE',
     theme: 'light',
@@ -104,7 +105,8 @@ export function createInitialState(): UiState {
       group: null,
       model: null
     },
-    reloadMapData: false
+    reloadMapData: false,
+    mapLoading: false
   };
 }
 

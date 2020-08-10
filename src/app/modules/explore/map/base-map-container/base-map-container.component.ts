@@ -31,6 +31,7 @@ export class BaseMapContainerComponent implements OnInit {
   // layers$ = this.uiQuery.select(ent => ent.layers);
   baseLayer$ = this.uiQuery.select(ent => ent.baseLayer);
   clusterLayers$ = this.uiQuery.select(ent => ent.clusterLayers);
+  mapLoading$ = this.uiQuery.select(ent => ent.mapLoading);
   mapInit$ = this.boxQuery.selectMapInit$;
   dataInit$ = this.boxQuery.selectDataInit$;
   activeBox$ = this.boxQuery.selectActiveId();

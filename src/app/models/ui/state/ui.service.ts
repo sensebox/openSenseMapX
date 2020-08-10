@@ -171,4 +171,7 @@ export class UiService {
   setReloadMapData(mapData){
     this.uiStore.update( state => ({...state, reloadMapData: mapData}))
   }
+  setMapLoading(mapLoading){
+    this.uiStore.update( state => ({ ...state , mapLoading: mapLoading }));
+  }
 }

@@ -6,7 +6,9 @@
         <div class="small-description">
             {{'COMPARE_MODUS_HELP' | translate}}
         </div>
-        <div class="osem-close-text" (click)="closeCompare()">X</div>
+        <div class="osem-close-text" (click)="closeCompare()">
+            <button class="delete is-medium"></button>
+        </div>
     </div>
 
     <div class="values osem-padding-small" *ngIf="boxes">

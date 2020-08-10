@@ -6,22 +6,34 @@
     .box-header {
         display: flex;
         background: var(--background-secondary);;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         color: var(--text-color-primary);
         position: relative;
         @media screen and(max-width: $secondBreak){
-            padding-left: 0.3em;
+            // padding-left: 0.3em;
         }
         
         .name {
-            cursor: default;
+            text-align: center;
             font-weight: bold;
-            font-size: 1.4em;
-            padding: 0.4em 0;
+            font-size: 1.3em;
+            padding: 0.5em 1.3em 0.5em 1em;
+            cursor: default;
+            clip-path: polygon(0 0, 100% 0%, 92% 100%, 0 100%);
+            background: var(--background-primary);
+            width: 40%;
+            
+            @media screen and (max-width: $secondBreak){
+              width: auto;
+              font-size: 1.1em;
+              padding: 0.5em 1em 0.5em 0.3em;
+            }
+    
         }
         .small-description {
             cursor: default;
+            padding-right: 2.5em;
         }
     }
 }

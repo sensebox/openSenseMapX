@@ -37,7 +37,9 @@ export class MapService {
   activatePopupTimer;
 
   //TODO: Remove this when live Data is present and replace it by now
-  liveDate = new Date('2020-02-07T08:30:00.000Z').getTime();
+  // liveDate = new Date('2020-02-07T08:30:00.000Z').getTime();
+  // liveDate = new Date('2019-11-07T12:56:12.831Z').getTime();
+  liveDate = new Date('2020-03-27T14:47:54.186Z').getTime();
   // for all data
   // liveDate = new Date('2020-02-07T09:40:06.617Z').getTime();
 
@@ -122,35 +124,38 @@ export class MapService {
       }
     })
 
-    // this.map.on('idle', (e) => {
-    //   // do things every time the map idles
-    //   console.log("IDLE")
-    // });
-    // this.map.on('styledataloading', function(){
-    //   console.log("STYLE DATA loading")
-    //   // that.boxService.setMapInit(true);
-    // })
+    this.map.on('idle', (e) => {
+      // do things every time the map idles
+      console.log("IDLE")
+      that.uiService.setMapLoading(false);
+    });
+    this.map.on('styledataloading', function(){
+      console.log("STYLE DATA loading")
+      that.uiService.setMapLoading(true);
+      // that.boxService.setMapInit(true);
+    })
 
-    // this.map.on('styledata', function(){
-    //   console.log("STYLE DATA")
-    //   // that.boxService.setMapInit(true);
-    // })
+    this.map.on('styledata', function(){
+      console.log("STYLE DATA")
+      // that.boxService.setMapInit(true);
+    })
 
-    // this.map.on('sourcedataloading', function(){
-    //   console.log("SOURCE DATA LAODING")
-    //   // that.boxService.setMapInit(true);
-    // })
+    this.map.on('sourcedataloading', function(){
+      console.log("SOURCE DATA LAODING")
+      that.uiService.setMapLoading(true);
+      // that.boxService.setMapInit(true);
+    })
 
-    // this.map.on('sourcedata', function(){
+    this.map.on('sourcedata', function(){
 
-    //   // if (that.map.areTilesLoaded()){
-    //   //   console.log(that.map.getLayer('base-layer'))
-    //   //   var numPoints = that.map.querySourceFeatures('boxes')
-    //   //   console.log(numPoints);
-    //   // }
-    //   console.log("SOURCE DATA")
-    //   // that.boxService.setMapInit(true);
-    // })
+      // if (that.map.areTilesLoaded()){
+      //   console.log(that.map.getLayer('base-layer'))
+      //   var numPoints = that.map.querySourceFeatures('boxes')
+      //   console.log(numPoints);
+      // }
+      console.log("SOURCE DATA")
+      // that.boxService.setMapInit(true);
+    })
   }
 
   //add last measurements to live attribute
