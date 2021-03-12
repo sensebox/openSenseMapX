@@ -28,7 +28,8 @@ export interface UiState {
   infoPheno: string,
   filters: Filter,
   reloadMapData: boolean,
-  mapLoading: boolean
+  mapLoading: boolean,
+  showDateModal: boolean
 }
 
 export function createInitialState(): UiState {
@@ -41,31 +42,30 @@ export function createInitialState(): UiState {
     selectedDate: null,
     language: 'de-DE',
     theme: 'light',
-    baseLayer: {
+    baseLayer:  {
       'id': 'base-layer',
       'type': 'circle',
       'source': 'boxes',
-      'filter': ["!=", 'old', ["get", "state"]],
-      'layout': {
-        'visibility': 'none'
-      },
+      'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
       'paint': {
-      'circle-radius': {
-        'base': 1.75,
-        'stops': [[1, 2], [22, 3080]]
-      },
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#383838',
-      
-      // 'circle-blur': 0.8,
-      'circle-color': [
-        'match',
-        ['get', 'state'],
-        'active', '#4EAF47',
-        'old', '#eb5933',
-        /* other */ '#ccc200'
+        'circle-radius': {
+          'base': 2,
+          'stops': [[1, 6], [22, 3000]]
+        },
+        'circle-color': [
+          'interpolate',
+          ['linear'],
+          [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          -5, '#9900cc',
+          0, '#0000ff',
+          10, '#0099ff',
+          20, '#ffff00',
+          30, '#ff0000'
         ]
-      }
+      },
+      'layout' : {
+        visibility: 'none'
+      } 
     },
     layers: [{
       'id': 'base-layer',
@@ -74,8 +74,8 @@ export function createInitialState(): UiState {
       'filter': ["!=", 'old', ["get", "state"]],
       'paint': {
       'circle-radius': {
-        'base': 1.75,
-        'stops': [[1, 5], [22, 3080]]
+        'base': 2,
+        'stops': [[1,6], [22, 3000]]
       },
       'circle-stroke-width': 1,
       'circle-stroke-color': '#383838',
@@ -106,7 +106,8 @@ export function createInitialState(): UiState {
       model: null
     },
     reloadMapData: false,
-    mapLoading: false
+    mapLoading: false,
+    showDateModal: false
   };
 }
 
@@ -142,7 +143,8 @@ export class UiStore extends Store<UiState> {
           paint: {
             ...state.baseLayer.paint,
             'circle-color': pheno.layer.paint['circle-color'],
-            'circle-radius': pheno.layer.paint['circle-radius']
+            'circle-radius': pheno.layer.paint['circle-radius'],
+            'circle-stroke-width': 1
           },
         },
         clusterLayers: [{
@@ -155,18 +157,20 @@ export class UiStore extends Store<UiState> {
           ],
           paint: {
             ...state.clusterLayers[0].paint,
-            'circle-color': circleColorCluster
+            'circle-color': circleColorCluster,
+            // 'circle-stroke-width': 1
           }
         },{
           ...state.clusterLayers[1],
           filter:  [
             'all',
-            ["!=", null, [ "get", pheno.title, ["object", ["get", "live"]]]],
+            ["!=", null, [ "get", pheno.title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
             ['!', ['has', 'point_count']]
           ],
           paint: {
             ...state.clusterLayers[1].paint,
-            'circle-color': circleColorSolo
+            'circle-color': circleColorSolo,
+            // 'circle-stroke-width': 1
           }
         }
       ]}
@@ -219,6 +223,48 @@ export class UiStore extends Store<UiState> {
       }
     }))
   }
+
+  updateLegend(steps){
+    let newPheno = {
+      ...this.getValue().selectedPheno,
+      layer: {
+        ...this.getValue().selectedPheno.layer,
+        paint: {
+          ...this.getValue().selectedPheno.layer.paint,
+          'circle-color': this.getValue().selectedPheno.layer.paint['circle-color'].slice(0,3).concat(steps)
+        }
+      }
+    }
+    this.updateSelectedPheno(newPheno);
+
+
+    // this.update(state => { console.log(state.baseLayer.paint['circle-color'].slice(0,3)); return ( {
+    //   baseLayer: {
+    //     ...state.baseLayer,
+    //     paint: {
+    //       ...state.baseLayer.paint,
+    //       'circle-color': state.baseLayer.paint['circle-color'].slice(0,3).concat(steps)
+    //     },
+    //   },
+    //   clusterLayers: [{
+    //     ...state.clusterLayers[0],
+    //     paint: {
+    //       ...state.clusterLayers[0].paint,
+    //       'circle-color': state.clusterLayers[0].paint['circle-color'].slice(0,3).concat(steps),
+    //       // 'circle-stroke-width': 1
+    //     }
+    //   },{
+    //     ...state.clusterLayers[1],
+    //     paint: {
+    //       ...state.clusterLayers[1].paint,
+    //       'circle-color': state.clusterLayers[1].paint['circle-color'].slice(0,3).concat(steps),
+    //       // 'circle-stroke-width': 1
+    //     }
+    //   }]
+
+    // })})
+  }
+
 }
 
 

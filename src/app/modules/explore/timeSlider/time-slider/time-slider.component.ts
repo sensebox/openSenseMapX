@@ -17,6 +17,9 @@ export class TimeSliderComponent implements OnInit {
   @Input() selectedPheno; 
   @Input() filterVisible; 
   @Input() intervalPlaying; 
+  @Input() dataFetched;
+  @Input() loadingBoxes;
+  @Output() loadedData = new EventEmitter();
   @Output() dateSelected = new EventEmitter();
   @Output() dateRangeRemoved = new EventEmitter();
   @Output() backwardPressed = new EventEmitter();
@@ -51,6 +54,10 @@ export class TimeSliderComponent implements OnInit {
   }
   forward(){
     this.forwardPressed.emit()
+  }
+
+  loadData(){
+    this.loadedData.emit([this.selectedPheno.title, this.dateRange]);
   }
 
 }

@@ -18,6 +18,11 @@
     // }
 }
 
+.clear-search {
+    pointer-events: unset !important;
+    cursor: pointer;
+}
+
 #autocomplete-results{
     position: absolute;
     opacity: 1;

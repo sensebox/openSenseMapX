@@ -8,6 +8,7 @@ import { BoxValuesComponent } from './box/box-values/box-values.component';
 import { BoxChartComponent } from './box/box-chart/box-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { LegendContainerComponent } from './legend/legend-container/legend-container.component';
 import { LegendComponent } from './legend/legend/legend.component';
 import { TimeSliderContainerComponent } from './timeSlider/time-slider-container/time-slider-container.component';
@@ -29,10 +30,11 @@ import { ChartDatepickerComponent } from './box/chart-datepicker/chart-datepicke
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SharedModule } from '../shared/shared.module';
 import { MapLoadingComponent } from './map/map-loading/map-loading.component';
-
+import { LegendEditContainerComponent } from './legend/legend-edit-container/legend-edit-container.component';
+import { LegendEditComponent } from './legend/legend-edit/legend-edit.component';
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent, MapLoadingComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent, MapLoadingComponent, LegendEditContainerComponent, LegendEditComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -43,7 +45,8 @@ import { MapLoadingComponent } from './map/map-loading/map-loading.component';
     RouterModule,
     // TranslateModule,
     OwlDateTimeModule, 
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    ColorPickerModule
   ],
   providers: [MapService],
   exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent, LegendContainerComponent]

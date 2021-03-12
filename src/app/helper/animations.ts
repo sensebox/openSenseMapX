@@ -131,6 +131,20 @@ export const appear =
             })
         ])
     ]);
+export const appearSlow = 
+    trigger('appearSlow', [
+        transition(':enter',[ 
+            style({opacity: 0}),
+            animate('220ms 400ms ease-in-out'), style({
+                opacity: 1
+            })
+        ]),
+        transition(':leave',[
+            animate('60ms ease-in-out'), style({
+                opacity: 0
+            })
+        ])
+    ]);
 
 export const appearPopup = 
     trigger('appearPopup', [

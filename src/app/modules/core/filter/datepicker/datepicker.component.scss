@@ -1,23 +1,35 @@
 .datepicker-container {
+    padding: 0.1em 0.3em;
     position: relative;
     background: var(--background-secondary);
+
+    &:hover {
+        background: var(--background-secondary-light);
+    }
     
     
-    .owl-date-time-trigger {
-        &:hover {
-            background: var(--background-secondary-light);
-        }
-        .date-input {
+    .datetime-panel {
+        display: flex;
+        cursor: pointer;
+        justify-content: space-between;
+     
+        .date-string {
             color: var(--background-primary-full);
-            border-bottom: 2px solid var(--background-primary-full);
             
-            &::placeholder {
-                color: var(--background-primary-full);
-            }
+        }
+
+        .datetime-flex {
+            justify-content: space-between;
+            display: flex;
         }
         
     }
-    .osem-simple-button {
-        color: var(--background-primary-full);
+    .calendar-button {
+        padding-left: 0.3em;
+        border-left: 1px solid var(--background-primary-full);
+
+        .osem-simple-button {
+            color: var(--background-primary-full);
+        }
     }
 }

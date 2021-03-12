@@ -19,5 +19,11 @@
         overflow-y: auto;
         background: var(--background-primary-full);
 
+        .close-container {
+            top: 5px;
+            right: 1em;
+            position: absolute;
+        }
+
     }
 }

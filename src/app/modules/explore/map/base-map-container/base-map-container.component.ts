@@ -60,83 +60,83 @@ export class BaseMapContainerComponent implements OnInit {
 
   ngOnInit() {
     //GET ALL THE DATA
-    this.boxService.get().subscribe();
+    // this.boxService.get().subscribe();
 
     //SUBSCRIBE TO ALL BOXES and Layers after map is initialised
-    this.mapInit$.pipe(withLatestFrom(this.compareModus$, this.selectedPheno$)).subscribe(res => {
+    // this.mapInit$.pipe(withLatestFrom(this.compareModus$, this.selectedPheno$)).subscribe(res => {
       
-      if(res[0]){   
+    //   if(res[0]){   
        
-        this.boxSub = combineLatest(this.boxes$, this.filters$).pipe(withLatestFrom(this.selectedPheno$, this.clusterLayers$, this.dateRange$)).subscribe(res => {
-          if(res[0]) {
-            let data = applyFilters(res[0][0], res[0][1]);
-            this.mapService.setMapData(data, res[1], res[2], res[3]);  
-          }
-        });
+    //     this.boxSub = combineLatest(this.boxes$, this.filters$).pipe(withLatestFrom(this.selectedPheno$, this.clusterLayers$, this.dateRange$)).subscribe(res => {
+    //       if(res[0]) {
+    //         let data = applyFilters(res[0][0], res[0][1]);
+    //         this.mapService.setMapData(data, res[1], res[2], res[3]);  
+    //       }
+    //     });
 
-        this.mapService.addPopup('base-layer');
-        this.mapService.addClickFuntion('base-layer');
-        this.mapService.addPopup('boxes-no-cluster');
-        this.mapService.addClickFuntion('boxes-no-cluster');
+    //     this.mapService.addPopup('base-layer');
+    //     this.mapService.addClickFuntion('base-layer');
+    //     this.mapService.addPopup('boxes-no-cluster');
+    //     this.mapService.addClickFuntion('boxes-no-cluster');
 
-        this.mapService.addClusterClickFunction('boxes-cluster');
-        this.mapService.addHoverCluster('boxes-cluster', res[2]);
+    //     this.mapService.addClusterClickFunction('boxes-cluster');
+    //     this.mapService.addHoverCluster('boxes-cluster', res[2]);
         
-        if(res[1]){
-          this.mapService.setCompareModusClickFunctions();
-        }
-      }
-    });
+    //     if(res[1]){
+    //       this.mapService.setCompareModusClickFunctions();
+    //     }
+    //   }
+    // });
     
-    //ADD LAYERS WHEN DATA IS INITIALISED
-    this.dataInit$.subscribe(res => {
-      if(res){
-        if(this.layerSub)
-          this.unsubscribeAll();
-        this.layerSub = this.baseLayer$.subscribe(res => {
-          this.mapService.setMapBaseLayer(res);
-        });
-        this.clusterLayerSub = combineLatest(this.clusterLayers$, this.filters$).pipe(withLatestFrom(this.boxes$, this.dateRange$, this.selectedPheno$)).subscribe(res => {
-          // if(!res[1][1])
-            this.mapService.setMapClusterLayers(res[0][0], applyFilters(res[1], res[0][1]), res[2], res[3]);
-        });
-        this.activeSub = this.activeBox$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
-          if(res)
-            this.mapService.updateActiveLayer(res[0], res[1]);
-        });
-        this.compareToSub = this.compareTo$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
-          if(res.length > 0)
-            this.mapService.updateActiveLayerCompare(res[0], res[1]);
-        });
-        this.colorSub = this.colors$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
-          if(res[0]){
-            this.mapService.colorActives(res[0], res[1]);
-          }
-        });
-        this.clustering$.pipe(withLatestFrom(this.selectedDate$)).subscribe(res => {
-          this.mapService.setClustering(res[0], res[1]);
-        })
-      }
-    })
+    // //ADD LAYERS WHEN DATA IS INITIALISED
+    // this.dataInit$.subscribe(res => {
+    //   if(res){
+    //     if(this.layerSub)
+    //       this.unsubscribeAll();
+    //     this.layerSub = this.baseLayer$.subscribe(res => {
+    //       this.mapService.setMapBaseLayer(res);
+    //     });
+    //     this.clusterLayerSub = combineLatest(this.clusterLayers$, this.filters$).pipe(withLatestFrom(this.boxes$, this.dateRange$, this.selectedPheno$)).subscribe(res => {
+    //       // if(!res[1][1])
+    //         this.mapService.setMapClusterLayers(res[0][0], applyFilters(res[1], res[0][1]), res[2], res[3]);
+    //     });
+    //     this.activeSub = this.activeBox$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
+    //       if(res)
+    //         this.mapService.updateActiveLayer(res[0], res[1]);
+    //     });
+    //     this.compareToSub = this.compareTo$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
+    //       if(res.length > 0)
+    //         this.mapService.updateActiveLayerCompare(res[0], res[1]);
+    //     });
+    //     this.colorSub = this.colors$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
+    //       if(res[0]){
+    //         this.mapService.colorActives(res[0], res[1]);
+    //       }
+    //     });
+    //     this.clustering$.pipe(withLatestFrom(this.selectedDate$)).subscribe(res => {
+    //       this.mapService.setClustering(res[0], res[1]);
+    //     })
+    //   }
+    // })
 
-    this.searchSub = this.searchResults$.subscribe(res => {
-      this.mapService.setSearchLayerFilter(res.map(item => item._id));
-      // this.mapService.addSearchResultLayer(res, 'light');
-    });
+    // this.searchSub = this.searchResults$.subscribe(res => {
+    //   this.mapService.setSearchLayerFilter(res.map(item => item._id));
+    //   // this.mapService.addSearchResultLayer(res, 'light');
+    // });
   }
 
   unsubscribeAll(){
-    this.boxSub.unsubscribe();
-    this.layerSub.unsubscribe();
-    this.activeSub.unsubscribe();
-    this.compareToSub.unsubscribe();
-    this.colorSub.unsubscribe();
-    this.searchSub.unsubscribe();
+    // this.boxSub.unsubscribe();
+    // this.layerSub.unsubscribe();
+    // this.activeSub.unsubscribe();
+    // this.compareToSub.unsubscribe();
+    // this.colorSub.unsubscribe();
+    // this.searchSub.unsubscribe();
 
   }
 
   ngOnDestroy(){
-    this.unsubscribeAll();
+    // this.unsubscribeAll();
   }
 
   removeAllOtherBoxes(){

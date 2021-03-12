@@ -1,4 +1,4 @@
-<div class="datepicker-container">
+<!-- <div class="datepicker-container">
     <input class="osem-hidden"
         [owlDateTime]="dt1" 
         [owlDateTimeTrigger]="dt1" 
@@ -22,6 +22,23 @@
             <input class="date-input" placeholder="{{'LIVE' | translate}}" [value]="(dateRange ? dateRange[1] : '') | date:'short':'':translateService.currentLang" disabled>
         </div>
         <div class="osem-inline">
+            <div class="osem-simple-button">
+                <i class="fa fa-calendar osem-center-horizontal"></i>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="datepicker-container">
+    <div class="osem-padding-small datetime-panel" (click)="toggleDateModal()">
+        <div class="datetime-flex">
+            <div *ngIf="dateRange" class="date-string">
+                {{dateRange[0] | date:'short': '':translateService.currentLang}} - {{dateRange[1] | date:'short': '':translateService.currentLang}}
+            </div>
+            <div *ngIf="!dateRange" class="date-string">
+                {{now | date:'short': '':translateService.currentLang}} - live
+            </div>
+        </div>
+        <div class="calendar-button">
             <div class="osem-simple-button">
                 <i class="fa fa-calendar osem-center-horizontal"></i>
             </div>

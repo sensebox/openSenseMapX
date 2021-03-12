@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UiQuery } from './models/ui/state/ui.query';
-import { slideInOutHorizontalBoolean, routingFadeIn, appearModal } from './helper/animations';
+import { slideInOutHorizontalBoolean, routingFadeIn, appearModal, appearSlow } from './helper/animations';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from './models/session/state/session.service';
@@ -10,7 +10,7 @@ import { SessionService } from './models/session/state/session.service';
   selector: 'osem-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [slideInOutHorizontalBoolean, routingFadeIn, appearModal]
+  animations: [slideInOutHorizontalBoolean, routingFadeIn, appearModal, appearSlow]
 })
 export class AppComponent {
 
@@ -21,6 +21,7 @@ export class AppComponent {
   language$ = this.uiQuery.selectLanguage$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
   infoPheno$ = this.uiQuery.selectInfoPheno$;
+  showDateModal$ = this.uiQuery.selectShowDateModal$;
 
 
   constructor(

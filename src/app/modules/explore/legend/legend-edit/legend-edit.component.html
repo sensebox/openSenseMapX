@@ -1,0 +1,53 @@
+<div id="legend-edit-container">
+    <ng-container *ngIf="selectedPheno">
+        <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
+            <div class="legend-label-outer" *ngIf="i>2">
+                <div  class="legend-label" *ngIf=" i%2">
+                    <div class="content-container">{{prop}}</div>
+                </div>
+                <div  class="legend-color" *ngIf="i%2 != 1">
+                    <div class="corlor-container">{{prop}}</div>
+                </div>
+            </div>
+        </ng-container>
+
+        
+    </ng-container>
+    <form [formGroup]="legendForm">
+
+        <div *ngIf="legendStepsControls">
+            <div formArrayName="legendSteps">
+
+                <div *ngFor="let step of legendStepsControls.controls; let i=index">
+                    
+                    <div class="field">
+                        <div class="notification">
+                            <button class="delete is-medium has-background-danger" (click)="removeGroupedStep(i)"></button>
+                                
+                            <div [formGroupName]="i">
+                                <div class="field is-expanded">
+                                    <div class="control has-icons-left">
+                                        <div class="icon is-small is-left color-icon"  [(colorPicker)]="step.controls.color.value" [style.background]="step.controls.color.value">
+                                            <i class="fa fa-filter"></i>
+    
+                                        </div>
+                            
+                                        <p class="control is-expanded">
+                                            <input
+                                            formControlName="value"
+                                            placeholder="{{step.controls.value.value}}"
+                                            class="input"
+                                            type="number">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        
+        <button (click)="updateLegend()">Update Legend</button>
+    </form>
+</div>

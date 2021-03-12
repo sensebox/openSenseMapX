@@ -10,6 +10,7 @@ import { VisContainerComponent } from './modules/core/vis/vis-container/vis-cont
 import { RegisterContainerComponent } from './modules/core/user/register-container/register-container.component';
 import { DashboardContainerComponent } from './modules/core/user/dashboard-container/dashboard-container.component';
 import { ProfileContainerComponent } from './modules/core/user/profile-container/profile-container.component';
+import { LegendEditContainerComponent } from './modules/explore/legend/legend-edit-container/legend-edit-container.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'impressum', component: ImpressumComponent},
   {path: 'about', component: ImpressumComponent},
   {path: 'vis', component: VisContainerComponent, outlet: 'modal'},
+  {path: 'edit-legend', component: LegendEditContainerComponent, outlet: 'modal'},
   {path: 'login', component: LoginContainerComponent, outlet: 'sidebar'},
   {path: 'register', component: RegisterContainerComponent, outlet: 'sidebar'},
   {

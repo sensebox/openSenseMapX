@@ -10,6 +10,7 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { startWith, switchMap } from 'rxjs/operators';
 import { MapService } from 'src/app/modules/explore/services/map.service';
 import { ActivatedRoute } from '@angular/router';
+import { Map2Service } from 'src/app/modules/explore/services/map2.service';
 
 @Component({
   selector: 'osem-filter-container',
@@ -19,7 +20,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FilterContainerComponent implements OnInit {
 
-  selectDateRange$ = this.uiQuery.selectDateRange$;
+  showDateModal$ = this.uiQuery.selectShowDateModal$;
+  selectedDateRange$ = this.uiQuery.selectDateRange$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
   searchTerm$ = this.uiQuery.selectSearchTerm$;
@@ -40,20 +42,25 @@ export class FilterContainerComponent implements OnInit {
     private boxQuery: BoxQuery,
     private sensorService: SensorService,
     private uiService: UiService,
-    private mapService: MapService,
+    private mapService: Map2Service,
     private activatedRoute: ActivatedRoute,
     private uiQuery: UiQuery) { }
 
   ngOnInit() {
    
-    combineLatest(this.selectDateRange$, this.selectedPheno$).subscribe(res => {
-      if(res[0] && res[1]){
-        this.boxService.getValues(res[1].title, res[0], (this.activatedRoute.snapshot.params.bbox ? this.activatedRoute.snapshot.params.bbox : this.mapService.getBounds())).subscribe();
-        if(window.matchMedia("(max-width: 768px)").matches){
-          this.uiService.setFilterVisible(false);
-        }
-      }
-    })
+    // fetch data for timerange-display
+    // combineLatest(this.selectedDateRange$, this.selectedPheno$).subscribe(res => {
+    //   if(res[0] && res[1]){
+    //     this.uiService.setClustering(false);
+    //     // this.mapService.hideAllBaseLayers();
+    //     this.boxService.getValues(res[1].title, res[0], (this.activatedRoute.snapshot.params.bbox ? this.activatedRoute.snapshot.params.bbox : this.mapService.getBounds())).subscribe();
+    //     if(window.matchMedia("(max-width: 768px)").matches){
+    //       this.uiService.setFilterVisible(false);
+    //     }
+    //   } else if (!res[0]) {
+    //     this.boxService.setDateRangeData(null);
+    //   }
+    // })
 
     this.autoCompleteResults$ = this.searchTerm$.pipe(
       startWith(''),
@@ -85,6 +92,8 @@ export class FilterContainerComponent implements OnInit {
   }
 
   selectPheno(pheno){
+    //set dataLoaded to false if timeline active
+    this.boxService.setDataFetched(false);
     this.uiService.updateSelectedPheno(pheno);
     this.change = false;
   }
@@ -111,10 +120,12 @@ export class FilterContainerComponent implements OnInit {
         // console.log(err)
       });
       this.uiService.setSearchTerm(searchTerm);
+    } else {
+      this.uiService.setSearchTerm("");
     }
   }
   selectResult(box){
-    this.mapService.flyTo(box.currentLocation.coordinates);
+    // this.mapService.flyTo(box.currentLocation.coordinates);
   }
   selectLocResult(loc){
     this.mapService.flyTo([loc.lon, loc.lat]);
@@ -140,5 +151,8 @@ export class FilterContainerComponent implements OnInit {
 
   setFilters(filters) {
     this.uiService.setFilters(filters);
+  }
+  toggleDateModal(showDateModal){
+    this.uiService.setShowDateModal(!showDateModal);
   }
 }

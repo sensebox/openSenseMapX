@@ -33,13 +33,13 @@
     <div class="content">
       <table class="table">
         <tbody>
-          <tr>
+          <tr *ngIf="box.createdAt">
             <td> {{ 'CREATED_AT' | translate }}</td>
             <td> {{ box.createdAt | date }}</td>
           </tr>
-          <tr>
+          <tr *ngIf="box.sensors">
             <td> {{'STATE' | translate}}</td>
-            <td> {{box.state}}</td>
+            <td> {{box.sensors.live ? 'active' : 'inactive'}}</td>
           </tr>
           <tr>
             <td> {{'LOCATION' | translate}}</td>
@@ -48,12 +48,18 @@
         </tbody>
       </table>
 
-      <div class="sensor-icons osem-padding-small">
+      <div class="sensor-icons osem-padding-small" *ngIf="box.sensors && box.sensors.live">
         <h4>{{'SENSORS' | translate}}:</h4>
         <div
-            *ngFor="let sensor of box.sensors"
-            class="sensor-icon osem-box-shadow-small" title="{{sensor.title}}">
-            <i *ngIf="sensor.icon" class="osem-icon map-icon {{sensor.icon}}"></i>
+          *ngFor="let sensor of box.sensors.live | keyvalue"
+          class="sensor-icon osem-box-shadow-small" title="{{sensor.key}}">
+          <i class="osem-icon map-icon {{sensorIconsObject[sensor.key]}}"></i>
+          <!-- <div  *ngIf="sensorIconsObject.indexOf(sensor.key) != -1; else notAvail">
+          </div> -->
+            
+          <!-- <ng-template #notAvail>
+            <i class="osem-icon map-icon osem-not-available"></i>
+          </ng-template> -->
         </div>
       </div>
 
@@ -66,6 +72,11 @@
       class="card-footer-item"
       (click)="compareToOther(box._id)"
     >{{'COMPARE_TO_OTHER_BOX' | translate}}</a>
+    <a 
+      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+      class="card-footer-item"
+      (click)="compareToCurrent(box._id)"
+    >{{'DETAILS' | translate}}</a>
     <a 
       *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
       class="card-footer-item"
@@ -150,6 +161,9 @@
     <p class="card-header-title">
       {{cluster.length}} {{'BOXES' | translate}}
     </p>
+    <div class="osem-close-text" (click)="closePopup()">
+      <button class="delete is-medium"></button>
+    </div>
   </div>
   <div class="card-content card-content-cluster">
     <nav class="panel">

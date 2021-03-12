@@ -24,20 +24,57 @@
 <div id="phenomen-selector">
     <div class="">
         <div class="top-bar">
+            <div class="pheno-info">
+                <div class="pheno-name" *ngIf="selectedPheno">
+                    {{selectedPheno.title}} <span class="normal">({{selectedPheno.unit}})</span>
+                </div>
+                <!-- <div class="unit">
+                    <div class="unit-symbol">
+                    </div>
+                </div> -->
+                <div class="info" (click)="showInfo(selectedPheno.title)">
+                    <i class="fa fa-info"></i><br>
+                </div>
+                    <!-- <div class="top-score">
+                        <a (click)="openVis(selectedPheno.title)">{{'SCENARIOS' | translate}}</a>
+                    </div> -->
+            </div>
+            <div class="control pheno-search">
+                <p class="control has-icons-left has-icons-right">
+                 <input class="input is-small osem-border-radius" type="text" placeholder="{{'SEARCH_PHENO' | translate}}">
+                 <span class="icon is-small is-left">
+                    <i class="fas fa-search"></i>
+                </span>
+                <!-- <span class="icon is-small is-right" *ngIf="searchTerm.length > 0">
+                    <i class="fas fa-times"></i>
+                </span>         -->
+        
+            </div>
             <div class="pheno-icon">
-                <div class="osem-icon-container" (click)="toggleChange()">
+                <!-- <div class="osem-icon-container" (click)="toggleChange()">
                     <i *ngIf="!selectedPheno || changeVariable; else change" class="fa fa-search"></i>
                     <ng-template #change>
                         <i class="fa fa-sync"></i>
                     </ng-template>
-                </div>
-                <div class="control">
-                    <input class="input" *ngIf="!selectedPheno || changeVariable; else phenoName" type="text">
-                </div>
+                </div> -->
                 <ng-template #phenoName>
                     <div class="pheno-name">
                         {{selectedPheno.title}}
                     </div>
+                    <div id="legend-info" *ngIf="selectedPheno && !changeVariable">
+                        <div class="unit">
+                            <div class="unit-symbol">
+                                {{selectedPheno.unit}}
+                            </div>
+                        </div>
+                        <!-- <div class="top-score">
+                            <a (click)="openVis(selectedPheno.title)">{{'SCENARIOS' | translate}}</a>
+                        </div> -->
+                        <div class="info" (click)="showInfo(selectedPheno.title)">
+                            <i class="fa fa-info"></i><br>
+                        </div>
+                    </div>
+
                 </ng-template>
             </div>
         </div>
@@ -51,7 +88,7 @@
                     <div class="osem-icon-container" [title]="pheno.title">
                         <i class="osem-icon {{pheno.icon}}"></i>
                     </div>
-                    <div class="osem-inline name" *ngIf="!selectedPheno || changeVariable">
+                    <div class="osem-inline name">
                         {{pheno.title}}
                     </div>
                 </div>
@@ -59,7 +96,7 @@
             <div id="legend" *ngIf="selectedPheno && !changeVariable">
                 <osem-legend-container></osem-legend-container>
             </div>
-            <div id="legend-info" *ngIf="selectedPheno && !changeVariable">
+            <!-- <div id="legend-info" *ngIf="selectedPheno && !changeVariable">
                 <div class="unit">
                     {{'UNIT' | translate}}:
                     <div class="unit-symbol">
@@ -73,13 +110,12 @@
                     <i class="fa fa-info"></i><br>
                     {{selectedPheno.title}}
                 </div>
-                <!-- <i class="osem-icon {{selectedPheno.icon}}"></i> -->
             </div>     
             <div id="no-pheno-help" *ngIf="!selectedPheno">
                 <div id="text">
                     {{'SELECT_PHENO' | translate}}
                 </div>
             </div>            
-        </div>
+        </div> -->
     </div>
 </div>

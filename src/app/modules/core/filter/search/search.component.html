@@ -11,7 +11,7 @@
         <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
         </span>
-        <span class="icon is-small is-right" *ngIf="searchTerm.length > 0">
+        <span class="icon is-small is-right clear-search" (click)="clearSearch()" *ngIf="searchTerm.length > 0">
             <i class="fas fa-times"></i>
         </span>
     </p>

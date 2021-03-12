@@ -3,31 +3,73 @@
     *ngIf="dateRange && selectedPheno" 
     [@slideInOutHorizontal]="dateRange"
     [@slideInOutHorizontalBoolean]="filterVisible"
->
-
-    <div *ngIf="selectedDate; else noDate" class="date">
-        {{selectedDate | date:'medium' : '' : translateService.currentLang}}
-        <div class="osem-close-button" (click)="removeDateRange()" title="{{'REMOVE_DATERANGE' | translate}}">x</div>
+>   
+    <div class="is-pulled-right px-1">
+        <div class="osem-close-text-no-pos" (click)="removeDateRange()"  title="{{'REMOVE_DATERANGE' | translate}}">
+            <button class="delete is-small"></button>
+        </div>
     </div>
-    <ng-template #noDate>Loading...</ng-template>
-     
-    <input 
-        type="range" 
-        name="points" 
-        id="points" 
-        [step]="step" 
-        [min]="dateRange[0].getTime()"
-        [max]="dateRange[1].getTime()" 
-        data-show-value="true" 
-        data-popup-enabled="true" 
-        (input)="changed($event)" 
-        (change)="changed($event)"
-        [(ngModel)]="selectedDate" />
 
-    <div id="controls">
-        <div class="control-item" (click)="backward()"><i class="fa fa-backward"></i></div>
-        <div *ngIf="!intervalPlaying" class="control-item" (click)="play()"><i class="fa fa-play"></i></div>
-        <div *ngIf="intervalPlaying" class="control-item" (click)="pause()"><i class="fa fa-pause"></i></div>
-        <div class="control-item" (click)="forward()"><i class="fa fa-forward"></i></div>
+    <div *ngIf="!dataFetched">
+        {{'CHOOSE_TIMERANGE_PHENO_BOUNDINGBOX' | translate}}
+        <ul>
+            <li class="flex-li">
+                <div>
+                    {{'FROM_TO' | translate}}:
+                </div>
+                <div>
+                    {{dateRange[0] | date:'short': '':translateService.currentLang}} - 
+                    {{dateRange[1] | date:'short': '':translateService.currentLang}}
+                </div>
+            </li>
+            <li class="flex-li">
+                <div>
+                    {{'PHENOMENON' | translate}}:
+                </div>
+                <div>
+                    {{selectedPheno.title}}
+                </div>
+            </li>
+            <li class="flex-li">
+                <div>
+                    {{'BOXES_IN_SELECTION'}}:
+                </div>
+                <div>
+                    xx
+                </div>
+            </li>
+        </ul>
+        <div class="osem-overflow-auto">
+            <i *ngIf="loadingBoxes" class="fa fa-1x fa-spinner fa-spin"></i> 
+            <button [disabled]="loadingBoxes" class="osem-button is-pulled-right" (click)="loadData()">{{'LOAD_DATA' | translate}}</button>
+        </div>
+
+    </div>
+    <div *ngIf="dataFetched">
+        <div *ngIf="selectedDate; else noDate" class="date">
+            {{selectedDate | date:'medium' : '' : translateService.currentLang}}
+            <!-- <div class="osem-close-button" (click)="removeDateRange()"x</div> -->
+        </div>
+        <ng-template #noDate>Loading...</ng-template>
+         
+        <input 
+            type="range" 
+            name="points" 
+            id="points" 
+            [step]="step" 
+            [min]="dateRange[0].getTime()"
+            [max]="dateRange[1].getTime()" 
+            data-show-value="true" 
+            data-popup-enabled="true" 
+            (input)="changed($event)" 
+            (change)="changed($event)"
+            [(ngModel)]="selectedDate" />
+    
+        <div id="controls">
+            <div class="control-item" (click)="backward()"><i class="fa fa-backward"></i></div>
+            <div *ngIf="!intervalPlaying" class="control-item" (click)="play()"><i class="fa fa-play"></i></div>
+            <div *ngIf="intervalPlaying" class="control-item" (click)="pause()"><i class="fa fa-pause"></i></div>
+            <div class="control-item" (click)="forward()"><i class="fa fa-forward"></i></div>
+        </div>
     </div>
 </div>

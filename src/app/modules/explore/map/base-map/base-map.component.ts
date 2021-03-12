@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MapService } from '../../services/map.service';
+import { Map2Service } from '../../services/map2.service';
 
 @Component({
   selector: 'osem-base-map',
@@ -9,7 +9,7 @@ import { MapService } from '../../services/map.service';
 })
 export class BaseMapComponent implements OnInit {
 
-  constructor(private mapService: MapService) { }
+  constructor(private mapService: Map2Service) { }
 
   ngOnInit() {
     this.mapService.generateMap('map');

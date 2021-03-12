@@ -122,4 +122,9 @@ export class SearchComponent implements OnInit {
       this.autocompleteToShow = this.autoCompleteResults;
     }
   }
+
+  clearSearch(){
+    this.searchTerm = "";
+    this.changedSearchTerm.emit(this.searchTerm);
+  }
 }

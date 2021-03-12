@@ -8,7 +8,6 @@ import {
 import { area, line } from 'd3-shape';
 
 import { id, sortLinear, sortByTime, sortByDomain } from '../helper/osem-chart-helper';
-// import { sortLinear, sortByTime, sortByDomain } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'g[ngx-charts-osem-line-series]',

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'osem-legend',
@@ -14,13 +15,23 @@ export class LegendComponent implements OnInit {
 
   @Output() legendToggled = new EventEmitter();
   
-  constructor() { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
   }
   
   toggleLegend(){
     this.legendToggled.emit();
+  }
+
+  editLegend() {
+    this.router.navigate(
+      [{outlets: {modal: 'edit-legend'}}],
+      {
+        relativeTo: this.activatedRoute,
+        queryParamsHandling: 'merge'
+      }
+    ); 
   }
 
 }

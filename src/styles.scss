@@ -3,7 +3,6 @@
 @import 'styles/icons/osem-icons.scss';
 @import 'styles/variables.scss';
 @import 'styles/themes/theme.scss';
-@import 'styles/general/general.scss';
 @import 'styles/general/mapbox.scss';
 
 // $fa-font-path: "~@fortawesome/fontawesome-free/fonts";
@@ -54,7 +53,7 @@
 // $primary: var(--color-primary);  WAIT FOR BULMA UPDATE FOR THIS TO WORK
 
 $family-primary: BrixSlab, Helvetica, sans-serif;
-$family-secondary: Lato, Helvetica, sans-serif;
+$family-secondary: BrixSlab, Helvetica, sans-serif;
 
 //TABS
 
@@ -68,8 +67,9 @@ h1,h2,h3,h4,h5 {
 }
 
 p {
-  font-family: Lato, Helvetica, sans-serif;;
+  font-family: BrixSlab, Helvetica, sans-serif;;
 }
+
 
 
 
@@ -121,3 +121,23 @@ button {
 .osem-no-margin {
   margin: 0;
 }
+
+.title {
+  color: var(--text-color-primary);
+}
+
+.subtitle {
+  color: var(--text-color-primary);
+}
+
+.table {
+  background-color: var(--background-primary-full);
+  color: var(--text-color-primary);
+}
+
+.tag.is-primary {
+  background-color: var(--color-primary) !important;
+}
+
+
+@import 'styles/general/general.scss';

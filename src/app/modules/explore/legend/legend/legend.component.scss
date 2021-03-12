@@ -25,7 +25,9 @@
         font-weight: bold;
 
         .legend-label-outer {
-            height: 20%;
+            // height: 20%;
+            display: flex;
+            align-items: center;
         }
         .legend-label {
             display: flex;

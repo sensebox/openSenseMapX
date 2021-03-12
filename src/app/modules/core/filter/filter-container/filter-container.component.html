@@ -11,8 +11,10 @@
             [locationAutocompleteResults]="locationAutocompleteResults$ | async"
         ></osem-search>
         <osem-datepicker 
-            [dateRange]="selectDateRange$ | async"
-            (dateChanged)="changeDateRange($event)"></osem-datepicker>
+            [dateRange]="selectedDateRange$ | async"
+            [showDateModal]="showDateModal$ | async"
+            (dateChanged)="changeDateRange($event)"
+            (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
         
         <osem-filter-switcher
             [activeTab]="activeTab"

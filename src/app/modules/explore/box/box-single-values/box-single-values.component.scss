@@ -23,8 +23,10 @@
         padding: 0.5em 1.3em 0.5em 1em;
         cursor: default;
         clip-path: polygon(0 0, 100% 0%, 92% 100%, 0 100%);
-        background: var(--background-primary);
+        // background: var(--background-primary);
+        background: rgba(255,255,255,0.87);
         width: 40%;
+        color: var(--color-primary);
         
         @media screen and (max-width: $secondBreak){
           width: auto;
@@ -53,8 +55,10 @@
         font-size: 0.8em;
         cursor: default;
         text-align: center;
+        color: white;
 
         i {
+          font-size: 0.9em;
           padding-left: 0.3em;
           padding-right: 2em;
         }
@@ -71,7 +75,7 @@
       }
       .arrow {
         overflow-y: hidden;
-        box-shadow: 0px 0 10px rgba(0,0,0,.35);
+        // box-shadow: 0px 0 10px rgba(0,0,0,.35);
         display: none;
         position: absolute;
         height: 100%;
@@ -133,6 +137,14 @@
         flex-direction: column;
         padding: 0.75em 0.7em 0.6em 0.7em;
         // margin: 0.2em 0.2em;
+        flex-grow: 0.1;
+        width: 220px;
+        min-width: 150px;
+
+        border-left: 1px solid;
+        border-right: 1px solid;
+        border-color: #eee;
+
         &:hover {
           background: var(--hover-color);
           cursor: pointer;
@@ -142,14 +154,19 @@
         .icon-value-unit {
           display: flex;
           height: 2.3em;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
           .osem-icon {
             font-size: 1.3em;
             padding: 0 0.2em;
+            opacity: 0.9;
           }
           .value {
             font-size: 2.3em;
+            .no-value {
+              font-size: 0.6em;
+              opacity: 0.8;
+            }
           }
           .unit {
             align-self: baseline;
@@ -165,15 +182,17 @@
         }
         .add-button-container {
           position: absolute;
-          bottom: 0;
+          bottom: 5px;
           right: 0;
           font-size: 1.2em;
           display: flex;
           justify-content: center;
           align-items: center;
+          
           .add-button {
             width: 1.1em;
             height: 1.1em;
+            line-height: 1.3em;
             // border: 1px solid #ccc;
             cursor: pointer;
             &:hover {

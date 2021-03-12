@@ -34,9 +34,12 @@
             "styles": [
               "src/styles.scss",
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/bulma-calendar/dist/css/bulma-calendar.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bulma-calendar/dist/js/bulma-calendar.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -23,16 +23,16 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 3000]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "Temperatur", ["object", ["get", "live"]]],
+            [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             -5, '#9900cc',
             0, '#0000ff',
             10, '#0099ff',
@@ -49,16 +49,16 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 3000]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "rel. Luftfeuchte", ["object", ["get", "live"]]],
+            [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             25, '#0000ff',
             50, '#0099ff',
@@ -76,16 +76,16 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 3000]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "Luftdruck", ["object", ["get", "live"]]],
+            [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             25, '#0000ff',
             50, '#0099ff',
@@ -102,16 +102,16 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 3000]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-          [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]],
+          [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
           0, '#9900cc',
           1000, '#0000ff',
           2000, '#0099ff',
@@ -129,16 +129,16 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 3000]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "UV-Intensität", ["object", ["get", "live"]]],
+            [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             100, '#0000ff',
             200, '#0099ff',
@@ -155,16 +155,16 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 3000]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "PM10", ["object", ["get", "live"]]],
+            [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             15, '#0000ff',
             30, '#0099ff',
@@ -182,16 +182,16 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "PM2.5", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 3000]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "PM2.5", ["object", ["get", "live"]]],
+            [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             10, '#0000ff',
             20, '#0099ff',

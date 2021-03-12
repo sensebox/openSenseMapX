@@ -169,6 +169,11 @@ h2,h3,h4 {
         color: var(--text-color-secondary);
     }
 
+    &:disabled {
+        background: var(--disabled-color);
+        cursor: not-allowed;
+    }
+
     
 }
 
@@ -234,6 +239,20 @@ h2,h3,h4 {
     transform: translateY(-50%);
     font-weight: bold;
 }
+
+.osem-close-text-no-pos {
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    // position: relative;
+    // transform: translateY(-50%);
+    // top: 50%;
+
+    button {
+        transform: translateY(20%);
+    }
+}
+
 
 .sensor-icon {
     border-radius: 50%;
@@ -313,4 +332,24 @@ a {
 
 .modal {
     z-index: 9999 !important;
+}
+
+.osem-border-radius {
+    border-radius: 4px !important;
+}
+
+
+//DATEPICKER
+
+.owl-dt-inline-container {
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+
+.owl-dt-container {
+    font-size: 14px !important;
+}
+
+.osem-overflow-auto {
+    overflow: auto;
 }

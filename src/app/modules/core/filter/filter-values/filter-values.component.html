@@ -1,0 +1,18 @@
+<div class="tags are-medium">
+    <span class="tag is-rounded is-primary">{{ now | date:'short': '':translateService.currentLang}}</span>
+    <span class="tag is-rounded is-primary">
+        <div class="osem-icon-container">
+            <i class="osem-icon {{selectedPheno.icon}}"></i>
+        </div>
+        {{ selectedPheno.title }}</span>
+    <div>
+        <ul>
+            <ng-container *ngFor="let filterItem of filter | keyvalue">
+                <li *ngIf="filterItem.value">
+                    <span class="tag is-rounded is-primary">{{ filterItem.value }}</span>
+                </li>
+            </ng-container>
+        </ul>
+
+    </div>
+</div>

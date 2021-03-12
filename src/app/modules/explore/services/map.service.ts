@@ -236,6 +236,7 @@ export class MapService {
     }
   }
   clusterClickFunction = e => {
+    console.log("click")
     this.map.getCanvas().style.cursor = 'pointer';
     
     let that = this;
@@ -353,7 +354,7 @@ export class MapService {
           'circle-opacity': 0.4,
           'circle-color': 'black'
         }
-      });
+      }, 'boxes-cluster');
     }
     if(pheno)
       this.map.setPaintProperty('cluster-hover-layer', 'circle-color', pheno['layer']['paint']['circle-color']);
@@ -445,7 +446,7 @@ export class MapService {
       // source for single Boxes
       map.addSource('boxes', {
         type: "geojson",
-        data: this.toGeoJson(boxes)
+        data: "/assets/data/world.json"
       });
 
       //Source for clusterlayer, TODO: Dynamically add phenomena when sensor-wiki is finished
@@ -455,7 +456,7 @@ export class MapService {
       }
       
     } else {
-      map.getSource('boxes').setData(this.toGeoJson(boxes));
+      map.getSource('boxes').setData("/assets/data/world.json");
       //if dateRange is active new sources are being added
       if(dateRange) {
         this.addClusterSource(boxes, pheno, map, dateRange);
@@ -952,7 +953,6 @@ export class MapService {
     } else if(this.map && this.map.getLayer('base-layer')) {
       this.map.setPaintProperty('base-layer', 'circle-opacity', 1);
       this.map.setPaintProperty('base-layer', 'circle-stroke-opacity',1);
-      
     }
   }
 

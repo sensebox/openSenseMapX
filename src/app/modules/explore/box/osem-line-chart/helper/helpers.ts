@@ -89,3 +89,45 @@ export function processBoxData(data){
     // console.log('SENSORS', sensors);
     return [boxes, sensors];
 }
+
+// round coordinates to 5 decimal places (1m), TODO: move this to backend?
+export function roundCoordinates(coordinates){
+    coordinates = [Math.round((coordinates[0] + Number.EPSILON) * 100000) / 100000, Math.round((coordinates[1] + Number.EPSILON) * 10000) / 10000]
+    // console.log(coordinates)
+    return coordinates;
+}
+
+
+export function toGeoJson(data) {
+    
+    let geojson = data.map(item => {
+    //   if (item.lat && item.lon) {
+        return {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: roundCoordinates([item.lon, item.lat]),
+            // coordinates: item.currentLocation.coordinates,
+          },
+          properties: {
+            // name: item.name,
+            _id: item._id,
+            exposure: item.exposure,
+            createdAt: item.createdAt,
+            state: item.state,
+            name: item.name,
+            sensors: item.sensors,
+            values: item.values ? item.values : null,
+            live: item.live ? item.live : null
+          }
+        }
+    //   }
+    });
+
+    geojson = {
+      type: 'FeatureCollection',
+      features: geojson
+    };
+    return geojson;
+  }
+

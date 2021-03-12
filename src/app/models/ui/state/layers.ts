@@ -32,7 +32,7 @@ export const clusterLayer = {
             30, '#ff0000'
         ],
         'circle-opacity': 0.7,
-        'circle-stroke-color': 'black',
+        'circle-stroke-color': '#4eaf47',
         'circle-stroke-width': 2
     }
 }
@@ -44,7 +44,7 @@ export const clusterLayerSolo = {
     'filter':
     [
         'all',
-        ["!=", null, [ "get", "Temperatur", ["object", ["get", "live"]]]],
+        ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         ['!', ['has', 'point_count']]
     ]
     ,
@@ -56,7 +56,7 @@ export const clusterLayerSolo = {
         'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "Temperatur", ["object", ["get", "live"]]],
+            [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             -5, '#9900cc',
             0, '#0000ff',
             10, '#0099ff',

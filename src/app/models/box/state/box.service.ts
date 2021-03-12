@@ -10,7 +10,7 @@ import { schema, normalize } from 'normalizr';
 import { SensorStore } from '../../sensor/state/sensor.store';
 import { UiService } from '../../ui/state/ui.service';
 import { BoxQuery } from './box.query';
-import { processBoxData } from 'src/app/modules/explore/box/osem-line-chart/helper/helpers';
+import { processBoxData, toGeoJson } from 'src/app/modules/explore/box/osem-line-chart/helper/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class BoxService {
@@ -61,41 +61,62 @@ export class BoxService {
 
   getValues(pheno, dateRange, bbox) {
     
-    this.boxStore.setLoading(true);
+    this.boxStore.setFetchingData(true);
 
     const bboxString  = `${bbox._sw.lng},${bbox._sw.lat},${bbox._ne.lng},${bbox._ne.lat}`;
     
-    return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=${bboxString}&format=json&columns=boxId&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
+    return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=${bboxString}&format=json&columns=boxId,lat,lon,boxName,exposure&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
       entities = entities.map(ent => {
-        let { boxId, sensorId, ...noEnt} = ent;
+        let { boxId, sensorId, boxName, exposure,lat, lon, ...noEnt} = ent;
+        console.log(ent);
         //TODO: find better place for vconverting to 2 decimal-diggits
         Object.keys(noEnt).forEach(key => {if(noEnt[key]) { noEnt[key] = Math.round( noEnt[key] * 1e2 ) / 1e2 } })
         return {
           _id: ent.boxId,
+          name: ent.boxName,
+          exposure: ent.exposure,
+          lat: ent.lat,
+          lon: ent.lon,
+          sensors: [
+            {_id: sensorId, title: pheno}
+          ],
           values: {
             [pheno]: noEnt 
           }
         }
       })
-      
-      this.boxStore.upsertMany(entities);
-      this.boxStore.setLoading(false);
+      console.log(entities);
+      this.boxStore.setDateRangeData(toGeoJson(entities))
+      // this.boxStore.upsertMany(entities);
+
+      let ownNormalize = processBoxData(entities);
+      this.boxStore.upsertMany(ownNormalize[0]);
+      this.sensorStore.upsertMany(ownNormalize[1]);
+
+
+      this.boxStore.setDataFetched(true);
+      this.boxStore.setFetchingData(false);
       //TODO: find a better place for this + fix calling twice :o
       this.uiService.setSelectedDate(dateRange[0]);
       this.uiService.setSelectedDate(dateRange[0]);
+      // console.log(toGeoJson(this.boxStore.getValue()))
       // this.uiService.setReloadMapData(true);
     }), share());
   }
 
   getSingleBox(id){
-    const sensor = new schema.Entity('sensors', {}, { idAttribute: '_id' });
+    // const sensor = new schema.Entity('sensors', {}, { idAttribute: '_id' });
 
-    const box = new schema.Entity('boxes', {sensors: [sensor] }, { idAttribute: '_id' });
+    // const box = new schema.Entity('boxes', {sensors: [sensor] }, { idAttribute: '_id' });
 
     return this.http.get<Box>(`${environment.api_url}/boxes/${id}`).pipe(tap(entity => {
-      let entities: any = normalize([entity], [box]);
-      this.boxStore.upsert(entities.entities.boxes[entity._id], entities.entities.boxes);
-      this.sensorStore.upsertMany(Object.values(entities.entities.sensors));
+      let ownNormalize = processBoxData([entity]);
+      this.boxStore.upsertMany(ownNormalize[0]);
+      this.sensorStore.upsertMany(ownNormalize[1]);
+
+      // let entities: any = normalize([entity], [box]);
+      // this.boxStore.upsert(entities.entities.boxes[entity._id], entities.entities.boxes);
+      // this.sensorStore.upsertMany(Object.values(entities.entities.sensors));
     }));
   }
 
@@ -104,6 +125,9 @@ export class BoxService {
   }
 
   setActive(id) {
+    console.log("set active", id)
+    if(id)
+      this.getSingleBox(id).subscribe();
     this.boxStore.setActive(id);
   }
 
@@ -131,6 +155,7 @@ export class BoxService {
   }
 
   toggleCompareTo(box){
+    this.getSingleBox(box).subscribe();
     this.boxStore.toggleCompareTo(box);
   }
   resetCompareTo(){
@@ -139,6 +164,13 @@ export class BoxService {
 
   setCompareTo(compareTo){
     this.boxStore.setCompareTo(compareTo);
+    compareTo.forEach(compare => {
+      this.getSingleBox(compare).subscribe();
+    })
+  }
+
+  setDateRangeData(data){
+    this.boxStore.setDateRangeData(data);
   }
 
   setPopupBox(box){
@@ -151,6 +183,14 @@ export class BoxService {
       clearTimeout(this.popupBoxTimeout);
       this.boxStore.setPopupBox(box);
     }
+  }
+
+  setDataFetched(dataFetched){
+    this.boxStore.setDataFetched(dataFetched);
+  }
+  
+  setFetchingData(fetchingData){
+    this.boxStore.setFetchingData(fetchingData);
   }
 
 }

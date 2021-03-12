@@ -1,0 +1,96 @@
+<div class="modal is-active" >
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <button class="modal-close is-large" aria-label="close" (click)="close()"></button>
+
+        <div class="tabs is-fullwidth">
+            <ul>
+                <li [class.is-active]="active === 'live'">
+                    <a (click)="changeActive('live')">
+                        <span class="icon is-small"><i class="fas fa-cloud-sun-rain" aria-hidden="true"></i></span>
+                        <span>{{'LIVE' | translate}}</span>
+                    </a>
+                </li>
+                <li [class.is-active]="active === 'timestamp'">
+                    <a (click)="changeActive('timestamp')">
+                        <span class="icon is-small"><i class="fas fa-filter" aria-hidden="true"></i></span>
+                        <span>{{'TIMESTAMP' | translate}}</span>
+                    </a>
+                </li>
+                <li [class.is-active]="active === 'timerange'">
+                    <a (click)="changeActive('timerange')">
+                        <span class="icon is-small"><i class="fas fa-filter" aria-hidden="true"></i></span>
+                        <span>{{'TIMERANGE' | translate}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="live osem-padding modal-content-inner" *ngIf="active === 'live'">
+            <div>
+                <p>
+                    {{'LIVE_DATA_TEXT' | translate}}
+                </p>
+            </div>
+            <!-- <nwb-date-picker #datePicker1 (change)="valueChange($event)" [options]="{showClearButton: false}">
+                <input [nwbDatepickerStart]="datePicker1" type="text" nwbDateType="date"/>
+                <owl-date-time-inline></owl-date-time-inline>        
+            </nwb-date-picker>
+   --> 
+            <div class="osem-button-container">
+                <button class="osem-button is-pulled-right" (click)="showLiveData()">{{'SHOW' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="timestamp osem-padding modal-content-inner" *ngIf="active === 'timestamp'">
+            <div>
+                <p>
+                    {{'TIMESTAMP_TEXT' | translate}}
+                </p>
+                <owl-date-time-inline></owl-date-time-inline>    
+            </div>
+            <div class="osem-button-container">
+                <button class="osem-button is-pulled-right">{{'SHOW' | translate}}</button>    
+            </div>
+        </div>
+
+        <div class="timerange osem-padding modal-content-inner" *ngIf="active === 'timerange'">
+            <p>
+                {{'TIMERANGE_TEXT' | translate}}
+            </p>
+            <div class="calendar-timerange">
+                <div class="calendar-container">
+                    <div>
+                        <span>{{'FROM' | translate}}: </span>  
+                        <span *ngIf="dateRangeStart" class="calendar-date">{{dateRangeStart | date:'medium':'':translateService.currentLang}}</span>
+                        <span *ngIf="!dateRangeStart" class="has-text-danger">-</span>
+                    </div>
+                    <owl-date-time-inline
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [stepMinute]="60"
+                        [startAt]="startAt"
+                        [(ngModel)]="dateRangeStart"
+                    ></owl-date-time-inline>
+                </div>
+                <div class="calendar-container">
+                    <div>
+                        <span>{{'TO' | translate}}: </span>
+                        <span *ngIf="dateRangeEnd" class="calendar-date">{{dateRangeEnd | date:'medium':'':translateService.currentLang}}</span>
+                        <span *ngIf="!dateRangeEnd" class="has-text-danger">-</span>
+                    </div>
+                    <owl-date-time-inline
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [stepMinute]="60"
+                        [(ngModel)]="dateRangeEnd"
+                    ></owl-date-time-inline>
+                </div>
+            </div>
+            <div class="osem-button-container">
+                <button [disabled]="!dateRangeStart || !dateRangeEnd" class="osem-button is-pulled-right" (click)="updateDateRange(dateRangeStart, dateRangeEnd)">{{'SHOW' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

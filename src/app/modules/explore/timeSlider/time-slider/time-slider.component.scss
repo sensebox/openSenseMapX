@@ -8,6 +8,13 @@
       text-align: right;
       font-weight: bold;
     }
+
+    ul {
+      .flex-li {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
 }
 
 input[type=range] {

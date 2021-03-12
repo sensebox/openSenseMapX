@@ -174,4 +174,49 @@ export class UiService {
   setMapLoading(mapLoading){
     this.uiStore.update( state => ({ ...state , mapLoading: mapLoading }));
   }
+  setShowDateModal(showDateModal){
+    this.uiStore.update( state => ({ ...state , showDateModal: showDateModal }));
+  }
+
+  updateLegend(steps){
+    this.uiStore.updateLegend(steps);
+  }
+
+  // hideBaseLayers() {
+  //   console.log("hide baselayer")
+  //   this.uiStore.update(state => (
+  //     {
+  //       ...state, baseLayer:
+  //       {
+  //         ...state.baseLayer,
+  //         layout:
+  //         {
+  //           ...state.baseLayer.layout,
+  //           visibility: 'none'
+  //         }
+  //       }
+  //     }));
+
+  //   this.uiStore.update(state => (
+  //     {
+  //       ...state, clusterLayers: [
+  //         {
+  //           ...state.clusterLayers[0], layout:
+  //           {
+  //             ...state.clusterLayers[0].layout,
+  //             visibility: 'none'
+  //           }
+  //         },
+  //         {
+  //           ...state.clusterLayers[1], layout:
+  //           {
+  //             ...state.clusterLayers[1].layout,
+  //             visibility: 'none'
+  //           }
+  //         }
+
+  //       ]
+  //     }
+  //   ));
+  // }
 }

@@ -1,6 +1,7 @@
 #vis-container {
 
     display: flex;
+    background: var(--background-primary-full);
 
     #phenos {
         flex-grow: 0;
