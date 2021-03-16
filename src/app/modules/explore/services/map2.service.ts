@@ -99,18 +99,16 @@ export class Map2Service {
 
     //once the map is laoded fetch the data (maybe move this elsewhere for faster load time)
     this.map.once('load', function(){
-      console.log("FETCHDATA")
       that.fetchData('/assets/data/world.json');
     })
-    this.map.on('zoomend', function(){
-      console.log("test");
-      console.log(
-        that.map.queryRenderedFeatures(
-          { layers: ['base-layer'] }
-          )
-      )
-      // that.fetchData('/assets/data/world.json');
-    })
+    // this.map.on('zoomend', function(){
+    //   console.log(
+    //     that.map.queryRenderedFeatures(
+    //       { layers: ['base-layer'] }
+    //       )
+    //   )
+    //   // that.fetchData('/assets/data/world.json');
+    // })
 
   }
 
@@ -125,7 +123,6 @@ export class Map2Service {
   //adds the map sources for cluster and no cluster layers
   addMapSources(){
  
-    console.log("ADDING SOURCES")
     let that = this;
 
     if(this.dataSub){
@@ -133,7 +130,6 @@ export class Map2Service {
     }
 
     this.dataSub = combineLatest(this.selectedPheno$, this.filters$, this.dateRangeData$).subscribe(res => {
-      console.log("CHANGE DATASUB")
       //TODO: SEE IF THIS IS NEEDED OR NOT
       // if(this.baseLayerSub){
       //   console.log("UNSUBSCRIBING")
@@ -146,8 +142,6 @@ export class Map2Service {
       // }
   
       if(res[0]){
-        console.log("HERE", res[0].title, res[1])
-        console.log(this.worldData.getValue());
         let filteredData = this.filterData(this.worldData.getValue(), res[0].title, res[1]);
         if(this.map.getLayer('boxes-cluster')){
           this.map.removeLayer('boxes-no-cluster')
@@ -159,18 +153,14 @@ export class Map2Service {
           this.map.removeSource('cluster-boxes');
         }
         if(!this.map.getSource('boxes')){
-          console.log("adding boxes source")
-          
           this.map.addSource('boxes', {
             'type': 'geojson',
             'data': filteredData,
           });
         } else {
           if(res[2]){
-            console.log("RES2")
             this.map.getSource('boxes').setData(res[2]);
           } else {
-            console.log("SET BACK DATA")
             this.map.getSource('boxes').setData(filteredData);
           }
         }
@@ -203,9 +193,7 @@ export class Map2Service {
 
   //subscribes to the layers in the uiservice.
   subscribeToLayers(){
-    console.log("SUBSCRIBING TO LAYERS")
     if(this.baseLayerSub){
-      console.log("UNSUBSCRIBING")
       this.baseLayerSub.unsubscribe();
       this.clusterLayerSub.unsubscribe();
       this.activeBoxSub.unsubscribe();
@@ -217,7 +205,6 @@ export class Map2Service {
     let that = this;
    
     this.baseLayerSub = this.baseLayer$.subscribe(res => {
-      console.log("NEW BASE LAYER NOW", res)
       this.baseLayerBehaviour$.next(res);
       that.drawBaseLayer(res);
     });
@@ -232,7 +219,6 @@ export class Map2Service {
     });
 
     this.compareToSub = this.compareTo$.pipe(withLatestFrom(this.theme$)).subscribe(res => {
-      console.log("ACTIVE SHIT", res);
       if(res.length > 0)
         this.updateActiveLayerCompare(res[0], res[1]);
     });
@@ -300,8 +286,6 @@ export class Map2Service {
   }
 
   initLayersWithoutSub(){
-    console.log("initblank: ", this.baseLayerBehaviour$.getValue())
-    console.log(this.baseLayerBehaviour$.getValue());
     this.drawBaseLayer(this.baseLayerBehaviour$.getValue())
   }
 
@@ -318,10 +302,8 @@ export class Map2Service {
 
       if (layer.filter) {
         this.map.setFilter(layer.id, layer.filter);
-        console.log(layer.filter);
       } else {
         this.map.setFilter(layer.id);
-        console.log(layer.id);
       }
     }
     if (!this.map.getLayer('number-layer')) {
@@ -828,15 +810,20 @@ export class Map2Service {
 
   filterData(data, property, filter){
     let filteredData = data["features"].filter(res => {
+      if(filter.ids){
+        if(filter.ids.indexOf(res['properties']['_id']) === -1){
+          return false;
+        }
+      }
       if(
         (filter.exposure === 'all' || filter.exposure === res['properties']['exposure']) &&
         (filter.model === null || filter.model === res.model) &&
         (filter.group === null || filter.group === res.group)
-    ){
-      // console.log("valid")
-    } else {
-      return;
-    }
+      ){
+        // console.log("valid")
+      } else {
+        return;
+      }
 
       if(res['properties']['sensors']['live'] && res['properties']['sensors']['live'][property]){
         return res;
@@ -850,7 +837,6 @@ export class Map2Service {
   setThemeDark(dateRange) {
 
     if(this.baseLayerSub){
-      console.log("UNSUBSCRIBING")
       this.baseLayerSub.unsubscribe();
       this.clusterLayerSub.unsubscribe();
       this.activeBoxSub.unsubscribe();
@@ -888,7 +874,6 @@ export class Map2Service {
     this.map.setStyle("mapbox://styles/mapbox/dark-v9");
 
     this.map.once('styledata', function() {
-      console.log("styleDataDone")
       setTimeout(() => {
         that.addMapSources();
         // that.initLayersWithoutSub();
@@ -905,7 +890,6 @@ export class Map2Service {
   setThemeLight(dateRange) {
 
     if(this.baseLayerSub){
-      console.log("UNSUBSCRIBING")
       this.baseLayerSub.unsubscribe();
       this.clusterLayerSub.unsubscribe();
       this.activeBoxSub.unsubscribe();
@@ -944,7 +928,6 @@ export class Map2Service {
     
 
     this.map.once('styledata', function() {
-      console.log("styleDataDone")
       setTimeout(() => {
         that.addMapSources();
         // that.initLayersWithoutSub();

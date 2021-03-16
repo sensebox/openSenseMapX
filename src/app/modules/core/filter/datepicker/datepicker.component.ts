@@ -19,6 +19,8 @@ export class DatepickerComponent implements OnInit {
   now = new Date();
   
   @Input() dateRange;
+  @Input() dateStamp;
+  @Input() activeTimeMode;
   @Input() showDateModal;
   @Output() dateChanged = new EventEmitter<any>();
   @Output() toggledDateModal = new EventEmitter<any>();

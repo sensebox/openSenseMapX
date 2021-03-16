@@ -9,7 +9,9 @@ export class UiQuery extends Query<UiState> {
   selectActiveSensorTypes$ = this.select(state => state.activeSensorTypes);
   selectSelectedPheno$ = this.select(state => state.selectedPheno);
   selectDateRange$ = this.select(state => state.dateRange);
+  selectDateStamp$ = this.select(state => state.dateStamp);
   selectDateRangeChart$ = this.select(state => state.dateRangeChart);
+  selectActiveTimeMode$ = this.select(state => state.activeTimeMode);
   selectSelectedDate$ = this.select(state => state.selectedDate);
   selectFilterVisible$ = this.select(state => state.fitlerVisible);
   selectSearchTerm$ = this.select(state => state.searchTerm);

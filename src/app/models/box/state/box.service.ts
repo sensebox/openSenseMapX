@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ID } from '@datorama/akita';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BoxStore } from './box.store';
 import { Box } from './box.model';
 import { tap, share } from 'rxjs/operators';
@@ -16,6 +16,8 @@ import { processBoxData, toGeoJson } from 'src/app/modules/explore/box/osem-line
 export class BoxService {
 
   popupBoxTimeout;
+  AUTH_API_URL = environment.api_url;
+
 
   constructor(
     private boxStore: BoxStore, 
@@ -68,7 +70,6 @@ export class BoxService {
     return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=${bboxString}&format=json&columns=boxId,lat,lon,boxName,exposure&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
       entities = entities.map(ent => {
         let { boxId, sensorId, boxName, exposure,lat, lon, ...noEnt} = ent;
-        console.log(ent);
         //TODO: find better place for vconverting to 2 decimal-diggits
         Object.keys(noEnt).forEach(key => {if(noEnt[key]) { noEnt[key] = Math.round( noEnt[key] * 1e2 ) / 1e2 } })
         return {
@@ -85,7 +86,6 @@ export class BoxService {
           }
         }
       })
-      console.log(entities);
       this.boxStore.setDateRangeData(toGeoJson(entities))
       // this.boxStore.upsertMany(entities);
 
@@ -120,12 +120,22 @@ export class BoxService {
     }));
   }
 
+  getMyBoxes(){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+
+    this.http.get(this.AUTH_API_URL + '/users/me/boxes', {headers: headers}).subscribe((res:any) => {
+      let ownNormalize = processBoxData(res.data.boxes);
+      this.boxStore.upsertMany(ownNormalize[0]);
+      this.sensorStore.upsertMany(ownNormalize[1]);
+    });
+  }
+
   add(box: Box) {
     this.boxStore.add(box);
   }
 
   setActive(id) {
-    console.log("set active", id)
     if(id)
       this.getSingleBox(id).subscribe();
     this.boxStore.setActive(id);

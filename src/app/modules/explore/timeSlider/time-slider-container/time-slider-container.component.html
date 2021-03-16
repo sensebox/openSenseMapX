@@ -6,6 +6,8 @@
     [intervalPlaying]="intervalPlaying"
     [dataFetched]="dataFetched$ | async"
     [loadingBoxes]="loadingBoxes$ | async"
+    [dateStamp]="dateStamp$ | async"
+    [activeTimeMode]="activeTimeMode$ | async"
     (dateSelected)="dateSelected($event)"
     (loadedData)="loadData($event)"
     (backwardPressed)="backward()"

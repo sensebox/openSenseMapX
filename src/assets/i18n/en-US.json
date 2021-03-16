@@ -5,6 +5,22 @@
     "SHOW_ALL": "show all",
     "BOXES": "Boxes",
 
+    "LIVE": "Live",
+    "TIMESTAMP": "Timestamp",
+    "TIMERANGE": "Timerange",
+    "LIVE_DATA_TEXT": "Show live data on the map. This data is updated every 5 minutes. Click on a station to see its latest measurements.",
+    "TIMESTAMP_TEXT": "Show an historic moment in time on the map.",
+    "TIMERANGE_TEXT": "Explore the development of a phenomena during a specific timerange.",
+
+    "CHOOSE_TIMERANGE_PHENO_BOUNDINGBOX": "Choose a phenomenon and zoom the map to the area you would like to examine.",
+    "FROM_TO": "From - To",
+    "PHENOMENON": "Phenomenon",
+    "BOXES_IN_SELECTION": "# Boxes in selection",
+    "DATE": "Date",
+
+    "SHOW": "Show",
+    "LOAD_DATA": "Load data",
+
     "CHOOSE_DATERANGE": "Choose date range",
     "REMOVE_DATERANGE": "Remove date range",
     "FILTER": "Filter",
@@ -25,6 +41,7 @@
     "COMPARE_MODUS_END": "End Compare-Mode",
 
     "LEGEND": "Legende",
+    "EDIT_LEGEND": "Edit legend",
     "SCENARIOS": "Scenarios",
 
     "BETA_TEXT": "This site is still development!! Proceed with care ;).",

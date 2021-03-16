@@ -24,6 +24,8 @@ export class TimeSliderContainerComponent implements OnInit {
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
+  activeTimeMode$ = this.uiQuery.selectActiveTimeMode$;
+  dateStamp$ = this.uiQuery.selectDateStamp$;
   loadingBoxes$ = this.boxQuery.selectFetchingData$;
   boxes$ = this.boxQuery.selectBoxes();
   dataFetched$ = this.boxQuery.selectDataFetched$;
@@ -114,6 +116,8 @@ export class TimeSliderContainerComponent implements OnInit {
     this.uiService.updateDateRange(null);
     this.boxService.setDateRangeData(null);
     this.uiService.setSelectedDate(null);
+    console.log("HALLLOO HERER LIVE")
+    this.uiService.updateActiveTimeMode('live');
     // this.mapService.reactivateBaseLayer();
     this.router.navigate(
       [], 

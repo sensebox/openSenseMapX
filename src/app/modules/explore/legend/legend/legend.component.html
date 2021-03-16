@@ -2,7 +2,7 @@
     <!-- <div class="osem-minimize-button" title="{{'LEGEND' | translate}}" (click)="toggleLegend()">-</div> -->
     <!-- <h3>{{selectedPheno.title}}</h3> -->
     <div id="legend-container">
-        <a (click)="editLegend()">EDIT</a>
+        <a class="edit-button" title="{{'EDIT_LEGEND' | translate}}" (click)="editLegend()"><i class="fa fa-edit"></i></a>
         <div id="legend-labels">
             <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
                 <ng-container *ngIf=" i%2">

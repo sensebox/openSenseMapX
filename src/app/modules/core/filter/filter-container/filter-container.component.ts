@@ -22,6 +22,8 @@ export class FilterContainerComponent implements OnInit {
 
   showDateModal$ = this.uiQuery.selectShowDateModal$;
   selectedDateRange$ = this.uiQuery.selectDateRange$;
+  selectedDateStamp$ = this.uiQuery.selectDateStamp$;
+  selectActiveTimeMode$ = this.uiQuery.selectActiveTimeMode$
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
   searchTerm$ = this.uiQuery.selectSearchTerm$;
@@ -80,6 +82,7 @@ export class FilterContainerComponent implements OnInit {
 
   changeDateRange(range){
     this.uiService.updateDateRange(range);
+    // this.uiService.updateActiveTimeMode("timerange");
     this.sensorService.resetHasData();
   }
 

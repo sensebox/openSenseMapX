@@ -1,5 +1,7 @@
 <button [routerLink]="['../newbox']" queryParamsHandling="merge" class="button is-primary">{{'NEW' | translate}}</button>
 
+<button (click)="showMyBoxesOnMap()" class="button is-primary">{{'SHOW_MY_BOXES_ON_MAP' | translate}}</button>
+
 <ul>
   <li *ngFor="let box of boxes" class="my-2">
     <div class="card">

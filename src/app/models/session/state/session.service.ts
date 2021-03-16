@@ -24,7 +24,6 @@ export class SessionService {
 
     this.sessionStore.setLoading(true);
     this.http.post(`${environment.api_url}/users/sign-in`, creds).subscribe((res:any) => {
-      console.log("LOGIN")  
       window.localStorage.setItem('sb_accesstoken', res.token);
         window.localStorage.setItem('sb_refreshtoken', res.refreshToken);
         this.sessionStore.update(state => {return {
@@ -70,7 +69,6 @@ export class SessionService {
   }
 
   recoverSession(token){
-    console.log("RECOVERING")
     this.http.post(this.AUTH_API_URL + '/users/refresh-auth', {token: token}).subscribe((res:any) => {
       
       this.sessionStore.update(state => {
@@ -92,7 +90,6 @@ export class SessionService {
 
     this.http.get(this.AUTH_API_URL + '/users/me', {headers: headers}).subscribe((res:any) => {
       
-      console.log(res);
       this.sessionStore.update(state => {
 
         return {details: res.data}
@@ -103,5 +100,4 @@ export class SessionService {
     });
 
   }
-
 }

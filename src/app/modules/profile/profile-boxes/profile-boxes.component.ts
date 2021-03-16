@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { UiService } from 'src/app/models/ui/state/ui.service';
 
 @Component({
   selector: 'osem-profile-boxes',
@@ -9,9 +10,13 @@ export class ProfileBoxesComponent implements OnInit {
 
   @Input() boxes;
 
-  constructor() { }
+  constructor(private uiService: UiService) { }
 
   ngOnInit() {
+  }
+
+  showMyBoxesOnMap() {
+    this.uiService.setFilterIds(this.boxes.map(box => box._id));
   }
 
 }

@@ -14,6 +14,7 @@ export class DatetimeModalContainerComponent implements OnInit {
 
   showModal$ = this.uiQuery.selectShowDateModal$;
   selectedDateRange$ = this.uiQuery.selectDateRange$;
+  selectedDateStamp$ = this.uiQuery.selectDateStamp$;
   active = 'live';
 
   constructor(
@@ -36,19 +37,28 @@ export class DatetimeModalContainerComponent implements OnInit {
 
   changeDateRange(range){
     this.boxService.setDataFetched(false);
+    this.uiService.updateActiveTimeMode('timerange');
     this.uiService.updateDateRange(range);
     this.selectDateRange(range)
     // this.sensorService.resetHasData();
   }
 
   showLiveData(){
-    this.removeDateRange();
+    this.uiService.updateActiveTimeMode('live');
+    this.removeDates();
   }
 
-  removeDateRange(){
+  changeDateStamp(date){
+    this.uiService.updateActiveTimeMode('timestamp');
+    this.boxService.setDataFetched(false);
+    this.uiService.updateDateStamp(date);
+  }
+
+  removeDates(){
     const { fromDate, toDate, ...newQueryParams} = this.activatedRoute.snapshot.queryParams;
     // this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
     this.uiService.updateDateRange(null);
+    this.uiService.updateDateStamp(null);
     this.boxService.setDateRangeData(null);
     this.uiService.setSelectedDate(null);
     // this.mapService.reactivateBaseLayer();

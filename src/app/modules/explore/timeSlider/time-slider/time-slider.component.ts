@@ -19,6 +19,8 @@ export class TimeSliderComponent implements OnInit {
   @Input() intervalPlaying; 
   @Input() dataFetched;
   @Input() loadingBoxes;
+  @Input() activeTimeMode;
+  @Input() dateStamp;
   @Output() loadedData = new EventEmitter();
   @Output() dateSelected = new EventEmitter();
   @Output() dateRangeRemoved = new EventEmitter();
@@ -57,7 +59,11 @@ export class TimeSliderComponent implements OnInit {
   }
 
   loadData(){
-    this.loadedData.emit([this.selectedPheno.title, this.dateRange]);
+    if(this.activeTimeMode === 'timerange'){
+      this.loadedData.emit([this.selectedPheno.title, this.dateRange]);
+    } else {
+      this.loadedData.emit([this.selectedPheno.title, [this.dateStamp, this.dateStamp]])
+    }
   }
 
 }

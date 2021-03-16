@@ -13,6 +13,7 @@ export class DatetimeModalComponent implements OnInit {
   @Output() changedActive = new EventEmitter();
   @Output() changedDateRange = new EventEmitter();
   @Output() showLiveDataEvent = new EventEmitter();
+  @Output() changedDateStamp = new EventEmitter();
   @Output() closed = new EventEmitter();
   @Input() active = 'live';
   @Input() set dateRange(value){
@@ -28,6 +29,7 @@ export class DatetimeModalComponent implements OnInit {
 
   dateRangeStart;
   dateRangeEnd;
+  dateStamp;
 
 
   constructor(public translateService: TranslateService) { }
@@ -53,6 +55,11 @@ export class DatetimeModalComponent implements OnInit {
 
   showLiveData(){
     this.showLiveDataEvent.emit();
+    this.closed.emit();
+  }
+
+  updateDateStamp(date){
+    this.changedDateStamp.emit(date);
     this.closed.emit();
   }
 

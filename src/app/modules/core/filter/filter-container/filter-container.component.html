@@ -12,6 +12,8 @@
         ></osem-search>
         <osem-datepicker 
             [dateRange]="selectedDateRange$ | async"
+            [dateStamp]="selectedDateStamp$ | async"
+            [activeTimeMode]="selectActiveTimeMode$ | async"
             [showDateModal]="showDateModal$ | async"
             (dateChanged)="changeDateRange($event)"
             (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>

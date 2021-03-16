@@ -4,13 +4,16 @@ import { StoreConfig, Store } from '@datorama/akita';
 import { ColorHelper } from '@swimlane/ngx-charts';
 import { clusterLayerSolo, clusterLayer } from './layers';
 import { Filter } from '../../filter/filter.model';
+import { state } from '@angular/animations';
 
 export interface UiState {
   colors: ColorHelper,
   activeSensorTypes: any[],
   selectedPheno: any,
   layers: any[],
+  dateStamp: Date,
   dateRange: Array<Date>,
+  activeTimeMode: string,
   dateRangeChart: Array<Date>,
   selectedDate: Date,
   language: string,
@@ -37,7 +40,9 @@ export function createInitialState(): UiState {
     colors: null,
     activeSensorTypes: [],
     selectedPheno: null,
+    dateStamp: null,
     dateRange: null,
+    activeTimeMode: "live",
     dateRangeChart: [new Date("2020-03-27T13:47:54.186Z"), new Date("2020-03-27T14:47:54.186Z")],
     selectedDate: null,
     language: 'de-DE',
@@ -103,7 +108,8 @@ export function createInitialState(): UiState {
     filters: {
       exposure: 'outdoor',
       group: null,
-      model: null
+      model: null,
+      ids: null
     },
     reloadMapData: false,
     mapLoading: false,
@@ -178,6 +184,10 @@ export class UiStore extends Store<UiState> {
   }
   setLayers(layers){
     this.update( state => ( { ...state , layers: layers }));
+  }
+
+  updateDateStamp(date: Date){
+    this.update( stae => ({...state, dateStamp: date}));
   }
 
   updateDateRange(dateRange: Array<Date>) {

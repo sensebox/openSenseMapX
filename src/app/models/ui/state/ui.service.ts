@@ -55,6 +55,9 @@ export class UiService {
   }
 
   // DATE
+  updateDateStamp(date) {
+    this.uiStore.updateDateStamp(date);
+  }
   updateDateRange(dateRange) {
     this.uiStore.updateDateRange(dateRange);
   }
@@ -75,6 +78,9 @@ export class UiService {
   }
   setSelectedDate(date){
     this.uiStore.updateSelectedDate(date);
+  }
+  updateActiveTimeMode(mode){
+    this.uiStore.update( state => ({ ...state , activeTimeMode: mode }));
   }
 
   setLanguage(lang){
@@ -180,6 +186,10 @@ export class UiService {
 
   updateLegend(steps){
     this.uiStore.updateLegend(steps);
+  }
+
+  setFilterIds(ids){
+    this.uiStore.update( state => ({ ...state, filters: {...state.filters, ids: ids}}))
   }
 
   // hideBaseLayers() {
