@@ -353,3 +353,12 @@ a {
 .osem-overflow-auto {
     overflow: auto;
 }
+
+.osem-clickable-icon {
+    opacity: 0.7;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+    }
+}
