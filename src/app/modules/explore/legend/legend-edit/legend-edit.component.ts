@@ -39,7 +39,6 @@ export class LegendEditComponent implements OnInit {
   }
 
   updateLegend(){
-    console.log(this.legendForm.getRawValue().legendSteps)
     let flatSteps = [];
     this.legendForm.getRawValue().legendSteps.forEach(step => {
       flatSteps.push(step.value)

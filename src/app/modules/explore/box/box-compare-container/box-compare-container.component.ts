@@ -55,7 +55,6 @@ export class BoxCompareContainerComponent implements OnInit {
     this.boxService.setCompareModus(true);
 
     this.routeSub = this.activatedRoute.queryParams.subscribe(res => {
-      console.log(res);
       if(res.id){
         if(Array.isArray(res.id)){
           this.boxService.setCompareTo(res.id);
@@ -86,7 +85,6 @@ export class BoxCompareContainerComponent implements OnInit {
           // TODO: THIS FIRES MANY TIMES for some reason when switching between dark and light mode and closing compare mode if not checking for length
           if(res[0] && res[0].length > 0 && res[1].length > 0){
             let sensorsToActive = res[0].map(box => {
-              console.log(box)
               return box.sensors.filter(sensor => sensor.title === res[1])
             })
             sensorsToActive = [].concat(...sensorsToActive).map(sensor => sensor._id);

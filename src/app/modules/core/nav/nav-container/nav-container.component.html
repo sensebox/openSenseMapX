@@ -3,7 +3,9 @@
     [language]="language$ | async"
     [theme]="theme$ | async"
     [user]="user$ | async"
+    [clustering]="clustering$ | async"
     (themeToggled)="toggleTheme($event)"
     (languageToggled)="setLanguage($event)"
     (settingsToggled)="toggleSettings()"
-    ></osem-nav-right>
+    (clusteringToggled)="toggleClustering()"
+></osem-nav-right>

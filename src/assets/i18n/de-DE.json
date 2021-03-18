@@ -4,6 +4,7 @@
     "TO": "Bis",
     "SHOW_ALL": "alle anzeigen",
     "BOXES": "Boxen",
+    "CHOOSE_A_PHENO": "Wähle ein Phänomen!",
 
     "LIVE": "Live",
     "TIMESTAMP": "Zeitpunkt",
@@ -33,8 +34,23 @@
     "ALL": "alle",
 
     "SETTINGS": "Einstellungen",
+    "PAGE_SETTINGS": "Seiten-Einstellungen",
+    "MAP_SETTINGS": "Karten-Einstellungen",
     "THEME": "Theme",
     "LANGUAGE": "Sprache",
+
+    "PROFILE": "Profil",
+    "LOGOUT": "Logout",
+    "IMPRINT": "Impressum",
+    "CONTACT": "Kontakt",
+    "PRIVACY": "Datenschutz",
+
+    "MY_BOXES": "Meine Boxen",
+    "ADD_BOX": "Neue Box",
+    "MY_VIS": "Gespeicherte Karten",
+    "MY_ACCOUNT": "Mein Account",
+
+    "CLUSTERING":"Clustering",
 
     "COMPARE_MODUS_HEADER": "Vergleichs-Modus",
     "COMPARE_MODUS_HELP": "Zum vergleichen auf eine Station auf der Karte klicken.",
@@ -42,6 +58,8 @@
 
     "LEGEND": "Legend",
     "EDIT_LEGEND": "Legende editieren",
+    "INFO": "Mehr Informationen",
+    "SAVE_AND_SHARE": "Speichern und teilen",
     "SCENARIOS": "Szenarien",
 
     "BETA_TEXT": "Diese Seite ist noch in der Entwicklung!! Vorsicht ;).",
@@ -50,8 +68,8 @@
     "NO_RECENT_MEASUREMENT": "Keine aktuellen Messungen",
     "COMPARE_TO": "Mit anderer Box vergleichen",
 
-    "INTRO_HEADLINE": "Willkommen auf der Datenanalyse Platform der openSenseMap",
-    "INTRO_TEXT_1": "Dies ist eine Beta Version! Zurzeit sind die Queries auf Berlin beschränkt und es gibt Daten bis zum 07.02.2020.",
+    "INTRO_HEADLINE": "openSenseMap BETA",
+    "INTRO_TEXT_1": "Dies ist eine Beta Version der neuen openSenseMap!",
     "INTRO_TEXT_2": "Das Ziel dieser Platform ist es die Daten die auf der openSenseMap gesammelt werden leichter zugänglich und analysierbar zu machen.",
 
     "FEATURE1": "Live Karten für beliebte Phänomene",

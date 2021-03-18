@@ -38,7 +38,7 @@
         justify-content: space-between;
         background: var(--background-primary-full);
     }
-    width: 281px;
+    // width: 281px;
     
     .nav-item-container {
         display: flex;
@@ -48,9 +48,13 @@
         background: var(--background-secondary);
         color: var(--text-color-secondary);
         line-height: 38px;
+        min-width: 42px;
         cursor: pointer;
         padding: 0.2em 0.3em;
         font-weight: bold;
+        justify-content: center;
+        display: flex;
+        align-items: center;
     }
 }
 
@@ -58,7 +62,7 @@
     position: absolute;
     background: var(--background-primary-full);
     right: 0;
-    width: 281px;
+    width: 100%;
     z-index: -1;
     box-sizing: border-box;
     margin-top: -3.5em;
@@ -70,6 +74,10 @@
     }
     h3 {
         margin: 0.7em 0 0.1em 0;
+    }
+
+    .option-container {
+        padding-left: 0.6em;
     }
     .options {
         padding-left: 0.2em;

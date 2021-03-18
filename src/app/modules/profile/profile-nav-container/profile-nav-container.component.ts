@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from 'src/app/models/session/state/session.service';
 
 @Component({
   selector: 'osem-profile-nav-container',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileNavContainerComponent implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private sessionService: SessionService) { }
 
   ngOnInit() {
   }
@@ -17,6 +18,9 @@ export class ProfileNavContainerComponent implements OnInit {
     this.router.navigate(
       ['profile', 'boxes']
     );
-    
+  }
+
+  logout(){
+    this.sessionService.logout();
   }
 }

@@ -28,15 +28,7 @@ import { ProfileBoxCreateSensorsComponent } from './profile-box-create-sensors/p
     ProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
-
+    SharedModule
   ]
 })
 export class ProfileModule { }

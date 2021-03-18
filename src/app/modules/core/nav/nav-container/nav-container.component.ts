@@ -17,6 +17,7 @@ export class NavContainerComponent implements OnInit {
   language$ = this.uiQuery.selectLanguage$;
   theme$ = this.uiQuery.selectTheme$;
   user$ = this.SessionQuery.user$;
+  clustering$ = this.uiQuery.selectClustering$;
 
   constructor(
     private themeService: ThemeService,
@@ -38,6 +39,9 @@ export class NavContainerComponent implements OnInit {
   }
   toggleSettings(){
     this.settings = !this.settings;
+  }
+  toggleClustering(){
+    this.uiService.toggleClustering();
   }
 
 }

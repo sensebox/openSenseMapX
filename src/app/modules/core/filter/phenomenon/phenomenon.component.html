@@ -24,20 +24,27 @@
 <div id="phenomen-selector">
     <div class="">
         <div class="top-bar">
-            <div class="pheno-info">
-                <div class="pheno-name" *ngIf="selectedPheno">
+            <div class="pheno-info" *ngIf="selectedPheno">
+                <div class="pheno-name">
                     {{selectedPheno.title}} <span class="normal">({{selectedPheno.unit}})</span>
                 </div>
                 <!-- <div class="unit">
                     <div class="unit-symbol">
                     </div>
                 </div> -->
-                <div class="info" (click)="showInfo(selectedPheno.title)">
-                    <i class="fa fa-info"></i><br>
+                <div class="info">
+                    <span class="icon" title="{{'INFO' | translate}}" (click)="showInfo(selectedPheno.title)"><i class="fa fa-info"></i></span>
+                    <span>|</span>
+                    <span class="icon" title="{{'EDIT_LEGEND' | translate}}" (click)="editLegend()"><i class="fa fa-edit"></i></span>
+                    <span class="icon" title="{{'SAVE_AND_SHARE' | translate}}"><i class="fa fa-save"></i></span>
+
                 </div>
                     <!-- <div class="top-score">
                         <a (click)="openVis(selectedPheno.title)">{{'SCENARIOS' | translate}}</a>
                     </div> -->
+            </div>
+            <div class="pheno-info" *ngIf="!selectedPheno">
+                <p class="has-text-danger has-text-weight-bold">{{'CHOOSE_A_PHENO' | translate}}</p>
             </div>
             <div class="control pheno-search">
                 <p class="control has-icons-left has-icons-right">

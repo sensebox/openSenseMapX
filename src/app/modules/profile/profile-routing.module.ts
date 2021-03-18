@@ -10,7 +10,7 @@ import { ProfileBoxCreateSensorsContainerComponent } from './profile-box-create-
 
 
 const routes: Routes = [
-  {path: '', component: ProfileWrapperComponent, data: {name: 'Übersicht'}, children: [
+  {path: '', component: ProfileWrapperComponent, data: {name: 'Profil'}, children: [
     {path: 'boxes', component: ProfileBoxesContainerComponent, data: {name: 'Boxes'}},
     {path: 'newbox', component: ProfileBoxCreateContainerComponent, data: {name: 'New Box'}, children: [
       {path: '', redirectTo: 'device'},

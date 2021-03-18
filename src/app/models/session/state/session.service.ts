@@ -32,7 +32,7 @@ export class SessionService {
             user: res.data.user }});
         this.sessionStore.setLoading(false);
         this.getUserDetails();
-        this.router.navigate([{ outlets: { sidebar: [ 'dashboard'] }}]);
+        this.router.navigate([{ outlets: { sidebar: [ 'm' ] }}]);
         
 
     }, err => {
@@ -44,6 +44,7 @@ export class SessionService {
   logout(){
     window.localStorage.removeItem('sb_accesstoken');
     window.localStorage.removeItem('sb_refreshtoken');
+    this.router.navigate([{ outlets: { sidebar: null }}]);
     this.sessionStore.logout()
   }
 

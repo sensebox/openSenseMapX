@@ -131,8 +131,6 @@ export class BoxQuery extends QueryEntity<BoxState> {
 
   selectManyWithSensors(boxIds){
     boxIds = Array.isArray(boxIds) ? boxIds : [boxIds];
-    console.log(boxIds);
-    console.log(this.sensorQuery.selectAll({ asObject: true }));
     return combineQueries([
       this.selectMany(boxIds),
       this.sensorQuery.selectAll({ asObject: true })])

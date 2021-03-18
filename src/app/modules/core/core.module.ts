@@ -36,9 +36,15 @@ import { FilterContainerValuesComponent } from './filter/filter-container-values
 import { FilterValuesComponent } from './filter/filter-values/filter-values.component';
 import { DatetimeModalContainerComponent } from './filter/datetime-modal-container/datetime-modal-container.component';
 import { DatetimeModalComponent } from './filter/datetime-modal/datetime-modal.component';
+import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
+import { SidebarMenuItemsComponent } from './sidebar-menu-items/sidebar-menu-items.component';
+import { AboutComponent } from './about/about.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { SidebarBreadcrumbsComponent } from './sidebar-breadcrumbs/sidebar-breadcrumbs.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, PhenoInfoComponent, ModalComponent, VisContainerComponent, VisComponent, LoginContainerComponent, LoginComponent, RegisterContainerComponent, RegisterComponent, DashboardComponent, DashboardContainerComponent, MyBoxesContainerComponent, MyBoxesComponent, ProfileContainerComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, PhenoInfoComponent, ModalComponent, VisContainerComponent, VisComponent, LoginContainerComponent, LoginComponent, RegisterContainerComponent, RegisterComponent, DashboardComponent, DashboardContainerComponent, MyBoxesContainerComponent, MyBoxesComponent, ProfileContainerComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent],
   imports: [
     CommonModule,
     RouterModule,

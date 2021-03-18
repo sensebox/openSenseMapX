@@ -22,13 +22,10 @@ export class LegendContainerComponent implements OnInit {
         res.layer.paint['circle-color'].forEach((color, index) => {
           if(index > 3 && (index % 2) != 1){
             this.gradient += ',' + color ;
-
           }
         })
-        // this.gradient = this.gradient.slice(0, -1);
       }
     })
-
   }
 
   toggleLegend(){

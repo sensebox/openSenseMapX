@@ -245,4 +245,14 @@ export class PhenomenonComponent implements OnInit {
       }
     ); 
   }
+  
+  editLegend() {
+    this.router.navigate(
+      [{outlets: {modal: 'edit-legend'}}],
+      {
+        relativeTo: this.activatedRoute,
+        queryParamsHandling: 'merge'
+      }
+    ); 
+  }
 }

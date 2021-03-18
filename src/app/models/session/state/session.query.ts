@@ -21,7 +21,6 @@ export class SessionQuery extends Query<SessionState> {
 
   selectMyBoxes(){
     return this.select(state => (state.details ? state.details.me : false)).pipe(flatMap(res => {
-      console.log(res);
       if(res){
         return this.boxQuery.selectManyWithSensors(res.boxes);
       }
