@@ -140,7 +140,6 @@ export class Map2Service {
       //   this.clusteringSub.unsubscribe();
       //   this.compareModusSub.unsubscribe();
       // }
-  
       if(res[0]){
         let filteredData = this.filterData(this.worldData.getValue(), res[0].title, res[1]);
         if(this.map.getLayer('boxes-cluster')){

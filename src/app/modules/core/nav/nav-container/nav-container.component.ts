@@ -16,7 +16,7 @@ export class NavContainerComponent implements OnInit {
 
   language$ = this.uiQuery.selectLanguage$;
   theme$ = this.uiQuery.selectTheme$;
-  user$ = this.SessionQuery.user$;
+  user$ = this.sessionQuery.user$;
   clustering$ = this.uiQuery.selectClustering$;
 
   constructor(
@@ -24,7 +24,7 @@ export class NavContainerComponent implements OnInit {
     private translate: TranslateService,
     private uiService: UiService,
     private uiQuery: UiQuery,
-    private SessionQuery: SessionQuery,
+    private sessionQuery: SessionQuery,
     ) { }
 
   ngOnInit() {

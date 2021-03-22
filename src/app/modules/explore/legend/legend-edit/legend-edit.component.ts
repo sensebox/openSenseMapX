@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'osem-legend-edit',
@@ -11,6 +11,7 @@ export class LegendEditComponent implements OnInit {
 
 
   // legendSteps = new FormArray([]);
+  title = "";
 
   legendForm = this.fb.group({
     legendSteps: new FormArray([]),
@@ -18,16 +19,30 @@ export class LegendEditComponent implements OnInit {
 
   @Input() set selectedPheno(pheno){
     if(pheno && pheno.layer.paint['circle-color']){
+      this.title = pheno.title;
       this.legendForm.controls.legendSteps = new FormArray([])
       let control = <FormArray>this.legendForm.controls.legendSteps;
+      let prevControl = undefined;
       pheno.layer.paint['circle-color'].forEach((item, index) => {
         if(index > 2 && index % 2){
-          control.push(new FormGroup({
-            value: new FormControl(item),
+          let newCont = new FormGroup({
+            value: new FormControl(item, [this.greaterThan(prevControl)]),
             color: new FormControl(pheno.layer.paint['circle-color'][index+1])
-          }))
+          })
+          control.push(newCont)
+          prevControl = newCont;
         }
       })
+      // console.log("CONTROL",control);
+      // control.controls.forEach((group:any, index) => {
+      //   // console.log(group.get("value"));
+      //   // console.log(index);selectedPheno
+      //   if(index > 0){
+      //     console.log("GROUPVALUE",group.get("value"))
+      //     group.get['value'].setValidators(this.greaterThan('value'))
+      //   }
+
+      // })
     }
   };
 
@@ -36,6 +51,11 @@ export class LegendEditComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+  }
+
+  anyFieldUpdated(){
+    //TODO: CHECK HOW THIS WORKS FOR FORMGROUPS
+    this.legendForm.markAllAsTouched();
   }
 
   updateLegend(){
@@ -47,7 +67,7 @@ export class LegendEditComponent implements OnInit {
     this.updatedLegend.emit(flatSteps);
   }
 
-  addGroupedStep(){
+  addLegendStep(){
     let control = <FormArray>this.legendForm.controls.legendSteps;
     control.push(new FormGroup({
       value: new FormControl(""),
@@ -55,7 +75,7 @@ export class LegendEditComponent implements OnInit {
     }))
   }
 
-  removeGroupedStep(i){
+  removeLegendStep(i){
     let control = <FormArray>this.legendForm.controls.legendSteps;
     control.removeAt(i);
   }
@@ -64,4 +84,17 @@ export class LegendEditComponent implements OnInit {
     return <FormArray>this.legendForm.controls.legendSteps;
   }
 
+  greaterThan(oldControl): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      var fieldToCompare;
+      if(oldControl){
+        fieldToCompare = oldControl.get('value').value;
+      } else {
+        fieldToCompare = -9999999;
+      }
+      // console.log("OLD", oldControl)
+      const isLessThan = Number(fieldToCompare) > Number(control.value);
+      return isLessThan ? {'lessThan': {value: control.value}} : null;
+    }
+  }
 }

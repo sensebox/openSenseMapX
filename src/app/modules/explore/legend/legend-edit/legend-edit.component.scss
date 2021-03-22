@@ -1,7 +1,38 @@
 #legend-edit-container {
     background: var(--background-primary-full);
+    padding: 1em;
+
+    .osem-flex-container {
+        display: flex;
+    }
+    .legend-form {
+        width: 50%;
+
+        input {
+            padding-left: 3em !important;
+        }
+    }
+    .legend-preview {
+        width: 50%;
+        padding: 0em 3em;
+        max-height: 400px;
+    }
 }
 
 .color-icon {
     pointer-events: all !important;
+}
+
+
+.notification {
+    background: none;
+    padding: 0;
+}
+
+.is-medium.delete {
+    z-index: 10;
+}
+
+#legend-wrapper {
+    height: 250px;
 }

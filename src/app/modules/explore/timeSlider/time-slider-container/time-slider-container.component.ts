@@ -116,7 +116,6 @@ export class TimeSliderContainerComponent implements OnInit {
     this.uiService.updateDateRange(null);
     this.boxService.setDateRangeData(null);
     this.uiService.setSelectedDate(null);
-    console.log("HALLLOO HERER LIVE")
     this.uiService.updateActiveTimeMode('live');
     // this.mapService.reactivateBaseLayer();
     this.router.navigate(

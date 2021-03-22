@@ -23,6 +23,24 @@
             <span>{{'ALL' | translate}}</span>
         </div>
     </div>
+
+    <div class="options" *ngIf="user">
+        <h3>{{'BOXES' | translate}}</h3>
+        <div (click)="myBoxes()" title="{{'OUTDOOR' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="filters.ids === null" class="far fa-square not-checked"></i>
+                <i *ngIf="filters.ids != null" class="far fa-check-square checked"></i>
+            </div>
+            <span>{{'MY_BOXES' | translate}}</span>
+        </div>
+        <div (click)="allBoxes()" title="{{'ALL' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="filters.ids != null " class="far fa-square not-checked"></i>
+                <i *ngIf="filters.ids === null" class="far fa-check-square checked"></i>
+            </div>
+            <span>{{'ALL_BOXES' | translate}}</span>
+        </div>
+    </div>
    
     <!-- <div class="options">
         <h3>{{'MODEL' | translate}}</h3>

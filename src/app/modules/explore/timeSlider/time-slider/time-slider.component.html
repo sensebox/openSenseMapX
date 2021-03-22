@@ -1,6 +1,7 @@
 <div id="timeslider-container" 
     class="osem-box-shadow-basic" 
     *ngIf="(dateRange || dateStamp) && selectedPheno && activeTimeMode != 'live'" 
+    [hidden]="!filterVisible && activeTimeMode === 'timestamp'"
     [@slideInOutHorizontal]="dateRange"
     [@slideInOutHorizontalBoolean]="filterVisible"
 >   
@@ -57,9 +58,9 @@
         </div>
 
     </div>
-    <div *ngIf="dataFetched">
+    <div *ngIf="dataFetched" class="date-container">
         <div *ngIf="selectedDate; else noDate" class="date">
-            {{selectedDate | date:'medium' : '' : translateService.currentLang}}
+            <span *ngIf="filterVisible">{{selectedDate | date:'medium' : '' : translateService.currentLang}}</span>
             <!-- <div class="osem-close-button" (click)="removeDateRange()"x</div> -->
         </div>
         <ng-template #noDate>Loading...</ng-template>
@@ -82,6 +83,8 @@
                 <div *ngIf="!intervalPlaying" class="control-item" (click)="play()"><i class="fa fa-play"></i></div>
                 <div *ngIf="intervalPlaying" class="control-item" (click)="pause()"><i class="fa fa-pause"></i></div>
                 <div class="control-item" (click)="forward()"><i class="fa fa-forward"></i></div>
+                |
+                <div class="control-item" (click)="removeDateRange()" title="{{'BACK_TO_LIVE' | translate}}"><i class="fa fa-times"></i></div>
             </div>
         </ng-container> 
     </div>

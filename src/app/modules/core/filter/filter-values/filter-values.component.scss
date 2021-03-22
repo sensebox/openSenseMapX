@@ -1,4 +1,17 @@
+@import '../../../../../styles/variables.scss';
+
+#filter-values {
+    position: relative;
+    @media screen and(max-width: $secondBreak){
+        top: $headerHeight;
+    }
+}
+
 .osem-icon-container {
     padding: 0 0.4em;
     width: auto;
+}
+
+.osem-close-text-no-pos {
+    padding: 0 0.2em;
 }

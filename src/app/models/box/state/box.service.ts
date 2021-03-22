@@ -99,6 +99,7 @@ export class BoxService {
       //TODO: find a better place for this + fix calling twice :o
       this.uiService.setSelectedDate(dateRange[0]);
       this.uiService.setSelectedDate(dateRange[0]);
+      this.uiService.setFilterVisible(false);
       // console.log(toGeoJson(this.boxStore.getValue()))
       // this.uiService.setReloadMapData(true);
     }), share());

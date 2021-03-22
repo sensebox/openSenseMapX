@@ -14,6 +14,7 @@ export class FilterSwitcherComponent implements OnInit {
   @Input() selectedPheno;
   @Input() minimizedBoolean; 
   @Input() change;
+  @Input() user;
 
   @Input() filters;
 

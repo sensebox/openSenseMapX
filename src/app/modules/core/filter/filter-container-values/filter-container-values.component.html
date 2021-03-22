@@ -1,5 +1,7 @@
 <osem-filter-values 
     [selectedPheno]="selectedPheno$ | async"
     [selectedDate]="selectedDate$ | async"
+    [timeMode]="timeMode$ | async"
     [filter]="filter$ | async"
+    (live)="backToLive()"
 ></osem-filter-values>

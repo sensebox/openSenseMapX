@@ -22,28 +22,32 @@
 </div>
 
 
-<div id="settings" class="osem-box-shadow-basic osem-padding-small" *ngIf="settings" [@slideInOutMenu]>
+<div id="settings" class="osem-box-shadow-basic" *ngIf="settings" [@slideInOutMenu]>
     
-    <h2 class="underline">{{'PAGE_SETTINGS' | translate}}</h2>
-    <div class="option-container">
-        <h3>{{'THEME' | translate}}</h3>
-        <div class="options" (click)="toggleTheme(theme)">
-            <div class="inner">
-                <span [class.active]="theme === 'light'">light</span> /
-                <span [class.active]="theme === 'dark'">dark</span>
+    <h2 class="underline pt-3">{{'PAGE_SETTINGS' | translate}}</h2>
+    <div class="option-container pt-4">
+        <div class="option-inner">
+            <span class="option-name">{{'THEME' | translate}}:</span>
+            <div class="options" (click)="toggleTheme(theme)">
+                <div class="inner">
+                    <span [class.active]="theme === 'light'">light</span> /
+                    <span [class.active]="theme === 'dark'">dark</span>
+                </div>
             </div>
         </div>
-        <h3>{{'LANGUAGE' | translate}}</h3>
-        <div class="options" (click)="toggleLanguage(language)">
-            <div class="inner">
-                <span [class.active]="language === 'en-US'">en</span> /
-                <span [class.active]="language === 'de-DE'">de</span>
+        <div class="option-inner pt-2">
+            <span class="option-name">{{'LANGUAGE' | translate}}:</span>
+            <div class="options" (click)="toggleLanguage(language)">
+                <div class="inner">
+                    <span [class.active]="language === 'en-US'">en</span> /
+                    <span [class.active]="language === 'de-DE'">de</span>
+                </div>
             </div>
         </div>
     </div>
     <h2 class="pt-5 underline">{{'MAP_SETTINGS' | translate}}</h2>
     <div class="option-container">
-        <div class="checkbox-container mouse-active py-2" (click)="toggleClustering()" title="{{'TOGGLE_CLUSTERING' | translate}}">
+        <div class="checkbox-container mouse-active py-4" (click)="toggleClustering()" title="{{'TOGGLE_CLUSTERING' | translate}}">
             <div class="checkbox">
                 <i *ngIf="!clustering" class="far fa-square"></i>
                 <i *ngIf="clustering" class="far fa-check-square"></i>

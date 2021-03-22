@@ -58,6 +58,10 @@
 
     "LEGEND": "Legend",
     "EDIT_LEGEND": "Legende editieren",
+    "EDIT_COLOR_GRADIENT": "Edit the color gradient of the map",
+    "UPDATE_LEGEND": "Update Map",
+    "PREVIEW": "Preview",
+    "ADD_STEP": "Add color step",
     "INFO": "Mehr Informationen",
     "SAVE_AND_SHARE": "Speichern und teilen",
     "SCENARIOS": "Szenarien",

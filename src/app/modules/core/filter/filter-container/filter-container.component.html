@@ -24,6 +24,7 @@
             [minimizedBoolean]="minimizedBoolean"
             [change]="change"
             [filters]="filters$ | async"
+            [user]="user$ | async"
             (activeChanged)="setActiveTab($event)"
             (phenoSelected)="selectPheno($event)"
             (changeToggled)="toggleChange()"

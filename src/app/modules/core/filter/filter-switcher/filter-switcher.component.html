@@ -31,6 +31,7 @@
     
     <osem-filter *ngIf="activeTab === 'filter'"
         [filters]="filters"
+        [user]="user"
         (filtersSet)="setFilters($event)"
     >
     </osem-filter>

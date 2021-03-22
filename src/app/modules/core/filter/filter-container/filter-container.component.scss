@@ -22,7 +22,7 @@
     height: 45px;
     text-align: center;
     cursor: pointer;
-    @media screen and(max-width: $secondBreak){
+    @media screen and(max-width: $firstBreak){
         background: var(--arrow-color);
         height: 100%;
         &.minimized {

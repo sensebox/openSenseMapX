@@ -200,6 +200,7 @@ export class BoxCompareContainerComponent implements OnInit {
         queryParamsHandling: 'merge'
       }
     );
+    this.boxService.setCompareTo([]);
   }
 
   ngOnDestroy(){

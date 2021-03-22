@@ -362,3 +362,7 @@ a {
         opacity: 1;
     }
 }
+
+input.ng-invalid {
+    border-color: var(--alert-color);
+}

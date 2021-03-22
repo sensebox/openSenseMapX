@@ -11,6 +11,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { MapService } from 'src/app/modules/explore/services/map.service';
 import { ActivatedRoute } from '@angular/router';
 import { Map2Service } from 'src/app/modules/explore/services/map2.service';
+import { SessionQuery } from 'src/app/models/session/state/session.query';
 
 @Component({
   selector: 'osem-filter-container',
@@ -26,6 +27,7 @@ export class FilterContainerComponent implements OnInit {
   selectActiveTimeMode$ = this.uiQuery.selectActiveTimeMode$
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
+  user$ = this.sessionQuery.user$;
   searchTerm$ = this.uiQuery.selectSearchTerm$;
   locationAutocompleteResults$ = this.uiQuery.selectLocationAutocompleteResults$;
   
@@ -46,6 +48,7 @@ export class FilterContainerComponent implements OnInit {
     private uiService: UiService,
     private mapService: Map2Service,
     private activatedRoute: ActivatedRoute,
+    private sessionQuery: SessionQuery,
     private uiQuery: UiQuery) { }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -11,6 +11,9 @@ export class FilterValuesComponent implements OnInit {
   @Input() selectedPheno;
   @Input() selectedDate;
   @Input() filter;
+  @Input() timeMode;
+
+  @Output() live = new EventEmitter();
 
   now = new Date();
 
@@ -18,6 +21,10 @@ export class FilterValuesComponent implements OnInit {
   constructor(public translateService: TranslateService) { }
 
   ngOnInit() {
+  }
+
+  backToLive(){
+    this.live.emit();
   }
 
 }

@@ -17,7 +17,6 @@ export class LegendEditContainerComponent implements OnInit {
   }
 
   updateLegend(data) {
-    console.log(data)
     this.uiSerivce.updateLegend(data);
   }
 
