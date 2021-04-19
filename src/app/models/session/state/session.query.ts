@@ -4,6 +4,7 @@ import { Query, toBoolean } from '@datorama/akita';
 import { SessionStore, SessionState } from './session.store';
 import { map, flatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { VisQuery } from '../../vis/state/vis.query';
 
 @Injectable({ providedIn: 'root' })
 export class SessionQuery extends Query<SessionState> {
@@ -11,7 +12,7 @@ export class SessionQuery extends Query<SessionState> {
   name$ = this.select(state => state.user.name);
   user$ = this.select(state => state.user);
 
-  constructor(protected store: SessionStore, private boxQuery: BoxQuery) {
+  constructor(protected store: SessionStore, private boxQuery: BoxQuery, private visQuery: VisQuery) {
      super(store);
   }
 
@@ -21,6 +22,7 @@ export class SessionQuery extends Query<SessionState> {
 
   selectMyBoxes(){
     return this.select(state => (state.details ? state.details.me : false)).pipe(flatMap(res => {
+      console.log("MYBOX", res);
       if(res){
         return this.boxQuery.selectManyWithSensors(res.boxes);
       }
@@ -28,7 +30,17 @@ export class SessionQuery extends Query<SessionState> {
         return of([]);
       }
     }))
-    // console.log(this.boxQuery.selectManyWithSensors(this.getValue().details.me.boxes))
-    // return this.boxQuery.selectManyWithSensors(this.getValue().details.me.boxes);
+  }
+
+  selectMyVis(){
+    return this.select(state => (state.details ? state.details.me : false)).pipe(flatMap(res => {
+      console.log(res);
+      if(res){
+        return this.visQuery.selectMany(res.vis);
+      }
+      else {
+        return of([]);
+      }
+    }))
   }
 }

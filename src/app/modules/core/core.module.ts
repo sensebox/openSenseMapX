@@ -44,9 +44,12 @@ import { SidebarBreadcrumbsComponent } from './sidebar-breadcrumbs/sidebar-bread
 import { ContactComponent } from './contact/contact.component';
 import { ChartDatepickerModalContainerComponent } from './chart-datepicker-modal-container/chart-datepicker-modal-container.component';
 import { ChartDatepickerModalComponent } from './chart-datepicker-modal/chart-datepicker-modal.component';
+import { NewVisContainerComponent } from './new-vis-container/new-vis-container.component';
+import { NewVisComponent } from './new-vis/new-vis.component';
+import { VisFormComponent } from './vis-form/vis-form.component';
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, PhenoInfoComponent, ModalComponent, VisContainerComponent, VisComponent, LoginContainerComponent, LoginComponent, RegisterContainerComponent, RegisterComponent, DashboardComponent, DashboardContainerComponent, MyBoxesContainerComponent, MyBoxesComponent, ProfileContainerComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, ChartDatepickerModalContainerComponent, ChartDatepickerModalComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, PhenoInfoComponent, ModalComponent, VisContainerComponent, VisComponent, LoginContainerComponent, LoginComponent, RegisterContainerComponent, RegisterComponent, DashboardComponent, DashboardContainerComponent, MyBoxesContainerComponent, MyBoxesComponent, ProfileContainerComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, ChartDatepickerModalContainerComponent, ChartDatepickerModalComponent, NewVisContainerComponent, NewVisComponent, VisFormComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -63,6 +66,6 @@ import { ChartDatepickerModalComponent } from './chart-datepicker-modal/chart-da
     multi: true
   }
 ],
-  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, ModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, ChartDatepickerModalContainerComponent],
+  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, ModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, ChartDatepickerModalContainerComponent, NewVisContainerComponent],
 })
 export class CoreModule { }

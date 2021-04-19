@@ -16,6 +16,7 @@ import { SidebarMenuItemsComponent } from './modules/core/sidebar-menu-items/sid
 import { PrivacyComponent } from './modules/core/privacy/privacy.component';
 import { AboutComponent } from './modules/core/about/about.component';
 import { ContactComponent } from './modules/core/contact/contact.component';
+import { NewVisContainerComponent } from './modules/core/new-vis-container/new-vis-container.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   // {path: 'impressum', component: ImpressumComponent},
   // {path: 'about', component: ImpressumComponent},
   {path: 'vis', component: VisContainerComponent, outlet: 'modal'},
+  {path: 'newvis', component: NewVisContainerComponent, outlet: 'modal'},
   {path: 'edit-legend', component: LegendEditContainerComponent, outlet: 'modal'},
   {path: 'login', component: LoginContainerComponent, outlet: 'sidebar'},
   {path: 'register', component: RegisterContainerComponent, outlet: 'sidebar'},

@@ -7,6 +7,7 @@ import { ProfileBoxCreateContainerComponent } from './profile-box-create-contain
 import { ProfileBoxCreateDeviceContainerComponent } from './profile-box-create-device-container/profile-box-create-device-container.component';
 import { ProfileBoxCreateGeneralContainerComponent } from './profile-box-create-general-container/profile-box-create-general-container.component';
 import { ProfileBoxCreateSensorsContainerComponent } from './profile-box-create-sensors-container/profile-box-create-sensors-container.component';
+import { ProfileVisContainerComponent } from './profile-vis-container/profile-vis-container.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
       {path: 'sensors', component: ProfileBoxCreateSensorsContainerComponent},
     ]},
     {path: '', component: ProfileNavContainerComponent},
+    {path: 'vis', component: ProfileVisContainerComponent, data: {name: 'Visulizations'}},
   ]},
 
 ];

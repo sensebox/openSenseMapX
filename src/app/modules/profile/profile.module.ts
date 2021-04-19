@@ -19,10 +19,12 @@ import { ProfileBoxCreateGeneralContainerComponent } from './profile-box-create-
 import { ProfileBoxCreateGeneralComponent } from './profile-box-create-general/profile-box-create-general.component';
 import { ProfileBoxCreateSensorsContainerComponent } from './profile-box-create-sensors-container/profile-box-create-sensors-container.component';
 import { ProfileBoxCreateSensorsComponent } from './profile-box-create-sensors/profile-box-create-sensors.component';
+import { ProfileVisContainerComponent } from './profile-vis-container/profile-vis-container.component';
+import { ProfileVisComponent } from './profile-vis/profile-vis.component';
 
 
 @NgModule({
-  declarations: [ProfileWrapperComponent, ProfileNavContainerComponent, ProfileBoxesContainerComponent, ProfileBreadcrumbsComponent, ProfileBoxesComponent, ProfileBoxCreateContainerComponent, ProfileBoxCreateDeviceComponent, ProfileBoxCreateDeviceContainerComponent, ProfileBoxCreateGeneralContainerComponent, ProfileBoxCreateGeneralComponent, ProfileBoxCreateSensorsContainerComponent, ProfileBoxCreateSensorsComponent],
+  declarations: [ProfileWrapperComponent, ProfileNavContainerComponent, ProfileBoxesContainerComponent, ProfileBreadcrumbsComponent, ProfileBoxesComponent, ProfileBoxCreateContainerComponent, ProfileBoxCreateDeviceComponent, ProfileBoxCreateDeviceContainerComponent, ProfileBoxCreateGeneralContainerComponent, ProfileBoxCreateGeneralComponent, ProfileBoxCreateSensorsContainerComponent, ProfileBoxCreateSensorsComponent, ProfileVisContainerComponent, ProfileVisComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,

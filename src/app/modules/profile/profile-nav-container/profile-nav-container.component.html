@@ -3,20 +3,27 @@
 
 <aside class="menu">
   <p class="menu-label">
-    General
+    {{'PROFILE' | translate}}
   </p>
   <ul class="menu-list">
     <li><a [routerLink]="['boxes']" queryParamsHandling="merge">{{'MY_BOXES' | translate}}</a></li>
     <li><a [routerLink]="['newbox']" queryParamsHandling="merge">{{'ADD_BOX' | translate}}</a></li>
-    <li (click)="navTo('/dashboard/boxes')"><a>MY VIS</a></li>
+    <li><a [routerLink]="['vis']" queryParamsHandling="merge">{{'MY_VIS' | translate}}</a></li>
   </ul>
   <p class="menu-label">
-    Administration
+    {{'ADMINISTRATION' | translate}}
   </p>
-  <ul class="menu-list">
-    <li><a [routerLink]="[{ outlets: { sidebar: ['account'] }}]" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
-  </ul>
-  <ul class="menu-list">
-    <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
-  </ul>
+  <ng-container *ngIf="loggedIn$ | async">
+    <ul class="menu-list">
+      <li><a [routerLink]="[{ outlets: { sidebar: ['account'] }}]" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
+    </ul>
+    <ul class="menu-list">
+      <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="!(loggedIn$ | async)">
+    <ul class="menu-list">
+      <li><a [routerLink]="['',{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">{{'LOGIN' | translate}}</a></li>
+    </ul>
+  </ng-container>
 </aside>

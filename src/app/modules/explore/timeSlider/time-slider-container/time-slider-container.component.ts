@@ -111,9 +111,11 @@ export class TimeSliderContainerComponent implements OnInit {
   }
 
   removeDateRange(){
+    console.log("removing date and daterange")
     const { fromDate, toDate, ...newQueryParams} = this.activatedRoute.snapshot.queryParams;
     // this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
     this.uiService.updateDateRange(null);
+    this.uiService.updateDateStamp(null);
     this.boxService.setDateRangeData(null);
     this.uiService.setSelectedDate(null);
     this.uiService.updateActiveTimeMode('live');
@@ -152,9 +154,6 @@ export class TimeSliderContainerComponent implements OnInit {
   }
 
   loadData(params){
-    // this.mapService.countFeaturesInBbox();
-    //  this.boxService.getValues(params[0], params[1], (this.activatedRoute.snapshot.params.bbox ? this.activatedRoute.snapshot.params.bbox : this.mapService.getBounds())).subscribe();
-    // this.selectDateRange(params[1]);
     this.boxService.getValues(params[0], params[1], this.mapService.getBounds()).subscribe();
   }
 

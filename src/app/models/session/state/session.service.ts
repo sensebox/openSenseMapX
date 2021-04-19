@@ -73,7 +73,7 @@ export class SessionService {
     this.http.post(this.AUTH_API_URL + '/users/refresh-auth', {token: token}).subscribe((res:any) => {
       
       this.sessionStore.update(state => {
-        return {user: res.data.user}
+        return {...state, user: res.data.user}
       });
       window.localStorage.setItem('sb_accesstoken', res.token);
       window.localStorage.setItem('sb_refreshtoken', res.refreshToken);
@@ -100,5 +100,20 @@ export class SessionService {
       // this.errorMessage$.next(err.error.message);
     });
 
+  }
+
+  updateMyVis(ids){
+    this.sessionStore.update(state => {
+      return {
+        ...state,
+         details: {
+          ...state.details,
+          me: {
+            ...state.details.me,
+            vis: ids
+          }
+        }
+      }
+    })
   }
 }

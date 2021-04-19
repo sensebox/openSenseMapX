@@ -157,6 +157,9 @@ export class UiService {
   toggleNumbers(){
     this.uiStore.update( state => ({ ...state , numbers: !state.numbers }));
   }
+  setNumbers(numbers){
+    this.uiStore.update( state => ({ ...state , numbers: numbers }));
+  }
   setCluster(cluster){
     if(!cluster){
       this.clusterTimeout = setTimeout(() => {

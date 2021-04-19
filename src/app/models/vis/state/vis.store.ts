@@ -12,7 +12,6 @@ const initialState = {
 @StoreConfig({ name: 'Vis' , idKey: '_id'})
 export class VisStore extends EntityStore<VisState> {
 
-
   constructor() {
     super(initialState);
   }

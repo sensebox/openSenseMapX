@@ -366,3 +366,7 @@ a {
 input.ng-invalid {
     border-color: var(--alert-color);
 }
+
+.modal-content {
+    background: var(--background-primary-full);
+}

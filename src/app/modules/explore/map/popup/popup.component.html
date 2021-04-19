@@ -75,7 +75,7 @@
     <a 
       *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
       class="card-footer-item"
-      (click)="compareToCurrent(box._id)"
+      (click)="details(box._id)"
     >{{'DETAILS' | translate}}</a>
     <a 
       *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 

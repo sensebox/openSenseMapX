@@ -1,0 +1,61 @@
+<div class="osem-padding">
+  <form [formGroup]="visForm">
+    <osem-form-input [typeString]="'text'" [label]="'NAME' | translate" [controlName]="'name'"
+      [control]="visForm.controls.name">
+  
+    </osem-form-input>
+  
+    <osem-form-input [typeString]="'text'" [label]="'DESCRIPTION' | translate" [controlName]="'desc'"
+      [control]="visForm.controls.desc">
+    </osem-form-input>
+
+
+    <div class="field">
+      <label class="label">{{'EXPOSURE' | translate}}</label>
+      {{filters.exposure}}
+    </div>
+
+    <div class="field">
+      <label class="label">{{'BBOX' | translate}}</label>
+      <div>
+        <div>
+          {{'NORTH_EAST' | translate}}
+          {{bbox[0][0]}} {{bbox[0][1]}}
+        </div>
+        <div>
+          {{'SOUTH_WEST' | translate}}
+          {{bbox[1][0]}} {{bbox[1][1]}}
+        </div>
+      </div>
+    </div>
+
+    <div class="field"  *ngIf="date">
+      <label class="label">{{'DATE' | translate}}</label>
+      {{date}}
+    </div>
+
+    <div class="field" *ngIf="dateRange">
+      <label class="label">{{'DATERANGE' | translate}}</label>
+      {{dateRange}}
+    </div>
+
+    <div class="field" *ngIf="pheno">
+      <label class="label">{{'PHENOMENON' | translate}}</label>
+      {{pheno.title}}
+    </div>
+
+    <!-- <div class="field">
+      <label class="label">{{'BBOX' | translate}}</label>
+      <div class="control">
+        <input 
+          [class.is-danger]="control.errors && control.touched"
+          [formControl]="control"
+          class="input" 
+          [type]="typeString ? typeString : 'text'" 
+          placeholder="{{label}}">  
+      </div>
+    </div> -->
+
+    <button [disabled]="!visForm.valid" (click)="saveVis()" class="osem-button">{{'SAVE' | translate}}</button>
+  </form>
+</div>

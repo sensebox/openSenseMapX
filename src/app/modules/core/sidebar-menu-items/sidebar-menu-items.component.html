@@ -4,8 +4,15 @@
       Personal
     </p>
     <ul class="menu-list">
-      <li><a [routerLink]="['profile']" queryParamsHandling="merge">{{'PROFILE' | translate}}</a></li>
-      <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
+      <ng-container *ngIf="loggedIn$ | async">
+        <li><a [routerLink]="['profile']" queryParamsHandling="merge">{{'PROFILE' | translate}}</a></li>
+        <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
+      </ng-container>
+      <ng-container *ngIf="!(loggedIn$ | async)">
+        <ul class="menu-list">
+          <li><a [routerLink]="['',{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">{{'LOGIN' | translate}}</a></li>
+        </ul>
+      </ng-container>
     </ul>
     <p class="menu-label">
       About

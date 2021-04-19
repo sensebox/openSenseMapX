@@ -17,7 +17,7 @@ export class LegendContainerComponent implements OnInit {
   ngOnInit() {
 
     this.selectedPheno$.subscribe((res:any) => {
-      if(res && res.layer){
+      if(res && res.layer && res.layer.paint['circle-color']){
         this.gradient = '0deg';
         res.layer.paint['circle-color'].forEach((color, index) => {
           if(index > 3 && (index % 2) != 1){

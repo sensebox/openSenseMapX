@@ -100,7 +100,7 @@ export function createInitialState(): UiState {
     searchTerm: "",
     searchResults: [],
     locationAutocompleteResults: [],
-    clustering: true,
+    clustering: false,
     cluster: null,
     numbers: true,
     circles: true,
@@ -129,57 +129,82 @@ export class UiStore extends Store<UiState> {
     this.update( state => ({...state, activeSensorTypes: types}));
   }
   updateSelectedPheno(pheno) {
+    console.log(pheno);
     this.update( state =>  {
+      let circleColorCluster:any = 
+        ['match',
+          ['get', 'model'],
+          'custom',
+          '#fbb03b',
+        /* other */ '#ccc'];
+      let circleColorSolo:any = 
+        ['match',
+          ['get', 'model'],
+          'custom',
+          '#fbb03b',
+        /* other */ '#ccc'];
+      if(pheno && pheno.title != 'ALL'){
+        //DEEP CLONE because immutable, apparently this is the most efficient way to do it
+        circleColorCluster =JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
+        circleColorCluster[2] = JSON.parse(JSON.stringify(state.clusterLayers[0].paint['circle-color']))[2];
+        circleColorCluster[2][1][1] = pheno.title;
+        
+        circleColorSolo = JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
+        circleColorSolo[2] = JSON.parse(JSON.stringify(state.clusterLayers[1].paint['circle-color']))[2];
+        circleColorSolo[2][1] = pheno.title;
+      }
 
-      //DEEP CLONE because immutable, apparently this is the most efficient way to do it
-      let circleColorCluster =JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
-      circleColorCluster[2] = JSON.parse(JSON.stringify(state.clusterLayers[0].paint['circle-color']))[2];
-      circleColorCluster[2][1][1] = pheno.title;
-      
-      let circleColorSolo = JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
-      circleColorSolo[2] = JSON.parse(JSON.stringify(state.clusterLayers[1].paint['circle-color']))[2];
-      circleColorSolo[2][1] = pheno.title;
+      if(pheno.title != 'ALL'){
 
-      return {
-        ...state, 
-        selectedPheno: pheno, 
-        baseLayer: {
-          ...state.baseLayer,
-          filter: pheno.layer.filter,
-          paint: {
-            ...state.baseLayer.paint,
-            'circle-color': pheno.layer.paint['circle-color'],
-            'circle-radius': pheno.layer.paint['circle-radius'],
-            'circle-stroke-width': 1
+        return {
+          ...state, 
+          selectedPheno: pheno, 
+          baseLayer: {
+            ...state.baseLayer,
+            filter: pheno.layer.filter,
+            paint: {
+              ...state.baseLayer.paint,
+              'circle-opacity': pheno.layer.paint['circle-opacity'],
+              'circle-color': pheno.layer.paint['circle-color'],
+              'circle-radius': pheno.layer.paint['circle-radius'],
+              'circle-stroke-width': 1
+            },
           },
-        },
-        clusterLayers: [{
-          ...state.clusterLayers[0],
-          filter: [
-            'all',
-            ["!=", null, ['get', pheno.title]],
-            ['==', ['get', 'cluster'], true],
-            ['has', 'point_count']
-          ],
-          paint: {
-            ...state.clusterLayers[0].paint,
-            'circle-color': circleColorCluster,
-            // 'circle-stroke-width': 1
+          clusterLayers: [{
+            ...state.clusterLayers[0],
+            filter: [
+              'all',
+              ["!=", null, ['get', pheno.title]],
+              ['==', ['get', 'cluster'], true],
+              ['has', 'point_count']
+            ],
+            paint: {
+              ...state.clusterLayers[0].paint,
+              'circle-color': circleColorCluster,
+              // 'circle-stroke-width': 1
+            }
+          },{
+            ...state.clusterLayers[1],
+            filter:  [
+              'all',
+              ["!=", null, [ "get", pheno.title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+              ['!', ['has', 'point_count']]
+            ],
+            paint: {
+              ...state.clusterLayers[1].paint,
+              'circle-color': circleColorSolo,
+              // 'circle-stroke-width': 1
+            }
           }
-        },{
-          ...state.clusterLayers[1],
-          filter:  [
-            'all',
-            ["!=", null, [ "get", pheno.title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
-            ['!', ['has', 'point_count']]
-          ],
-          paint: {
-            ...state.clusterLayers[1].paint,
-            'circle-color': circleColorSolo,
-            // 'circle-stroke-width': 1
-          }
+        ]}
+      } else {
+        return {
+          ...state,
+          selectedPheno: pheno,
+          baseLayer: pheno.layer
         }
-      ]}
+      }
+
     });
   }
   setLayers(layers){

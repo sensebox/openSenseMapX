@@ -1,0 +1,12 @@
+<div class="osem-padding">
+  <h1 class="title is-1">{{'SAVE_YOUR_VIS' | translate}}</h1>
+
+  <osem-vis-form 
+    [bbox]="bbox" 
+    [filters]="filters" 
+    [date]="date" 
+    [dateRange]="dateRange" 
+    [pheno]="pheno"
+    (visSaved)="saveVis($event)">
+  </osem-vis-form>
+</div>

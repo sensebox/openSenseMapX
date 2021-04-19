@@ -1,5 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { bindCallback } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
+import { UiService } from 'src/app/models/ui/state/ui.service';
 
 @Component({
   selector: 'osem-phenomenon',
@@ -8,14 +12,56 @@ import { ActivatedRoute, Router } from '@angular/router';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhenomenonComponent implements OnInit {
+ 
+  @Input() selectedPheno;
+  @Input() changeVariable: boolean = false;
 
   @Output() phenoSelected = new EventEmitter();
   @Output() changeToggled = new EventEmitter();
   @Output() infoPhenoSelected = new EventEmitter();
-  @Input() selectedPheno;
-  @Input() changeVariable: boolean = false;
+
+  oldClustering = false;
 
   phenos = [
+    {
+      title: 'ALL',
+      unit: '°C',
+      layer: {
+        'id': 'base-layer',
+        'type': 'circle',
+        'source': 'boxes',
+        'paint': {
+          'circle-stroke-width': 1,
+          'circle-opacity': 0.7,
+          'circle-radius': {
+            'base': 1.75,
+            'stops': [[1,4], [22, 3000]]
+          },
+          'circle-color':  ["case", [">=", 
+          ["to-string", ["get", "lastMeasurementAt"]],
+          ["to-string", "2020-03-27"]
+          ], "#4EAF47", "#999"]
+      
+          // 'circle-color': ['interpolate',
+          // ['linear'],
+          // ['get', 'lastMeasurementAt'],
+          // "2020-03-27T15:47:53.481Z", '#009900',
+          // "2020-03-17T15:47:53.481Z", '#ccc'
+          // ]
+          // 'circle-color': [
+          //   'interpolate',
+          //   ['linear'],
+          //   [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          //   -5, '#000000',
+          //   0, '#000000',
+          //   10, '#000000',
+          //   20, '#000000',
+          //   30, '#000000'
+          // ]
+        }
+      },
+      icon: "osem-thermometer",
+    },
     {
       title: 'Temperatur',
       unit: '°C',
@@ -25,6 +71,7 @@ export class PhenomenonComponent implements OnInit {
         'source': 'boxes',
         'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
             'stops': [[1,4], [22, 3000]]
@@ -51,6 +98,7 @@ export class PhenomenonComponent implements OnInit {
         'source': 'boxes',
         'filter': ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
             'stops': [[1,4], [22, 3000]]
@@ -78,6 +126,7 @@ export class PhenomenonComponent implements OnInit {
         'source': 'boxes',
         'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
             'stops': [[1,4], [22, 3000]]
@@ -104,6 +153,7 @@ export class PhenomenonComponent implements OnInit {
         'source': 'boxes',
         'filter': ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
             'stops': [[1,4], [22, 3000]]
@@ -131,6 +181,7 @@ export class PhenomenonComponent implements OnInit {
         'source': 'boxes',
         'filter': ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
             'stops': [[1,4], [22, 3000]]
@@ -157,6 +208,7 @@ export class PhenomenonComponent implements OnInit {
         'source': 'boxes',
         'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
             'stops': [[1,4], [22, 3000]]
@@ -184,6 +236,7 @@ export class PhenomenonComponent implements OnInit {
         'source': 'boxes',
         'filter': ["!=", null, [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
             'stops': [[1,4], [22, 3000]]
@@ -204,7 +257,7 @@ export class PhenomenonComponent implements OnInit {
     }
   ]
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private uiService: UiService, private uiQuery: UiQuery) { }
 
   ngOnInit() {
 
@@ -212,6 +265,18 @@ export class PhenomenonComponent implements OnInit {
       if(params.mapPheno){
         if(!this.selectedPheno || this.selectedPheno.title != params.mapPheno)
           this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === params.mapPheno));
+
+        if(params.mapPheno === 'ALL'){
+          this.oldClustering = this.uiQuery.getValue().clustering;
+          this.uiService.setClustering(false);
+          this.uiService.setNumbers(false);
+        } else {
+          this.uiService.setNumbers(true);
+        }
+        
+        if(this.selectedPheno && this.selectedPheno.title === 'ALL'){
+          this.uiService.setClustering(this.oldClustering)
+        }
       }
     })
   }
