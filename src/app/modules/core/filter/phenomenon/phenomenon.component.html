@@ -3,7 +3,7 @@
         <div class="top-bar">
             <div class="pheno-info" *ngIf="selectedPheno">
                 <div class="pheno-name">
-                    {{selectedPheno.title}} <span class="normal">({{selectedPheno.unit}})</span>
+                    {{selectedPheno.title | translate}} <span class="normal" *ngIf="selectedPheno.title != 'ALL'">({{selectedPheno.unit}})</span>
                 </div>
                 <div class="info">
                     <span class="icon osem-clickable-icon" title="{{'INFO' | translate}}"
@@ -30,7 +30,7 @@
             <div class="pheno-icon">
                 <ng-template #phenoName>
                     <div class="pheno-name">
-                        {{selectedPheno.title}}
+                        {{selectedPheno.title | translate}}
                     </div>
                     <div id="legend-info" *ngIf="selectedPheno && !changeVariable">
                         <div class="unit">
@@ -53,10 +53,10 @@
                 <div *ngFor="let pheno of phenos" (click)="selectPheno(pheno)"
                     [class.active]="pheno?.title === selectedPheno?.title" class="pheno">
                     <div class="osem-icon-container" [title]="pheno.title">
-                        <i class="osem-icon {{pheno.icon}}"></i>
+                        <i *ngIf="pheno.title != 'ALL'" class="osem-icon {{pheno.icon}}"></i>
                     </div>
                     <div class="osem-inline name">
-                        {{pheno.title}}
+                        {{pheno.title | translate}}
                     </div>
                 </div>
             </div>

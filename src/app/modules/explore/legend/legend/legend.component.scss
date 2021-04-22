@@ -69,3 +69,34 @@ h3 {
     top: 0;
     right: 0;
 }
+
+
+#all-legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .legend-headline {
+        text-decoration: underline;
+        padding: 0.3em 0;
+    }
+
+    .legend-item {
+        padding: 0.2em;
+        display: flex;
+    }
+    .circle {
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--text-color-primary);
+        border-radius: 50%;
+        opacity: 0.9;
+        margin: 0.2em 0.3em 0.2em 0;
+    }
+    .osem-green-circle {
+        background: var(--color-primary);
+    }
+    .osem-gray-circle {
+        background: #999;
+    }
+}

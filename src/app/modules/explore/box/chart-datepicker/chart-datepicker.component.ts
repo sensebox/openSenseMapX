@@ -28,7 +28,27 @@ export class ChartDatepickerComponent implements OnInit {
   }
 
   dateChange(){
+    console.log(this.dateRange)
     this.dateChanged.emit(this.dateRange);
+  }
+
+  lastWeek(){
+    let now = new Date();
+    let before = new Date()
+    before.setDate(now.getDate()-7)
+    this.dateChanged.emit([before, now])
+  }
+  last24(){
+    let now = new Date();
+    let before = new Date()
+    before.setDate(now.getDate()-1)
+    this.dateChanged.emit([before, now])
+  }
+  lastHour(){
+    let now = new Date();
+    let before = new Date()
+    before.setHours(now.getHours()-1)
+    this.dateChanged.emit([before, now])
   }
 
 }

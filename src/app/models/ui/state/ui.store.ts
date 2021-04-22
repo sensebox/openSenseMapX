@@ -108,7 +108,7 @@ export function createInitialState(): UiState {
     filters: {
       exposure: 'outdoor',
       group: null,
-      model: null,
+      model: [],
       ids: null
     },
     reloadMapData: false,
@@ -129,7 +129,6 @@ export class UiStore extends Store<UiState> {
     this.update( state => ({...state, activeSensorTypes: types}));
   }
   updateSelectedPheno(pheno) {
-    console.log(pheno);
     this.update( state =>  {
       let circleColorCluster:any = 
         ['match',

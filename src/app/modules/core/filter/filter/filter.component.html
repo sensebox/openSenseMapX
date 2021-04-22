@@ -24,6 +24,38 @@
         </div>
     </div>
 
+    <div class="options">
+        <h3>{{'MODEL' | translate}}</h3>
+        <div (click)="toggleModel('senseBox')" title="{{'senseBox' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="filters.model.indexOf('senseBox') === -1" class="far fa-square not-checked"></i>
+                <i *ngIf="filters.model.indexOf('senseBox') != -1" class="far fa-check-square checked"></i>
+            </div>
+            <span>{{'senseBox' | translate}}</span>
+        </div>
+        <div (click)="toggleModel('luftdaten.info')" title="{{'luftdaten.info' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="filters.model.indexOf('luftdaten.info') === -1" class="far fa-square not-checked"></i>
+                <i *ngIf="filters.model.indexOf('luftdaten.info') != -1" class="far fa-check-square checked"></i>
+            </div>
+            <span>{{'luftdaten.info' | translate}}</span>
+        </div>
+        <div (click)="toggleModel('hackair')" title="{{'HACKAIR' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="filters.model.indexOf('hackair') === -1" class="far fa-square not-checked"></i>
+                <i *ngIf="filters.model.indexOf('hackair') != -1" class="far fa-check-square checked"></i>
+            </div>
+            <span>{{'HACKAIR' | translate}}</span>
+        </div>
+        <div (click)="toggleModel('custom')" title="{{'CUSTOM' | translate}}">
+            <div class="checkbox">
+                <i *ngIf="filters.model.indexOf('custom') === -1" class="far fa-square not-checked"></i>
+                <i *ngIf="filters.model.indexOf('custom') != -1" class="far fa-check-square checked"></i>
+            </div>
+            <span>{{'CUSTOM' | translate}}</span>
+        </div>
+    </div>
+
     <div class="options" *ngIf="user">
         <h3>{{'BOXES' | translate}}</h3>
         <div (click)="myBoxes()" title="{{'OUTDOOR' | translate}}">

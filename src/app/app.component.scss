@@ -32,6 +32,9 @@ osem-filter-container {
     }
     left: 0;
     z-index: 95;
+    &:hover {
+        z-index: 100;
+    }
 }
 
 osem-filter-container-values {
@@ -45,7 +48,10 @@ osem-bottom-bar-container {
     position: absolute;
     bottom: 0;
     width: 100%;
-    z-index: 90;
+    z-index: 95;
+    &:hover {
+        z-index: 100;
+    }
 }
 
 osem-phenomenon-container {

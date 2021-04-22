@@ -18,6 +18,9 @@
     "PHENOMENON": "Phänomen",
     "BOXES_IN_SELECTION": "# Boxen in der Auswahl",
     "DATE": "Datum",
+    "LAST_WEEK": "letzte woche",
+    "LAST_24": "letzte 24h",
+    "LAST_HOUR": "letzte Stunde",
 
     "SHOW": "Anzeigen",
     "LOAD_DATA": "Daten laden",
@@ -31,7 +34,9 @@
     "EXPOSURE": "Standort",
     "OUTDOOR": "draussen",
     "INDOOR": "drinnen",
-    "ALL": "alle",
+    "ALL": "Alle Boxen",
+    "ACTIVE_BOX": "Aktive Box",
+    "INACTIVE_BOX": "Inaktive Box",
 
     "SETTINGS": "Einstellungen",
     "PAGE_SETTINGS": "Seiten-Einstellungen",
@@ -56,7 +61,7 @@
     "COMPARE_MODUS_HELP": "Zum vergleichen auf eine Station auf der Karte klicken.",
     "COMPARE_MODUS_END": "Vergleichs-Modus beenden",
 
-    "LEGEND": "Legend",
+    "LEGEND": "Legende",
     "EDIT_LEGEND": "Legende editieren",
     "EDIT_COLOR_GRADIENT": "Edit the color gradient of the map",
     "UPDATE_LEGEND": "Update Map",

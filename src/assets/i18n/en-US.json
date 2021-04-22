@@ -18,6 +18,9 @@
     "PHENOMENON": "Phenomenon",
     "BOXES_IN_SELECTION": "# Boxes in selection",
     "DATE": "Date",
+    "LAST_WEEK": "last week",
+    "LAST_24": "last 24h",
+    "LAST_HOUR": "last hour",
 
     "SHOW": "Show",
     "LOAD_DATA": "Load data",
@@ -31,7 +34,10 @@
     "EXPOSURE": "Exposure",
     "OUTDOOR": "outdoor",
     "INDOOR": "indoor",
-    "ALL": "all",
+    "ALL": "All boxes",
+    "ACTIVE_BOX": "Activ box",
+    "INACTIVE_BOX": "Inactiv box",
+
 
     "SETTINGS": "Settings",
     "PAGE_SETTINGS": "Page-Settings",
@@ -74,7 +80,7 @@
 
     "INTRO_HEADLINE": "openSenseMap Beta",
     "INTRO_TEXT_1": "This is a beta version of the new openSenseMap!",
-    "INTRO_TEXT_2": "The platforms aims to make the data collected by the openSenseMap more accessible and easier to analyse.",
+    "INTRO_TEXT_2": "The platforms aims to make the data collected by the openSenseMap more accessible and easier to analyse",
 
     "FEATURE1": "Live overview of popular phenomenons",
     "FEATURE2": "Compare the temporal development of different phenomena",

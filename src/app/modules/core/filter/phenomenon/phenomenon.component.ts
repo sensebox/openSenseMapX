@@ -35,7 +35,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color':  ["case", [">=", 
           ["to-string", ["get", "lastMeasurementAt"]],
@@ -74,7 +74,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
@@ -101,7 +101,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
@@ -129,7 +129,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
@@ -156,7 +156,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
@@ -184,7 +184,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
@@ -211,7 +211,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
@@ -239,7 +239,7 @@ export class PhenomenonComponent implements OnInit {
           'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1,4], [22, 3000]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
@@ -262,6 +262,13 @@ export class PhenomenonComponent implements OnInit {
   ngOnInit() {
 
     this.activatedRoute.queryParams.subscribe(params => {
+      //if no pheno in URL open ALL layer
+      if(!params.mapPheno){
+        this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === 'ALL'))
+        this.oldClustering = this.uiQuery.getValue().clustering;
+        this.uiService.setClustering(false);
+        this.uiService.setNumbers(false);
+      }
       if(params.mapPheno){
         if(!this.selectedPheno || this.selectedPheno.title != params.mapPheno)
           this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === params.mapPheno));
@@ -271,11 +278,16 @@ export class PhenomenonComponent implements OnInit {
           this.uiService.setClustering(false);
           this.uiService.setNumbers(false);
         } else {
-          this.uiService.setNumbers(true);
+          if(!this.uiQuery.getValue().clustering){
+            this.uiService.setNumbers(true);
+          }
         }
         
         if(this.selectedPheno && this.selectedPheno.title === 'ALL'){
-          this.uiService.setClustering(this.oldClustering)
+          this.uiService.setClustering(this.oldClustering);
+          if(this.oldClustering){
+            this.uiService.setNumbers(false);
+          }
         }
       }
     })

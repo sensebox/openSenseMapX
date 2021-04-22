@@ -133,7 +133,6 @@ export class Map2Service {
 
     this.dataSub = combineLatest(this.selectedPheno$, this.filters$, this.dateRangeData$).subscribe(res => {
      
-      console.log("DATASUB TRIGGERED");
       //TODO: SEE IF THIS IS NEEDED OR NOT
       // if(this.baseLayerSub){
       //   console.log("UNSUBSCRIBING")
@@ -147,7 +146,7 @@ export class Map2Service {
       if(res[0]){
         let filteredData;
         if(res[0].title === 'ALL'){
-          filteredData = this.worldData.getValue();
+          filteredData = this.filterData(this.worldData.getValue(), false, res[1]);
         } else {
           filteredData = this.filterData(this.worldData.getValue(), res[0].title, res[1]);
         } 
@@ -167,10 +166,8 @@ export class Map2Service {
           });
         } else {
           if(res[2]){
-            console.log("SET TIME DATA FOR BOXES");
             this.map.getSource('boxes').setData(res[2]);
           } else {
-            console.log("SET BACK BOXES DATA");
             this.map.getSource('boxes').setData(filteredData);
           }
         }
@@ -308,7 +305,6 @@ export class Map2Service {
 
   drawBaseLayer(layer){
     if (!this.map.getLayer(layer.id)) {
-      console.log(layer)
       this.map.addLayer(layer);
 
       if (this.map.getLayer('active-layer-text'))
@@ -321,7 +317,6 @@ export class Map2Service {
       if (layer.filter) {
         this.map.setFilter(layer.id, layer.filter);
       } else {
-        console.log("NO FILTER")
         this.map.setFilter(layer.id);
       }
     }
@@ -334,8 +329,6 @@ export class Map2Service {
       this.map.setLayoutProperty('number-layer', 'text-field', layer.paint['circle-color'][2]);
     }
 
-    console.log(this.map.getLayer('base-layer'))
-    
   }
 
   drawClusterLayers(layers) {
@@ -413,7 +406,15 @@ export class Map2Service {
           "layout": {
             "text-field": ['format', ["get", "name"], { 'font-scale': 1.2 }],
             "text-variable-anchor": ["top"],
-            "text-offset": [0, 1],
+            "text-offset": {
+              "stops": [
+                [1, [0, 0.3]],
+                [8, [0, 0.8]],
+                [16, [0, 1.8]],
+                [22, [0, 10]],
+                [25, [0, 40]]
+              ]
+            },
             // "text-font": [
             //   "DIN Offc Pro Medium",
             //   "Arial Unicode MS Bold"
@@ -429,7 +430,7 @@ export class Map2Service {
           'paint': {
             'circle-radius': {
               'base': 1.75,
-              'stops': [[1, 10], [22, 3580]]
+              'stops': [[1, 10], [22, 580]]
             },
             'circle-blur': 0.6,
             // 'circle-stroke-width': 1,
@@ -475,7 +476,14 @@ export class Map2Service {
           "layout": {
             "text-field": ['format', ["get", "name"], { 'font-scale': 1.2 }],
             "text-variable-anchor": ["top"],
-            "text-offset": [0, 1],
+            "text-offset": { 
+              "stops": [
+              [1, [0, 0.3]],
+              [8, [0, 0.8]],
+              [16, [0, 1.8]],
+              [22, [0, 10]],
+              [25, [0, 40]]
+            ]},
             // "text-font": [
             //   "DIN Offc Pro Medium",
             //   "Arial Unicode MS Bold"
@@ -491,7 +499,7 @@ export class Map2Service {
           'paint': {
             'circle-radius': {
               'base': 1.75,
-              'stops': [[1, 10], [22, 2580]]
+              'stops': [[1, 10], [22, 580]]
             },
             'circle-blur': 0.6,
             // 'circle-stroke-width': 1,
@@ -528,10 +536,18 @@ export class Map2Service {
         ]
       },
       "layout": {
-        'visibility': 'none',
+        'visibility': 'visible',
         "text-field": "",
         "text-variable-anchor": ["bottom"],
-        "text-offset": [0, 1],
+        "text-offset": {
+          "stops": [
+            [1, [0, 0.3]],
+            [8, [0, 0.8]],
+            [16, [0, 1.8]],
+            [22, [0, 10]],
+            [25, [0, 40]]
+          ]
+        },
         "text-size": 15
       }
     }, 'base-layer');
@@ -584,7 +600,14 @@ export class Map2Service {
         "visibility": layers[0].layout && layers[0].layout.visibility ? layers[0].layout.visibility : 'visible',
         "text-field": ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
         "text-variable-anchor": ["bottom"],
-        "text-offset": [0, 1],
+        "text-offset": { 
+          "stops": [
+          [1, [0, 0.3]],
+          [8, [0, 0.8]],
+          [16, [0, 1.8]],
+          [22, [0, 10]],
+          [25, [0, 40]]
+        ]},
         "text-size": 15
       }
     });
@@ -841,17 +864,24 @@ export class Map2Service {
           return false;
         }
       }
+      if(filter.model.length > 0){
+        if(filter.model.indexOf(res['properties']['model']) === -1){
+          return false;
+        }
+      }
       if(
         (filter.exposure === 'all' || filter.exposure === res['properties']['exposure']) &&
-        (filter.model === null || filter.model === res.model) &&
+        // (filter.model.length === 0 || filter.model.indexOf(res['properties']['model'] != -1)) &&
         (filter.group === null || filter.group === res.group)
       ){
-        // console.log("valid")
       } else {
         return;
       }
-
-      if(res['properties']['sensors']['live'] && res['properties']['sensors']['live'][property]){
+      if(property){
+        if(res['properties']['sensors']['live'] && res['properties']['sensors']['live'][property]){
+          return res;
+        }
+      } else {
         return res;
       }
     })
@@ -869,6 +899,7 @@ export class Map2Service {
       this.compareToSub.unsubscribe();
       this.clusteringSub.unsubscribe();
       this.compareModusSub.unsubscribe();
+      this.numbersSub.unsubscribe();
     }
 
     let that = this;
@@ -887,7 +918,7 @@ export class Map2Service {
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 5], [22, 3080]]
+            'stops': [[1, 5], [22, 200]]
           },
           'circle-stroke-width': 0,
           'circle-blur': 0.8,
@@ -922,6 +953,7 @@ export class Map2Service {
       this.compareToSub.unsubscribe();
       this.clusteringSub.unsubscribe();
       this.compareModusSub.unsubscribe();
+      this.numbersSub.unsubscribe();
     }
 
     let that = this;
@@ -940,7 +972,7 @@ export class Map2Service {
         'paint': {
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 5], [22, 3080]]
+            'stops': [[1, 5], [22, 200]]
           },
           'circle-stroke-width': 1,
           'circle-blur': 0

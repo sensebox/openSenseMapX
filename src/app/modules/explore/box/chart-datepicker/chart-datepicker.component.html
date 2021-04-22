@@ -1,4 +1,7 @@
 <div class="datepicker-container" [class.disabled]="dateRangeGlobal">
+    <a class="osem-time-buttons" (click)="lastWeek()">{{'LAST_WEEK' | translate}}</a>
+    <a class="osem-time-buttons" (click)="last24()">{{'LAST_24' | translate}}</a>
+    <a class="osem-time-buttons" (click)="lastHour()">{{'LAST_HOUR' | translate}}</a>
     <div class="datepicker-inner" [class.disabled]="dateRangeGlobal">
 
         <input class="osem-hidden"
