@@ -36,7 +36,9 @@
     "INDOOR": "indoor",
     "ALL": "All boxes",
     "ACTIVE_BOX": "Activ box",
+    "ACTIVE_BOX_TEXT": "Measurements within last 7 days",
     "INACTIVE_BOX": "Inactiv box",
+    "INACTIVE_BOX_TEXT": "No measurements within last 7 days",
 
 
     "SETTINGS": "Settings",

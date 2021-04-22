@@ -36,7 +36,9 @@
     "INDOOR": "drinnen",
     "ALL": "Alle Boxen",
     "ACTIVE_BOX": "Aktive Box",
+    "ACTIVE_BOX_TEXT": "Messungen während der letzten 7 Tage",
     "INACTIVE_BOX": "Inaktive Box",
+    "INACTIVE_BOX_TEXT": "Keine Messungen in den letzten 7 Tagen",
 
     "SETTINGS": "Einstellungen",
     "PAGE_SETTINGS": "Seiten-Einstellungen",
