@@ -203,4 +203,7 @@ export class UiService {
   setFilterIds(ids){
     this.uiStore.update( state => ({ ...state, filters: {...state.filters, ids: ids}}))
   }
+  setActiveTab(tab){
+    this.uiStore.update( state => ({ ...state, activeTab: tab}))
+  }
 }

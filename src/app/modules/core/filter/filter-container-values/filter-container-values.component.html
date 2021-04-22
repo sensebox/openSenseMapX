@@ -4,5 +4,8 @@
     [timeMode]="timeMode$ | async"
     [filter]="filter$ | async"
     [stats]="stats$ | async"
+    (phenoOpened)="openPheno()"
+    (dateOpened)="openDate()"
+    (filterOpened)="openFilter()"
     (live)="backToLive()"
 ></osem-filter-values>

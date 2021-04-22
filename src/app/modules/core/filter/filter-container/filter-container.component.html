@@ -19,7 +19,7 @@
             (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
         
         <osem-filter-switcher
-            [activeTab]="activeTab"
+            [activeTab]="activeTab$ | async"
             [selectedPheno]="selectedPheno$ | async"
             [minimizedBoolean]="minimizedBoolean"
             [change]="change"

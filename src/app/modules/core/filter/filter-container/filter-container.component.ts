@@ -34,7 +34,8 @@ export class FilterContainerComponent implements OnInit {
   filters$ = this.uiQuery.selectFilters$;
   stats$ = this.uiQuery.selectStats$;
 
-  activeTab = 'phenos';
+  // activeTab = 'phenos';
+  activeTab$ = this.uiQuery.selectActiveTab$;
   searchTimeout;
   autoCompleteResults$;
   minimizedBoolean = false;
@@ -106,7 +107,7 @@ export class FilterContainerComponent implements OnInit {
   }
 
   setActiveTab(activeTab){
-    this.activeTab = activeTab;
+    this.uiService.setActiveTab(activeTab)
     if(this.minimizedBoolean)
       this.minimizedBoolean = false;
   }

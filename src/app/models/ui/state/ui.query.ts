@@ -29,6 +29,7 @@ export class UiQuery extends Query<UiState> {
   
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);
+  selectActiveTab$ = this.select(state => state.activeTab);
 
   constructor(protected store: UiStore) {
     super(store);

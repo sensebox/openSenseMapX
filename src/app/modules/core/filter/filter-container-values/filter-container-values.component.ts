@@ -34,4 +34,18 @@ export class FilterContainerValuesComponent implements OnInit {
     // );
   }
 
+  openPheno(){
+    this.uiService.setFilterVisible(true);
+    this.uiService.setActiveTab('phenos');
+  }
+
+  openFilter(){
+    this.uiService.setFilterVisible(true);
+    this.uiService.setActiveTab('filter');
+  }
+  
+  openDate(){
+    this.uiService.setShowDateModal(true);
+  }
+
 }

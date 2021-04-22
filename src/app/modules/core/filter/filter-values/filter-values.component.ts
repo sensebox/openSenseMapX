@@ -15,6 +15,9 @@ export class FilterValuesComponent implements OnInit {
   @Input() stats;
 
   @Output() live = new EventEmitter();
+  @Output() phenoOpened = new EventEmitter();
+  @Output() filterOpened = new EventEmitter();
+  @Output() dateOpened = new EventEmitter();
 
   now = new Date();
 
@@ -26,6 +29,18 @@ export class FilterValuesComponent implements OnInit {
 
   backToLive(){
     this.live.emit();
+  }
+
+  openPheno(){
+    this.phenoOpened.emit();
+  }
+
+  openDate(){
+    this.dateOpened.emit();
+  }
+
+  openFilter(){
+    this.filterOpened.emit();
   }
 
 }

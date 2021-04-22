@@ -1,23 +1,23 @@
 <div id="filter-values">
     <div class="tags are-medium">
-        <span class="tag is-rounded is-primary">
+        <span class="osem-clickable tag is-rounded is-primary" (click)="openDate()">
             {{ (selectedDate ? selectedDate : now) | date:'short': '':translateService.currentLang}}
             <div *ngIf="timeMode === 'timestamp'" class="osem-close-text-no-pos" (click)="backToLive()" title="{{'BACK_TO_LIVE' | translate}}">
                 <button class="delete is-small"></button>
             </div>
-
         </span>
         <ng-container *ngIf="selectedPheno.title != 'ALL'">
-            <span class="tag is-rounded is-primary">
+            <span class="osem-clickable tag is-rounded is-primary" (click)="openPheno()">
                 <div class="osem-icon-container">
                     <i class="osem-icon {{selectedPheno.icon}}"></i>
                 </div>
                 {{ selectedPheno.title }}
             </span>
             
-            <span class="tag is-rounded is-primary">{{filter.exposure}}</span>
+            <span (click)="openFilter()" class="osem-clickable tag is-rounded is-primary">{{filter.exposure}}</span>
             <span *ngIf="filter.ids" class="tag is-rounded is-primary">{{filter.ids.length}} {{'BOXES' | translate}}</span>
         </ng-container>
+
         <ng-container  *ngIf="selectedPheno.title === 'ALL'">
             <span class="tag is-rounded is-primary">{{stats.totalBoxes | number}} {{'BOXES' | translate}}</span>
             <span class="tag is-rounded is-primary">{{stats.totalMeasurements | number}} {{'MEASUREMENTS' | translate}}</span>

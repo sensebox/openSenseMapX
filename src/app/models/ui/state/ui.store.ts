@@ -33,7 +33,8 @@ export interface UiState {
   reloadMapData: boolean,
   mapLoading: boolean,
   showDateModal: boolean,
-  stats: object
+  stats: object,
+  activeTab: string
 }
 
 export function createInitialState(): UiState {
@@ -119,6 +120,7 @@ export function createInitialState(): UiState {
       totalBoxes: null,
       totalMeasurements: null
     },
+    activeTab: 'phenos'
 
   };
 }
