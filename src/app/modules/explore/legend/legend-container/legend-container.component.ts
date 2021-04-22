@@ -9,6 +9,7 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 export class LegendContainerComponent implements OnInit {
 
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
+  stats$ = this.uiQuery.selectStats$;
   gradient = "";
 
   legendVisible = true;

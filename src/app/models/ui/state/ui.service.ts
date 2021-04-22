@@ -20,6 +20,15 @@ export class UiService {
     private http: HttpClient) {
   }
 
+  fetchStats() {
+    
+    return this.http.get(`${environment.api_url}/stats`).pipe(tap(stats => {
+      this.uiStore.update(state => ({ ...state , stats: { totalBoxes: stats[0], totalMeasurements: stats[1]} }))
+    }));
+  }
+
+
+
   fetchGeocodeResults(searchstring){
     const params = new HttpParams()
       .set('format', "json")
@@ -194,42 +203,4 @@ export class UiService {
   setFilterIds(ids){
     this.uiStore.update( state => ({ ...state, filters: {...state.filters, ids: ids}}))
   }
-
-  // hideBaseLayers() {
-  //   console.log("hide baselayer")
-  //   this.uiStore.update(state => (
-  //     {
-  //       ...state, baseLayer:
-  //       {
-  //         ...state.baseLayer,
-  //         layout:
-  //         {
-  //           ...state.baseLayer.layout,
-  //           visibility: 'none'
-  //         }
-  //       }
-  //     }));
-
-  //   this.uiStore.update(state => (
-  //     {
-  //       ...state, clusterLayers: [
-  //         {
-  //           ...state.clusterLayers[0], layout:
-  //           {
-  //             ...state.clusterLayers[0].layout,
-  //             visibility: 'none'
-  //           }
-  //         },
-  //         {
-  //           ...state.clusterLayers[1], layout:
-  //           {
-  //             ...state.clusterLayers[1].layout,
-  //             visibility: 'none'
-  //           }
-  //         }
-
-  //       ]
-  //     }
-  //   ));
-  // }
 }

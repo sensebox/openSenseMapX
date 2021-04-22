@@ -12,6 +12,7 @@ export class LegendComponent implements OnInit {
   @Input() selectedPheno;
   @Input() gradient;
   @Input() legendVisible;
+  @Input() stats;
 
   @Output() legendToggled = new EventEmitter();
   

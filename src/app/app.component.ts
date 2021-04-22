@@ -5,6 +5,7 @@ import { slideInOutHorizontalBoolean, routingFadeIn, appearModal, appearSlow } f
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from './models/session/state/session.service';
+import { UiService } from './models/ui/state/ui.service';
 
 @Component({
   selector: 'osem-root',
@@ -30,6 +31,7 @@ export class AppComponent {
     private uiQuery: UiQuery,
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
+    private uiService: UiService,
     private dateTimeAdapter: DateTimeAdapter<any>){
 
       translate.setDefaultLang('de-DE');
@@ -41,6 +43,7 @@ export class AppComponent {
       if(window.localStorage.getItem('sb_refreshtoken'))
         this.sessionService.recoverSession(window.localStorage.getItem('sb_refreshtoken'))
 
+      this.uiService.fetchStats().subscribe();
   }
 
   closeIntro(){

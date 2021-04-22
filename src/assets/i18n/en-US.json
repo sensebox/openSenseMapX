@@ -4,6 +4,7 @@
     "TO": "To",
     "SHOW_ALL": "show all",
     "BOXES": "Boxes",
+    "MEASUREMENTS": "Measurements",
     "CHOOSE_A_PHENO": "Choose a Phenomenon!",
 
     "LIVE": "Live",
@@ -39,6 +40,9 @@
     "ACTIVE_BOX_TEXT": "Measurements within last 7 days",
     "INACTIVE_BOX": "Inactiv box",
     "INACTIVE_BOX_TEXT": "No measurements within last 7 days",
+    "STATISTICS": "Statstics",
+    "TOTAL_BOXES_TITLE": "Boxes registered on openSenseMap.org",
+    "TOTAL_MEASUREMENTS_TITLE": "Total measurements transmitted to openSenseMap.org",
 
 
     "SETTINGS": "Settings",

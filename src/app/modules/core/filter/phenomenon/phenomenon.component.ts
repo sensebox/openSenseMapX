@@ -15,6 +15,7 @@ export class PhenomenonComponent implements OnInit {
  
   @Input() selectedPheno;
   @Input() changeVariable: boolean = false;
+  @Input() stats;
 
   @Output() phenoSelected = new EventEmitter();
   @Output() changeToggled = new EventEmitter();

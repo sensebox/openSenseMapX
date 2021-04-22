@@ -25,6 +25,7 @@
             [change]="change"
             [filters]="filters$ | async"
             [user]="user$ | async"
+            [stats]="stats$ | async"
             (activeChanged)="setActiveTab($event)"
             (phenoSelected)="selectPheno($event)"
             (changeToggled)="toggleChange()"

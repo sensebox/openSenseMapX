@@ -24,6 +24,7 @@
     <osem-phenomenon *ngIf="activeTab === 'phenos'"
         [selectedPheno]="selectedPheno"
         [changeVariable]="change"
+        [stats]="stats"
         (phenoSelected)="selectPheno($event)"
         (infoPhenoSelected)="selectInfoPheno($event)"
         (changeToggled)="toggleChange()"

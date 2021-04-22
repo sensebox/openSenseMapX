@@ -18,14 +18,26 @@
         </ng-container>
         <ng-template #ALL>
             <div id="all-legend">
-                <h3 class="legend-headline">{{'LEGEND' | translate}}</h3>
-                <div class="legend-item" title="{{'ACTIVE_BOX_TEXT' | translate}}">
-                    <div class="osem-green-circle circle"></div>
-                    <span>{{'ACTIVE_BOX' | translate}}</span>
+                <div>
+                    <h3 class="legend-headline">{{'LEGEND' | translate}}</h3>
+                    <div class="legend-item" title="{{'ACTIVE_BOX_TEXT' | translate}}">
+                        <div class="osem-green-circle circle"></div>
+                        <span>{{'ACTIVE_BOX' | translate}}</span>
+                    </div>
+                    <div class="legend-item" title="{{'INACTIVE_BOX_TEXT' | translate}}">
+                        <div class="osem-gray-circle circle"></div>
+                        <span>{{'INACTIVE_BOX' | translate}}</span>
+                    </div>
                 </div>
-                <div class="legend-item" title="{{'INACTIVE_BOX_TEXT' | translate}}">
-                    <div class="osem-gray-circle circle"></div>
-                    <span>{{'INACTIVE_BOX' | translate}}</span>
+                <div>
+                    <h3 class="stats-headline">{{'STATISTICS' | translate}}</h3>
+                    <div class="stats-item" title="{{'TOTAL_BOXES_TITLE' | translate}}">
+                        <span><b>{{stats.totalBoxes | number}}</b> {{'BOXES' | translate}}</span>
+                        
+                    </div>
+                    <div class="stats-item" title="{{'TOTAL_MEASUREMENTS_TITLE' | translate}}">
+                       <span><b>{{stats.totalMeasurements | number}}</b> {{'MEASUREMENTS' | translate}}</span>
+                    </div>
                 </div>
             </div>
         </ng-template>

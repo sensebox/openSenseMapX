@@ -74,11 +74,18 @@ h3 {
 #all-legend {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    height: 100%;
+    justify-content: space-between;
+    padding: 0.7em;
+    border-left: 1px solid#ccc;
 
     .legend-headline {
         text-decoration: underline;
         padding: 0.3em 0;
+    }
+    .stats-headline {
+        text-decoration: underline;
+        padding: 0.5em 0 0.3em 0;
     }
 
     .legend-item {
@@ -98,5 +105,9 @@ h3 {
     }
     .osem-gray-circle {
         background: #999;
+    }
+
+    .stats-item {
+        padding-bottom: 0.4em;
     }
 }

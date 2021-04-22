@@ -32,7 +32,8 @@ export interface UiState {
   filters: Filter,
   reloadMapData: boolean,
   mapLoading: boolean,
-  showDateModal: boolean
+  showDateModal: boolean,
+  stats: object
 }
 
 export function createInitialState(): UiState {
@@ -113,7 +114,12 @@ export function createInitialState(): UiState {
     },
     reloadMapData: false,
     mapLoading: false,
-    showDateModal: false
+    showDateModal: false,
+    stats: {
+      totalBoxes: null,
+      totalMeasurements: null
+    },
+
   };
 }
 
