@@ -13,6 +13,7 @@ export class FilterContainerValuesComponent implements OnInit {
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   filter$ = this.uiQuery.selectFilters$;
   timeMode$ = this.uiQuery.selectActiveTimeMode$;
+  stats$ = this.uiQuery.selectStats$;
 
   constructor(private uiQuery: UiQuery, private uiService: UiService) { }
 

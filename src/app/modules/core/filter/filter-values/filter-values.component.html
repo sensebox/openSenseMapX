@@ -7,24 +7,20 @@
             </div>
 
         </span>
-        <span class="tag is-rounded is-primary">
-            <div class="osem-icon-container">
-                <i class="osem-icon {{selectedPheno.icon}}"></i>
-            </div>
-            {{ selectedPheno.title }}
-        </span>
-        
-        <span class="tag is-rounded is-primary">{{filter.exposure}}</span>
-        <span *ngIf="filter.ids" class="tag is-rounded is-primary">{{filter.ids.length}} {{'BOXES' | translate}}</span>
-        <!-- <div>
-            <ul>
-                <ng-container *ngFor="let filterItem of filter | keyvalue">
-                    <li *ngIf="filterItem.value">
-                        <span class="tag is-rounded is-primary">{{ filterItem.value }}</span>
-                    </li>
-                </ng-container>
-            </ul>
-    
-        </div> -->
+        <ng-container *ngIf="selectedPheno.title != 'ALL'">
+            <span class="tag is-rounded is-primary">
+                <div class="osem-icon-container">
+                    <i class="osem-icon {{selectedPheno.icon}}"></i>
+                </div>
+                {{ selectedPheno.title }}
+            </span>
+            
+            <span class="tag is-rounded is-primary">{{filter.exposure}}</span>
+            <span *ngIf="filter.ids" class="tag is-rounded is-primary">{{filter.ids.length}} {{'BOXES' | translate}}</span>
+        </ng-container>
+        <ng-container  *ngIf="selectedPheno.title === 'ALL'">
+            <span class="tag is-rounded is-primary">{{stats.totalBoxes | number}} {{'BOXES' | translate}}</span>
+            <span class="tag is-rounded is-primary">{{stats.totalMeasurements | number}} {{'MEASUREMENTS' | translate}}</span>
+        </ng-container>
     </div>
 </div>

@@ -12,6 +12,7 @@ export class FilterValuesComponent implements OnInit {
   @Input() selectedDate;
   @Input() filter;
   @Input() timeMode;
+  @Input() stats;
 
   @Output() live = new EventEmitter();
 
