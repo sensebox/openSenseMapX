@@ -14,6 +14,7 @@ export interface SensorUIState extends EntityState<SensorUI> {}
 
 const initialState = {
   active: [],
+  ownLoading: false,
   cachedSensors: [],
   ui: {
     activeSensorTypes: []

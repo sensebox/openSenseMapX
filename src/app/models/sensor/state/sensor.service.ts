@@ -6,6 +6,7 @@ import { Sensor } from './sensor.model';
 import { tap } from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
 import { SensorQuery } from './sensor.query';
+import { UiService } from '../../ui/state/ui.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -14,6 +15,7 @@ export class SensorService {
   constructor(
     private sensorStore: SensorStore,
     private sensorQuery: SensorQuery,
+    private uiService: UiService,
     private http: HttpClient) {
   }
 
@@ -23,8 +25,8 @@ export class SensorService {
 
   getSingleSensorValues(boxId, sensorId, fromDate, toDate){
     //TODO: CHECK CACHE HERE
-    this.sensorStore.setLoading(true);
     this.sensorStore.ui.upsert(sensorId, {hasData:true});
+    this.uiService.setChartLoading(true);
     return this.http.get<any[]>(`${environment.api_url}/boxes/${boxId}/data/${sensorId}?from-date=${fromDate.toISOString()}&to-date=${toDate.toISOString()}`).pipe(tap(data => {
       let mapData = data.map(item => {return {name: new Date(item.createdAt), value: item.value}})
       let upsert = {
@@ -32,7 +34,7 @@ export class SensorService {
         rawValues: mapData
       }
       this.sensorStore.upsert(sensorId, upsert);
-      this.sensorStore.setLoading(false);
+      this.uiService.setChartLoading(false);
     }));
   }
   
@@ -91,5 +93,9 @@ export class SensorService {
     this.sensorStore.ui.update(null, {    
         hasData: false
     });
+  }
+
+  setLoadingState(loading){
+    this.sensorStore.update(state => ({...state, ownLoading: loading}));
   }
 }

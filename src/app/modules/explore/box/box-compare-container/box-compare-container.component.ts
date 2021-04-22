@@ -33,7 +33,8 @@ export class BoxCompareContainerComponent implements OnInit {
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   colors$ = this.uiQuery.selectColors$;
   dataInit$ = this.boxQuery.selectDataInit$;
-  sensorsLoading$ = this.sensorQuery.selectLoading();
+  sensorsLoading$ = this.uiQuery.selectChartLoading$;
+
   // selectedDate$ = this.uiQuery.selectSelectedDate$;
   
   sensorsPhenoSub;

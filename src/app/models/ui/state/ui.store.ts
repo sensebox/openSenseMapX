@@ -34,7 +34,8 @@ export interface UiState {
   mapLoading: boolean,
   showDateModal: boolean,
   stats: object,
-  activeTab: string
+  activeTab: string,
+  chartLoading: boolean
 }
 
 export function createInitialState(): UiState {
@@ -120,7 +121,8 @@ export function createInitialState(): UiState {
       totalBoxes: null,
       totalMeasurements: null
     },
-    activeTab: 'phenos'
+    activeTab: 'phenos',
+    chartLoading: false,
 
   };
 }

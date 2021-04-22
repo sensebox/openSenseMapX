@@ -206,4 +206,7 @@ export class UiService {
   setActiveTab(tab){
     this.uiStore.update( state => ({ ...state, activeTab: tab}))
   }
+  setChartLoading(loading){
+    this.uiStore.update( state => ({ ...state, chartLoading: loading}))
+  }
 }

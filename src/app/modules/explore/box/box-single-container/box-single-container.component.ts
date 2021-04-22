@@ -39,7 +39,7 @@ export class BoxSingleContainerComponent implements OnInit {
   windowWidth = window.innerWidth;
   scrollDivWidth = 0;
 
-  sensorsLoading$ = this.sensorQuery.selectLoading();
+  sensorsLoading$ = this.uiQuery.selectChartLoading$;
 
   @ContentChild('sensors', {static: false}) sensors: ElementRef;
 

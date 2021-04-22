@@ -11,6 +11,7 @@ export class SensorQuery extends QueryEntity<SensorState, SensorUIState> {
 
   selectCachedSensors$ = this.select(state => state.cachedSensors);
   selectActiveSensorTypes$ = this.select(state => state.ui.activeSensorTypes);
+  selectLoadingState$ = this.select(state => state.ownLoading);
 
   constructor(protected store: SensorStore) {
     super(store);
