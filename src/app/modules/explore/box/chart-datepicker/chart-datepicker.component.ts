@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DateTimeAdapter } from 'ng-pick-datetime';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -13,11 +12,16 @@ export class ChartDatepickerComponent implements OnInit {
   @Input() dateRangeGlobal;
   @Output() dateChanged = new EventEmitter();
 
-  startAt = new Date('2019-12-31T15:00:00.000Z');
-  minDate = new Date('2019-12-31T00:00:00.000Z');
-  maxDate = new Date('2020-01-01T23:00:00.000Z');
+  startAt = new Date();
+  minDate = new Date('2018-01-01T00:00:00.000Z');
+  maxDate = new Date();
 
   now = new Date();
+
+  modalActive = false;
+
+  dateRangeStart;
+  dateRangeEnd;
 
   constructor(
     public translateService: TranslateService) { 
@@ -25,11 +29,21 @@ export class ChartDatepickerComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if(this.dateRange){
+      this.dateRangeStart = this.dateRange[0]
+      this.dateRangeEnd = this.dateRange[1]
+    }
   }
 
-  dateChange(){
-    console.log(this.dateRange)
-    this.dateChanged.emit(this.dateRange);
+  ngOnChanges(){
+    this.dateRangeStart = this.dateRange[0]
+    this.dateRangeEnd = this.dateRange[1]
+  }
+
+  updateDateRange(start, end){
+    this.dateChanged.emit([start, end]);
+    this.closeModal();
   }
 
   lastWeek(){
@@ -51,4 +65,11 @@ export class ChartDatepickerComponent implements OnInit {
     this.dateChanged.emit([before, now])
   }
 
+  openModal(){
+    this.modalActive = true;
+  }
+
+  closeModal(){
+    this.modalActive = false;
+  }
 }

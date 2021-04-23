@@ -72,7 +72,6 @@ export class BoxSingleContainerComponent implements OnInit {
             }
           })
           this.sensorService.setActive(sensorsToActive);
-        } else {
         }
       }
     });

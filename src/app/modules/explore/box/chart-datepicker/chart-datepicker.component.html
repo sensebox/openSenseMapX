@@ -2,23 +2,14 @@
     <a class="osem-time-buttons" (click)="lastWeek()">{{'LAST_WEEK' | translate}}</a>
     <a class="osem-time-buttons" (click)="last24()">{{'LAST_24' | translate}}</a>
     <a class="osem-time-buttons" (click)="lastHour()">{{'LAST_HOUR' | translate}}</a>
-    <div class="datepicker-inner" [class.disabled]="dateRangeGlobal">
+    <div class="datepicker-inner" [class.disabled]="dateRangeGlobal" (click)="openModal()">
 
         <input class="osem-hidden"
-            [owlDateTime]="dt1" 
-            [owlDateTimeTrigger]="dt1" 
-            [selectMode]="'range'"
-            [min]="minDate"
-            [max]="maxDate"
             (dateTimeInput)="dateChange()"
             [(ngModel)]="dateRange"
             placeholder="From Date Time">
-        <owl-date-time 
-            [stepMinute]="60"
-            [startAt]="startAt"
-        #dt1></owl-date-time>
         
-        <div class="osem-padding-small owl-date-time-trigger" [owlDateTimeTrigger]="dt1" title="{{('CHOOSE_DATERANGE' | translate)}}">
+        <div class="osem-padding-small owl-date-time-trigger" title="{{('CHOOSE_DATERANGE' | translate)}}">
             <div class="osem-inline osem-border-radius-5 from-date">   
                 {{'FROM' | translate}}:
                 <input class="date-input" placeholder="{{now | date:'short':'':translateService.currentLang}}" [value]="(dateRange ? dateRange[0] : '') | date:'short':'':translateService.currentLang" disabled>
@@ -31,6 +22,50 @@
                 <div class="osem-simple-button">
                     <i class="fa fa-calendar osem-center-horizontal"></i>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [class.is-active]="modalActive">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
+        <div class="timerange osem-padding modal-content-inner">
+            <p class="time-exp-text">
+                {{'CHART_DATEPICKER_TEXT' | translate}}
+            </p>
+            <div class="calendar-timerange">
+                <div class="calendar-container">
+                    <div>
+                        <span>{{'FROM' | translate}}: </span>  
+                        <span *ngIf="dateRangeStart" class="calendar-date">{{dateRangeStart | date:'medium':'':translateService.currentLang}}</span>
+                        <span *ngIf="!dateRangeStart" class="has-text-danger">-</span>
+                    </div>
+                    <owl-date-time-inline
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [stepMinute]="60"
+                        [startAt]="startAt"
+                        [(ngModel)]="dateRangeStart"
+                    ></owl-date-time-inline>
+                </div>
+                <div class="calendar-container">
+                    <div>
+                        <span>{{'TO' | translate}}: </span>
+                        <span *ngIf="dateRangeEnd" class="calendar-date">{{dateRangeEnd | date:'medium':'':translateService.currentLang}}</span>
+                        <span *ngIf="!dateRangeEnd" class="has-text-danger">-</span>
+                    </div>
+                    <owl-date-time-inline
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [stepMinute]="60"
+                        [(ngModel)]="dateRangeEnd"
+                    ></owl-date-time-inline>
+                </div>
+            </div>
+            <div class="osem-button-container">
+                <button [disabled]="!dateRangeStart || !dateRangeEnd" class="osem-button is-pulled-right" (click)="updateDateRange(dateRangeStart, dateRangeEnd)">{{'SHOW' | translate}}</button>
             </div>
         </div>
     </div>

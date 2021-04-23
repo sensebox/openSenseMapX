@@ -42,3 +42,46 @@
         padding: 0.3em 0.3em 0 0.3em;
     }
 }
+
+
+// MODAL
+
+
+
+.modal-content {
+    background: var(--background-primary-full);
+    min-height: 620px;
+
+    display: flex;
+    flex-direction: column;
+
+    .time-exp-text {
+        padding-bottom: 1.3em;
+    }
+
+    
+    .modal-content-inner {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .osem-button-container {
+        padding: 0.8em 0;
+        overflow: auto;
+    }
+
+    .calendar-timerange {
+        display: flex;
+        justify-content: space-around;
+        .calendar-container {
+            display: inline-flex;
+            flex-direction: column;
+
+            .calendar-date {
+                color: var(--color-primary);
+            }
+        }
+    }
+}
