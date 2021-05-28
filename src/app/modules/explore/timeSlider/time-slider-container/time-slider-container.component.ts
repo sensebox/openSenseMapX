@@ -6,10 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { withLatestFrom } from 'rxjs/operators';
 import { IntervalTimer } from '../../../../helper/IntervalTimer';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
-import { MapService } from '../../services/map.service';
 import { TranslateService } from '@ngx-translate/core';
 import { id } from '@swimlane/ngx-charts/release/utils';
-import { Map2Service } from '../../services/map2.service';
+import { MapService } from '../../services/map.service';
 import { BoxService } from 'src/app/models/box/state/box.service';
 
 @Component({
@@ -47,7 +46,7 @@ export class TimeSliderContainerComponent implements OnInit {
     private boxService: BoxService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private mapService: Map2Service
+    private mapService: MapService
     ) { }
 
   ngOnInit() { 

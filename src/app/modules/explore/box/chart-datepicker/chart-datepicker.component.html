@@ -5,8 +5,6 @@
     <div class="datepicker-inner" [class.disabled]="dateRangeGlobal" (click)="openModal()">
 
         <input class="osem-hidden"
-            (dateTimeInput)="dateChange()"
-            [(ngModel)]="dateRange"
             placeholder="From Date Time">
         
         <div class="osem-padding-small owl-date-time-trigger" title="{{('CHOOSE_DATERANGE' | translate)}}">

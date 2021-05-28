@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { VisService } from 'src/app/models/vis/state/vis.service';
-import { Map2Service } from '../../explore/services/map2.service';
+import { MapService } from '../../explore/services/map.service';
 
 @Component({
   selector: 'osem-new-vis-container',
@@ -18,7 +18,10 @@ export class NewVisContainerComponent implements OnInit {
   bbox;
 
 
-  constructor(private visService: VisService, private uiQuery: UiQuery, private mapService: Map2Service) { }
+  constructor(
+    private visService: VisService, 
+    private uiQuery: UiQuery, 
+    private mapService: MapService) { }
 
   ngOnInit() {
     this.bbox = this.mapService.getBounds();

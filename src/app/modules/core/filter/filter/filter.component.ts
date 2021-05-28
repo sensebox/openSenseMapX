@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 
+// This component contains all the inputs for filtering the markers of the map
 @Component({
   selector: 'osem-filter',
   templateUrl: './filter.component.html',
@@ -10,7 +11,6 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 export class FilterComponent implements OnInit {
 
   @Input() exposure;
-  // @Input() filter;
   @Input() user;
   @Output() exposureSet = new EventEmitter();
   @Output() filtersSet = new EventEmitter();
@@ -18,6 +18,7 @@ export class FilterComponent implements OnInit {
   @Input() filters;
 
 
+  //list of available models in the osem Database
   models = {
     'senseBox': [
       'homeV2Lora', 
@@ -83,7 +84,6 @@ export class FilterComponent implements OnInit {
   }
 
   toggleModel(model){
-    console.log(this.filters)
     let index = this.filters.model.indexOf(model);
     if(index === -1){
       this.filtersSet.emit({...this.filters, model: [...this.filters.model, model].concat(this.models[model])})

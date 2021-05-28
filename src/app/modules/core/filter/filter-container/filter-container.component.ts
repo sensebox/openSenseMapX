@@ -8,9 +8,8 @@ import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 import { slideInOutHorizontalBoolean } from 'src/app/helper/animations';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { startWith, switchMap } from 'rxjs/operators';
-import { MapService } from 'src/app/modules/explore/services/map.service';
 import { ActivatedRoute } from '@angular/router';
-import { Map2Service } from 'src/app/modules/explore/services/map2.service';
+import { MapService } from 'src/app/modules/explore/services/map.service';
 import { SessionQuery } from 'src/app/models/session/state/session.query';
 
 @Component({
@@ -48,7 +47,7 @@ export class FilterContainerComponent implements OnInit {
     private boxQuery: BoxQuery,
     private sensorService: SensorService,
     private uiService: UiService,
-    private mapService: Map2Service,
+    private mapService: MapService,
     private activatedRoute: ActivatedRoute,
     private sessionQuery: SessionQuery,
     private uiQuery: UiQuery) { }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Map2Service } from '../modules/explore/services/map2.service';
+import { MapService } from '../modules/explore/services/map.service';
 import { UiQuery } from '../models/ui/state/ui.query';
 import { withLatestFrom } from 'rxjs/operators';
 
@@ -72,7 +72,7 @@ export class ThemeService {
 
   theme$ = this.uiQuery.selectTheme$;
   dateRange$ = this.uiQuery.selectDateRange$;
-  constructor(private mapService: Map2Service, private uiQuery: UiQuery) {
+  constructor(private mapService: MapService, private uiQuery: UiQuery) {
     this.theme$.pipe(withLatestFrom(this.dateRange$)).subscribe(theme => {
       if(theme[0] != this.active.name){
         this.toggleTheme(theme[1]);

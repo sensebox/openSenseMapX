@@ -4,24 +4,30 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
+Run `npm install` or `yarn install`
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Packages used
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+[Bulma](https://bulma.io/) Is used as the css framework for this application.
 
-## Build
+[Akita](https://datorama.github.io/akita/) is used as the state management pattern.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+[MapboxGLJS](https://www.mapbox.com/mapbox-gljs) is used for all the map functions.
 
-## Running unit tests
+[ngx-translate](http://www.ngx-translate.com/) is used for i18n support.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+[ngx-charts](https://github.com/swimlane/ngx-charts) for pretty charts.
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Thanks to
 
-## Further help
+[PrototypeFund](https://prototypefund.de/) for funding the initial development of this platform.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[UniversityMünster](https://www.uni-muenster.de/de/) and the [IFGI](https://www.uni-muenster.de/Geoinformatics/) for continously supporting this project.
+
+
+
+## License
+
+[MIT](LICENSE) - Umut Tas 2021 

@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SessionService } from '../../session/state/session.service';
 import { UiService } from '../../ui/state/ui.service';
-import { Map2Service } from 'src/app/modules/explore/services/map2.service';
+import { MapService } from 'src/app/modules/explore/services/map.service';
 import { BoxService } from '../../box/state/box.service';
 
 
@@ -19,7 +19,7 @@ export class VisService {
     private http: HttpClient,
     private uiService: UiService,
     private boxService: BoxService,
-    private mapService: Map2Service) {
+    private mapService: MapService) {
   }
 
   get() {
