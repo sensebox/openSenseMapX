@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalComponent } from './modal.component';
+import { PhenoInfoModalComponent } from './pheno-info-modal.component';
 
-describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+describe('PhenoInfoModalComponent', () => {
+  let component: PhenoInfoModalComponent;
+  let fixture: ComponentFixture<PhenoInfoModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalComponent ]
+      declarations: [ PhenoInfoModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalComponent);
+    fixture = TestBed.createComponent(PhenoInfoModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

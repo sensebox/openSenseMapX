@@ -6,6 +6,7 @@ import { clusterLayerSolo, clusterLayer } from './layers';
 import { Filter } from '../../filter/filter.model';
 import { state } from '@angular/animations';
 
+// Should contain all variables to describe the state of the ui
 export interface UiState {
   colors: ColorHelper,
   activeSensorTypes: any[],
@@ -13,11 +14,11 @@ export interface UiState {
   layers: any[],
   dateStamp: Date,
   dateRange: Array<Date>,
-  activeTimeMode: string,
+  activeTimeMode: string,  // live || timestamp || timerange
   dateRangeChart: Array<Date>,
   selectedDate: Date,
   language: string,
-  theme: string,
+  theme: string,  // dark || light
   baseLayer: any,
   clusterLayers: any,
   fitlerVisible: boolean,
@@ -138,6 +139,8 @@ export class UiStore extends Store<UiState> {
   setActiveSensorTypes(types){
     this.update( state => ({...state, activeSensorTypes: types}));
   }
+
+  // updates the selected Pheno (this is so complicated because all Layers have to be changed if the selected Phenomenon changes)
   updateSelectedPheno(pheno) {
     this.update( state =>  {
       let circleColorCluster:any = 
@@ -281,32 +284,6 @@ export class UiStore extends Store<UiState> {
     }
     this.updateSelectedPheno(newPheno);
 
-
-    // this.update(state => { console.log(state.baseLayer.paint['circle-color'].slice(0,3)); return ( {
-    //   baseLayer: {
-    //     ...state.baseLayer,
-    //     paint: {
-    //       ...state.baseLayer.paint,
-    //       'circle-color': state.baseLayer.paint['circle-color'].slice(0,3).concat(steps)
-    //     },
-    //   },
-    //   clusterLayers: [{
-    //     ...state.clusterLayers[0],
-    //     paint: {
-    //       ...state.clusterLayers[0].paint,
-    //       'circle-color': state.clusterLayers[0].paint['circle-color'].slice(0,3).concat(steps),
-    //       // 'circle-stroke-width': 1
-    //     }
-    //   },{
-    //     ...state.clusterLayers[1],
-    //     paint: {
-    //       ...state.clusterLayers[1].paint,
-    //       'circle-color': state.clusterLayers[1].paint['circle-color'].slice(0,3).concat(steps),
-    //       // 'circle-stroke-width': 1
-    //     }
-    //   }]
-
-    // })})
   }
 
 }

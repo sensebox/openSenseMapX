@@ -26,6 +26,11 @@
 
     <div class="options">
         <h3>{{'MODEL' | translate}}</h3>
+        <div class="field">
+            <input class="is-checkradio is-small is-primary" id="exampleCheckboxNormal" type="checkbox" name="exampleCheckboxNormal" checked="checked">
+            <label for="exampleCheckboxNormal">Checkbox</label>
+          </div>
+          
         <div (click)="toggleModel('senseBox')" title="{{'senseBox' | translate}}">
             <div class="checkbox">
                 <i *ngIf="filters.model.indexOf('senseBox') === -1" class="far fa-square not-checked"></i>

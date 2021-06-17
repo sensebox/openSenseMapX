@@ -4,12 +4,12 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 import { appearModal } from 'src/app/helper/animations';
 
 @Component({
-  selector: 'osem-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
+  selector: 'osem-pheno-info-modal',
+  templateUrl: './pheno-info-modal.component.html',
+  styleUrls: ['./pheno-info-modal.component.scss'],
   animations: [appearModal]
 })
-export class ModalComponent implements OnInit, AfterViewInit {
+export class PhenoInfoModalComponent implements OnInit, AfterViewInit {
 
   infoPheno$ = this.uiQuery.selectInfoPheno$;
 

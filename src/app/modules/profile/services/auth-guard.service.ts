@@ -1,8 +1,8 @@
 import { SessionQuery } from './../../../models/session/state/session.query';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { take } from 'rxjs/internal/operators/take';
-import { map } from 'rxjs/operators';
+// import { take } from 'rxjs/internal/operators/take';
+// import { map } from 'rxjs/operators';
 // import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable({

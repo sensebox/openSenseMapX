@@ -7,6 +7,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `npm install` or `yarn install`
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+You will need an [openSenseMap-api](https://github.com/sensebox/opensensemap-api) running to test this locally (or run it against the testing api: https://api.testing.opensensemap.org)
+
 ## Packages used
 
 [Bulma](https://bulma.io/) Is used as the css framework for this application.
@@ -24,7 +26,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 [PrototypeFund](https://prototypefund.de/) for funding the initial development of this platform.
 
-[UniversityMünster](https://www.uni-muenster.de/de/) and the [IFGI](https://www.uni-muenster.de/Geoinformatics/) for continously supporting this project.
+[University Münster](https://www.uni-muenster.de/de/) and the [IFGI](https://www.uni-muenster.de/Geoinformatics/) for continously supporting this project.
 
 
 

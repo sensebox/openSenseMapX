@@ -1,4 +1,4 @@
-import { SessionService } from './../../../../models/session/state/session.service';
+import { SessionService } from './../../../models/session/state/session.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

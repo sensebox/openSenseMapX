@@ -71,9 +71,11 @@ p {
 }
 
 
-
+$checkradio-focus: none;
+$primary: $primaryColor;
 
 @import '~node_modules/bulma/bulma';
+@import '~node_modules/bulma-checkradio/dist/css/bulma-checkradio';
 // @import '~node_modules/bulma/sass/utilities/_all';
 // @import '~node_modules/bulma/sass/helpers/_all';
 // @import '~node_modules/bulma/sass/base/_all';
@@ -95,6 +97,7 @@ p {
 .field {
   margin-bottom: 0.75em;
 }
+
 
 
 

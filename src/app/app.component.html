@@ -24,21 +24,6 @@
     </div>
 </div>
 
-<!-- <div id="intro-layer" *ngIf="intro">
-    <div class="intro-text osem-padding">
-        <h2>{{'INTRO_HEADLINE' | translate}}</h2>
-        <p>{{'INTRO_TEXT_1' | translate}}</p>
-        <p>{{'INTRO_TEXT_2' | translate}}</p>
-        <ul>
-            <li>{{'FEATURE1' | translate}}</li>
-            <li>{{'FEATURE2' | translate}}</li>
-            <li>{{'FEATURE3' | translate}}</li>
-            <li>{{'FEATURE4' | translate}}</li>
-            <li>...</li>
-        </ul>
-        <button class="osem-button" (click)="closeIntro()">{{'GO' | translate}}</button>
-    </div>
-</div> -->
 
 <osem-nav-container></osem-nav-container>
 <osem-base-map-container></osem-base-map-container>
@@ -58,7 +43,7 @@
 <!-- <osem-map-options-container></osem-map-options-container> -->
 
 <!-- INFO PHENO MODAL: TODO: rename -->
-<osem-modal *ngIf="infoPheno$ | async"></osem-modal> 
+<osem-pheno-info-modal *ngIf="infoPheno$ | async"></osem-pheno-info-modal> 
 
 <div id="backdrop" *ngIf="sidebarOutlet.isActivated">
 
@@ -91,5 +76,3 @@
 <osem-datetime-modal-container *ngIf="showDateModal$ | async">
 
 </osem-datetime-modal-container>
-
-<!-- <osem-chart-datepicker-modal-container></osem-chart-datepicker-modal-container> -->

@@ -1,5 +1,3 @@
-import { DeviceQuery } from './../../../models/device/state/device.query';
-import { DeviceService } from './../../../models/device/state/device.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

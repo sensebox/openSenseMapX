@@ -6,7 +6,7 @@ import { Box } from './box.model';
 import { tap, share } from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
 
-import { schema, normalize } from 'normalizr';
+import { schema } from 'normalizr';
 import { SensorStore } from '../../sensor/state/sensor.store';
 import { UiService } from '../../ui/state/ui.service';
 import { BoxQuery } from './box.query';
@@ -27,6 +27,7 @@ export class BoxService {
     private http: HttpClient) {
   }
 
+  //DEPRECATED: Used to fetch boxes from the api and load to store. Because of perfomance issues the data is loaded directly as GEOJSON into mapbox now.
   get() {
     
     // Normalizr-Schema for the Data 
@@ -41,10 +42,6 @@ export class BoxService {
     // return this.http.get<any>(`/assets/data/start-data.json`).pipe(tap(entities => {
 
       // this.boxStore.set(entities);
-      // 
-      // //normalize Data TODO: REMOVE THIS; SUPER SLOW WITH few thousand entries
-      // let res  = normalize(entities, [box]);
-      // console.log(res);
       let ownNormalize = processBoxData(entities);
       // // //set Data in stores
       this.boxStore.set(ownNormalize[0]);
@@ -61,6 +58,7 @@ export class BoxService {
     }));
   }
 
+  // Function to fetch daterange-Data from the opensensemap API. 
   getValues(pheno, dateRange, bbox) {
     
     this.boxStore.setFetchingData(true);
@@ -96,7 +94,7 @@ export class BoxService {
 
       this.boxStore.setDataFetched(true);
       this.boxStore.setFetchingData(false);
-      //TODO: find a better place for this + fix calling twice :o
+      //TODO: find a better place for this + fix calling twice :o 
       this.uiService.setSelectedDate(dateRange[0]);
       this.uiService.setSelectedDate(dateRange[0]);
       this.uiService.setFilterVisible(false);
@@ -105,10 +103,8 @@ export class BoxService {
     }), share());
   }
 
+  // Fetches the data for one box
   getSingleBox(id){
-    // const sensor = new schema.Entity('sensors', {}, { idAttribute: '_id' });
-
-    // const box = new schema.Entity('boxes', {sensors: [sensor] }, { idAttribute: '_id' });
 
     return this.http.get<Box>(`${environment.api_url}/boxes/${id}`).pipe(tap(entity => {
       let ownNormalize = processBoxData([entity]);
@@ -121,6 +117,7 @@ export class BoxService {
     }));
   }
 
+  // Fetches all the boxes of one user
   getMyBoxes(){
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
