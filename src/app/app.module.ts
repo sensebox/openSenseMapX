@@ -8,7 +8,6 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
-import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { environment } from '../environments/environment';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
@@ -40,7 +39,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
-    AkitaNgRouterStoreModule.forRoot(),
     CoreModule,
     SharedModule,
     ExploreModule,

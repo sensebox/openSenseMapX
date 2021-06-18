@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DatetimeModalContainerComponent } from './datetime-modal-container.component';
 
@@ -6,7 +6,7 @@ describe('DatetimeModalContainerComponent', () => {
   let component: DatetimeModalContainerComponent;
   let fixture: ComponentFixture<DatetimeModalContainerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DatetimeModalContainerComponent ]
     })

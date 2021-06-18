@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProfileBoxCreateGeneralComponent } from './profile-box-create-general.component';
 
@@ -6,7 +6,7 @@ describe('ProfileBoxCreateGeneralComponent', () => {
   let component: ProfileBoxCreateGeneralComponent;
   let fixture: ComponentFixture<ProfileBoxCreateGeneralComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ProfileBoxCreateGeneralComponent ]
     })

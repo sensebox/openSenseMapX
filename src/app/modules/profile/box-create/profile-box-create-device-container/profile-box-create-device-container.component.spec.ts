@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProfileBoxCreateDeviceContainerComponent } from './profile-box-create-device-container.component';
 
@@ -6,7 +6,7 @@ describe('ProfileBoxCreateDeviceContainerComponent', () => {
   let component: ProfileBoxCreateDeviceContainerComponent;
   let fixture: ComponentFixture<ProfileBoxCreateDeviceContainerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ProfileBoxCreateDeviceContainerComponent ]
     })
