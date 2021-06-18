@@ -7,7 +7,6 @@ import { withLatestFrom } from 'rxjs/operators';
 import { IntervalTimer } from '../../../../helper/IntervalTimer';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { TranslateService } from '@ngx-translate/core';
-import { id } from '@swimlane/ngx-charts/release/utils';
 import { MapService } from '../../services/map.service';
 import { BoxService } from 'src/app/models/box/state/box.service';
 
