@@ -36,6 +36,7 @@
     "OUTDOOR": "outdoor",
     "INDOOR": "indoor",
     "ALL": "All boxes",
+    "MODEL": "Model",
     "ACTIVE_BOX": "Activ box",
     "ACTIVE_BOX_TEXT": "Measurements within last 7 days",
     "INACTIVE_BOX": "Inactiv box",
@@ -58,6 +59,7 @@
     "PRIVACY": "Privacy",
 
     "MY_BOXES": "My Boxes",
+    "ALL_BOXES": "All Boxes",
     "ADD_BOX": "New Box",
     "MY_VIS": "Saved Maps",
     "MY_ACCOUNT": "My account",
