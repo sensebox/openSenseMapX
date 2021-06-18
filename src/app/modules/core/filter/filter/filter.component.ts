@@ -85,7 +85,6 @@ export class FilterComponent implements OnInit {
 
   toggleModel(model){
     let index = this.filters.model.indexOf(model);
-    console.log("toggleModel", model, index)
     if(index === -1){
       this.filtersSet.emit({...this.filters, model: [...this.filters.model, model].concat(this.models[model])})
     } else {
