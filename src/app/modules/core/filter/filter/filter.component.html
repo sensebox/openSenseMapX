@@ -13,28 +13,6 @@
             <input (click)="setExposure('all')" class="is-checkradio is-small is-primary" id="all" type="radio" name="all" [checked]="filters.exposure != 'all' ? false : true">
             <label for="all">{{'ALL' | translate}}</label>
         </div>
-        
-        <!-- <div (click)="setExposure('outdoor')" title="{{'OUTDOOR' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filters.exposure != 'outdoor'" class="far fa-square not-checked"></i>
-                <i *ngIf="filters.exposure === 'outdoor'" class="far fa-check-square checked"></i>
-            </div>
-            <span>{{'OUTDOOR' | translate}}</span>
-        </div>
-        <div (click)="setExposure('indoor')" title="{{'INDOOR' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filters.exposure != 'indoor'" class="far fa-square not-checked"></i>
-                <i *ngIf="filters.exposure === 'indoor'" class="far fa-check-square checked"></i>
-            </div>
-            <span>{{'INDOOR' | translate}}</span>
-        </div>
-        <div (click)="setExposure('all')" title="{{'ALL' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filters.exposure != 'all'" class="far fa-square not-checked"></i>
-                <i *ngIf="filters.exposure === 'all'" class="far fa-check-square checked"></i>
-            </div>
-            <span>{{'ALL' | translate}}</span>
-        </div> -->
     </div>
 
     <div class="options">
@@ -69,44 +47,6 @@
             <label for="all-boxes">{{'ALL_BOXES' | translate}}</label>
         </div>
 
-        <!-- <div (click)="myBoxes()" title="{{'OUTDOOR' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filters.ids === null" class="far fa-square not-checked"></i>
-                <i *ngIf="filters.ids != null" class="far fa-check-square checked"></i>
-            </div>
-            <span>{{'MY_BOXES' | translate}}</span>
-        </div>
-        <div (click)="allBoxes()" title="{{'ALL' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filters.ids != null " class="far fa-square not-checked"></i>
-                <i *ngIf="filters.ids === null" class="far fa-check-square checked"></i>
-            </div>
-            <span>{{'ALL_BOXES' | translate}}</span>
-        </div> -->
     </div>
    
-    <!-- <div class="options">
-        <h3>{{'MODEL' | translate}}</h3>
-        <div (click)="setExposure('outdoor')" title="{{'OUTDOOR' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filter.exposure != 'outdoor'" class="fa fa-square-o not-checked"></i>
-                <i *ngIf="filter.exposure === 'outdoor'" class="fa fa-check-square checked"></i>
-            </div>
-            <span>{{'OUTDOOR' | translate}}</span>
-        </div>
-        <div (click)="setExposure('indoor')" title="{{'INDOOR' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filter.exposure != 'indoor'" class="fa fa-square-o not-checked"></i>
-                <i *ngIf="filter.exposure === 'indoor'" class="fa fa-check-square-o checked"></i>
-            </div>
-            <span>{{'INDOOR' | translate}}</span>
-        </div>
-        <div (click)="setExposure('all')" title="{{'ALL' | translate}}">
-            <div class="checkbox">
-                <i *ngIf="filter.exposure != 'all'" class="fa fa-square-o not-checked"></i>
-                <i *ngIf="filter.exposure === 'all'" class="fa fa-check-square-o checked"></i>
-            </div>
-            <span>{{'ALL' | translate}}</span>
-        </div>
-    </div> -->
 </div>
