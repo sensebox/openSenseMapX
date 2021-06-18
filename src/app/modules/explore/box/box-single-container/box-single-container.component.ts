@@ -41,7 +41,7 @@ export class BoxSingleContainerComponent implements OnInit {
 
   sensorsLoading$ = this.uiQuery.selectChartLoading$;
 
-  @ContentChild('sensors', {static: false}) sensors: ElementRef;
+  @ContentChild('sensors') sensors: ElementRef;
 
 
   constructor(
