@@ -32,6 +32,7 @@
     "bulma-calendar": "^6.1.6",
     "bulma-checkradio": "^1.1.1",
     "dotenv": "^8.6.0",
+    "font-awesome": "^4.7.0",
     "mapbox-gl": "^1.13.1",
     "ng-pick-datetime": "^7.0.0",
     "ng-pick-datetime-ex": "^9.0.9",
