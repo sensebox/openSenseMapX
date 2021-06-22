@@ -73,9 +73,12 @@ p {
 
 $checkradio-focus: none;
 $primary: $primaryColor;
+$calendar-range-background-color : $primaryColor;
 
 @import '~node_modules/bulma/bulma';
 @import '~node_modules/bulma-checkradio/dist/css/bulma-checkradio';
+@import '~node_modules/bulma-calendar/src/sass/index';
+@import '~node_modules/bulma-calendar/src/sass/timepicker';
 // @import '~node_modules/bulma/sass/utilities/_all';
 // @import '~node_modules/bulma/sass/helpers/_all';
 // @import '~node_modules/bulma/sass/base/_all';
