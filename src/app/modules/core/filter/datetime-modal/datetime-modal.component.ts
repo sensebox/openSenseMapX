@@ -107,8 +107,8 @@ export class DatetimeModalComponent implements OnInit {
       if (elementRange) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         elementRange.bulmaCalendar.on('select', datepicker => {
-          that.dateRangeStart = datepicker.data.startTime;
-          that.dateRangeEnd = datepicker.data.endTime;
+          that.dateRangeStart = datepicker.data.date.start;
+          that.dateRangeEnd = datepicker.data.date.end;
         });
       }
 

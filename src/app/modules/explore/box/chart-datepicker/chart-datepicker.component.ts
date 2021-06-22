@@ -84,8 +84,8 @@ export class ChartDatepickerComponent implements OnInit {
     if (elementRange) {
       // bulmaCalendar instance is available as element.bulmaCalendar
       elementRange.bulmaCalendar.on('select', datepicker => {
-        this.dateRangeStart = datepicker.data.startTime;
-        this.dateRangeEnd = datepicker.data.endTime;
+        this.dateRangeStart = datepicker.data.date.start;
+        this.dateRangeEnd = datepicker.data.date.end;
       });
     }
 
