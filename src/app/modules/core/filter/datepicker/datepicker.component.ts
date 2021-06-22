@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
-import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,7 +26,6 @@ export class DatepickerComponent implements OnInit {
   oldDates;
 
   constructor(
-    private dateTimeAdapter: DateTimeAdapter<any>,
     private uiService: UiService,
     private router: Router,
     private activatedRoute: ActivatedRoute,

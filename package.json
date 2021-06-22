@@ -34,8 +34,6 @@
     "bulma-checkradio": "^1.1.1",
     "dotenv": "^8.6.0",
     "mapbox-gl": "^1.13.1",
-    "ng-pick-datetime": "^7.0.0",
-    "ng-pick-datetime-ex": "^9.0.9",
     "ngx-color-picker": "^11.0.0",
     "normalizr": "^3.6.1",
     "rxjs": "~6.6.7",

@@ -27,7 +27,6 @@ import { PopupContainerComponent } from './map/popup-container/popup-container.c
 import { MapOptionsContainerComponent } from './map/map-options-container/map-options-container.component';
 import { MapOptionsComponent } from './map/map-options/map-options.component';
 import { ChartDatepickerComponent } from './box/chart-datepicker/chart-datepicker.component';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SharedModule } from '../shared/shared.module';
 import { MapLoadingComponent } from './map/map-loading/map-loading.component';
 import { LegendEditContainerComponent } from './legend/legend-edit-container/legend-edit-container.component';
@@ -44,8 +43,6 @@ import { LegendEditComponent } from './legend/legend-edit/legend-edit.component'
     ReactiveFormsModule,
     RouterModule,
     // TranslateModule,
-    OwlDateTimeModule, 
-    OwlNativeDateTimeModule,
     ColorPickerModule
   ],
   providers: [MapService],

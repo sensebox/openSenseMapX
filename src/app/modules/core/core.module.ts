@@ -9,7 +9,6 @@ import { FilterContainerComponent } from './filter/filter-container/filter-conta
 import { BottomBarContainerComponent } from './bottom-bar-container/bottom-bar-container.component';
 import { RouterModule } from '@angular/router';
 import { DatepickerComponent } from './filter/datepicker/datepicker.component';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { FilterSwitcherComponent } from './filter/filter-switcher/filter-switcher.component';
 import { FilterComponent } from './filter/filter/filter.component';
@@ -41,8 +40,6 @@ import { VisFormComponent } from './vis-form/vis-form.component';
   imports: [
     CommonModule,
     RouterModule,
-    OwlDateTimeModule, 
-    OwlNativeDateTimeModule,
     FormsModule,
     ReactiveFormsModule,
     ExploreModule,

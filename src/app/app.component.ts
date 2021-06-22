@@ -2,7 +2,6 @@ import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UiQuery } from './models/ui/state/ui.query';
 import { slideInOutHorizontalBoolean, routingFadeIn, appearModal, appearSlow } from './helper/animations';
-import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from './models/session/state/session.service';
 import { UiService } from './models/ui/state/ui.service';
@@ -31,13 +30,11 @@ export class AppComponent {
     private uiQuery: UiQuery,
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
-    private uiService: UiService,
-    private dateTimeAdapter: DateTimeAdapter<any>){
+    private uiService: UiService){
 
       translate.setDefaultLang('de-DE');
       this.language$.subscribe(lang => {
         translate.use(lang);
-        this.dateTimeAdapter.setLocale(lang);
       })
 
       if(window.localStorage.getItem('sb_refreshtoken'))
