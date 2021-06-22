@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import bulmaCalendar from 'node_modules/bulma-calendar/dist/js/bulma-calendar.min.js';
+
 @Component({
   selector: 'osem-chart-datepicker',
   templateUrl: './chart-datepicker.component.html',
@@ -67,6 +69,26 @@ export class ChartDatepickerComponent implements OnInit {
 
   openModal(){
     this.modalActive = true;
+    const timeRangeOptions = {
+      lang: this.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+      minuteSteps: 10,
+      startDate: this.dateRangeStart ? this.dateRangeStart : this.minDate,
+      startTime: this.dateRangeStart ? this.dateRangeStart : this.minDate,
+      endDate: this.dateRangeEnd ? this.dateRangeEnd : this.minDate,
+      endTime: this.dateRangeEnd ? this.dateRangeEnd : this.minDate,
+      maxDate: this.maxDate,
+      color: '#4EAF47'
+    }
+    const timeRangeCalendar = bulmaCalendar.attach('#timerange', timeRangeOptions);
+    const elementRange:any = document.querySelector('#timerange');
+    if (elementRange) {
+      // bulmaCalendar instance is available as element.bulmaCalendar
+      elementRange.bulmaCalendar.on('select', datepicker => {
+        this.dateRangeStart = datepicker.data.startTime;
+        this.dateRangeEnd = datepicker.data.endTime;
+      });
+    }
+
   }
 
   closeModal(){

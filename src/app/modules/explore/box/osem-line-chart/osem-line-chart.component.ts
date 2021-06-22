@@ -129,7 +129,6 @@ export class OsemLineChartComponent extends BaseChartComponent  {
 
   constructor(protected chartElement: ElementRef, protected zone: NgZone, protected cd: ChangeDetectorRef, @Inject(PLATFORM_ID) public platformId: any) {
     super(chartElement, zone, cd, platformId);
-    console.log(chartElement, zone, cd, platformId);
     //override cloneData because it is private
     this["cloneData"] = this.cloneDataOverride;
   }
