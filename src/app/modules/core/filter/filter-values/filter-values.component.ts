@@ -27,7 +27,8 @@ export class FilterValuesComponent implements OnInit {
   ngOnInit() {
   }
 
-  backToLive(){
+  backToLive(e){
+    e.stopPropagation();
     this.live.emit();
   }
 

@@ -100,6 +100,7 @@ export class UiService {
   }
 
   updateBaseLayer(layer){
+    console.log("UPDATING BASE LAYER")
     this.uiStore.updateBaseLayer(layer);
   }
   

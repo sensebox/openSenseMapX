@@ -2,7 +2,7 @@
     <div class="tags are-medium">
         <span class="osem-clickable tag is-rounded is-primary" (click)="openDate()">
             {{ (selectedDate ? selectedDate : now) | date:'short': '':translateService.currentLang}}
-            <div *ngIf="timeMode === 'timestamp'" class="osem-close-text-no-pos" (click)="backToLive()" title="{{'BACK_TO_LIVE' | translate}}">
+            <div *ngIf="timeMode === 'timestamp'" class="osem-close-text-no-pos" (click)="backToLive($event)" title="{{'BACK_TO_LIVE' | translate}}">
                 <button class="delete is-small"></button>
             </div>
         </span>

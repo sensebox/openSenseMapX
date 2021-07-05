@@ -120,7 +120,7 @@ export class MapService {
 
     // subscribes to the Pheno, Filter and Date selection to update the sources accordingly, subscribes to Layers once sources are done
     this.dataSub = combineLatest(this.selectedPheno$, this.filters$, this.dateRangeData$).subscribe(res => {
-     
+      // console.log("DATASUB", res)
       if(res[0]){
         let filteredData;
         if(res[0].title === 'ALL'){
@@ -142,10 +142,14 @@ export class MapService {
             'type': 'geojson',
             'data': filteredData,
           });
+          // console.log("addsource")
         } else {
+          // console.log("changeSource")
           if(res[2]){
+            // console.log("RES2", res[2])
             this.map.getSource('boxes').setData(res[2]);
           } else {
+            // console.log("filteredData", filteredData)
             this.map.getSource('boxes').setData(filteredData);
           }
         }
@@ -181,8 +185,9 @@ export class MapService {
     }
 
     let that = this;
-   
+    // console.log("SUBSCRIBE HERE")
     this.baseLayerSub = this.baseLayer$.subscribe(res => {
+      // console.log("LAYER TO DRAW:",res)
       this.baseLayerBehaviour$.next(res);
       that.drawBaseLayer(res);
     });
@@ -757,7 +762,7 @@ export class MapService {
 
       positionPopup(pixelPosition);
 
-      //CODE TO ADD BOX TO COMPARE DIRECTLY ON MARKER CLICK
+      //CODE TO ADD BOX TO COMPARE DIRECTLY ON MARKER CLICK (using popup atm, so not needed)
       // let newIds = [];
       // if (this.activatedRoute.snapshot.queryParams.id) {
       //   if (Array.isArray(this.activatedRoute.snapshot.queryParams.id)) {

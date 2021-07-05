@@ -50,11 +50,6 @@ export class TimeSliderContainerComponent implements OnInit {
 
   ngOnInit() { 
     this.combineSub = this.selectedDate$.pipe(withLatestFrom(this.selectedPheno$, this.clustering$)).subscribe(res => {
-      // this.clustering = res[2];
-      // if(res[1] != this.selectedPheno || (res[0] && res[0].getTime() != this.selectedDate)){
-      //   if(this.selectedDate){
-      //     // this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
-      //   }
         if(res[0]){
           this.selectedDate = res[0].getTime();
           this.uiService.setClustering(false);
@@ -63,35 +58,20 @@ export class TimeSliderContainerComponent implements OnInit {
           this.selectedPheno = res[1];
         
         if(res[0] && res[1]){
-      //     console.log("ADDING LAYER", new Date(this.selectedDate).toISOString());
-      //     // this.mapService.addDateLayer(new Date(this.selectedDate).toISOString(), res[2]);
           let newLayer = JSON.parse(JSON.stringify(res[1].layer));
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
           this.uiService.updateBaseLayer(newLayer);
         } else if(res[1] && !res[0] && this.selectedDate) {
           let newLayer = JSON.parse(JSON.stringify(res[1].layer));
-          newLayer.filter = [ "get", res[1].title, ["object", ["get", "live"]]];
-          newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live"]]];
+          newLayer.filter = [ "get", res[1].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]];
+          newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]];
+          console.log(newLayer);
           this.uiService.updateBaseLayer(newLayer);
-          this.uiService.setClustering(true);
-        }
-      //     // this.uiService.updateClusterLayer(res[0].toISOString());
-          
-      //   } else if(res[1] && !res[0] && this.selectedDate){
-      //     let newLayer = JSON.parse(JSON.stringify(res[1].layer));
-      //     newLayer.filter = [ "get", res[1].title, ["object", ["get", "live"]]];
-      //     newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live"]]];
-      //   }
-      // }  
+          // this.uiService.setClustering(true);  TODO: what was this needed for?
+        }          
     })
 
-    // this.boxes$.pipe(withLatestFrom(this.selectedDate$)).pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
-    //   if(res[1]) {
-    //     console.log(res);
-    //     console.log("MAKE CLUSTER SOURCE HERE");
-    //   }
-    // })
 
     this.dateRange$.subscribe(res => {
       this.interval = null;
@@ -111,7 +91,6 @@ export class TimeSliderContainerComponent implements OnInit {
   removeDateRange(){
     console.log("removing date and daterange")
     const { fromDate, toDate, ...newQueryParams} = this.activatedRoute.snapshot.queryParams;
-    // this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
     this.uiService.updateDateRange(null);
     this.uiService.updateDateStamp(null);
     this.boxService.setDateRangeData(null);

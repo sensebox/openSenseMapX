@@ -142,6 +142,7 @@ export class UiStore extends Store<UiState> {
 
   // updates the selected Pheno (this is so complicated because all Layers have to be changed if the selected Phenomenon changes)
   updateSelectedPheno(pheno) {
+    console.log("updateSelectedPheno")
     this.update( state =>  {
       let circleColorCluster:any = 
         ['match',
@@ -256,6 +257,7 @@ export class UiStore extends Store<UiState> {
   }
 
   updateBaseLayer(layer){
+    console.log("updateBaseLayer")
     this.update( state => ( {
       baseLayer: {
         ...state.baseLayer,
