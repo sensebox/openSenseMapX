@@ -22,7 +22,7 @@
     "@angular/platform-browser": "~11.2.14",
     "@angular/platform-browser-dynamic": "~11.2.14",
     "@angular/router": "~11.2.14",
-    "@datorama/akita": "^4.20.1",
+    "@datorama/akita": "^5.3.0",
     "@datorama/akita-ng-forms-manager": "^5.0.2",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@ngx-translate/core": "^13.0.0",
