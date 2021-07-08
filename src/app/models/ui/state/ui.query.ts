@@ -9,7 +9,9 @@ export class UiQuery extends Query<UiState> {
   selectActiveSensorTypes$ = this.select(state => state.activeSensorTypes);
   selectSelectedPheno$ = this.select(state => state.selectedPheno);
   selectDateRange$ = this.select(state => state.dateRange);
+  selectDateStamp$ = this.select(state => state.dateStamp);
   selectDateRangeChart$ = this.select(state => state.dateRangeChart);
+  selectActiveTimeMode$ = this.select(state => state.activeTimeMode);
   selectSelectedDate$ = this.select(state => state.selectedDate);
   selectFilterVisible$ = this.select(state => state.fitlerVisible);
   selectSearchTerm$ = this.select(state => state.searchTerm);
@@ -22,9 +24,13 @@ export class UiQuery extends Query<UiState> {
   selectInfoPheno$ = this.select(state => state.infoPheno);
   selectFilters$ = this.select(state => state.filters);
   selectReloadMapData$ = this.select(state => state.reloadMapData);
+  selectShowDateModal$ = this.select(state => state.showDateModal);
+  selectStats$ = this.select(state => state.stats);
   
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);
+  selectActiveTab$ = this.select(state => state.activeTab);
+  selectChartLoading$ = this.select(state => state.chartLoading);
 
   constructor(protected store: UiStore) {
     super(store);

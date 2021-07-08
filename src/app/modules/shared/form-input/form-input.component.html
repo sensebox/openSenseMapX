@@ -1,0 +1,20 @@
+<!-- <div [class.active]="active || this.control.value !== ''" class="ut-form-element">
+  <label>{{label}}</label>
+  <input (focus)="enter()" (focusout)="leave()" [type]="typeString ? typeString : 'text'" [formControl]="control">
+  <osem-control-message [control]="control"></osem-control-message>
+      
+</div> -->
+      
+
+<div class="field">
+  <label class="label">{{label}}</label>
+  <div class="control">
+    <input 
+      [class.is-danger]="control.errors && control.touched"
+      [formControl]="control"
+      class="input" 
+      [type]="typeString ? typeString : 'text'" 
+      placeholder="{{label}}">  
+  </div>
+  <osem-control-message [control]="control"></osem-control-message>
+</div>

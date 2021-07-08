@@ -39,9 +39,9 @@ export class BoxSingleContainerComponent implements OnInit {
   windowWidth = window.innerWidth;
   scrollDivWidth = 0;
 
-  sensorsLoading$ = this.sensorQuery.selectLoading();
+  sensorsLoading$ = this.uiQuery.selectChartLoading$;
 
-  @ContentChild('sensors', {static: false}) sensors: ElementRef;
+  @ContentChild('sensors') sensors: ElementRef;
 
 
   constructor(
@@ -61,7 +61,7 @@ export class BoxSingleContainerComponent implements OnInit {
     this.activeBoxSolo$.pipe(withLatestFrom(this.activeSensorTypes$, this.activeBox$)).subscribe(data => {
       if(data){
         // TODO: MUSS WOANDERS HIN
-        if(data[2] && data[2].sensors.length > 0) {
+        if(data[2] && data[2].sensors && data[2].sensors.length > 0) {
           let sensorsToActive = [];
           
           data[2].sensors.forEach(res => {
@@ -72,7 +72,6 @@ export class BoxSingleContainerComponent implements OnInit {
             }
           })
           this.sensorService.setActive(sensorsToActive);
-        } else {
         }
       }
     });

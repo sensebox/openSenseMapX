@@ -1,13 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~ng-pick-datetime/assets/style/picker.min.css";
 @import 'styles/icons/osem-icons.scss';
 @import 'styles/variables.scss';
 @import 'styles/themes/theme.scss';
-@import 'styles/general/general.scss';
 @import 'styles/general/mapbox.scss';
 
-$fa-font-path: "~font-awesome/fonts";
-@import '~font-awesome/scss/font-awesome';
+// $fa-font-path: "~@fortawesome/fontawesome-free/fonts";
+// @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 @font-face {
   font-family: BrixSlab;
@@ -16,11 +14,98 @@ $fa-font-path: "~font-awesome/fonts";
 @font-face {
   font-family: BrixSlab;
   font-weight: bold;
-  src: url(styles/fonts/BrixSlab-Bold.otf);  
+  src: url(styles/fonts/BrixSlab-Bold.otf);
+}
+
+/* lato-regular - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url('styles/fonts/lato-v16-latin/lato-v16-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Lato Regular'), local('Lato-Regular'),
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-regular.svg#Lato') format('svg'); /* Legacy iOS */
+}
+
+/* lato-900 - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  src: url('styles/fonts/lato-v16-latin/lato-v16-latin-900.eot'); /* IE9 Compat Modes */
+  src: local('Lato Black'), local('Lato-Black'),
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-900.woff2') format('woff2'), /* Super Modern Browsers */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-900.woff') format('woff'), /* Modern Browsers */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-900.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('styles/fonts/lato-v16-latin/lato-v16-latin-900.svg#Lato') format('svg'); /* Legacy iOS */
 }
 
 
+
+// BULMA VARIABLES
+
+// $primary: var(--color-primary);  WAIT FOR BULMA UPDATE FOR THIS TO WORK
+
+$family-primary: BrixSlab, Helvetica, sans-serif;
+$family-secondary: BrixSlab, Helvetica, sans-serif;
+$link: $primaryColor;
+//TABS
+
+$tabs-link-active-border-bottom-color: #4EAF47;
+$tabs-link-active-color: #4EAF47;
+
+
+
+h1,h2,h3,h4,h5 {
+  font-family: BrixSlab, Helvetica, sans-serif;
+}
+
+p {
+  font-family: BrixSlab, Helvetica, sans-serif;;
+}
+
+
+$checkradio-focus: none;
+$primary: $primaryColor;
+$calendar-range-background-color : $primaryColor;
+
+@import '~node_modules/bulma/bulma';
+@import '~node_modules/bulma-checkradio/dist/css/bulma-checkradio';
+@import '~node_modules/bulma-calendar/src/sass/index';
+@import '~node_modules/bulma-calendar/src/sass/timepicker';
+// @import '~node_modules/bulma/sass/utilities/_all';
+// @import '~node_modules/bulma/sass/helpers/_all';
+// @import '~node_modules/bulma/sass/base/_all';
+// @import '~node_modules/bulma/sass/elements/button';
+// @import '~node_modules/bulma/sass/elements/container';
+// @import '~node_modules/bulma/sass/elements/title';
+// @import '~node_modules/bulma/sass/elements/image';
+// @import '~node_modules/bulma/sass/form/_all';
+// @import '~node_modules/bulma/sass/components/breadcrumb';
+// @import '~node_modules/bulma/sass/components/card';
+// @import '~node_modules/bulma/sass/components/media';
+// @import '~node_modules/bulma/sass/components/level';
+// @import '~node_modules/bulma/sass/components/menu';
+// @import '~node_modules/bulma/sass/components/tabs';
+// @import '~node_modules/bulma/sass/layout/section';
+// @import '~node_modules/bulma/sass/grid/_all';
+
+//BULMA FIXES
+.field {
+  margin-bottom: 0.75em;
+}
+
+
+
+
+
 body, html {
+
   height: 100%;
   padding: 0;
   margin: 0;
@@ -28,6 +113,7 @@ body, html {
   font-family: BrixSlab,Helvetica,sans-serif;
   color: var(--text-color-primary);
   overflow: hidden;
+  overflow-y: hidden !important; //override bulma defaults
 }
 
 button {
@@ -40,3 +126,23 @@ button {
 .osem-no-margin {
   margin: 0;
 }
+
+.title {
+  color: var(--text-color-primary);
+}
+
+.subtitle {
+  color: var(--text-color-primary);
+}
+
+.table {
+  background-color: var(--background-primary-full);
+  color: var(--text-color-primary);
+}
+
+.tag.is-primary {
+  background-color: var(--color-primary) !important;
+}
+
+
+@import 'styles/general/general.scss';

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DateTimeAdapter } from 'ng-pick-datetime';
 import { TranslateService } from '@ngx-translate/core';
+
+import bulmaCalendar from 'node_modules/bulma-calendar/dist/js/bulma-calendar.min.js';
 
 @Component({
   selector: 'osem-chart-datepicker',
@@ -13,11 +14,16 @@ export class ChartDatepickerComponent implements OnInit {
   @Input() dateRangeGlobal;
   @Output() dateChanged = new EventEmitter();
 
-  startAt = new Date('2019-12-31T15:00:00.000Z');
-  minDate = new Date('2019-12-31T00:00:00.000Z');
-  maxDate = new Date('2020-01-01T23:00:00.000Z');
+  startAt = new Date();
+  minDate = new Date('2018-01-01T00:00:00.000Z');
+  maxDate = new Date();
 
   now = new Date();
+
+  modalActive = false;
+
+  dateRangeStart;
+  dateRangeEnd;
 
   constructor(
     public translateService: TranslateService) { 
@@ -25,10 +31,68 @@ export class ChartDatepickerComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if(this.dateRange){
+      this.dateRangeStart = this.dateRange[0]
+      this.dateRangeEnd = this.dateRange[1]
+    }
   }
 
-  dateChange(){
-    this.dateChanged.emit(this.dateRange);
+  ngOnChanges(){
+    this.dateRangeStart = this.dateRange[0]
+    this.dateRangeEnd = this.dateRange[1]
   }
 
+  updateDateRange(start, end){
+    this.dateChanged.emit([start, end]);
+    this.closeModal();
+  }
+
+  lastWeek(){
+    let now = new Date();
+    let before = new Date()
+    before.setDate(now.getDate()-7)
+    this.dateChanged.emit([before, now])
+  }
+  last24(){
+    let now = new Date();
+    let before = new Date()
+    before.setDate(now.getDate()-1)
+    this.dateChanged.emit([before, now])
+  }
+  lastHour(){
+    let now = new Date();
+    let before = new Date()
+    before.setHours(now.getHours()-1)
+    this.dateChanged.emit([before, now])
+  }
+
+  openModal(){
+    this.modalActive = true;
+    const timeRangeOptions = {
+      lang: this.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+      minuteSteps: 10,
+      startDate: this.dateRangeStart ? this.dateRangeStart : this.minDate,
+      startTime: this.dateRangeStart ? this.dateRangeStart : this.minDate,
+      endDate: this.dateRangeEnd ? this.dateRangeEnd : this.minDate,
+      endTime: this.dateRangeEnd ? this.dateRangeEnd : this.minDate,
+      maxDate: this.maxDate,
+      color: '#4EAF47'
+    }
+    const timeRangeCalendar = bulmaCalendar.attach('#timerange', timeRangeOptions);
+    const elementRange:any = document.querySelector('#timerange');
+    if (elementRange) {
+      // bulmaCalendar instance is available as element.bulmaCalendar
+      elementRange.bulmaCalendar.on('select', datepicker => {
+        var dates = datepicker.data.value().split('-');
+        this.dateRangeStart = new Date(dates[0]);
+        this.dateRangeEnd = new Date(dates[1]);
+      });
+    }
+
+  }
+
+  closeModal(){
+    this.modalActive = false;
+  }
 }

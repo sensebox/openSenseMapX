@@ -4,17 +4,21 @@
       <span>{{box.name}}</span>
       <div id="compare-to-button" (click)="openCompare(box._id)" title="{{'COMPARE_TO' | translate}}">
         <span>
-          <i class="fa fa-plus"></i>
+          <i class="fa fa-balance-scale-right"></i>
         </span>
       </div>
     </div>
     <div class="last-measurement" *ngIf="box.lastMeasurementAt;else noMeasurement">
       {{'LAST_MEASUREMENT' | translate}}: {{box.lastMeasurementAt | date:'short':'':translateService.currentLang}}
+      <i class="fa fa-sync"></i>
     </div>
     <ng-template #noMeasurement>
       {{'NO_RECENT_MEASUREMENT' | translate}}
+      <i class="fa fa-sync"></i>
     </ng-template>
-    <div class="osem-close-text" (click)="closeBox()">X</div>
+    <div class="osem-close-text" (click)="closeBox()">
+      <button class="delete is-medium"></button>
+    </div>
   </div>
 
   <div class="scroll-wrapper" [class.scrollable]="windowWidth < scrollDivWidth">
@@ -35,19 +39,20 @@
                 [style.color]="(colors && activeSensorTypes && activeSensorTypes.indexOf(sensor.title) != -1) ? colors.getColor(sensor.title) : 'inherit'"
                 (click)="selectValue(sensor)">
                 <div class="icon-value-unit">
-                  <div class="icon">
+                  <div class="osem-icon">
                     <i *ngIf="sensor.icon" class="osem-icon {{sensor.icon}}"></i>
                   </div>
                   <div class="value">
-                    <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value.split('.')[0]}}</b><span class="osem-small-bottom">.<span *ngIf="sensor.lastMeasurement && sensor.lastMeasurement.value.split('.')[1]; else zeros">{{sensor.lastMeasurement.value.split('.')[1].padEnd(2, '0') }}</span></span>
+                    <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value.split('.')[0]}}</b>
+                    <span class="osem-small-bottom" *ngIf="sensor.lastMeasurement">.<span *ngIf="sensor.lastMeasurement && sensor.lastMeasurement.value.split('.')[1]; else zeros">{{sensor.lastMeasurement.value.split('.')[1].padEnd(2, '0') }}</span></span>
                     <ng-template #zeros>00</ng-template>
-                    <b *ngIf="!sensor.lastMeasurement">N/A</b>
+                    <b *ngIf="!sensor.lastMeasurement" class="no-value">n/a</b>
                   </div>
-                  <div *ngIf="sensor.unit" class="unit">
+                  <div *ngIf="sensor.unit && sensor.lastMeasurement" class="unit">
                     {{sensor.unit}}
                   </div>
                 </div>
-                <div class="title">{{sensor.title}}</div>
+                <div class="osem-title">{{sensor.title}}</div>
               </div>
               <div class="add-button-container">
                 <div class="add-button" *ngIf="activeSensorTypes.length < 2 && activeSensorTypes.indexOf(sensor.title) === -1" (click)="addValue(sensor)">+</div>

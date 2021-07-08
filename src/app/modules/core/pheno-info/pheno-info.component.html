@@ -1,23 +1,23 @@
 <div>
     <h1>{{'WHAT_IS' | translate}} {{infoPheno}}</h1>
 
-    <div>
+    <div class="osem-text-block">
         <h3>{{'DEFINITION' | translate}}</h3>
         <p>{{infoPheno+'_DEFINITION' | translate}}</p>
     </div>
-    <div>
+    <div class="osem-text-block">
         <h3>{{'UNIT' | translate}}</h3>
         <div [innerHTML]="infoPheno+'_UNIT' | translate"></div>
     </div>
-    <div>
+    <div class="osem-text-block">
         <h3>{{'INTERPRETATION' | translate}}</h3>
         <p >{{infoPheno+'_INTERPRETATION' | translate}}</p>
     </div>
-    <div>
+    <div class="osem-text-block">
         <h3>{{'INFLUENCE' | translate}}</h3>
         <p [innerHTML]="infoPheno+'_INFLUENCE' | translate">{{infoPheno+'_INFLUENCE' | translate}}</p>
     </div>
-    <div>
+    <div class="osem-text-block">
         <h3>{{'FUN_FACT' | translate}}</h3>
         <p>{{infoPheno+'_FUN_FACT' | translate}}</p>
     </div>

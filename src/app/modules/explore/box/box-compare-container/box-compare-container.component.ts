@@ -33,7 +33,8 @@ export class BoxCompareContainerComponent implements OnInit {
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   colors$ = this.uiQuery.selectColors$;
   dataInit$ = this.boxQuery.selectDataInit$;
-  sensorsLoading$ = this.sensorQuery.selectLoading();
+  sensorsLoading$ = this.uiQuery.selectChartLoading$;
+
   // selectedDate$ = this.uiQuery.selectSelectedDate$;
   
   sensorsPhenoSub;
@@ -66,8 +67,8 @@ export class BoxCompareContainerComponent implements OnInit {
         this.uiService.setActiveSensorTypes(res.pheno);
     });
     
-    this.dataInit$.subscribe(res => {
-      if(res){
+    // this.dataInit$.subscribe(res => {
+    //   if(res){
         this.compareToWithSensors$.subscribe(res => {
           if(res){
             if(this.currentIds != res.map(compareTo => compareTo._id)){
@@ -80,10 +81,13 @@ export class BoxCompareContainerComponent implements OnInit {
         if(this.sensorsPhenoSub)
           this.sensorsPhenoSub.unsubscribe();
 
+          // KEEPS ACTIVATED PHENOS OPEN (not needed now?)
         this.sensorsPhenoSub = combineLatest(this.compareToWithSensors$, this.activePhenos$).subscribe(res => {
           // TODO: THIS FIRES MANY TIMES for some reason when switching between dark and light mode and closing compare mode if not checking for length
-          if(res[0].length > 0 && res[1].length > 0){
-            let sensorsToActive = res[0].map(box => box.sensors.filter(sensor => sensor.title === res[1]))
+          if(res[0] && res[0].length > 0 && res[1].length > 0){
+            let sensorsToActive = res[0].map(box => {
+              return box.sensors.filter(sensor => sensor.title === res[1])
+            })
             sensorsToActive = [].concat(...sensorsToActive).map(sensor => sensor._id);
             if(sensorsToActive.length > 0){
               this.sensorService.setActive(sensorsToActive);
@@ -119,27 +123,29 @@ export class BoxCompareContainerComponent implements OnInit {
             })
           }
         });
-      }
-    })
+    //   }
+    // })
   }
 
   combineData(data){
     let sensorData = {};
 
     data.forEach(box => {
-      box.sensors.forEach(sensor => {
-        if(sensor){
-          if(sensorData[sensor.title]){
-            sensorData[sensor.title][box._id] = {...sensor};
-          } else {
-            sensorData[sensor.title] = {};
-            sensorData[sensor.title][box._id] = {...sensor};
+      if(box.sensors){
+        box.sensors.forEach(sensor => {
+          if(sensor){
+            if(sensorData[sensor.title]){
+              sensorData[sensor.title][box._id] = {...sensor};
+            } else {
+              sensorData[sensor.title] = {};
+              sensorData[sensor.title][box._id] = {...sensor};
+            }
+            if(box.values && box.values[sensor.title]){
+              sensorData[sensor.title][box._id].values = box.values[sensor.title]
+            }
           }
-          if(box.values && box.values[sensor.title]){
-            sensorData[sensor.title][box._id].values = box.values[sensor.title]
-          }
-        }
-      })
+        })
+      }
     });
     return sensorData;
   }
@@ -195,6 +201,7 @@ export class BoxCompareContainerComponent implements OnInit {
         queryParamsHandling: 'merge'
       }
     );
+    this.boxService.setCompareTo([]);
   }
 
   ngOnDestroy(){

@@ -1,3 +1,4 @@
+import { SessionQuery } from 'src/app/models/session/state/session.query';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,12 +16,15 @@ export class NavContainerComponent implements OnInit {
 
   language$ = this.uiQuery.selectLanguage$;
   theme$ = this.uiQuery.selectTheme$;
+  user$ = this.sessionQuery.user$;
+  clustering$ = this.uiQuery.selectClustering$;
 
   constructor(
     private themeService: ThemeService,
     private translate: TranslateService,
     private uiService: UiService,
     private uiQuery: UiQuery,
+    private sessionQuery: SessionQuery,
     ) { }
 
   ngOnInit() {
@@ -35,6 +39,9 @@ export class NavContainerComponent implements OnInit {
   }
   toggleSettings(){
     this.settings = !this.settings;
+  }
+  toggleClustering(){
+    this.uiService.toggleClustering();
   }
 
 }

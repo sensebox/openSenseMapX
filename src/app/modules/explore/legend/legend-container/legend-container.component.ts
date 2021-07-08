@@ -9,6 +9,7 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 export class LegendContainerComponent implements OnInit {
 
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
+  stats$ = this.uiQuery.selectStats$;
   gradient = "";
 
   legendVisible = true;
@@ -17,18 +18,15 @@ export class LegendContainerComponent implements OnInit {
   ngOnInit() {
 
     this.selectedPheno$.subscribe((res:any) => {
-      if(res && res.layer){
+      if(res && res.layer && res.layer.paint['circle-color']){
         this.gradient = '0deg';
         res.layer.paint['circle-color'].forEach((color, index) => {
           if(index > 3 && (index % 2) != 1){
             this.gradient += ',' + color ;
-
           }
         })
-        // this.gradient = this.gradient.slice(0, -1);
       }
     })
-
   }
 
   toggleLegend(){

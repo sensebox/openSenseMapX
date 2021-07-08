@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Box } from './box.model';
 import { EntityState, EntityStore, StoreConfig, ActiveState, EntityUIStore } from '@datorama/akita';
+import { BoxService } from './box.service';
 
 export type BoxUI = {
   isOpen: boolean;
@@ -16,6 +17,9 @@ export interface BoxState extends EntityState<Box>, ActiveState {
     dataInit: boolean;
     compareModus: boolean;
     popupBox: Box;
+    dateRangeData: any;
+    dataFetched: boolean;
+    fetchingData: boolean;
   }
 }
 export interface BoxUIState extends EntityState<BoxUI> {}
@@ -31,7 +35,11 @@ const initialState = {
     mapInit: false,
     dataInit: false,
     compareModus: false,
-    popupBox: null
+    popupBox: null,
+    dateRangeData: null,
+    dataFetched: false,
+    fetchingData: false
+
   }
 }
 
@@ -67,6 +75,12 @@ export class BoxStore extends EntityStore<BoxState> {
   setCompareTo(compareTo){
     this.update( state => ({  ui: { ...state.ui ,compareTo: compareTo}}));
   }
+  setDateRangeData(dateRangeData){
+    this.update( state => ({  ui: { ...state.ui ,dateRangeData: dateRangeData}}));
+  }
+  setDataFetched(dataFetched){
+    this.update( state => ({  ui: { ...state.ui ,dataFetched: dataFetched}}));
+  }
   removeCompareTo(box){
     this.update( state => {
       let newCompareTo = state.ui.compareTo.slice(1, state.ui.compareTo.indexOf(box))
@@ -92,5 +106,8 @@ export class BoxStore extends EntityStore<BoxState> {
 
   setPopupBox(box){
     this.update( state => ({ ui: { ...state.ui , popupBox: box }}));
+  }
+  setFetchingData(fetchingData){
+    this.update( state => ({ ui: { ...state.ui , fetchingData: fetchingData }}));
   }
 }

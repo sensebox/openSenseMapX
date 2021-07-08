@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { appearPopup } from 'src/app/helper/animations';
+import { sensorIcons } from 'src/app/helper/sensorIcons';
 
 @Component({
   selector: 'osem-popup',
@@ -14,6 +15,8 @@ export class PopupComponent implements OnInit {
   @Input() box;
   @Input() cluster;
   @Output() closed = new EventEmitter();
+
+  public sensorIconsObject = sensorIcons;
 
   constructor(public router: Router, private activatedRoute: ActivatedRoute) { }
 

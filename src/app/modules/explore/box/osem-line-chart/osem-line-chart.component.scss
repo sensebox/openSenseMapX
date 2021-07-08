@@ -37,6 +37,9 @@
     .polar-series-path,
     .polar-series-area,
     .area-series {
+      path {
+        stroke-width: 3px !important;
+      }
       &.inactive {
         transition: opacity 100ms ease-in-out;
         opacity: .2

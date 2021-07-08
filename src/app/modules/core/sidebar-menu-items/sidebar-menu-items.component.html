@@ -1,0 +1,26 @@
+
+<aside class="menu">
+    <p class="menu-label">
+      Personal
+    </p>
+    <ul class="menu-list">
+      <ng-container *ngIf="loggedIn$ | async">
+        <li><a [routerLink]="['profile']" queryParamsHandling="merge">{{'PROFILE' | translate}}</a></li>
+        <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
+      </ng-container>
+      <ng-container *ngIf="!(loggedIn$ | async)">
+        <ul class="menu-list">
+          <li><a [routerLink]="['',{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">{{'LOGIN' | translate}}</a></li>
+        </ul>
+      </ng-container>
+    </ul>
+    <p class="menu-label">
+      About
+    </p>
+    <ul class="menu-list">
+      <li><a [routerLink]="['about']" queryParamsHandling="merge">{{'ABOUT' | translate}}</a></li>
+      <li><a [routerLink]="['contact']" queryParamsHandling="merge">{{'CONTACT' | translate}}</a></li>
+      <li><a [routerLink]="['imprint']" queryParamsHandling="merge">{{'IMPRINT' | translate}}</a></li>
+      <li><a [routerLink]="['privacy']" queryParamsHandling="merge">{{'PRIVACY' | translate}}</a></li>
+    </ul>
+</aside>

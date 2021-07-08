@@ -14,8 +14,10 @@ export class FilterSwitcherComponent implements OnInit {
   @Input() selectedPheno;
   @Input() minimizedBoolean; 
   @Input() change;
+  @Input() user;
 
   @Input() filters;
+  @Input() stats;
 
   @Output() activeChanged = new EventEmitter();
   @Output() phenoSelected = new EventEmitter();

@@ -6,7 +6,9 @@
         <div class="small-description">
             {{'COMPARE_MODUS_HELP' | translate}}
         </div>
-        <div class="osem-close-text" (click)="closeCompare()">X</div>
+        <div class="osem-close-text" (click)="closeCompare()">
+            <button class="delete is-medium"></button>
+        </div>
     </div>
 
     <div class="values osem-padding-small" *ngIf="boxes">
@@ -23,7 +25,10 @@
                 <div class="box-row">
                     <div class="box-name"
                         [style.color]="colors ? colors.colorDomain[colors.domain.indexOf(box.name)]: 'inherit'">
-                        <div class="osem-close-button" (click)="removeBox(box._id)">x</div> {{box.name}}
+                        <div class="osem-close-text-no-pos" (click)="removeBox(box._id)">
+                            <button class="delete is-small"></button>
+                        </div> 
+                        <span>{{box.name}}</span>
                     </div>
                     <div *ngFor="let pheno of combinedData | keyvalue" class="value-item" (click)="selectPheno(pheno)">
                         <div *ngIf="pheno && pheno.value">

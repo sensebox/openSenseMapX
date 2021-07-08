@@ -1,5 +1,21 @@
 <div class="osem-padding-small secondary-background">
-    <div class="search-container osem-border-radius-5">
+    <p class="control has-icons-left has-icons-right">
+        <input class="input"
+            type="text" 
+            [(ngModel)]="searchTerm"
+            (input)="changeSearchTerm()"
+            (keydown)="keydown($event)"
+            (focus)="enter()"
+            (focusout)="leave()"
+            placeholder="{{ 'SEARCH' | translate}}">
+        <span class="icon is-small is-left">
+            <i class="fa fa-search"></i>
+        </span>
+        <span class="icon is-small is-right clear-search" (click)="clearSearch()" *ngIf="searchTerm.length > 0">
+            <i class="fa fa-times"></i>
+        </span>
+    </p>
+    <!-- <div class="search-container osem-border-radius-5">
         <input 
             class="osem-padding-small" 
             type="text" 
@@ -10,7 +26,7 @@
             (focusout)="leave()"
             placeholder="{{ 'SEARCH' | translate}}">
         <i class="fa fa-search"></i>
-    </div>
+    </div> -->
 </div>
 <!-- <div id="autocomplete-results" class="osem-box-shadow-basic">     -->
 <div id="autocomplete-results" class="osem-box-shadow-basic" [@appear]="searchTerm.length > 1 && resultsActive" *ngIf="searchTerm.length > 1 && resultsActive">    
@@ -59,7 +75,6 @@
             *ngFor="let res of locationAutocompleteResults; let i = index"
             (click)="selectLocationResult(res)"
             [class.active]="i === (selectedAutocomplete - autocompleteToShow.length)"
-
         >
             <div class="left-search-result">
                 <i class="fa fa-map-marker"></i>

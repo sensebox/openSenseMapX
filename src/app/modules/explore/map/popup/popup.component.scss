@@ -231,25 +231,36 @@
     }
 }
 
-#cluster-popup {
-    font-size: 0.9em;
-    background: var(--background-primary-full);
-    display: inline-block;
-    .cluster-header {
-        background: var(--color-primary);
-        position: relative;
-    }
-    .cluster-items {
-        max-height: 350px;
-        max-width: 300px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        .cluster-item {
-            
-            &:hover {
-                background: var(--hover-color);
-                cursor: pointer;
-            }
-        }
-    }
+.card-content-cluster {
+    padding: 0;
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+.card-header {
+    position: relative;
+}
+
+// #cluster-popup {
+//     font-size: 0.9em;
+//     background: var(--background-primary-full);
+//     display: inline-block;
+//     .cluster-header {
+//         background: var(--color-primary);
+//         position: relative;
+//     }
+//     .cluster-items {
+//         max-height: 350px;
+//         max-width: 300px;
+//         overflow-y: auto;
+//         overflow-x: hidden;
+//         .cluster-item {
+            
+//             &:hover {
+//                 background: var(--hover-color);
+//                 cursor: pointer;
+//             }
+//         }
+//     }
+// }

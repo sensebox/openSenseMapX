@@ -1,10 +1,31 @@
 {
-    "SEARCH": "Suche nach Boxen oder Orten",
+    "SEARCH": "Suche nach Stationen oder Orten",
     "FROM": "Von",
     "TO": "Bis",
     "SHOW_ALL": "alle anzeigen",
-    "BOXES": "Boxen",
+    "BOXES": "Stationen",
+    "MEASUREMENTS": "Messungen",
+    "CHOOSE_A_PHENO": "Wähle ein Phänomen!",
 
+    "LIVE": "Live",
+    "TIMESTAMP": "Zeitpunkt",
+    "TIMERANGE": "Zeitspanne",
+    "LIVE_DATA_TEXT": "Zeige live Daten auf der Karte an. Diese Daten werden jede 5 Minuten aktualisiert. Wenn Du auf eine Station klickst kannst du dir die letzten Messungen anzeigen.",
+    "TIMESTAMP_TEXT": "Zeige einen historischen Zeitpunkt auf der Karte an.",
+    "TIMERANGE_TEXT": "Erforsche die Entwicklung der Phänomene in einem bestimmten Zeitfenster.",
+
+    "CHOOSE_TIMERANGE_PHENO_BOUNDINGBOX": "Wähle ein Phänomen und zoome die Karte auf den Bereich den du untersuchen möchtest.",
+    "FROM_TO": "Von - Bis",
+    "PHENOMENON": "Phänomen",
+    "BOXES_IN_SELECTION": "# Stationen in der Auswahl",
+    "DATE": "Datum",
+    "LAST_WEEK": "letzte Woche",
+    "LAST_24": "letzte 24h",
+    "LAST_HOUR": "letzte Stunde",
+
+    "SHOW": "Anzeigen",
+    "LOAD_DATA": "Daten laden",
+   
     "CHOOSE_DATERANGE": "Wähle Daten",
     "REMOVE_DATERANGE": "Zeitspanne entfernen",
     "FILTER": "Filter",
@@ -14,17 +35,48 @@
     "EXPOSURE": "Standort",
     "OUTDOOR": "draussen",
     "INDOOR": "drinnen",
-    "ALL": "alle",
+    "ALL": "Alle Messstationen",
+    "MODEL": "Modell",
+    "ACTIVE_BOX": "Aktive Box",
+    "ACTIVE_BOX_TEXT": "Messungen während der letzten 7 Tage",
+    "INACTIVE_BOX": "Inaktive Box",
+    "INACTIVE_BOX_TEXT": "Keine Messungen in den letzten 7 Tagen",
+    "STATISTICS": "Statistiken",
+    "TOTAL_BOXES_TITLE": "Anzahl an Stationen die auf der openSenseMap registriert sind.",
+    "TOTAL_MEASUREMENTS_TITLE": "Anzahl der Messungen die zu openSenseMap.org übertragen wurden",
 
     "SETTINGS": "Einstellungen",
+    "PAGE_SETTINGS": "Seiten-Einstellungen",
+    "MAP_SETTINGS": "Karten-Einstellungen",
     "THEME": "Theme",
     "LANGUAGE": "Sprache",
+
+    "PROFILE": "Profil",
+    "LOGOUT": "Logout",
+    "IMPRINT": "Impressum",
+    "CONTACT": "Kontakt",
+    "PRIVACY": "Datenschutz",
+
+    "MY_BOXES": "Meine Messstationen",
+    "ALL_BOXES": "Alle Messstationen",
+    "ADD_BOX": "Neue Box",
+    "MY_VIS": "Gespeicherte Karten",
+    "MY_ACCOUNT": "Mein Account",
+
+    "CLUSTERING":"Clustering",
 
     "COMPARE_MODUS_HEADER": "Vergleichs-Modus",
     "COMPARE_MODUS_HELP": "Zum vergleichen auf eine Station auf der Karte klicken.",
     "COMPARE_MODUS_END": "Vergleichs-Modus beenden",
 
-    "LEGEND": "Legend",
+    "LEGEND": "Legende",
+    "EDIT_LEGEND": "Legende editieren",
+    "EDIT_COLOR_GRADIENT": "Edit the color gradient of the map",
+    "UPDATE_LEGEND": "Update Map",
+    "PREVIEW": "Preview",
+    "ADD_STEP": "Add color step",
+    "INFO": "Mehr Informationen",
+    "SAVE_AND_SHARE": "Speichern und teilen",
     "SCENARIOS": "Szenarien",
 
     "BETA_TEXT": "Diese Seite ist noch in der Entwicklung!! Vorsicht ;).",
@@ -33,9 +85,8 @@
     "NO_RECENT_MEASUREMENT": "Keine aktuellen Messungen",
     "COMPARE_TO": "Mit anderer Box vergleichen",
 
-
-    "INTRO_HEADLINE": "Willkommen auf der Datenanalyse Platform der openSenseMap",
-    "INTRO_TEXT_1": "Dies ist eine Beta Version! Zurzeit sind die Queries auf Berlin beschränkt und es gibt Daten bis zum 07.02.2020.",
+    "INTRO_HEADLINE": "openSenseMap BETA",
+    "INTRO_TEXT_1": "Dies ist eine Beta Version der neuen openSenseMap!",
     "INTRO_TEXT_2": "Das Ziel dieser Platform ist es die Daten die auf der openSenseMap gesammelt werden leichter zugänglich und analysierbar zu machen.",
 
     "FEATURE1": "Live Karten für beliebte Phänomene",
@@ -97,11 +148,11 @@
     "PM10_UNIT": "Feinstaub wird unabhängig vom Durchmesser der Teilchen in µm/m³ angebgegen.</br></br>Seit dem 1. Januar 2005 beträgt der einzuhaltende Tagesmittelwert für PM10 in der EU 50 µg/m³ bei 35 zugelassenen Überschreitungen im Kalenderjahr.</br></br>Feinstaub wird heute im Wesentlichen für die Auswirkungen von Luftverschmutzungen auf die Gesundheit verantwortlich gemacht. Auswirkungen sind u.a. die Verstärkung von Allergiesymptomen, die Zunahme von asthmatischen Anfällen, Atemwegsbeschwerden und Lungenkrebs sowie ein gesteigertes Risiko von Mittelohrentzündungen bei Kindern und Beeinträchtigungen des Nervensystems. Daneben werden auch Auswirkungen auf Herz-Kreislauf-Erkrankungen (z. B. Herzinfarkt) angenommen. Das Ausmaß der Auswirkung von Partikeln auf die Atemwege hängt neben der chemischen Zusammensetzung auch von der Größe der Partikel ab: Je kleiner ein Partikel ist, desto tiefer kann es in die Lunge eindringen.</br></br>Es gibt verschiede Möglichkeiten Feinstaub zu messen. Für die senseBox nutzen wir den Lasergestützten Sensor SDS011.",
     "PM10_INTERPRETATION": "Feinstaubmessungen, insb. Rohdaten von Einzelmessungen sollten mit Vorsicht genossen werden. Wie die Grenzwerte es schon andeuten werden normalerweise Mittelwerte aus vielen einzelnen Messungen über eine Stunde oder über einen Tag berechnet.",
     "PM10_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen)..",
-    "PM10_FUN_FACT": "Entschuldige bitte, aber wir kennen kein Spass bei Luftverschmutzung.",
+    "PM10_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung.",
     "PM25_DEFINITION": "Feinstaub sind besonders kleine Teilchen des in der Luft befindlichen Schwebstaubs. Man bezeichnet diese auch als “Particulate Matter” (kurz PM) und unterscheidet anhand der Durchmesser der Staubteilchen zw. PM10 (kleiner als 10µm) , PM2.5 (kleiner als 2,5 µm), PM1 (kleiner als 1µm). Feinstaub kann aus natürlichen Quellen (z.B. Sahara-Staub, Pilzsporen, Seesalz, Pollen) stammen (ca. 90%) oder anthropogenen (menschlichen) Ursprungs sein, überwiegend durch die Verbrennung von Kohlenstoffverbindungen (ca. 10%).",
     "PM25_UNIT": "Feinstaub wird unabhängig vom Durchmesser der Teilchen in µm/m³ angebgegen.</br></br>Seit dem 1. Januar 2005 beträgt der einzuhaltende Tagesmittelwert für PM10 in der EU 50 µg/m³ bei 35 zugelassenen Überschreitungen im Kalenderjahr.</br></br>Feinstaub wird heute im Wesentlichen für die Auswirkungen von Luftverschmutzungen auf die Gesundheit verantwortlich gemacht. Auswirkungen sind u.a. die Verstärkung von Allergiesymptomen, die Zunahme von asthmatischen Anfällen, Atemwegsbeschwerden und Lungenkrebs sowie ein gesteigertes Risiko von Mittelohrentzündungen bei Kindern und Beeinträchtigungen des Nervensystems. Daneben werden auch Auswirkungen auf Herz-Kreislauf-Erkrankungen (z. B. Herzinfarkt) angenommen. Das Ausmaß der Auswirkung von Partikeln auf die Atemwege hängt neben der chemischen Zusammensetzung auch von der Größe der Partikel ab: Je kleiner ein Partikel ist, desto tiefer kann es in die Lunge eindringen.</br></br>Es gibt verschiede Möglichkeiten Feinstaub zu messen. Für die senseBox nutzen wir den Lasergestützten Sensor SDS011.",
     "PM25_INTERPRETATION": "Feinstaubmessungen, insb. Rohdaten von Einzelmessungen sollten mit Vorsicht genossen werden. Wie die Grenzwerte es schon andeuten werden normalerweise Mittelwerte aus vielen einzelnen Messungen über eine Stunde oder über einen Tag berechnet.",
     "PM25_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen)..",
-    "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen kein Spass bei Luftverschmutzung."
+    "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung."
 
 }

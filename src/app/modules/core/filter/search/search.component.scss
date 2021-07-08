@@ -3,19 +3,24 @@
 .search-container {
     position: relative;
 
-    input {
-        padding-right: 25px;
-        width: 100%;
-    }
+    // input {
+    //     padding-right: 25px;
+    //     width: 100%;
+    // }
 
-    i {
-        position: absolute;
-        padding: 0 0.45em;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        border-left: 1px solid var(--text-color-primary);
-    }
+    // i {
+    //     position: absolute;
+    //     padding: 0 0.45em;
+    //     right: 0;
+    //     top: 50%;
+    //     transform: translateY(-50%);
+    //     border-left: 1px solid var(--text-color-primary);
+    // }
+}
+
+.clear-search {
+    pointer-events: unset !important;
+    cursor: pointer;
 }
 
 #autocomplete-results{

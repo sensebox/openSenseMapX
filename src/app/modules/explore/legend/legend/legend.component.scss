@@ -19,13 +19,14 @@
         height: 100%;
         // justify-content: space-between;
         display: flex;
-        top: -10px;
         position: relative;
         flex-direction: column-reverse;
         font-weight: bold;
 
         .legend-label-outer {
-            height: 20%;
+            // height: 20%;
+            display: flex;
+            align-items: center;
         }
         .legend-label {
             display: flex;
@@ -49,6 +50,12 @@
             }
         }
     }
+
+    .edit-button {
+        position: absolute;
+        right: -25px;
+        top: 10px;
+    }
 }
 
 h3 {
@@ -61,4 +68,46 @@ h3 {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+
+#all-legend {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: 0.7em;
+    border-left: 1px solid#ccc;
+
+    .legend-headline {
+        text-decoration: underline;
+        padding: 0.3em 0;
+    }
+    .stats-headline {
+        text-decoration: underline;
+        padding: 0.5em 0 0.3em 0;
+    }
+
+    .legend-item {
+        padding: 0.2em;
+        display: flex;
+    }
+    .circle {
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--text-color-primary);
+        border-radius: 50%;
+        opacity: 0.9;
+        margin: 0.2em 0.3em 0.2em 0;
+    }
+    .osem-green-circle {
+        background: var(--color-primary);
+    }
+    .osem-gray-circle {
+        background: #999;
+    }
+
+    .stats-item {
+        padding-bottom: 0.4em;
+    }
 }

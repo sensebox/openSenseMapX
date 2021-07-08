@@ -11,15 +11,21 @@
             [locationAutocompleteResults]="locationAutocompleteResults$ | async"
         ></osem-search>
         <osem-datepicker 
-            [dateRange]="selectDateRange$ | async"
-            (dateChanged)="changeDateRange($event)"></osem-datepicker>
+            [dateRange]="selectedDateRange$ | async"
+            [dateStamp]="selectedDateStamp$ | async"
+            [activeTimeMode]="selectActiveTimeMode$ | async"
+            [showDateModal]="showDateModal$ | async"
+            (dateChanged)="changeDateRange($event)"
+            (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
         
         <osem-filter-switcher
-            [activeTab]="activeTab"
+            [activeTab]="activeTab$ | async"
             [selectedPheno]="selectedPheno$ | async"
             [minimizedBoolean]="minimizedBoolean"
             [change]="change"
             [filters]="filters$ | async"
+            [user]="user$ | async"
+            [stats]="stats$ | async"
             (activeChanged)="setActiveTab($event)"
             (phenoSelected)="selectPheno($event)"
             (changeToggled)="toggleChange()"

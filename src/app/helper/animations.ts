@@ -63,14 +63,14 @@ export const slideInOutMenu =
 export const slideInOutHorizontal = 
     trigger('slideInOutHorizontal', [
         transition(':enter',[ 
-            style({transform: 'translate3d(-100%, 0, 0)'}),
+            style({transform: 'translate3d(-400px, 0, 0)'}),
             animate('400ms ease-in-out'), style({
                 transform: 'translate3d(0, 0, 0)'
             })
         ]),
         transition(':leave',[
             animate('400ms ease-in-out'), style({
-                transform: 'translate3d(-100%, 0, 0)'
+                transform: 'translate3d(-400px, 0, 0)'
             })
         ])
     ]);
@@ -95,7 +95,7 @@ export const appearModal =
 export const slideInOutHorizontalBoolean = 
     trigger('slideInOutHorizontalBoolean', [
         state('1', style({transform: 'translate3d(0, 0, 0)'})),
-        state('0', style({transform: 'translate3d(calc(100% *-1), 0, 0)'})),
+        state('0', style({transform: 'translate3d(-400px, 0, 0)'})),
         transition('1 => 0', animate('400ms ease-in-out')),
         transition('0 => 1', animate('400ms ease-in-out'))
     ]);
@@ -122,6 +122,20 @@ export const appear =
         transition(':enter',[ 
             style({opacity: 0}),
             animate('60ms ease-in-out'), style({
+                opacity: 1
+            })
+        ]),
+        transition(':leave',[
+            animate('60ms ease-in-out'), style({
+                opacity: 0
+            })
+        ])
+    ]);
+export const appearSlow = 
+    trigger('appearSlow', [
+        transition(':enter',[ 
+            style({opacity: 0}),
+            animate('220ms 400ms ease-in-out'), style({
                 opacity: 1
             })
         ]),

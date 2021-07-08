@@ -18,6 +18,9 @@ export class BoxQuery extends QueryEntity<BoxState> {
   selectCompareTo$ = this.select(state => state.ui.compareTo);
   selectCompareModus$ = this.select(state => state.ui.compareModus);
   selectPopupBox$ = this.select(state => state.ui.popupBox);
+  selectDateRangeData$ = this.select(state => state.ui.dateRangeData);
+  selectDataFetched$ = this.select(state => state.ui.dataFetched);
+  selectFetchingData$ = this.select(state => state.ui.fetchingData);
 
   selectBoxes(){
     return combineQueries([
@@ -128,7 +131,6 @@ export class BoxQuery extends QueryEntity<BoxState> {
 
   selectManyWithSensors(boxIds){
     boxIds = Array.isArray(boxIds) ? boxIds : [boxIds];
-    
     return combineQueries([
       this.selectMany(boxIds),
       this.sensorQuery.selectAll({ asObject: true })])
@@ -152,11 +154,13 @@ export class BoxQuery extends QueryEntity<BoxState> {
     .pipe(
       map(([ids, boxes, sensors]) => {
         if(Object.keys(boxes).length > 0) {
-          return ids.map(id => {
-            return {
-              ...boxes[id],
-              sensors: boxes[id].sensors ? boxes[id].sensors.map(sensorId => sensors[sensorId]) : null
-            };
+          return ids.filter(id => boxes[id]).map(id => {
+            if(boxes[id]){
+              return {
+                ...boxes[id],
+                sensors: boxes[id].sensors ? boxes[id].sensors.map(sensorId => sensors[sensorId]) : null
+              };
+            }
           });
         }
       })

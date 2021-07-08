@@ -13,10 +13,13 @@ export class NavRightComponent implements OnInit {
   @Output() themeToggled = new EventEmitter();
   @Output() languageToggled = new EventEmitter();
   @Output() settingsToggled = new EventEmitter();
+  @Output() clusteringToggled = new EventEmitter();
 
   @Input() theme;
   @Input() language;
   @Input() settings;
+  @Input() user;
+  @Input() clustering;
 
   constructor() { }
 
@@ -41,5 +44,9 @@ export class NavRightComponent implements OnInit {
 
   toggleSettings(){
     this.settingsToggled.emit();
+  }
+
+  toggleClustering(){
+    this.clusteringToggled.emit();
   }
 }

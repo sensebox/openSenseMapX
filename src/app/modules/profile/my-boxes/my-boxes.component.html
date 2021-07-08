@@ -1,0 +1,29 @@
+
+<button 
+  [routerLink]="['newbox']" queryParamsHandling="merge"
+  class="button is-primary">{{'NEW' | translate}}</button>
+  
+<ul>
+  <li *ngFor="let box of boxes" class="my-2">
+    <div class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img *ngIf="!box.image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+              <img *ngIf="box.image" [src]="'https://opensensemap.org/userimages/' +box.image" alt="Placeholder image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">{{box.name}}</p>
+            <p class="subtitle is-6">{{box.createdAt | date:'short'}}</p>
+          </div>
+        </div>
+    
+        <div class="content">
+          {{box.description}}
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

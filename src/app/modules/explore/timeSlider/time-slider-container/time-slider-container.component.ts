@@ -6,9 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { withLatestFrom } from 'rxjs/operators';
 import { IntervalTimer } from '../../../../helper/IntervalTimer';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
-import { MapService } from '../../services/map.service';
 import { TranslateService } from '@ngx-translate/core';
-import { id } from '@swimlane/ngx-charts/release/utils';
+import { MapService } from '../../services/map.service';
+import { BoxService } from 'src/app/models/box/state/box.service';
 
 @Component({
   selector: 'osem-time-slider-container',
@@ -22,7 +22,11 @@ export class TimeSliderContainerComponent implements OnInit {
   selectedDate$ = this.uiQuery.selectSelectedDate$;
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
   filterVisible$ = this.uiQuery.selectFilterVisible$;
+  activeTimeMode$ = this.uiQuery.selectActiveTimeMode$;
+  dateStamp$ = this.uiQuery.selectDateStamp$;
+  loadingBoxes$ = this.boxQuery.selectFetchingData$;
   boxes$ = this.boxQuery.selectBoxes();
+  dataFetched$ = this.boxQuery.selectDataFetched$;
   clustering$ = this.uiQuery.selectClustering$;
   selectedDate;
   selectedPheno;
@@ -38,6 +42,7 @@ export class TimeSliderContainerComponent implements OnInit {
     private uiQuery: UiQuery, 
     private uiService: UiService,
     private boxQuery: BoxQuery,
+    private boxService: BoxService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private mapService: MapService
@@ -45,40 +50,28 @@ export class TimeSliderContainerComponent implements OnInit {
 
   ngOnInit() { 
     this.combineSub = this.selectedDate$.pipe(withLatestFrom(this.selectedPheno$, this.clustering$)).subscribe(res => {
-      this.clustering = res[2];
-      if(res[1] != this.selectedPheno || (res[0] && res[0].getTime() != this.selectedDate)){
-        if(this.selectedDate){
-          this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
-        }
-        if(res[0])
+        if(res[0]){
           this.selectedDate = res[0].getTime();
+          this.uiService.setClustering(false);
+        }
         if(res[1])
           this.selectedPheno = res[1];
         
         if(res[0] && res[1]){
-          console.log("ADDING LAYER", new Date(this.selectedDate).toISOString())
-          this.mapService.addDateLayer(new Date(this.selectedDate).toISOString(), res[2]);
           let newLayer = JSON.parse(JSON.stringify(res[1].layer));
           newLayer.filter = ["!=", null, [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]]];
           newLayer.paint['circle-color'][2] = [ "get", res[0].toISOString(), ["object", ["get", res[1].title, ["object", ["get", "values"]]]]];
           this.uiService.updateBaseLayer(newLayer);
-          // this.uiService.updateClusterLayer(res[0].toISOString());
-          
-        } else if(res[1] && !res[0] && this.selectedDate){
+        } else if(res[1] && !res[0] && this.selectedDate) {
           let newLayer = JSON.parse(JSON.stringify(res[1].layer));
-          newLayer.filter = [ "get", res[1].title, ["object", ["get", "live"]]];
-          newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live"]]];
-          this.uiService.updateBaseLayer(newLayer); 
-        }
-      }  
+          newLayer.filter = [ "get", res[1].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]];
+          newLayer.paint['circle-color'][2] = [ "get", res[1].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]];
+          console.log(newLayer);
+          this.uiService.updateBaseLayer(newLayer);
+          // this.uiService.setClustering(true);  TODO: what was this needed for?
+        }          
     })
 
-    // this.boxes$.pipe(withLatestFrom(this.selectedDate$)).pipe(withLatestFrom(this.selectedPheno$)).subscribe(res => {
-    //   if(res[1]) {
-    //     console.log(res);
-    //     console.log("MAKE CLUSTER SOURCE HERE");
-    //   }
-    // })
 
     this.dateRange$.subscribe(res => {
       this.interval = null;
@@ -96,10 +89,14 @@ export class TimeSliderContainerComponent implements OnInit {
   }
 
   removeDateRange(){
+    console.log("removing date and daterange")
     const { fromDate, toDate, ...newQueryParams} = this.activatedRoute.snapshot.queryParams;
-    this.mapService.removeDateLayer(new Date(this.selectedDate).toISOString());
     this.uiService.updateDateRange(null);
-    this.mapService.reactivateBaseLayer(this.clustering);
+    this.uiService.updateDateStamp(null);
+    this.boxService.setDateRangeData(null);
+    this.uiService.setSelectedDate(null);
+    this.uiService.updateActiveTimeMode('live');
+    // this.mapService.reactivateBaseLayer();
     this.router.navigate(
       [], 
       {
@@ -132,4 +129,9 @@ export class TimeSliderContainerComponent implements OnInit {
   forward(that){
     that.uiService.setSelectedDate(new Date(that.selectedDate + that.step));
   }
+
+  loadData(params){
+    this.boxService.getValues(params[0], params[1], this.mapService.getBounds()).subscribe();
+  }
+
 }

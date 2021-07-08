@@ -10,17 +10,20 @@ import {
   TemplateRef,
   ElementRef,
   NgZone,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  PLATFORM_ID
 } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { scaleLinear, scaleTime, scalePoint } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
 
-import { calculateViewDimensions, ViewDimensions } from '@swimlane/ngx-charts';
+import { calculateViewDimensions } from '@swimlane/ngx-charts';
 import { ColorHelper } from '@swimlane/ngx-charts';
 import { BaseChartComponent } from '@swimlane/ngx-charts';
 import { id } from './helper/osem-chart-helper';
-import { getUniqueXDomainValues, getScaleType } from '@swimlane/ngx-charts';
+import { getUniqueXDomainValues, getScaleType, LegendPosition, ScaleType, ViewDimensions } from '@swimlane/ngx-charts';
+import { Inject } from '@angular/core';
+// import {  } from '@swimlane/ngx-charts/lib/common/types';
 
 
 
@@ -49,7 +52,7 @@ import { getUniqueXDomainValues, getScaleType } from '@swimlane/ngx-charts';
 export class OsemLineChartComponent extends BaseChartComponent  {
   @Input() legend;
   @Input() legendTitle: string = 'Legend';
-  @Input() legendPosition: string = 'bottom';
+  @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis;
   @Input() yAxis;
   @Input() showXAxisLabel;
@@ -62,7 +65,7 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   @Input() showGridLines: boolean = true;
   @Input() curve: any = curveLinear;
   @Input() activeEntries: any[] = [];
-  @Input() schemeType: string;
+  @Input() schemeType: ScaleType;
   @Input() rangeFillOpacity: number;
   @Input() trimXAxisTicks: boolean = true;
   @Input() trimYAxisTicks: boolean = true;
@@ -89,8 +92,8 @@ export class OsemLineChartComponent extends BaseChartComponent  {
 
   @Output() colorsChanged: EventEmitter<any> = new EventEmitter();
 
-  @ContentChild('tooltipTemplate', { static: false }) tooltipTemplate: TemplateRef<any>;
-  @ContentChild('seriesTooltipTemplate', { static: false }) seriesTooltipTemplate: TemplateRef<any>;
+  @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
+  @ContentChild('seriesTooltipTemplate') seriesTooltipTemplate: TemplateRef<any>;
 
   dims: ViewDimensions;
   xSet: any;
@@ -124,8 +127,8 @@ export class OsemLineChartComponent extends BaseChartComponent  {
   timelineTransform: any;
   timelinePadding: number = 10;
 
-  constructor(protected chartElement: ElementRef, protected zone: NgZone, protected cd: ChangeDetectorRef) {
-    super(chartElement, zone, cd);
+  constructor(protected chartElement: ElementRef, protected zone: NgZone, protected cd: ChangeDetectorRef, @Inject(PLATFORM_ID) public platformId: any) {
+    super(chartElement, zone, cd, platformId);
     //override cloneData because it is private
     this["cloneData"] = this.cloneDataOverride;
   }

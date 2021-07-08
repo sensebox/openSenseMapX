@@ -11,16 +11,6 @@ osem-nav-container {
 }
 
 #intro-layer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2010;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     .intro-text {
         max-width: 400px;
         background: var(--background-primary-full);
@@ -36,9 +26,21 @@ osem-filter-container {
     width: $filterWidth;
     @media screen and(max-width: $secondBreak){
         top: $headerHeight;
+    }
+    @media screen and(max-width: $firstBreak){
         width: calc(100% - 20px);
     }
     left: 0;
+    z-index: 95;
+    &:hover {
+        z-index: 100;
+    }
+}
+
+osem-filter-container-values {
+    position: absolute;
+    top: 0.3em;
+    left: 0.3em;
     z-index: 95;
 }
 
@@ -46,7 +48,10 @@ osem-bottom-bar-container {
     position: absolute;
     bottom: 0;
     width: 100%;
-    z-index: 90;
+    z-index: 95;
+    &:hover {
+        z-index: 100;
+    }
 }
 
 osem-phenomenon-container {
@@ -133,5 +138,29 @@ osem-map-options-container {
             top: 5px;
             position: absolute;
         }
+    }
+}
+
+#osem-sidebar {
+    right: 0;
+    position: absolute;
+    top: 0;
+    background: var(--background-primary-full);
+    z-index: 3000;
+    width: 60%;
+    height: 100%;
+    transform: translateX(100%);
+    transition:  transform 0.3s ease-in-out;
+    overflow-y: auto;
+    @media screen and(max-width: $secondBreak){
+        width: 100%;
+    }
+
+    &.active {
+        transform: translateX(0);
+    }
+
+    #sidebar-header {
+        position: relative;
     }
 }

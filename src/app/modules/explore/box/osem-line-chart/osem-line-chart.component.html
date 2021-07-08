@@ -39,7 +39,7 @@
       *ngIf="yAxis"
       [yScale]="yScales[dom[2]]"
       [dims]="dims"
-      [showGridLines]="showGridLines"
+      [showGridLines]="i > 0 ? false : showGridLines"
       [showLabel]="showYAxisLabel"
       [labelText]="dom[2]"
       [trimTicks]="trimYAxisTicks"

@@ -20,6 +20,15 @@ export class UiService {
     private http: HttpClient) {
   }
 
+  fetchStats() {
+    
+    return this.http.get(`${environment.api_url}/stats`).pipe(tap(stats => {
+      this.uiStore.update(state => ({ ...state , stats: { totalBoxes: stats[0], totalMeasurements: stats[1]} }))
+    }));
+  }
+
+
+
   fetchGeocodeResults(searchstring){
     const params = new HttpParams()
       .set('format', "json")
@@ -55,6 +64,9 @@ export class UiService {
   }
 
   // DATE
+  updateDateStamp(date) {
+    this.uiStore.updateDateStamp(date);
+  }
   updateDateRange(dateRange) {
     this.uiStore.updateDateRange(dateRange);
   }
@@ -76,6 +88,9 @@ export class UiService {
   setSelectedDate(date){
     this.uiStore.updateSelectedDate(date);
   }
+  updateActiveTimeMode(mode){
+    this.uiStore.update( state => ({ ...state , activeTimeMode: mode }));
+  }
 
   setLanguage(lang){
     this.uiStore.setLanguage(lang);
@@ -85,6 +100,7 @@ export class UiService {
   }
 
   updateBaseLayer(layer){
+    console.log("UPDATING BASE LAYER")
     this.uiStore.updateBaseLayer(layer);
   }
   
@@ -151,6 +167,9 @@ export class UiService {
   toggleNumbers(){
     this.uiStore.update( state => ({ ...state , numbers: !state.numbers }));
   }
+  setNumbers(numbers){
+    this.uiStore.update( state => ({ ...state , numbers: numbers }));
+  }
   setCluster(cluster){
     if(!cluster){
       this.clusterTimeout = setTimeout(() => {
@@ -170,5 +189,25 @@ export class UiService {
   }
   setReloadMapData(mapData){
     this.uiStore.update( state => ({...state, reloadMapData: mapData}))
+  }
+  setMapLoading(mapLoading){
+    this.uiStore.update( state => ({ ...state , mapLoading: mapLoading }));
+  }
+  setShowDateModal(showDateModal){
+    this.uiStore.update( state => ({ ...state , showDateModal: showDateModal }));
+  }
+
+  updateLegend(steps){
+    this.uiStore.updateLegend(steps);
+  }
+
+  setFilterIds(ids){
+    this.uiStore.update( state => ({ ...state, filters: {...state.filters, ids: ids}}))
+  }
+  setActiveTab(tab){
+    this.uiStore.update( state => ({ ...state, activeTab: tab}))
+  }
+  setChartLoading(loading){
+    this.uiStore.update( state => ({ ...state, chartLoading: loading}))
   }
 }

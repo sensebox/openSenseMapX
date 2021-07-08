@@ -25,8 +25,8 @@ export class BoxSingleValuesComponent implements OnChanges, AfterViewChecked {
   @Output() boxClosed = new EventEmitter();
   @Output() sizeChanged = new EventEmitter();
 
-  @ViewChild('sensors', {static: false}) sensorsDiv: ElementRef;
-  @ViewChild('scrollable', {static: false}) scrollableDiv: ElementRef;
+  @ViewChild('sensors') sensorsDiv: ElementRef;
+  @ViewChild('scrollable') scrollableDiv: ElementRef;
 
   constructor(
     private router: Router,

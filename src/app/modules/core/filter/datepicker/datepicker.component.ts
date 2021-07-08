@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
-import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,18 +11,21 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class DatepickerComponent implements OnInit {
 
-  startAt = new Date('2019-12-31T15:00:00.000Z');
-  minDate = new Date('2019-01-01T00:00:00.000Z');
-  maxDate = new Date('2020-26-02T23:00:00.000Z');
+  startAt = new Date('2020-03-27T10:00:00.000Z');
+  minDate = new Date('2020-03-27T10:00:00.000Z');
+  maxDate = new Date('2020-03-27T14:00:00.000Z');
 
   now = new Date();
   
   @Input() dateRange;
+  @Input() dateStamp;
+  @Input() activeTimeMode;
+  @Input() showDateModal;
   @Output() dateChanged = new EventEmitter<any>();
+  @Output() toggledDateModal = new EventEmitter<any>();
   oldDates;
 
   constructor(
-    private dateTimeAdapter: DateTimeAdapter<any>,
     private uiService: UiService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -47,13 +49,13 @@ export class DatepickerComponent implements OnInit {
   }
 
   dateChange(){
-    this.selectDateRnge(this.dateRange)
+    this.selectDateRange(this.dateRange)
   }
   dateInput(range){
     // this.dateChanged.emit(this.dateRange)
   }
 
-  selectDateRnge(dateRange){
+  selectDateRange(dateRange){
     this.router.navigate(
       [], 
       {
@@ -61,6 +63,14 @@ export class DatepickerComponent implements OnInit {
         queryParams: { fromDate: dateRange[0].toISOString(), toDate: dateRange[1].toISOString() },
         queryParamsHandling: 'merge'
       });
+  }
+
+  toggleDateModal(){
+    this.toggledDateModal.emit(this.showDateModal);
+  }
+
+  closeModal(){
+    this.toggledDateModal.emit(false);
   }
 
 }

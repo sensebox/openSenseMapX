@@ -1,0 +1,8 @@
+<osem-new-vis
+    [pheno]="pheno$ | async"
+    [dateRange]="dateRange$ | async"
+    [date]="date$ | async"
+    [filters]="filters$ | async"
+    [bbox]="bbox"
+    (visSaved)="saveVis($event)"
+></osem-new-vis>

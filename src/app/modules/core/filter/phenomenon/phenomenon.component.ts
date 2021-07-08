@@ -1,5 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { bindCallback } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
+import { UiService } from 'src/app/models/ui/state/ui.service';
 
 @Component({
   selector: 'osem-phenomenon',
@@ -8,14 +12,57 @@ import { ActivatedRoute, Router } from '@angular/router';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhenomenonComponent implements OnInit {
+ 
+  @Input() selectedPheno;
+  @Input() changeVariable: boolean = false;
+  @Input() stats;
 
   @Output() phenoSelected = new EventEmitter();
   @Output() changeToggled = new EventEmitter();
   @Output() infoPhenoSelected = new EventEmitter();
-  @Input() selectedPheno;
-  @Input() changeVariable: boolean = false;
+
+  oldClustering = false;
 
   phenos = [
+    {
+      title: 'ALL',
+      unit: '°C',
+      layer: {
+        'id': 'base-layer',
+        'type': 'circle',
+        'source': 'boxes',
+        'paint': {
+          'circle-stroke-width': 1,
+          'circle-opacity': 0.7,
+          'circle-radius': {
+            'base': 1.75,
+            'stops': [[1,4], [22, 200]]
+          },
+          'circle-color':  ["case", [">=", 
+          ["to-string", ["get", "lastMeasurementAt"]],
+          ["to-string", "2020-03-27"]
+          ], "#4EAF47", "#999"]
+      
+          // 'circle-color': ['interpolate',
+          // ['linear'],
+          // ['get', 'lastMeasurementAt'],
+          // "2020-03-27T15:47:53.481Z", '#009900',
+          // "2020-03-17T15:47:53.481Z", '#ccc'
+          // ]
+          // 'circle-color': [
+          //   'interpolate',
+          //   ['linear'],
+          //   [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          //   -5, '#000000',
+          //   0, '#000000',
+          //   10, '#000000',
+          //   20, '#000000',
+          //   30, '#000000'
+          // ]
+        }
+      },
+      icon: "osem-thermometer",
+    },
     {
       title: 'Temperatur',
       unit: '°C',
@@ -23,16 +70,17 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "Temperatur", ["object", ["get", "live"]]],
+            [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             -5, '#9900cc',
             0, '#0000ff',
             10, '#0099ff',
@@ -49,16 +97,17 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "rel. Luftfeuchte", ["object", ["get", "live"]]],
+            [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             25, '#0000ff',
             50, '#0099ff',
@@ -76,16 +125,17 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "Luftdruck", ["object", ["get", "live"]]],
+            [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             25, '#0000ff',
             50, '#0099ff',
@@ -102,16 +152,17 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-          [ "get", "Beleuchtungsstärke", ["object", ["get", "live"]]],
+          [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
           0, '#9900cc',
           1000, '#0000ff',
           2000, '#0099ff',
@@ -129,16 +180,17 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "UV-Intensität", ["object", ["get", "live"]]],
+            [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             100, '#0000ff',
             200, '#0099ff',
@@ -155,16 +207,17 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "PM10", ["object", ["get", "live"]]],
+            [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             15, '#0000ff',
             30, '#0099ff',
@@ -182,16 +235,17 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "PM2.5", ["object", ["get", "live"]]]],
+        'filter': ["!=", null, [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
         'paint': {
+          'circle-opacity': 0.7,
           'circle-radius': {
             'base': 1.75,
-            'stops': [[1, 2], [22, 3080]]
+            'stops': [[1,4], [22, 200]]
           },
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "PM2.5", ["object", ["get", "live"]]],
+            [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
             0, '#9900cc',
             10, '#0000ff',
             20, '#0099ff',
@@ -204,14 +258,38 @@ export class PhenomenonComponent implements OnInit {
     }
   ]
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private uiService: UiService, private uiQuery: UiQuery) { }
 
   ngOnInit() {
 
     this.activatedRoute.queryParams.subscribe(params => {
+      //if no pheno in URL open ALL layer
+      if(!params.mapPheno){
+        this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === 'ALL'))
+        this.oldClustering = this.uiQuery.getValue().clustering;
+        this.uiService.setClustering(false);
+        this.uiService.setNumbers(false);
+      }
       if(params.mapPheno){
         if(!this.selectedPheno || this.selectedPheno.title != params.mapPheno)
           this.phenoSelected.emit(this.phenos.find(pheno => pheno.title === params.mapPheno));
+
+        if(params.mapPheno === 'ALL'){
+          this.oldClustering = this.uiQuery.getValue().clustering;
+          this.uiService.setClustering(false);
+          this.uiService.setNumbers(false);
+        } else {
+          if(!this.uiQuery.getValue().clustering){
+            this.uiService.setNumbers(true);
+          }
+        }
+        
+        if(this.selectedPheno && this.selectedPheno.title === 'ALL'){
+          this.uiService.setClustering(this.oldClustering);
+          if(this.oldClustering){
+            this.uiService.setNumbers(false);
+          }
+        }
       }
     })
   }
@@ -239,6 +317,16 @@ export class PhenomenonComponent implements OnInit {
   openVis(pheno){
     this.router.navigate(
       [{outlets: {modal: 'vis'}}],
+      {
+        relativeTo: this.activatedRoute,
+        queryParamsHandling: 'merge'
+      }
+    ); 
+  }
+  
+  editLegend() {
+    this.router.navigate(
+      [{outlets: {modal: 'edit-legend'}}],
       {
         relativeTo: this.activatedRoute,
         queryParamsHandling: 'merge'

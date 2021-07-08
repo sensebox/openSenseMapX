@@ -34,37 +34,85 @@
 #phenomen-selector {
 
     .top-bar {
-        padding-top: 0.2em;
-        .pheno-name {
-            padding-left: 1.5em;
-            display: inline-block;
-            font-weight: bold;
+        // padding-top: 0.2em;
+        padding: 0.3em 0.8em;
+        padding-bottom: 0.5em;
+
+        .pheno-search {
+        }
+        .pheno-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-bottom: 1em;
+            .pheno-name {
+                padding-left: 1.5em;
+                display: inline-block;
+                // font-weight: bold;
+                // text-decoration: underline;
+                .normal {
+                    font-weight: normal;
+                }
+                
+            }
+            .info {
+                cursor: pointer;
+            }
         }
 
         .osem-icon-container {
             display: inline-flex;
         }
-        // i {
-        //     padding-right: 0.8em;
-        // }
+    }
+    #legend-info {
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: flex-end;
+        min-width: 110px;
+        text-align: center;
+        padding-right: 0.3em;
+        // height: 100%;
+        .fa {
+            font-size: 1.7em;
+        }
+
+        .unit {
+            // text-decoration: underline;
+            text-align: center;
+            .unit-symbol {
+                font-size: 1.5em;
+                font-weight: bold;
+
+            }
+        }
+        .info {
+            font-size: 0.9em;
+        }
+
     }
     .bottom-content {
         position: relative;
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
         #phenos {
             display: inline-block;
             .pheno {
-                padding: 0.2em 0;
+                padding: 0.4em 0;
                 display: flex;
                 // flex-direction: column;
                 align-items: center;
                 cursor: pointer;
 
+                .name {
+                    padding-left: 0.5em;
+                }
+
                 &.active {
                     background: var(--background-primary-full);
                     color: var(--color-primary);
                     // border: none;
+                    font-weight: bold;
                 }
                 &:hover {
                     background: var(--background-primary-full);
@@ -74,11 +122,11 @@
 
             &.small{
                 .pheno {
-                    background: var(--hover-color);
-                    border-right: 1px solid #ccc;
+                    // background: var(--hover-color);
+                    // border-right: 1px solid #ccc;
 
                     &.active {
-                        background: var(--background-primary-full);
+                        // background: var(--background-primary-full);
                         border: none;
                     }
                 }
@@ -87,35 +135,11 @@
 
         #legend {
             display: inline-block;
+            padding-left: 1em;
+            flex-grow: 1;
             // height: 100%;
         }
 
-        #legend-info {
-            display: inline-flex;
-            flex-direction: column;
-            justify-content: space-around;
-            min-width: 110px;
-            text-align: center;
-            padding-right: 0.3em;
-            // height: 100%;
-            .fa {
-                font-size: 1.7em;
-            }
-
-            .unit {
-                // text-decoration: underline;
-                text-align: center;
-                .unit-symbol {
-                    font-size: 1.5em;
-                    font-weight: bold;
-
-                }
-            }
-            .info {
-                font-size: 0.9em;
-            }
-
-        }
     }
 }
 
