@@ -44,7 +44,7 @@ This module contains all the components and services that are shared among the o
 
 ### Sources
 
-- boxes (the source cotaining all filtered Boxes)
+- boxes (the source containing all filtered Boxes)
 - cluster-boxes (the source for clustered Layers (also contains filtered boxes))
 - cluster-hover (the source for displaying clustered boxes on hover of cluster)
 
