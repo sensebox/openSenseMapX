@@ -1,0 +1,161 @@
+@font-face {
+    font-family: 'opensensemap';
+    src:  url('../icons/opensensemap.eot?9c7p1f');
+    src:  url('../icons/opensensemap.eot?9c7p1f#iefix') format('embedded-opentype'),
+      url('../icons/opensensemap.ttf?9c7p1f') format('truetype'),
+      url('../icons/opensensemap.woff?9c7p1f') format('woff'),
+      url('../icons/opensensemap.svg?9c7p1f#opensensemap') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .osem-icon {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'opensensemap' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .osem-radioactive:before {
+    content: "\e680";
+  }
+  .osem-particulate-matter:before {
+    content: "\f011";
+  }
+  .osem-moisture:before {
+    content: "\f01c";
+  }
+  .osem-temperature-celsius:before {
+    content: "\f03c";
+  }
+  .osem-temperature-fahrenheit:before {
+    content: "\f045";
+  }
+  .osem-drops:before {
+    content: "\f04e";
+  }
+  .osem-thermometer:before {
+    content: "\f055";
+  }
+  .osem-windspeed:before {
+    content: "\f057";
+  }
+  .osem-sprinkles:before {
+    content: "\f064";
+  }
+  .osem-brightness:before {
+    content: "\f06e";
+  }
+  .osem-barometer:before {
+    content: "\f079";
+  }
+  .osem-humidity:before {
+    content: "\f07a";
+  }
+  .osem-not-available:before {
+    content: "\f07b";
+  }
+  .osem-gauge:before {
+    content: "\f07c";
+  }
+  .osem-umbrella:before {
+    content: "\f084";
+  }
+  .osem-clock:before {
+    content: "\f08d";
+  }
+  .osem-shock:before {
+    content: "\f0c6";
+  }
+  .osem-fire:before {
+    content: "\f0c7";
+  }
+  .osem-check:before {
+    content: "\f00c";
+  }
+  .osem-close:before {
+    content: "\f00d";
+  }
+  .osem-remove:before {
+    content: "\f00d";
+  }
+  .osem-times:before {
+    content: "\f00d";
+  }
+  .osem-signal:before {
+    content: "\f012";
+  }
+  .osem-cog:before {
+    content: "\f013";
+  }
+  .osem-gear:before {
+    content: "\f013";
+  }
+  .osem-trash-o:before {
+    content: "\f014";
+  }
+  .osem-download:before {
+    content: "\f019";
+  }
+  .osem-volume-up:before {
+    content: "\f028";
+  }
+  .osem-register:before {
+    content: "\f02a";
+  }
+  .osem-map-marker:before {
+    content: "\f041";
+  }
+  .osem-plus-circle:before {
+    content: "\f056";
+  }
+  .osem-check-circle:before {
+    content: "\f058";
+  }
+  .osem-info-circle:before {
+    content: "\f05a";
+  }
+  .osem-twitter-square:before {
+    content: "\f081";
+  }
+  .osem-facebook-square:before {
+    content: "\f082";
+  }
+  .osem-github:before {
+    content: "\f09b";
+  }
+  .osem-globe:before {
+    content: "\f0ac";
+  }
+  .osem-filter:before {
+    content: "\f0b0";
+  }
+  .osem-cloud:before {
+    content: "\f0c2";
+  }
+  .osem-dashboard:before {
+    content: "\f0e4";
+  }
+  .osem-tachometer:before {
+    content: "\f0e4";
+  }
+  .osem-spinner:before {
+    content: "\f110";
+  }
+  .osem-microphone:before {
+    content: "\f130";
+  }
+  .osem-wifi:before {
+    content: "\f1eb";
+  }
+  .osem-battery:before {
+    content: "\f242";
+  }

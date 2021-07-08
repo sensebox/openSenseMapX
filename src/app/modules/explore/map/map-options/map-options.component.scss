@@ -1,0 +1,43 @@
+#map-options {
+    background: var(--background-primary-full);
+    overflow: hidden;
+    
+    .toggle-button {
+        cursor: pointer;
+        position: absolute;
+        background: var(--background-primary-full);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+        
+        .map-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        &.active {   
+            box-shadow: none;
+            border: none;
+        }
+    }
+    
+    .options {
+        padding-top: 2em;
+
+        .checkbox-container {
+            white-space: nowrap;
+
+            &.mouse-active {
+                cursor: pointer;
+            }
+        }
+    }
+}

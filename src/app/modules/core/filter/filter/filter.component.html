@@ -1,0 +1,52 @@
+<div class="osem-padding-small">
+    <div class="options">
+        <h3>{{'EXPOSURE' | translate}}</h3>
+        <div clas="field" title="{{'OUTDOOR' | translate}}">
+            <input (click)="setExposure('outdoor')" class="is-checkradio is-small is-primary" id="outdoor" type="radio" name="outdoor" [checked]="filters.exposure != 'outdoor' ? false : true">
+            <label for="outdoor">{{'OUTDOOR' | translate}}</label>
+        </div>
+        <div clas="field" title="{{'INDOOR' | translate}}">
+            <input (click)="setExposure('indoor')" class="is-checkradio is-small is-primary" id="indoor" type="radio" name="indoor" [checked]="filters.exposure != 'indoor' ? false : true">
+            <label for="indoor">{{'INDOOR' | translate}}</label>
+        </div>
+        <div clas="field" title="{{'ALL' | translate}}">
+            <input (click)="setExposure('all')" class="is-checkradio is-small is-primary" id="all" type="radio" name="all" [checked]="filters.exposure != 'all' ? false : true">
+            <label for="all">{{'ALL' | translate}}</label>
+        </div>
+    </div>
+
+    <div class="options">
+        <h3>{{'MODEL' | translate}}</h3>
+        
+        <div clas="field" title="{{'senseBox' | translate}}">
+            <input (click)="toggleModel('senseBox')" class="is-checkradio is-small is-primary" id="model-sensebox" type="checkbox" name="model-sensebox" [checked]="filters.model.indexOf('senseBox') === -1 ? false : true">
+            <label for="model-sensebox">senseBox</label>
+        </div>
+        <div clas="field" title="{{'luftdaten.info' | translate}}">
+            <input (click)="toggleModel('luftdaten.info')" class="is-checkradio is-small is-primary" id="model-luftdaten-info" type="checkbox" name="model-luftdaten-info" [checked]="filters.model.indexOf('luftdaten.info') === -1 ? false : true">
+            <label for="model-luftdaten-info">{{'luftdaten.info' | translate}}</label>
+        </div>
+        <div clas="field" title="{{'hackair' | translate}}">
+            <input (click)="toggleModel('hackair')" class="is-checkradio is-small is-primary" id="model-hackair" type="checkbox" name="model-sensebox" [checked]="filters.model.indexOf('hackair') === -1 ? false : true">
+            <label for="model-hackair">{{'HACKAIR' | translate}}</label>
+        </div>
+        <div clas="field" title="{{'custom' | translate}}">
+            <input (click)="toggleModel('custom')" class="is-checkradio is-small is-primary" id="model-custom" type="checkbox" name="model-custom" [checked]="filters.model.indexOf('custom') === -1 ? false : true">
+            <label for="model-custom">{{'CUSTOM' | translate}}</label>
+        </div>
+    </div>
+
+    <div class="options" *ngIf="user">
+        <h3>{{'BOXES' | translate}}</h3>
+        <div clas="field" title="{{'MY_BOXES' | translate}}">
+            <input (click)="myBoxes()" class="is-checkradio is-small is-primary" id="my-boxes" type="radio" name="my-boxes" [checked]="filters.ids != null ? true : false">
+            <label for="my-boxes">{{'MY_BOXES' | translate}}</label>
+        </div>
+        <div clas="field" title="{{'ALL_BOXES' | translate}}">
+            <input (click)="allBoxes()" class="is-checkradio is-small is-primary" id="all-boxes" type="radio" name="all-boxes" [checked]="filters.ids === null ? true : false">
+            <label for="all-boxes">{{'ALL_BOXES' | translate}}</label>
+        </div>
+
+    </div>
+   
+</div>

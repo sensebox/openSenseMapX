@@ -1,0 +1,5 @@
+@import '../variables.scss';
+
+.mapboxgl-ctrl-top-right {
+    top: $headerHeight !important;
+}

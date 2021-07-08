@@ -1,0 +1,30 @@
+<div [@slideInOutAnimation] *ngIf="activeBox$ | async">
+
+    <osem-box-single-values
+        [box]="activeBox$ | async"
+        [colors]="colors$ | async"
+        [activeSensorTypes]="activeSensorTypes$ | async" 
+        [activeSensors]="activeSensors$ | async"
+        [windowWidth]="windowWidth"
+        [scrollDivWidth]="scrollDivWidth"
+        (valueSelected)="toggleValue($event)" 
+        (boxClosed)="closeBox()" 
+        (valueAdded)="toggleAddValue($event)" 
+        (sizeChanged)="changeScrollDivWidth($event)" 
+    
+    ></osem-box-single-values> 
+    
+    <div>
+        <osem-box-chart 
+            *ngIf="activeSensors$ | async" 
+            (colorsChanged)="changeColors($event)" 
+            (dateRangeChanged)="changeDateRange($event)"
+            [data]="chartData"
+            [dateRangeChart]="dateRangeChart$ | async"
+            [dateRange]="dateRange$ | async"
+            [activeSensors]="activeSensors$ | async"
+            [loading]="sensorsLoading$ | async"
+            [selectedDate]="selectedDate$ | async">
+        </osem-box-chart>
+    </div>
+</div>

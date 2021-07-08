@@ -1,0 +1,11 @@
+<osem-datetime-modal
+    (changedActive)="changeActive($event)"
+    (changedDateRange)="changeDateRange($event)"
+    (changedDateStamp)="changeDateStamp($event)"
+    (showLiveDataEvent)="showLiveData()"
+    (closed)="close()"
+    [active]="active"
+    [dateRange]="selectedDateRange$ | async"
+    [dateStamp]="selectedDateStamp$ | async"
+
+></osem-datetime-modal>

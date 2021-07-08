@@ -1,0 +1,29 @@
+<!-- <div (click)="navTo('boxes')" >TEST</div> -->
+<!-- <li><a [routerLink]="['boxes']" queryParamsHandling="merge">{{'MY_BOXES' | translate}}</a></li> -->
+
+<aside class="menu">
+  <p class="menu-label">
+    {{'PROFILE' | translate}}
+  </p>
+  <ul class="menu-list">
+    <li><a [routerLink]="['boxes']" queryParamsHandling="merge">{{'MY_BOXES' | translate}}</a></li>
+    <li><a [routerLink]="['newbox']" queryParamsHandling="merge">{{'ADD_BOX' | translate}}</a></li>
+    <li><a [routerLink]="['vis']" queryParamsHandling="merge">{{'MY_VIS' | translate}}</a></li>
+  </ul>
+  <p class="menu-label">
+    {{'ADMINISTRATION' | translate}}
+  </p>
+  <ng-container *ngIf="loggedIn$ | async">
+    <ul class="menu-list">
+      <li><a [routerLink]="[{ outlets: { sidebar: ['account'] }}]" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
+    </ul>
+    <ul class="menu-list">
+      <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="!(loggedIn$ | async)">
+    <ul class="menu-list">
+      <li><a [routerLink]="['',{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">{{'LOGIN' | translate}}</a></li>
+    </ul>
+  </ng-container>
+</aside>

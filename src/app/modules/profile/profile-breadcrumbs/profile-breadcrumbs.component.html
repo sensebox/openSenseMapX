@@ -1,0 +1,16 @@
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li>
+      <a [routerLink]="['',{outlets: { sidebar: ['m']}}]" href="#">
+        {{'MENU' | translate}}
+      </a>
+    </li>
+    <ng-container  *ngFor="let menuitem of menuItems; last as isLast; let i = index" >
+      <li 
+        [class.is-active]="isLast" >
+        <a [routerLink]="['',{outlets: { sidebar: menuitem.url.substr(1)}}]" href="#">{{menuitem.label}}</a>
+      </li>
+
+    </ng-container>
+  </ul>
+</nav>

@@ -1,0 +1,87 @@
+.datepicker-container {
+    background: var(--background-primary-full);
+    box-shadow:  inset 0px 2px 3px 0px var(--shadow-color);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;    
+    &.disabled {
+        pointer-events: none;
+    }
+  
+    .datepicker-inner {
+        padding-top: 0.3em;
+
+        &.disabled {
+            opacity: 0.5;
+        }
+    }
+    
+    .owl-date-time-trigger {
+
+        .from-date {
+            padding-right: 0.7em;
+        }
+        &:hover {
+            background: var(--hover-color);
+        }
+        .date-input {
+            background: none;
+            border-bottom: 2px solid var(--color-primary);
+    
+            &::placeholder {
+                color: var(--text-color-primary);
+            }
+        }
+    
+        .calendar-button {
+            background: var(--background-primary-full);
+        }
+    }
+
+    .osem-time-buttons {
+        padding: 0.3em 0.3em 0 0.3em;
+    }
+}
+
+
+// MODAL
+
+
+
+.modal-content {
+    background: var(--background-primary-full);
+    min-height: 620px;
+
+    display: flex;
+    flex-direction: column;
+
+    .time-exp-text {
+        padding-bottom: 1.3em;
+    }
+
+    
+    .modal-content-inner {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .osem-button-container {
+        padding: 0.8em 0;
+        overflow: auto;
+    }
+
+    .calendar-timerange {
+        display: flex;
+        justify-content: space-around;
+        .calendar-container {
+            display: inline-flex;
+            flex-direction: column;
+
+            .calendar-date {
+                color: var(--color-primary);
+            }
+        }
+    }
+}

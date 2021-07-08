@@ -1,0 +1,58 @@
+<div class="bottom-bar-container" *ngIf="boxes">
+    <div class="box-header">
+        <div class="name">
+            {{'COMPARE_MODUS_HEADER' | translate}}
+        </div>
+        <div class="small-description">
+            {{'COMPARE_MODUS_HELP' | translate}}
+        </div>
+        <div class="osem-close-text" (click)="closeCompare()">
+            <button class="delete is-medium"></button>
+        </div>
+    </div>
+
+    <div class="values osem-padding-small" *ngIf="boxes">
+        <div class="center">
+            <div class="box-row">
+                <div class="box-name">
+                    <span>&nbsp;</span>
+                </div>
+                <div *ngFor="let pheno of combinedData | keyvalue" class="value-item pheno-name" (click)="selectPheno(pheno)">
+                    {{pheno.key}} <i class="fa fa-line-chart"></i>
+                </div>
+            </div>
+            <div *ngFor="let box of boxes">
+                <div class="box-row">
+                    <div class="box-name"
+                        [style.color]="colors ? colors.colorDomain[colors.domain.indexOf(box.name)]: 'inherit'">
+                        <div class="osem-close-text-no-pos" (click)="removeBox(box._id)">
+                            <button class="delete is-small"></button>
+                        </div> 
+                        <span>{{box.name}}</span>
+                    </div>
+                    <div *ngFor="let pheno of combinedData | keyvalue" class="value-item" (click)="selectPheno(pheno)">
+                        <div *ngIf="pheno && pheno.value">
+                            <div *ngIf="pheno.value[box._id]?.lastMeasurement; else noValue" [class.active]="(activePhenos == pheno.value[box._id].title)" class="value-inner">
+                                <div [style.color]="colors && (activePhenos == pheno.value[box._id].title) ? colors.colorDomain[colors.domain.indexOf(box._id)] : 'inherit'">
+                                    <div *ngIf="selectedDate && pheno.value[box._id].values">
+                                        {{pheno.value[box._id].values[selectedDate.toISOString()]}}
+                                    </div>
+                                    <div *ngIf="!selectedDate">
+                                        {{pheno.value[box._id].lastMeasurement.value}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #noValue>
+                            N/a
+                        </ng-template>
+                        <!-- <div *ngIf="!pheno.value[box._id]">
+                            N/a
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [style.color]="(colors && compareTo.indexOf(box._id) != -1) ? colors.getColor(colors.domain.indexOf(pheno.value[box._id].lastMeasurement._id)) : '#000000'"> -->

@@ -1,0 +1,68 @@
+<div id="legend-edit-container" class="osem-padding-small">
+    <h3 class="title is-3">{{'EDIT_COLOR_GRADIENT' | translate}}</h3>
+
+    <div class="osem-flex-container">
+
+        <div class="legend-form">
+            <form [formGroup]="legendForm">
+        
+                <div *ngIf="legendStepsControls">
+                    <div formArrayName="legendSteps">
+        
+                        <div *ngFor="let step of legendStepsControls.controls; let i=index">
+                            
+                            <div class="field">
+                                <div class="notification">
+                                    <button class="delete is-medium has-background-danger" (click)="removeLegendStep(i)"></button>
+                                        
+                                    <div [formGroupName]="i">
+                                        <div class="field is-expanded">
+                                            <div class="control has-icons-left">
+                                                <div class="icon is-small is-left color-icon"  [(colorPicker)]="step.controls.color.value" [style.background]="step.controls.color.value">
+                                                    <i class="fa fa-filter"></i>
+                                                </div>
+                                    
+                                                <p class="control is-expanded">
+                                                    <input
+                                                    formControlName="value"
+                                                    placeholder="{{step.controls.value.value}}"
+                                                    class="input"
+                                                    (input)="anyFieldUpdated()"
+                                                    type="number">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="button" (click)="addLegendStep()">{{'ADD_STEP' | translate}}</button>
+                    </div>
+                </div>
+                <div class="osem-button-container">
+                    <button class="osem-button is-pulled-right" [disabled]="!legendForm.valid" (click)="updateLegend()">{{'UPDATE_LEGEND' | translate}}</button>
+                </div>
+            </form>
+        </div>
+        <div class="legend-preview">
+            <h4>{{'PREVIEW' | translate}} - {{title}}</h4>
+            <div id="legend-wrapper">
+                <osem-legend-container></osem-legend-container>
+            </div>
+        </div>
+    </div>
+    <!-- <ng-container *ngIf="selectedPheno">
+        <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
+            <div class="legend-label-outer" *ngIf="i>2">
+                <div  class="legend-label" *ngIf=" i%2">
+                    <div class="content-container">{{prop}}</div>
+                </div>
+                <div  class="legend-color" *ngIf="i%2 != 1">
+                    <div class="corlor-container">{{prop}}</div>
+                </div>
+            </div>
+        </ng-container>
+
+        
+    </ng-container> -->
+</div>

@@ -15,8 +15,11 @@
       "prefix": "osem",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js"
+            },
             "outputPath": "dist/openSenseMapX",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,13 +28,17 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/_redirects"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss",
               "node_modules/mapbox-gl/dist/mapbox-gl.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bulma-calendar/dist/js/bulma-calendar.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -66,8 +73,11 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
+            // "customWebpackConfig": {
+            //   "path": "extra-webpack.config.js"
+            // },
             "browserTarget": "openSenseMapX:build"
           },
           "configurations": {

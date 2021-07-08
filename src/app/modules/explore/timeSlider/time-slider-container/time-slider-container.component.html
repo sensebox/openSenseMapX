@@ -1,0 +1,17 @@
+<osem-time-slider 
+    [dateRange]="dateRange$ | async" 
+    [selectedPheno]="selectedPheno$ | async"
+    [filterVisible]="filterVisible$ | async"
+    [selectedDate]="selectedDate"
+    [intervalPlaying]="intervalPlaying"
+    [dataFetched]="dataFetched$ | async"
+    [loadingBoxes]="loadingBoxes$ | async"
+    [dateStamp]="dateStamp$ | async"
+    [activeTimeMode]="activeTimeMode$ | async"
+    (dateSelected)="dateSelected($event)"
+    (loadedData)="loadData($event)"
+    (backwardPressed)="backward()"
+    (forwardPressed)="forward(this)"
+    (playPressed)="play()"
+    (pausePressed)="pause()"
+    (dateRangeRemoved)="removeDateRange()"></osem-time-slider>

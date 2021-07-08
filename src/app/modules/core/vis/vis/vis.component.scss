@@ -1,0 +1,82 @@
+#vis-container {
+
+    display: flex;
+    background: var(--background-primary-full);
+
+    #phenos {
+        flex-grow: 0;
+        font-size: 1.3em;
+        background:  var(--hover-color);
+
+        .pheno {
+            padding: 0.3em 0.1em;
+            display: flex;
+            // flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+
+            background: var(--hover-color);
+
+            &.active {
+                background: var(--background-primary-full);
+                border: none;
+            }
+
+            &.active {
+                background: var(--background-primary-full);
+                color: var(--color-primary);
+                // border: none;
+            }
+            &:hover {
+                background: var(--background-primary-full);
+                color: var(--color-primary);
+            }
+        }
+    }
+
+
+    .vis-items-container {
+        flex-grow: 1;
+        
+        .vis-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+
+            .vis-item {
+                width: 300px;
+                margin: 1em;
+                cursor: pointer;
+                
+                .image {
+                    height: 200px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-size: cover;
+                    
+                    img {
+                        height: 100%;
+                    }
+                }
+
+                &:hover {
+                    .vis-content {
+                        color: var(--color-primary);
+                    }
+                }
+        
+                .vis-content {
+                    p {
+                        margin: 0;
+                    }
+                    p.date {
+                        font-weight: bold;
+                        font-size: 0.95em;
+                        color: var(--text-color-primary);
+                    }
+                }
+            }
+        }
+    }
+}

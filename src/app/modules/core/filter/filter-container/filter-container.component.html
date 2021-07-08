@@ -1,0 +1,54 @@
+<div class="filter-container">
+    <div class="filter-inner">
+        <osem-search
+            (changedSearchTerm)="search($event)"
+            (resultSelected)="selectResult($event)"
+            (locResultSelected)="selectLocResult($event)"
+            (unfocused)="leave()"
+            (focused)="enter()"
+            [resultsActive]="resultsActive"
+            [autoCompleteResults]="autoCompleteResults$ | async"
+            [locationAutocompleteResults]="locationAutocompleteResults$ | async"
+        ></osem-search>
+        <osem-datepicker 
+            [dateRange]="selectedDateRange$ | async"
+            [dateStamp]="selectedDateStamp$ | async"
+            [activeTimeMode]="selectActiveTimeMode$ | async"
+            [showDateModal]="showDateModal$ | async"
+            (dateChanged)="changeDateRange($event)"
+            (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
+        
+        <osem-filter-switcher
+            [activeTab]="activeTab$ | async"
+            [selectedPheno]="selectedPheno$ | async"
+            [minimizedBoolean]="minimizedBoolean"
+            [change]="change"
+            [filters]="filters$ | async"
+            [user]="user$ | async"
+            [stats]="stats$ | async"
+            (activeChanged)="setActiveTab($event)"
+            (phenoSelected)="selectPheno($event)"
+            (changeToggled)="toggleChange()"
+            (infoPhenoSelected)="selectInfoPheno($event)"
+            (minimized)="minimize()"
+            (filtersSet)="setFilters($event)"
+
+        ></osem-filter-switcher>
+    </div>
+    
+    <div 
+        id="filter-minimizer" 
+        class="osem-box-shadow-basic"
+        [class.minimized]="!(filterVisible$ | async)"
+        (click)="toggleMinimizeFilter()">
+            <div class="osem-chevron-container">
+                <i *ngIf="(filterVisible$| async); else minimized" class="fa fa-chevron-left"></i>
+                <ng-template #minimized>
+                    <i class="fa fa-chevron-right bottom-border"></i>
+                    <i class="fa fa-search bottom-border"></i>
+                    <i class="fa fa-filter"></i>
+                </ng-template>
+            </div>
+    </div>
+
+</div>

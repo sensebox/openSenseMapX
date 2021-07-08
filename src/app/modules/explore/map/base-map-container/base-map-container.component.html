@@ -1,0 +1,16 @@
+<osem-base-map></osem-base-map>
+
+<!-- <div  id="removeBoxes" (click)="removeAllOtherBoxes()">
+    REMOVE OTHER BOXES
+</div> -->
+
+<div id="mapLoading" *ngIf="mapLoading$ | async">
+    <osem-map-loading></osem-map-loading>
+</div>
+
+
+
+<!-- <div id="loading" *ngIf="(loading$ | async) || !(mapInit$ | async) || (loadingSensor$ | async)"> -->
+<!-- <div id="loading" *ngIf="(loading$ | async) || !(mapInit$ | async)">
+    <osem-loading></osem-loading>
+</div> -->

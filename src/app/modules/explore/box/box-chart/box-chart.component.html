@@ -1,0 +1,45 @@
+<div class="chart-wrapper">
+    <div *ngIf="activeSensors.length > 0">
+        <osem-chart-datepicker
+            [dateRange]="dateRange ? dateRange : dateRangeChart"
+            [dateRangeGlobal]="dateRange"
+            (dateChanged)="changeDateRangeChart($event)"
+        ></osem-chart-datepicker>
+
+        <div class="osem-chart-container" *ngIf="data && data?.length > 0 && !loading; else noData">
+            <osem-osem-line-chart 
+                [results]="data" 
+                [selectedDate]="selectedDate"
+                [xAxis]="true"
+                [xAxisLabel]="'XXX'"
+                [yAxis]="true"
+                [yAxisLabel]="'HALLO'"
+                [autoScale]="true"
+                [showYAxisLabel]="true"
+                [showXAxisLabel]="false"
+                [gradient]="true"
+                [showGridLines]="true"
+                [trimXAxisTicks]="true"
+                [maxXAxisTickLength]="10"
+                [roundDomains]="true"
+                [legend]="false"
+                [legendPosition]="'right'"
+                (colorsChanged)="changeColors($event)"
+            ></osem-osem-line-chart>
+                <!-- [showRefLines]="true" -->
+                <!-- [xAxisTicks]="xAxisTicks" -->
+                <!-- [referenceLines]="[{name: 'yoo', value: 10.1}]" -->
+        </div>
+        <ng-template #noData>
+            <div class="osem-chart-container center-text">
+                <div *ngIf="!loading">
+                    {{'NO_DATA_AVAILABLE' | translate}}
+                </div>
+                <div *ngIf="loading">
+                    <i class="fa fa-2x fa-spinner fa-spin"></i> 
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+

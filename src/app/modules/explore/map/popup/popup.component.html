@@ -1,0 +1,186 @@
+<!-- <div *ngIf="box" id="popup">
+    <div class="sensor-icons sensor-icons-{{box.sensors.length}}">
+        <div
+            *ngFor="let sensor of box.sensors"
+            class="sensor-icon osem-box-shadow-small">
+            <i *ngIf="sensor.icon" class="osem-icon map-icon {{sensor.icon}}"></i>
+        </div>
+    </div>
+    <div class="popup-name osem-box-shadow-small">
+        <h2>{{box.name}}</h2>
+    </div>
+</div> -->
+
+<div class="card" *ngIf="box" [@appearPopup]="box" id="popup">
+  <!-- <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+    </figure>
+  </div> -->
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4">{{box.name}}</p>
+        <p class="subtitle is-6">{{box.createdAt | date}}</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <table class="table">
+        <tbody>
+          <!-- <tr *ngIf="box.createdAt">
+            <td> {{ 'CREATED_AT' | translate }}</td>
+            <td> {{ box.createdAt | date }}</td>
+          </tr> -->
+          <tr *ngIf="box.sensors">
+            <td> {{'STATE' | translate}}</td>
+            <td> {{box.sensors.live ? 'active' : 'inactive'}}</td>
+          </tr>
+          <tr>
+            <td> {{'LOCATION' | translate}}</td>
+            <td> {{box.exposure}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sensor-icons osem-padding-small" *ngIf="box.sensors && box.sensors.live">
+        <h4>{{'SENSORS' | translate}}:</h4>
+        <div
+          *ngFor="let sensor of box.sensors.live | keyvalue"
+          class="sensor-icon osem-box-shadow-small" title="{{sensor.key}}">
+          <i class="osem-icon map-icon {{sensorIconsObject[sensor.key]}}"></i>
+          <!-- <div  *ngIf="sensorIconsObject.indexOf(sensor.key) != -1; else notAvail">
+          </div> -->
+            
+          <!-- <ng-template #notAvail>
+            <i class="osem-icon map-icon osem-not-available"></i>
+          </ng-template> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card-footer">
+    
+    <a 
+      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1" 
+      class="card-footer-item"
+      (click)="compareToOther(box._id)"
+    >{{'COMPARE_TO_OTHER_BOX' | translate}}</a>
+    <a 
+      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+      class="card-footer-item"
+      (click)="details(box._id)"
+    >{{'DETAILS' | translate}}</a>
+    <a 
+      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+      class="card-footer-item"
+      (click)="compareToCurrent(box._id)"
+    >{{'COMPARE_TO_CURRENT_BOX' | translate}}</a>
+    <a 
+      *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1" 
+      class="card-footer-item"
+      (click)="details(box._id)"
+    >{{'DETAILS' | translate}}</a>
+    <a 
+      *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1" 
+      class="card-footer-item"
+      (click)="addToCompare(box._id)"
+    >{{'ADD_TO_COMPARE' | translate}}</a>
+    <a 
+      *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1" 
+      class="card-footer-item"
+      (click)="removeFromCompare(box._id)"
+    >{{'REMOVE_FROM_COMPARE' | translate}}</a>
+  </div>
+</div>
+
+
+<!-- <div *ngIf="box" [@appearPopup]="box" id="popup">
+    <div class="popup-header osem-padding-small">
+        <h3>{{box.name}}</h3>
+    </div>
+    <div class="osem-padding-small">
+        <ul>
+            <li>
+                {{'CREATED_AT' | translate}}: {{box.createdAt | date}}
+            </li>
+            <li>
+                {{'STATE' | translate}}: <b>{{box.state}}</b>
+            </li>
+            <li>
+                {{'LOCATION' | translate}}: <b>{{box.exposure}}</b>
+            </li>
+        </ul>
+    </div>
+    <div class="sensor-icons osem-padding-small">
+        <h4>{{'SENSORS' | translate}}:</h4>
+        <div
+            *ngFor="let sensor of box.sensors"
+            class="sensor-icon osem-box-shadow-small" title="{{sensor.title}}">
+            <i *ngIf="sensor.icon" class="osem-icon map-icon {{sensor.icon}}"></i>
+        </div>
+    </div>
+    <br>
+    <div class="osem-padding-small">
+        <button 
+            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1" 
+            class="osem-button"
+            (click)="compareToOther(box._id)"
+        >{{'COMPARE_TO_OTHER_BOX' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+            class="osem-button"
+            (click)="compareToCurrent(box._id)"
+        >{{'COMPARE_TO_CURRENT_BOX' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1" 
+            class="osem-button"
+            (click)="details(box._id)"
+        >{{'DETAILS' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1" 
+            class="osem-button"
+            (click)="addToCompare(box._id)"
+        >{{'ADD_TO_COMPARE' | translate}}</button>
+        <button 
+            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1" 
+            class="osem-button"
+            (click)="removeFromCompare(box._id)"
+        >{{'REMOVE_FROM_COMPARE' | translate}}</button>
+    </div>
+</div> -->
+
+<div class="card" *ngIf="cluster && !box" [@appearPopup]="cluster && !box" id="cluster-popup">
+  <div class="card-header">
+    <p class="card-header-title">
+      {{cluster.length}} {{'BOXES' | translate}}
+    </p>
+    <div class="osem-close-text" (click)="closePopup()">
+      <button class="delete is-medium"></button>
+    </div>
+  </div>
+  <div class="card-content card-content-cluster">
+    <nav class="panel">
+      <a *ngFor="let box of cluster" class="panel-block" (click)="selectClusterBox(box)">{{box.properties.name}}</a>
+    </nav>
+  </div>
+</div>
+<!-- <div *ngIf="cluster && !box">
+    <div class="cluster-header osem-padding-small">
+        {{cluster.length}} {{'BOXES' | translate}}
+        <div class="osem-close-text" (click)="closePopup()">x</div>
+    </div>
+    <div class="cluster-items">
+        <div *ngFor="let box of cluster">
+            <div (click)="selectClusterBox(box)" class="cluster-item osem-padding-small">
+                {{box.properties.name}}
+            </div>
+        </div>
+    </div>
+</div> -->

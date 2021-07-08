@@ -1,0 +1,20 @@
+<div class="datepicker-container">
+    <div class="osem-padding-small datetime-panel" (click)="toggleDateModal()">
+        <div class="datetime-flex">
+            <div *ngIf="activeTimeMode === 'timerange' && dateRange" class="date-string">
+                {{dateRange[0] | date:'short': '':translateService.currentLang}} - {{dateRange[1] | date:'short': '':translateService.currentLang}}
+            </div>
+            <div *ngIf="activeTimeMode === 'live'" class="date-string">
+                {{now | date:'short': '':translateService.currentLang}} - live
+            </div>
+            <div *ngIf="activeTimeMode === 'timestamp'" class="date-string">
+                {{dateStamp | date:'short': '':translateService.currentLang}}
+            </div>
+        </div>
+        <div class="calendar-button">
+            <div class="osem-simple-button">
+                <i class="fa fa-calendar osem-center-horizontal"></i>
+            </div>
+        </div>
+    </div>
+</div>

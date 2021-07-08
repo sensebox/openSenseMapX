@@ -1,2 +1,78 @@
-<osem-nav></osem-nav>
-<osem-map-container></osem-map-container>
+<div class="modal" [class.is-active]="intro" id="intro-layer">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">{{'INTRO_HEADLINE' | translate}}</p>
+          <button class="delete" aria-label="close" (click)="closeIntro()"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="content">
+                <p>{{'INTRO_TEXT_1' | translate}}</p>
+                <p>{{'INTRO_TEXT_2' | translate}}</p>
+                <ul>
+                    <li>{{'FEATURE1' | translate}}</li>
+                    <li>{{'FEATURE2' | translate}}</li>
+                    <li>{{'FEATURE3' | translate}}</li>
+                    <li>{{'FEATURE4' | translate}}</li>
+                    <li>...</li>
+                </ul>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="osem-button" (click)="closeIntro()">{{'GO' | translate}}</button>
+        </footer>
+    </div>
+</div>
+
+
+<osem-nav-container></osem-nav-container>
+<osem-base-map-container></osem-base-map-container>
+
+<osem-time-slider-container></osem-time-slider-container>
+
+<osem-filter-container [@slideInOutHorizontalBoolean]="(filterVisible$ | async)"></osem-filter-container>
+<osem-filter-container-values *ngIf="!(filterVisible$ | async)" [@appearSlow]="!(filterVisible$ | async)"></osem-filter-container-values>
+
+<osem-bottom-bar-container></osem-bottom-bar-container>
+
+<div id="osem-popup">
+    <osem-popup-container></osem-popup-container>
+</div>
+
+
+<!-- <osem-map-options-container></osem-map-options-container> -->
+
+<!-- INFO PHENO MODAL: TODO: rename -->
+<osem-pheno-info-modal *ngIf="infoPheno$ | async"></osem-pheno-info-modal> 
+
+<div id="backdrop" *ngIf="sidebarOutlet.isActivated">
+
+</div>
+
+<div class="modal" [class.is-active]="backdrop">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <router-outlet #o="outlet" name="modal" id="modal-outlet" (activate)="onModalActivate($event)" (deactivate)="onModalDeactivate($event)"></router-outlet>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
+</div>
+
+
+<div id="osem-sidebar" class="px-2 py-2" [class.active]="sidebarOutlet.isActivated">
+    <div id="sidebar-header" class="level">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <div class="osem-close-text-no-pos" (click)="closeSidebar()">
+                <button class="delete is-medium"></button>
+            </div>
+        </div>
+    </div>
+
+    <router-outlet name="sidebar" #sidebarOutlet="outlet"></router-outlet>
+</div>
+
+
+<osem-datetime-modal-container *ngIf="showDateModal$ | async">
+
+</osem-datetime-modal-container>

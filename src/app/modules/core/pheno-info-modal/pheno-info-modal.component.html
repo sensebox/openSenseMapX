@@ -1,0 +1,12 @@
+<div id="backdrop" (click)="close()">
+    <div id="modal-inner" class="osem-padding" (click)="clickModal($event)">
+        <div class="close-container">
+            <div class="osem-close-text-no-pos" (click)="close()" title="{{'CLOSE' | translate}}">
+                <button class="delete is-medium"></button>
+            </div>
+        </div>
+        <osem-pheno-info [infoPheno]="infoPheno$ | async">
+    
+        </osem-pheno-info>
+    </div>
+</div>

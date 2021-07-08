@@ -1,0 +1,51 @@
+<div class="osem-bottom-bar-container" *ngIf="box">
+
+    <div *ngFor="let box of compareTo">
+      {{box.name}} 
+      <span (click)="removeCompare(box)">x</span>
+    </div>
+
+    <div class="osem-bottom-header">
+      <div (click)="toggleCompareModus()">+</div>
+      <h3 class="osem-no-margin">{{box.name}}</h3>
+      <p class="osem-no-margin">{{box.lastMeasurementAt}}</p>
+    </div>
+  
+
+    <div class="osem-sensors" *ngIf="box &&  !compareData">
+      <div class="osem-sensor" *ngFor="let sensor of box.sensors">
+        <ng-container *ngIf="sensor">
+          <div (click)="selectValue(sensor)">
+            <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value}}</b>
+            <b *ngIf="!sensor.lastMeasurement">N/A</b>
+          </div>
+          <div>{{sensor.title}}</div>
+          <div (click)="addValue(sensor)">+</div>
+        </ng-container>
+      </div>
+    </div>
+    
+    <div class="osem-sensors" *ngIf="compareData">
+      <div class="osem-sensor" *ngFor="let pheno of compareData | keyvalue">
+        {{pheno.key}}
+        <div *ngFor="let sensor of pheno.value | keyvalue">
+          <div *ngIf="sensor.value.lastMeasurement">
+            <!-- <div (click)="selectValue(sensor.key, sensor.value)"> -->
+            {{sensor.value.lastMeasurement.value}}
+            <!-- </div>   -->
+          </div>
+        </div>
+        <div (click)="addValue(pheno)">+</div>
+        <!-- <div (click)="selectValue(box._id, sensor._id)">
+          <b *ngIf="sensor.lastMeasurement">{{sensor.lastMeasurement.value}}</b>
+          <b *ngIf="!sensor.lastMeasurement">N/A</b>
+        </div> -->
+        <div>{{pheno.title}}</div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div *ngIf="!box">
+    Click on a marker to view details
+  </div>

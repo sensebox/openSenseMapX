@@ -1,0 +1,69 @@
+<div class="modal is-active" >
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <button class="modal-close is-large" aria-label="close" (click)="close()"></button>
+
+        <div class="tabs is-fullwidth">
+            <ul>
+                <li [class.is-active]="active === 'live'">
+                    <a (click)="changeActive('live')">
+                        <span class="icon is-small"><i class="fa fa-cloud-sun-rain" aria-hidden="true"></i></span>
+                        <span>{{'LIVE' | translate}}</span>
+                    </a>
+                </li>
+                <li [class.is-active]="active === 'timestamp'">
+                    <a (click)="changeActive('timestamp')">
+                        <span class="icon is-small"><i class="fa fa-history" aria-hidden="true"></i></span>
+                        <span>{{'TIMESTAMP' | translate}}</span>
+                    </a>
+                </li>
+                <li [class.is-active]="active === 'timerange'">
+                    <a (click)="changeActive('timerange')">
+                        <span class="icon is-small"><i class="fa fa-user-clock" aria-hidden="true"></i></span>
+                        <span>{{'TIMERANGE' | translate}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="live osem-padding modal-content-inner" *ngIf="active === 'live'">
+            <div>
+                <p class="time-exp-text">
+                    {{'LIVE_DATA_TEXT' | translate}}
+                </p>
+            </div>
+            <div class="osem-button-container">
+                <button class="osem-button is-pulled-right" (click)="showLiveData()">{{'SHOW' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="timestamp osem-padding modal-content-inner" *ngIf="active === 'timestamp'">
+            <div>
+                <p class="time-exp-text">
+                    {{'TIMESTAMP_TEXT' | translate}}
+                </p>
+            </div>
+            <div class="calendar-timerange">
+                <input id="timestamp" type="datetime" data-display-mode="inline" data-close-on-select="false" [(ngModel)]="dateStampValue">
+            </div>
+            <div class="osem-button-container">
+                <button class="osem-button is-pulled-right" (click)="updateDateStamp(dateStampValue)">{{'SHOW' | translate}}</button>    
+            </div>
+        </div>
+
+        <div class="timerange osem-padding modal-content-inner" *ngIf="active === 'timerange'">
+            <p class="time-exp-text">
+                {{'TIMERANGE_TEXT' | translate}}
+            </p>
+            <div class="calendar-timerange">
+                <div class="calendar-container">
+                    <input id="timerange" type="datetime" data-display-mode="inline" data-is-range="true" data-close-on-select="false">
+                </div>
+            </div>
+            <div class="osem-button-container">
+                <button [disabled]="!dateRangeStart || !dateRangeEnd" class="osem-button is-pulled-right" (click)="updateDateRange(dateRangeStart, dateRangeEnd)">{{'SHOW' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

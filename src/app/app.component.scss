@@ -1,5 +1,166 @@
-osem-nav {
+@import '../styles/variables.scss';
+
+osem-nav-container {
     position: absolute;;
     top: 0;
+    right: 0;
+    z-index: 100;
+    @media screen and(max-width: $secondBreak){
+        width: 100%;
+    }
+}
+
+#intro-layer {
+    .intro-text {
+        max-width: 400px;
+        background: var(--background-primary-full);
+        .osem-button {
+            float: right;
+        }
+    }
+}
+
+osem-filter-container {
+    position: absolute;
+    top: 0;
+    width: $filterWidth;
+    @media screen and(max-width: $secondBreak){
+        top: $headerHeight;
+    }
+    @media screen and(max-width: $firstBreak){
+        width: calc(100% - 20px);
+    }
+    left: 0;
+    z-index: 95;
+    &:hover {
+        z-index: 100;
+    }
+}
+
+osem-filter-container-values {
+    position: absolute;
+    top: 0.3em;
+    left: 0.3em;
+    z-index: 95;
+}
+
+osem-bottom-bar-container {
+    position: absolute;
+    bottom: 0;
     width: 100%;
+    z-index: 95;
+    &:hover {
+        z-index: 100;
+    }
+}
+
+osem-phenomenon-container {
+    position: absolute;
+    left: 50px;
+    top: 200px;
+    z-index: 40;
+    background: rgba(240,240,240,0.7);
+}
+
+// osem-legend-container {
+//     position: absolute;
+//     right: 10px;
+//     top: 150px;
+//     z-index: 15;
+//     border: 1px solid var(--color-primary);
+//     background: var(--background-primary-full);
+
+// }
+
+osem-time-slider-container {
+    position: absolute;
+    // left: 50%;
+    left: $filterWidth;
+    // transform: translateX(-50%);
+    top: 0;
+    z-index: 9;
+    min-width: 200px;
+    @media screen and(max-width: $secondBreak){
+        top: $headerHeight;
+    }
+
+}
+
+osem-map-options-container {
+    position: absolute;
+    right: 10px;
+    top: 160px;
+    z-index: 9;
+    
+}
+
+#osem-popup {
+    display: inline-block;
+    z-index: 900;
+    position: absolute;
+}
+
+#backdrop {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background: rgba(0,0,0,0.7);
+    z-index: 1001;
+}
+
+#modal-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    &.active {
+        display: flex;
+    }
+
+    #modal-inner {
+        position: relative;
+        display: inline-block;
+        // max-width: 700px;
+        // min-width: 250px;
+        width: 80%;
+        max-height: 80%;
+        overflow-y: auto;
+        background: var(--background-primary-full);
+        .osem-close-button {
+            right: 5px;
+            top: 5px;
+            position: absolute;
+        }
+    }
+}
+
+#osem-sidebar {
+    right: 0;
+    position: absolute;
+    top: 0;
+    background: var(--background-primary-full);
+    z-index: 3000;
+    width: 60%;
+    height: 100%;
+    transform: translateX(100%);
+    transition:  transform 0.3s ease-in-out;
+    overflow-y: auto;
+    @media screen and(max-width: $secondBreak){
+        width: 100%;
+    }
+
+    &.active {
+        transform: translateX(0);
+    }
+
+    #sidebar-header {
+        position: relative;
+    }
 }

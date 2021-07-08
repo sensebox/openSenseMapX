@@ -1,0 +1,6 @@
+#map {
+    //use viewport width/height because of mapbox gl bug
+    height: 100VH;
+    width: 100VW;
+    position: relative;
+}

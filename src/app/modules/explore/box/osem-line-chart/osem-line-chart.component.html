@@ -1,0 +1,156 @@
+<ngx-charts-chart
+  [view]="[width, height]"
+  [showLegend]="legend"
+  [legendOptions]="legendOptions"
+  [activeEntries]="activeEntries"
+  [animations]="animations"
+  (legendLabelClick)="onClick($event)"
+  (legendLabelActivate)="onActivate($event)"
+  (legendLabelDeactivate)="onDeactivate($event)"
+  >
+  <svg:defs>
+    <svg:clipPath [attr.id]="clipPathId">
+      <svg:rect
+        [attr.width]="dims.width + 10"
+        [attr.height]="dims.height + 10"
+        [attr.transform]="'translate(-5, -5)'"
+      />
+    </svg:clipPath>
+  </svg:defs>
+  <svg:g [attr.transform]="transform" class="line-chart chart">
+    <svg:g
+      ngx-charts-x-axis
+      *ngIf="xAxis"
+      [xScale]="xScale"
+      [dims]="dims"
+      [showGridLines]="showGridLines"
+      [showLabel]="showXAxisLabel"
+      [labelText]="xAxisLabel"
+      [trimTicks]="trimXAxisTicks"
+      [rotateTicks]="rotateXAxisTicks"
+      [maxTickLength]="maxXAxisTickLength"
+      [tickFormatting]="xAxisTickFormatting"
+      [ticks]="xAxisTicks"
+      (dimensionsChanged)="updateXAxisHeight($event)"
+    ></svg:g>
+    <svg:g *ngFor="let dom of yDomains; trackBy: trackBy; let i = index">
+      <svg:g
+      ngx-charts-y-axis
+      *ngIf="yAxis"
+      [yScale]="yScales[dom[2]]"
+      [dims]="dims"
+      [showGridLines]="i > 0 ? false : showGridLines"
+      [showLabel]="showYAxisLabel"
+      [labelText]="dom[2]"
+      [trimTicks]="trimYAxisTicks"
+      [maxTickLength]="maxYAxisTickLength"
+      [tickFormatting]="yAxisTickFormatting"
+      [ticks]="yAxisTicks"
+      [yOrient]="i != 0 ? 'right' : 'left'"
+      [showRefLines]="showRefLines"
+      [showRefLabels]="showRefLabels"
+      (dimensionsChanged)="updateYAxisWidth($event)"
+    ></svg:g>
+    <line *ngIf="selectedDate"
+      [attr.x1]="xScale(selectedDate)" 
+      [attr.x2]="xScale(selectedDate)" 
+      [attr.y1]="0" 
+      [attr.y2]="dims.height" 
+      style="stroke:rgb(99,99,99);stroke-width:2;stroke-dasharray: 4" />
+    <text 
+      [attr.x]="xScale(selectedDate)" 
+      [attr.y]="0" 
+      id="date" 
+      *ngIf="selectedDate">
+      {{selectedDate | date:'M/d/yy, h:mm a'}}
+    </text>
+    
+      <!-- <text id="eins" x="10" y="40" *ngIf="selectedDate">
+        {{selectedDate.toLocaleDateString()}}
+      </text>
+    -->
+    
+  </svg:g>
+
+
+  
+  
+  <svg:g [attr.clip-path]="clipPath">
+    <svg:g *ngFor="let series of results; trackBy: trackBy" [@animationState]="'active'">
+      <svg:g
+        ngx-charts-osem-line-series
+        [xScale]="xScale"
+        [yScale]="yScales[series.extra.title]"
+        [colors]="colors"
+        [data]="series"
+        [activeEntries]="activeEntries"
+        [scaleType]="scaleType"
+        [curve]="curve"
+        [rangeFillOpacity]="rangeFillOpacity"
+        [hasRange]="hasRange"
+        [animations]="animations"
+      />
+    </svg:g>
+
+    <svg:g *ngIf="!tooltipDisabled" (mouseleave)="hideCircles()">
+      <svg:g
+        ngx-charts-tooltip-area
+        [dims]="dims"
+        [xSet]="xSet"
+        [xScale]="xScale"
+        [yScale]="yScale"
+        [results]="results"
+        [colors]="colors"
+        [tooltipDisabled]="tooltipDisabled"
+        [tooltipTemplate]="seriesTooltipTemplate"
+        (hover)="updateHoveredVertical($event)"
+      />
+
+      <svg:g *ngFor="let series of results">
+        <svg:g
+          ngx-charts-circle-series
+          [xScale]="xScale"
+          [yScale]="yScales[series.extra.title]"
+          [colors]="colors"
+          [data]="series"
+          [scaleType]="scaleType"
+          [visibleValue]="hoveredVertical"
+          [activeEntries]="activeEntries"
+          [tooltipDisabled]="tooltipDisabled"
+          [tooltipTemplate]="tooltipTemplate"
+          (select)="onClick($event)"
+          (activate)="onActivate($event)"
+          (deactivate)="onDeactivate($event)"
+        />
+        </svg:g>
+      </svg:g>
+    </svg:g>
+  </svg:g>
+  <svg:g
+    ngx-charts-timeline
+    *ngIf="timeline && scaleType != 'ordinal'"
+    [attr.transform]="timelineTransform"
+    [results]="results"
+    [view]="[timelineWidth, height]"
+    [height]="timelineHeight"
+    [scheme]="scheme"
+    [customColors]="customColors"
+    [scaleType]="scaleType"
+    [legend]="legend"
+    (onDomainChange)="updateDomain($event)"
+  >
+    <svg:g *ngFor="let series of results; trackBy: trackBy">
+      <svg:g
+        ngx-charts-osem-line-series
+        [xScale]="timelineXScale"
+        [yScale]="timelineYScales[series.extra.title]"
+        [colors]="colors"
+        [data]="series"
+        [scaleType]="scaleType"
+        [curve]="curve"
+        [hasRange]="hasRange"
+        [animations]="animations"
+      />
+    </svg:g>
+  </svg:g>
+</ngx-charts-chart>

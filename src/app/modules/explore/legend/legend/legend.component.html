@@ -1,0 +1,45 @@
+<!-- <div *ngIf="selectedPheno && selectedPheno.title" [@legendAnimation]="legendVisible" id="anim-container">  -->
+    <!-- <div class="osem-minimize-button" title="{{'LEGEND' | translate}}" (click)="toggleLegend()">-</div> -->
+    <!-- <h3>{{selectedPheno.title}}</h3> -->
+    <div id="legend-container">
+        <ng-container *ngIf="selectedPheno.title != 'ALL'; else ALL">
+            <div id="legend-labels">
+                <ng-container *ngFor="let prop of selectedPheno.layer.paint['circle-color']; let i=index">
+                    <ng-container *ngIf=" i%2">
+                        <div class="legend-label-outer" *ngIf="i>2" [style.height.%]="100/(selectedPheno.layer.paint['circle-color'].length/2-2)">
+                            <div  class="legend-label">
+                                <div class="content-container">{{prop}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+            <div id="legend-gradient" [style.background]="'linear-gradient('+gradient+')'"></div>
+        </ng-container>
+        <ng-template #ALL>
+            <div id="all-legend">
+                <div>
+                    <h3 class="legend-headline">{{'LEGEND' | translate}}</h3>
+                    <div class="legend-item" title="{{'ACTIVE_BOX_TEXT' | translate}}">
+                        <div class="osem-green-circle circle"></div>
+                        <span>{{'ACTIVE_BOX' | translate}}</span>
+                    </div>
+                    <div class="legend-item" title="{{'INACTIVE_BOX_TEXT' | translate}}">
+                        <div class="osem-gray-circle circle"></div>
+                        <span>{{'INACTIVE_BOX' | translate}}</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="stats-headline">{{'STATISTICS' | translate}}</h3>
+                    <div class="stats-item" title="{{'TOTAL_BOXES_TITLE' | translate}}">
+                        <span><b>{{stats.totalBoxes | number}}</b> {{'BOXES' | translate}}</span>
+                        
+                    </div>
+                    <div class="stats-item" title="{{'TOTAL_MEASUREMENTS_TITLE' | translate}}">
+                       <span><b>{{stats.totalMeasurements | number}}</b> {{'MEASUREMENTS' | translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+<!-- </div> -->

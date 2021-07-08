@@ -1,0 +1,11 @@
+<osem-box-values 
+    [box]="activeBox$ | async" 
+    (valueSelected)="toggleValue($event)" 
+    (valueAdded)="toggleAddValue($event)" 
+    [compareTo]="compareTo$ | async" 
+    [compareModus]="compareModus$ | async"
+    [compareData]="compareData"
+    (compareRemoved)="removeCompare($event)"
+    (compareModusToggled)="toggleCompareModus($event)"></osem-box-values>
+
+<osem-box-chart *ngIf="selectedSensors$ | async" [data]="chartData"></osem-box-chart>

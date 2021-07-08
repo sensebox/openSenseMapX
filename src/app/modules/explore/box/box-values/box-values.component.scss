@@ -1,0 +1,25 @@
+.osem-bottom-bar-container {
+  background: var(--primary-background);
+
+  .osem-bottom-header {
+    background: #eee;
+    display: flex;
+    justify-content: center;
+    h3 {
+      padding: 0.3em 0.6em;
+    }
+  }
+  .osem-sensors {
+    display: flex;
+    justify-content: center;
+
+    .osem-sensor {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 0.3em 0.5em;
+      border: 1px solid #eee;
+    }
+  }
+}
