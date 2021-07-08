@@ -242,7 +242,8 @@ export class MapService {
 
     this.numbersSub = this.numbers$.subscribe(res => {
       if(this.map && this.map.getLayer('number-layer')){
-        this.map.setLayoutProperty('number-layer', 'visibility', res ? 'visible' : 'none');
+        //TODO ADD THIS IF NUMBERS ARE HANDLED SEPARETLY
+        // this.map.setLayoutProperty('number-layer', 'visibility', res ? 'visible' : 'none');
 
       }
     })
@@ -297,7 +298,7 @@ export class MapService {
       }
     }
     if (!this.map.getLayer('number-layer')) {
-      this.addNumberLayer();
+      this.addNumberLayer(layer.layout.visibility);
       this.addPopup('base-layer');
     }
     if(layer.paint['circle-color']){
@@ -492,7 +493,8 @@ export class MapService {
 
 
   // NUMBER LAYERS
-  addNumberLayer() {
+  addNumberLayer(visibility) {
+    console.log("ADDING NUMBER LAYER", visibility)
     this.map.addLayer({
       'id': 'number-layer',
       'type': 'symbol',
@@ -510,7 +512,7 @@ export class MapService {
         ]
       },
       "layout": {
-        'visibility': 'visible',
+        'visibility': visibility,
         "text-field": "",
         "text-variable-anchor": ["bottom"],
         "text-offset": {
