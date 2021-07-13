@@ -175,19 +175,11 @@ export class MapService {
   //subscribes to the layers in the ui-service.
   subscribeToLayers(){
     if(this.baseLayerSub){
-      this.baseLayerSub.unsubscribe();
-      this.clusterLayerSub.unsubscribe();
-      this.activeBoxSub.unsubscribe();
-      this.compareToSub.unsubscribe();
-      this.clusteringSub.unsubscribe();
-      this.compareModusSub.unsubscribe();
-      this.numbersSub.unsubscribe();
+      this.unsubscribeAll();
     }
 
     let that = this;
-    // console.log("SUBSCRIBE HERE")
     this.baseLayerSub = this.baseLayer$.subscribe(res => {
-      // console.log("LAYER TO DRAW:",res)
       this.baseLayerBehaviour$.next(res);
       that.drawBaseLayer(res);
     });
@@ -240,13 +232,13 @@ export class MapService {
       }
     })
 
-    this.numbersSub = this.numbers$.subscribe(res => {
-      if(this.map && this.map.getLayer('number-layer')){
-        //TODO ADD THIS IF NUMBERS ARE HANDLED SEPARETLY
-        // this.map.setLayoutProperty('number-layer', 'visibility', res ? 'visible' : 'none');
+    //TODO ADD THIS IF NUMBERS ARE HANDLED SEPARETLY
+    // this.numbersSub = this.numbers$.subscribe(res => {
+    //   if(this.map && this.map.getLayer('number-layer')){
+    //     // this.map.setLayoutProperty('number-layer', 'visibility', res ? 'visible' : 'none');
 
-      }
-    })
+    //   }
+    // })
 
     // this.dateRangeData$.subscribe(res => {  
     //   if(res){
@@ -591,9 +583,14 @@ export class MapService {
 
   //CLUSTERING
   setClustering(clustering, date){
+    console.log("SETTING CLUSTERING", clustering)
     if(this.map.getLayer('base-layer')){
       this.map.setLayoutProperty('base-layer', 'visibility', clustering ? 'none' : 'visible' );
       this.map.setLayoutProperty('number-layer', 'visibility', clustering ? 'none' : 'visible' );
+      
+      //disable numbers for ALL layer
+      if(!this.map.getFilter('base-layer'))
+        this.map.setLayoutProperty('number-layer', 'visibility','none');
     }
     if(this.map.getLayer('boxes-cluster')){
       if(date){
@@ -803,8 +800,8 @@ export class MapService {
     // positionPopup(pixelPosition);
   }
 
-  // Popups
 
+  // Popups
   addPopup(layer) {
     let that = this;
     this.map.on('mouseenter', layer, 
@@ -867,15 +864,9 @@ export class MapService {
 
   // THEMING
   setThemeDark(dateRange) {
-
+    
     if(this.baseLayerSub){
-      this.baseLayerSub.unsubscribe();
-      this.clusterLayerSub.unsubscribe();
-      this.activeBoxSub.unsubscribe();
-      this.compareToSub.unsubscribe();
-      this.clusteringSub.unsubscribe();
-      this.compareModusSub.unsubscribe();
-      this.numbersSub.unsubscribe();
+      this.unsubscribeAll();
     }
 
     let that = this;
@@ -923,13 +914,7 @@ export class MapService {
   setThemeLight(dateRange) {
 
     if(this.baseLayerSub){
-      this.baseLayerSub.unsubscribe();
-      this.clusterLayerSub.unsubscribe();
-      this.activeBoxSub.unsubscribe();
-      this.compareToSub.unsubscribe();
-      this.clusteringSub.unsubscribe();
-      this.compareModusSub.unsubscribe();
-      this.numbersSub.unsubscribe();
+      this.unsubscribeAll();
     }
 
     let that = this;
@@ -1007,4 +992,14 @@ export class MapService {
   //   const features = this.map.queryRenderedFeatures([[0,0],[180,180]], { layers: ['boxes-cluster', 'base-layer'] })
   //   console.log(features)
   // }
+
+  unsubscribeAll(){
+    this.baseLayerSub.unsubscribe();
+    this.clusterLayerSub.unsubscribe();
+    this.activeBoxSub.unsubscribe();
+    this.compareToSub.unsubscribe();
+    this.clusteringSub.unsubscribe();
+    this.compareModusSub.unsubscribe();
+    // this.numbersSub.unsubscribe();
+  }
 }
