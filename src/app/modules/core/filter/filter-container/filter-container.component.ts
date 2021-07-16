@@ -11,6 +11,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { MapService } from 'src/app/modules/explore/services/map.service';
 import { SessionQuery } from 'src/app/models/session/state/session.query';
+import { LocationIqSearchResult } from 'src/app/@types/LocationIq';
 
 @Component({
   selector: 'osem-filter-container',
@@ -29,7 +30,8 @@ export class FilterContainerComponent implements OnInit {
   user$ = this.sessionQuery.user$;
   searchTerm$ = this.uiQuery.selectSearchTerm$;
   locationAutocompleteResults$ = this.uiQuery.selectLocationAutocompleteResults$;
-  
+  searchResults$ = this.uiQuery.selectSearchResults$;
+
   filters$ = this.uiQuery.selectFilters$;
   stats$ = this.uiQuery.selectStats$;
 
@@ -38,7 +40,7 @@ export class FilterContainerComponent implements OnInit {
   searchTimeout;
   autoCompleteResults$;
   minimizedBoolean = false;
-  change:boolean = true;
+  change: boolean = true;
   resultsActive = false;
 
 
@@ -53,7 +55,7 @@ export class FilterContainerComponent implements OnInit {
     private uiQuery: UiQuery) { }
 
   ngOnInit() {
-   
+
     // fetch data for timerange-display
     // combineLatest(this.selectedDateRange$, this.selectedPheno$).subscribe(res => {
     //   if(res[0] && res[1]){
@@ -71,7 +73,7 @@ export class FilterContainerComponent implements OnInit {
     this.autoCompleteResults$ = this.searchTerm$.pipe(
       startWith(''),
       switchMap(value => {
-        if(value && value.length > 2){
+        if (value && value.length > 2) {
           return this.boxQuery.selectSearchResultsWithSensors(value);
         } else {
           return of([]);
@@ -79,87 +81,84 @@ export class FilterContainerComponent implements OnInit {
       })
     );
 
-    this.autoCompleteResults$.subscribe(res => {
-      this.uiService.setSearchResults(res);
-    })
+    // this.autoCompleteResults$.subscribe(res => {
+    //   this.uiService.setSearchResults(res);
+    // })
   }
 
-  changeDateRange(range){
+  changeDateRange(range) {
     this.uiService.updateDateRange(range);
     // this.uiService.updateActiveTimeMode("timerange");
     this.sensorService.resetHasData();
   }
 
-  changeStartDate(startDate){
+  changeStartDate(startDate) {
     this.uiService.updateStartDate(startDate);
   }
 
-  changeEndDate(startDate){
+  changeEndDate(startDate) {
     this.uiService.updateEndDate(startDate);
   }
 
-  selectPheno(pheno){
+  selectPheno(pheno) {
     //set dataLoaded to false if timeline active
     this.boxService.setDataFetched(false);
     this.uiService.updateSelectedPheno(pheno);
     this.change = false;
   }
 
-  setActiveTab(activeTab){
+  setActiveTab(activeTab) {
     this.uiService.setActiveTab(activeTab)
-    if(this.minimizedBoolean)
+    if (this.minimizedBoolean)
       this.minimizedBoolean = false;
   }
 
-  minimize(){
+  minimize() {
     this.minimizedBoolean = !this.minimizedBoolean;
   }
 
-  toggleMinimizeFilter(){
+  toggleMinimizeFilter() {
     this.uiService.toggleFilterVisible();
   }
 
-  search(searchTerm){
-    if(searchTerm.length > 1){
-      this.uiService.fetchGeocodeResults(searchTerm).subscribe(res => {
-        // console.log(res);
-      }, (err) => {
-        // console.log(err)
-      });
+  search(searchTerm) {
+    if (searchTerm.length > 3) {
+      this.uiService.fetchGeocodeResults(searchTerm).subscribe();
+      this.uiService.fetchDevices(searchTerm).subscribe();
       this.uiService.setSearchTerm(searchTerm);
     } else {
       this.uiService.setSearchTerm("");
     }
   }
-  selectResult(box){
-    // this.mapService.flyTo(box.currentLocation.coordinates);
+  selectResult(box) {
+    this.mapService.flyTo(box.currentLocation.coordinates);
   }
-  selectLocResult(loc){
+  selectLocResult(loc: LocationIqSearchResult) {
     this.mapService.flyTo([loc.lon, loc.lat]);
   }
 
-  enter(){
+  enter() {
     this.resultsActive = true;
   }
-  leave(){
+  leave() {
     let that = this;
-    setTimeout(function(){
+    setTimeout(function () {
       that.resultsActive = false;
-    },100)
+    }, 100)
   }
 
-  toggleChange(){
+  toggleChange() {
     this.change = !this.change;
   }
-  
-  selectInfoPheno(pheno){
+
+  selectInfoPheno(pheno) {
     this.uiService.setInfoPheno(pheno);
   }
 
   setFilters(filters) {
     this.uiService.setFilters(filters);
   }
-  toggleDateModal(showDateModal){
+  toggleDateModal(showDateModal) {
     this.uiService.setShowDateModal(!showDateModal);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LocationIqSearchResult } from 'src/app/@types/LocationIq';
 import { appear } from 'src/app/helper/animations';
 
 @Component({
@@ -21,9 +22,10 @@ export class SearchComponent implements OnInit {
   @Output() unfocused = new EventEmitter();
 
   @Input() resultsActive;
-  @Input() autoCompleteResults;
-  @Input() locationAutocompleteResults;
-  
+
+  @Input() searchResults; // openSenseMap search results
+  @Input() locationAutocompleteResults; // locationiq search results
+
   showAll = false;
 
   autocompleteToShow;
@@ -38,16 +40,15 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.showAll = false;
-    this.autocompleteToShow = this.autoCompleteResults.slice(0,4);
-
+    // this.autocompleteToShow = this.autoCompleteResults.slice(0, 4);
   }
 
-  changeSearchTerm(){
+  changeSearchTerm() {
     clearTimeout(this.debounceTimeout);
     this.debounceTimeout = setTimeout(() => {
-      if(this.searchTerm.length > 1){
+      if (this.searchTerm.length > 3) {
         this.changedSearchTerm.emit(this.searchTerm);
       } else {
         this.changedSearchTerm.emit("");
@@ -57,73 +58,81 @@ export class SearchComponent implements OnInit {
   }
 
   keydown(key) {
-    if(key.keyCode == 38){
+    if (key.keyCode == 38) {
       key.preventDefault()
       this.selectedAutocomplete--;
-      if (this.selectedAutocomplete < 0){
-        this.selectedAutocomplete = this.autocompleteToShow.length-1;
+      if (this.selectedAutocomplete < 0) {
+        this.selectedAutocomplete = this.autocompleteToShow.length - 1;
       }
-    } else if(key.keyCode == 40) {
+    } else if (key.keyCode == 40) {
       key.preventDefault()
       this.selectedAutocomplete++;
-      if(this.selectedAutocomplete >= this.autocompleteToShow.length + this.locationAutocompleteResults.length){
+      if (this.selectedAutocomplete >= this.searchResults.length + this.locationAutocompleteResults.length) {
         this.selectedAutocomplete = 0;
       }
-    } else if(key.keyCode == 13){
-      if(this.autocompleteToShow.length > 0 && this.selectedAutocomplete > -1) {
-        // this.navToProduct(this.autocompleteToShow[this.selectedAutocomplete].slug);
-        if(this.autocompleteToShow[this.selectedAutocomplete]){
-          this.resultSelected.emit(this.autocompleteToShow[this.selectedAutocomplete])
+    } else if (key.keyCode == 13) {
+      if (this.selectedAutocomplete > -1) {
+        if (this.selectedAutocomplete < this.searchResults.length) {
+          this.openDetails(this.searchResults[this.selectedAutocomplete]);
         } else {
-          this.locResultSelected.emit(this.locationAutocompleteResults[this.selectedAutocomplete - this.autocompleteToShow.length]);
+          const location: LocationIqSearchResult = this.locationAutocompleteResults[this.selectedAutocomplete - this.searchResults.length];
+          this.selectLocationResult(location);
         }
-        //HIGHLIGHT BOX
       }
-    } 
+      // if (this.autocompleteToShow.length > 0 && this.selectedAutocomplete > -1) {
+      //   // this.navToProduct(this.autocompleteToShow[this.selectedAutocomplete].slug);
+      //   if (this.autocompleteToShow[this.selectedAutocomplete]) {
+      //     this.resultSelected.emit(this.autocompleteToShow[this.selectedAutocomplete])
+      //   } else {
+      //     this.locResultSelected.emit(this.locationAutocompleteResults[this.selectedAutocomplete - this.autocompleteToShow.length]);
+      //   }
+      //   //HIGHLIGHT BOX
+      // }
+    }
   }
 
-  openDetails(box){
+  openDetails(box) {
     //fly to Box
     this.resultSelected.emit(box);
     //open box
     this.router.navigate(['/explore/' + box._id], {
       relativeTo: this.activatedRoute,
       queryParamsHandling: 'merge'
-    });  
+    });
   }
 
-  selectResult(e, box){
+  selectResult(e, box) {
     e.stopPropagation();
     this.resultSelected.emit(box);
+    this.openDetails(box);
   }
 
-  selectLocationResult(loc){
+  selectLocationResult(loc: LocationIqSearchResult) {
     this.locResultSelected.emit(loc);
-   
   }
 
-  showLocationResult(e, box){
+  showLocationResult(e, box) {
     // e.stopPropagation();
     // this.resultSelected.emit(box);
   }
 
-  enter(){
+  enter() {
     this.focused.emit();
   }
-  leave(){
-   this.unfocused.emit();
+  leave() {
+    this.unfocused.emit();
   }
 
-  displayAll(){
-    this.showAll = !this.showAll;
-    if(!this.showAll){
-      this.autocompleteToShow = this.autoCompleteResults.slice(0,4);
-    } else {
-      this.autocompleteToShow = this.autoCompleteResults;
-    }
-  }
+  // displayAll() {
+  //   this.showAll = !this.showAll;
+  //   if (!this.showAll) {
+  //     this.autocompleteToShow = this.autoCompleteResults.slice(0, 4);
+  //   } else {
+  //     this.autocompleteToShow = this.autoCompleteResults;
+  //   }
+  // }
 
-  clearSearch(){
+  clearSearch() {
     this.searchTerm = "";
     this.changedSearchTerm.emit(this.searchTerm);
   }
