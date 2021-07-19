@@ -14,7 +14,7 @@
 <div id="autocomplete-results" class="osem-box-shadow-basic" [@appear]="searchTerm.length > 3 && resultsActive"
     *ngIf="searchTerm.length > 3 && resultsActive">
     <div class="scroll">
-        <div class="autocomplete-list-item osem-padding-small" *ngFor="let box of searchResults; let i = index">
+        <div class="autocomplete-list-item osem-padding-small" *ngFor="let box of searchResults; let i = index" [class.active]="i === selectedAutocomplete">
             <div class="left-search-result">
                 <i class="fa fa-cube"></i>
             </div>
@@ -31,7 +31,7 @@
 
         </div>
         <div class="autocomplete-list-item osem-padding-small"
-            *ngFor="let res of locationAutocompleteResults; let i = index" (click)="selectLocationResult(res)">
+            *ngFor="let res of locationAutocompleteResults; let i = index" (click)="selectLocationResult(res)" [class.active]="i === (selectedAutocomplete - searchResults.length)">
             <div class="left-search-result">
                 <i class="fa fa-map-marker"></i>
             </div>
