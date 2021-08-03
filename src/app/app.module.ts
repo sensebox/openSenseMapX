@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { Router } from "@angular/router";
 
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http'; 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,7 @@ import { ThemeService } from './services/theme.service';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
+import * as Sentry from "@sentry/angular";
 import localeDe from '@angular/common/locales/de';
 
 registerLocaleData(localeDe, 'de-DE');
@@ -54,7 +56,23 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     ThemeService,
-    { provide: LOCALE_ID, useValue: "de-DE" }
+    { provide: LOCALE_ID, useValue: "de-DE" },
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: false
+      })
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
