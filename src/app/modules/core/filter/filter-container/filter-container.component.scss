@@ -1,7 +1,7 @@
 @import '../../../../../styles/variables.scss';
 
 .filter-container {
-    
+    height: 100vh;
     .filter-inner {
         background: var(--background-primary-full);
         box-shadow: var(--box-shadow-basic);

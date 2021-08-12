@@ -1,0 +1,184 @@
+<div class="osem-padding-small download-container">
+  <div class="notification is-info is-light">
+    <button class="delete"></button>
+    Primar lorem ipsum dolor sit amet, consectetur
+    adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla.
+    Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+  </div>
+  <form>
+
+    <div class="field">
+      <osem-datepicker [dateRange]="selectedDateRange$ | async" [dateStamp]="selectedDateStamp$ | async"
+        [activeTimeMode]="selectActiveTimeMode$ | async" [showDateModal]="showDateModal$ | async"
+        (dateChanged)="changeDateRange($event)" (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
+    </div>
+
+    <div class="field">
+      <label class="label">{{'MEAN' | translate}}</label>
+      <div class="control is-expanded">
+        <div class="select is-small is-fullwidth">
+          <select>
+            <option value="raw">{{'RAW'|translate}}</option>
+            <option value="10m">10 {{'MINUTE_AVERAGE'|translate}}</option>
+            <option value="1h">{{'HOURLY_AVERAGE'|translate}}</option>
+            <option value="1d">{{'DAILY_AVERAGE'|translate}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Operationen</label>
+      <div class="control is-expanded">
+        <div class="select is-small is-fullwidth">
+          <select>
+            <option value="arithmeticMean">{{'ARITHMETIC_MEAN'|translate}}</option>
+            <option value="harmonicMean">{{'HARMONIC_MEAN'|translate}}</option>
+            <option value="geometricMean">{{'GEOMETRIC_MEAN'|translate}}</option>
+            <option value="min">{{'MIN'|translate}}</option>
+            <option value="max">{{'MAX'|translate}}</option>
+            <option value="mode">{{'MODE'|translate}}</option>
+            <option value="median">{{'MEDIAN'|translate}}</option>
+            <option value="variance">{{'VARIANCE'|translate}}</option>
+            <option value="rootMeanSquare">{{'ROOT_MEAN_SQUARE'|translate}}</option>
+            <option value="standardDeviation">{{'STANDARD_DEVIATION'|translate}}</option>
+            <option value="sum">{{'SUM'|translate}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">{{ "DOWNLOAD_SELECTSENSOR" | translate }}</label>
+      <div class="control is-expanded">
+        <div class="select is-small is-fullwidth">
+          <select>
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <nav class="panel">
+        <div class="panel-heading">
+          <div class="panel-header">
+            <span class="panel-header-text">Erweitert</span>
+            <button class="button is-small">
+              <span class="icon is-small">
+                <i class="fa fa-plus"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="panel-block">
+          <div class="options-container">
+            <div class="options-row">
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Geographische Breite
+                </label>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Box ID
+                </label>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Sensor Typ
+                </label>
+              </div>
+            </div>
+            <div class="options-row">
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Geographische Länge
+                </label>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Name
+                </label>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Sensor ID
+                </label>
+              </div>
+            </div>
+            <div class="options-row">
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Höhe (GPS)
+                </label>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Phänomen
+                </label>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Einheit
+                </label>
+              </div>
+            </div>
+            <div class="options-row">
+              <div class="option-item">
+                <div class="field control">
+                  <label class="checkbox">
+                    <input type="checkbox">
+                    Standort
+                  </label>
+                </div>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Messwert
+                </label>
+              </div>
+              <div class="option-item">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  Erstellt am
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="field">
+      <label class="label">Datenformat</label>
+      <div class="control is-expanded">
+        <div class="buttons has-addons">
+          <button class="button is-success is-selected">CSV</button>
+          <button class="button">JSON</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control is-expanded">
+        <button class="button is-fullwidth">
+          <span class="icon">
+            <i class="fa fa-download"></i>
+          </span>
+          <span>Download</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

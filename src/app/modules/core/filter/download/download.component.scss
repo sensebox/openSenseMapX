@@ -1,0 +1,29 @@
+@import '../../../../../styles/variables.scss';
+
+.download-container {
+  height: 75vh;
+  overflow: auto;
+}
+
+.panel-header {
+  display: flex;
+}
+
+.panel-header-text {
+  flex-grow: 1;
+}
+
+.options-container {
+  width: 100%;
+
+  .options-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    .option-item {
+      flex-grow: 1;
+    }
+  }
+
+}

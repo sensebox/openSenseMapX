@@ -6,10 +6,16 @@
                 <span>{{'PHENOMENA' | translate}}</span>
             </a>
         </li>
-        <li [class.is-active]="activeTab != 'phenos'">
+        <li [class.is-active]="activeTab === 'filter'">
             <a (click)="changeActive('filter')">
                 <span class="icon is-small"><i class="fa fa-filter" aria-hidden="true"></i></span>
                 <span>{{'FILTER' | translate}}</span>
+            </a>
+        </li>
+        <li [class.is-active]="activeTab === 'download'">
+            <a (click)="changeActive('download')">
+                <span class="icon is-small"><i class="fa fa-download" aria-hidden="true"></i></span>
+                <span>{{'DATADOWNLOAD' | translate}}</span>
             </a>
         </li>
     </ul>
@@ -29,11 +35,13 @@
         (infoPhenoSelected)="selectInfoPheno($event)"
         (changeToggled)="toggleChange()"
         ></osem-phenomenon>
-    
+
     <osem-filter *ngIf="activeTab === 'filter'"
         [filters]="filters"
         [user]="user"
         (filtersSet)="setFilters($event)"
     >
     </osem-filter>
+
+    <osem-download *ngIf="activeTab === 'download'"></osem-download>
 </div>
