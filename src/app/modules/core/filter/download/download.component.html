@@ -7,21 +7,18 @@
   </div>
   <form>
 
-    <div class="field">
+    <!-- <div class="field">
       <osem-datepicker [dateRange]="selectedDateRange$ | async" [dateStamp]="selectedDateStamp$ | async"
         [activeTimeMode]="selectActiveTimeMode$ | async" [showDateModal]="showDateModal$ | async"
         (dateChanged)="changeDateRange($event)" (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
-    </div>
+    </div> -->
 
     <div class="field">
       <label class="label">{{'MEAN' | translate}}</label>
       <div class="control is-expanded">
         <div class="select is-small is-fullwidth">
-          <select>
-            <option value="raw">{{'RAW'|translate}}</option>
-            <option value="10m">10 {{'MINUTE_AVERAGE'|translate}}</option>
-            <option value="1h">{{'HOURLY_AVERAGE'|translate}}</option>
-            <option value="1d">{{'DAILY_AVERAGE'|translate}}</option>
+          <select [(ngModel)]="downloadDetails.window" name="window">
+            <option *ngFor="let window of windows" [value]="window">{{window}}</option>
           </select>
         </div>
       </div>
@@ -31,18 +28,8 @@
       <label class="label">Operationen</label>
       <div class="control is-expanded">
         <div class="select is-small is-fullwidth">
-          <select>
-            <option value="arithmeticMean">{{'ARITHMETIC_MEAN'|translate}}</option>
-            <option value="harmonicMean">{{'HARMONIC_MEAN'|translate}}</option>
-            <option value="geometricMean">{{'GEOMETRIC_MEAN'|translate}}</option>
-            <option value="min">{{'MIN'|translate}}</option>
-            <option value="max">{{'MAX'|translate}}</option>
-            <option value="mode">{{'MODE'|translate}}</option>
-            <option value="median">{{'MEDIAN'|translate}}</option>
-            <option value="variance">{{'VARIANCE'|translate}}</option>
-            <option value="rootMeanSquare">{{'ROOT_MEAN_SQUARE'|translate}}</option>
-            <option value="standardDeviation">{{'STANDARD_DEVIATION'|translate}}</option>
-            <option value="sum">{{'SUM'|translate}}</option>
+          <select [(ngModel)]="downloadDetails.operation" name="operation">
+            <option *ngFor="let operation of operations" [value]="operation">{{operation}}</option>
           </select>
         </div>
       </div>
@@ -76,19 +63,19 @@
             <div class="options-row">
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.lat" name="lat">
                   Geographische Breite
                 </label>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.boxId" name="boxId">
                   Box ID
                 </label>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.sensorType" name="sensorType">
                   Sensor Typ
                 </label>
               </div>
@@ -96,19 +83,19 @@
             <div class="options-row">
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.lng" name="lng">
                   Geographische Länge
                 </label>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.boxName" name="boxName">
                   Name
                 </label>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.sensorId" name="sensorId">
                   Sensor ID
                 </label>
               </div>
@@ -116,19 +103,19 @@
             <div class="options-row">
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.height" name="height">
                   Höhe (GPS)
                 </label>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.phenomenon" name="phenomenon">
                   Phänomen
                 </label>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.unit" name="unit">
                   Einheit
                 </label>
               </div>
@@ -137,20 +124,20 @@
               <div class="option-item">
                 <div class="field control">
                   <label class="checkbox">
-                    <input type="checkbox">
+                    <input type="checkbox" [(ngModel)]="downloadDetails.exposure" name="exposure">
                     Standort
                   </label>
                 </div>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.value" name="value">
                   Messwert
                 </label>
               </div>
               <div class="option-item">
                 <label class="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="downloadDetails.createdAt" name="createdAt">
                   Erstellt am
                 </label>
               </div>
@@ -172,7 +159,7 @@
 
     <div class="field is-grouped">
       <div class="control is-expanded">
-        <button class="button is-fullwidth">
+        <button class="button is-fullwidth" (click)="download()">
           <span class="icon">
             <i class="fa fa-download"></i>
           </span>
