@@ -51,14 +51,14 @@
         <div class="panel-heading">
           <div class="panel-header">
             <span class="panel-header-text">Erweitert</span>
-            <button class="button is-small">
+            <button class="button is-small" (click)="expand()">
               <span class="icon is-small">
                 <i class="fa fa-plus"></i>
               </span>
             </button>
           </div>
         </div>
-        <div class="panel-block">
+        <div class="panel-block" *ngIf="collapsed">
           <div class="options-container">
             <div class="options-row">
               <div class="option-item">
@@ -151,20 +151,20 @@
       <label class="label">Datenformat</label>
       <div class="control is-expanded">
         <div class="buttons has-addons">
-          <button class="button is-success is-selected">CSV</button>
-          <button class="button">JSON</button>
+          <button class="button grow" [ngClass]="downloadDetails.format=='csv' ? 'is-success is-selected' : ''" (click)="selectFormat('csv')">CSV</button>
+          <button class="button grow" [ngClass]="downloadDetails.format=='json' ? 'is-success is-selected' : ''" (click)="selectFormat('json')">JSON</button>
         </div>
       </div>
     </div>
 
     <div class="field is-grouped">
       <div class="control is-expanded">
-        <button class="button is-fullwidth" (click)="download()">
+        <a class="button is-fullwidth" (click)="download()">
           <span class="icon">
             <i class="fa fa-download"></i>
           </span>
           <span>Download</span>
-        </button>
+        </a>
       </div>
     </div>
   </form>

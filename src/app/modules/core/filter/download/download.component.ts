@@ -7,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DownloadComponent {
 
+  collapsed: boolean = false;
+
   downloadDetails = {
     window: 'raw',
     operation: 'arithmeticMean',
@@ -28,8 +30,16 @@ export class DownloadComponent {
   windows = ['raw', '10m', '1h', '1d'];
   operations = ['arithmeticMean', 'harmonicMean', 'geometricMean', 'min', 'max', 'mode', 'median', 'variance', 'rootMeanSquare', 'standardDeviation', 'sum'];
 
+  expand() {
+    this.collapsed = !this.collapsed;
+  }
+
+  selectFormat(format: string) {
+    this.downloadDetails.format = format;
+  }
+
   download() {
-    window.alert("ALERT");
+    alert(JSON.stringify(this.downloadDetails, null, 2));
   }
 
 }
