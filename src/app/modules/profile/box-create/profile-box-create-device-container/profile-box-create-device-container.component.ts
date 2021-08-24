@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DeviceService } from 'src/app/models/device/state/device.service';
 import { DeviceQuery } from 'src/app/models/device/state/device.query';
 import { CreateboxQuery } from 'src/app/models/createbox/state/createbox.query';
-import { CreateboxService } from 'src/app/models/createbox/state/ui.service';
+import { CreateboxService } from 'src/app/models/createbox/state/createbox.service';
 
 
 @Component({

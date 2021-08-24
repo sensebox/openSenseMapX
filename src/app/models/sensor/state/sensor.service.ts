@@ -9,6 +9,8 @@ import { SensorQuery } from './sensor.query';
 import { UiService } from '../../ui/state/ui.service';
 
 
+// TODO:  MANY FUNCTIONS ARE NOT USED ANYMORE BECAUSE DATA FLOW IN THE APP CHANGED, PLS CLEAN
+
 @Injectable({ providedIn: 'root' })
 export class SensorService {
 

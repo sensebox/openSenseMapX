@@ -13,4 +13,10 @@ export class CreateboxService {
   selectDevice(device){
     this.createboxStore.update( state => ({ ...state , selectedDevice: device }));
   }
+  selectSensor(sensor){
+    this.createboxStore.toggleSensor(sensor);
+  }
+  selectSensorElement(sensorElement){
+    this.createboxStore.toggleSensorElement(sensorElement);
+  }
 }

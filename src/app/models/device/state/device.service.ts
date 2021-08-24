@@ -17,30 +17,31 @@ export class DeviceService {
   }
 
   get() {
-    return this.http.get<any[]>(`${environment.sensor_wiki_url}/devices/all`).pipe(tap(entities => {
+    return this.http.get<any[]>(`${environment.sensor_wiki_url}/devices/all?format=json`).pipe(tap(entities => {
       let parsedEnts = entities.map(ent => {
         return {
           iri: ent.device.value.split('#')[1],
-          label: ent.label[0].value ? ent.label[0].value : null,
-          image: ent.image[0].value ? ent.image[0].value : null,
+          label: ent.deviceLabel[0].value ? ent.deviceLabel[0].value : null
+          // image: ent.image[0] ? ent.image[0].value : null,
         }
       })
       this.deviceStore.set(parsedEnts);
     }));   
   }
 
-  getSensors(device) {
-    return this.http.get<any>(`${environment.sensor_wiki_url}/devices/device/${device}`).pipe(tap(entities => {
-      console.log(entities);
-      // let parsedEnts = entities.map(ent => {
-      //   return {
-      //     label: ent.label[0].value ? ent.label[0].value : null,
-      //     image: ent.image[0].value ? ent.image[0].value : null,
-      //   }
-      // })
-      // this.deviceStore.update(state => { return {...state, sensors: parsedEnts }});
-    }));   
 
+  // Function to get all sensors for a device (is this the right place for it?)
+  getSensors(device) {
+    return this.http.get<any>(`${environment.sensor_wiki_url}/devices/device/${device}/sensors`).pipe(tap(entities => {
+      console.log(entities);
+    }));   
+  }
+  
+  // Function to get all sensors for a custom device (is this the right place for it?)
+  getAllSensors() {
+    return this.http.get<any>(`${environment.sensor_wiki_url}/devices/all/sensors`).pipe(tap(entities => {
+      console.log("CUSTOM SENSORS", entities);
+    }));   
   }
   
 }

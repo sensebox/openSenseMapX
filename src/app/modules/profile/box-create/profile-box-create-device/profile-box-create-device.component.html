@@ -8,7 +8,7 @@
 <div class="tile is-ancestor">
   <div class="tile is-parent" *ngFor="let device of devices">
 
-    <div class="card" 
+    <div class="card selectable-card" 
       (click)="selectDevice(device)"
       [class.selected]="selectedDevice?.label === device.label">  
       <div class="card-image">
@@ -24,13 +24,36 @@
           </div>
         </div>
 
-        <div class="content">
+        <!-- <div class="content">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-        </div>
+        </div> -->
       </div>
       <div class="card-selected">
-        <i class="fa fa-2x fa-check-square"></i>
+        <i class="fa fa-2x fa-check-circle"></i>
+      </div>
+    </div>
+  </div>
+  <div class="tile is-parent">
+
+    <div class="card selectable-card" 
+      (click)="selectDevice({label: 'custom'})"
+      [class.selected]="selectedDevice?.label === 'custom'">  
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <img src="" alt="Placeholder image">
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">{{'CUSTOM' | translate}}</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-selected">
+        <i class="fa fa-2x fa-check-circle"></i>
       </div>
     </div>
   </div>
@@ -39,5 +62,8 @@
 <button
   [disabled]="!selectedDevice"
   class="button is-primary is-pulled-right"
-  [routerLink]="['../general']">
-  {{'NEXT' | translate}}</button>
+  [routerLink]="['../general']"
+  queryParamsHandling="preserve"
+  >
+  {{'NEXT' | translate}}
+</button>

@@ -1,1 +1,92 @@
-<p>profile-box-create-sensors works!</p>
+<div class="py-3">
+  <p class="title is-3">{{'CHOOSE_YOUR_SENSORS' | translate}}</p>
+  <p class="subtitle is-4">{{'WHAT_IS_YOUR_BOX_MEASURING' | translate}}</p>
+    
+  <div class="" 
+    *ngFor="let sensor of sensors">
+    <div 
+      *ngFor="let sensorElement of sensor.sensorElement" 
+      class="card selectable-card" 
+      [class.selected]="checkForElement(sensor, sensorElement)"
+      (click)="addSensorElement($event, {sensor: sensor, sensorElement: sensorElement})">
+      <div class="card-content">
+        {{sensor.iri}}
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">
+              <span *ngFor="let label of sensor.label; last as isLast">
+                {{label.value}} 
+                <span *ngIf="!isLast"> / </span>
+              </span>
+            </p>
+            <p class="subtitle is-6"><span>{{phenomena[sensorElement.phenomenon].label[0].value}} </span></p>
+          </div>
+        </div>
+    
+        <!-- <div class="content">
+          <div *ngIf="sensor.sensorElement && sensor.sensorElement.length > 1">
+            <span>{{"CHOOSE_PHENOMENON_YOU_WANT_TO_MEASURE" | translate}}</span>
+            <div *ngFor="let sensorElement of sensor.sensorElement">
+              <div clas="field">
+                <input 
+                  (click)="addSensorElement($event, {sensor: sensor, sensorElement: sensorElement})" 
+                  class="is-checkradio is-small is-primary" 
+                  id="{{sensorElement.phenomenon}}" 
+                  type="checkbox"
+                  name="{{sensorElement.phenomenon}}">
+                <label for="{{sensorElement.phenomenon}}">{{phenomena[sensorElement.phenomenon].label[0].value}}</label>
+              </div>
+            </div>
+          </div> -->
+          <!-- <span *ngFor="let desc of sensor.description; last as isLast">
+
+    </div>
+          {{desc.value}}
+        </span><br> -->
+        <!-- <a href="{{sensor.sensor.value}}">{{'MORE' | translate}}</a>  -->
+      </div>
+      <div class="card-selected">
+        <i class="fa fa-2x fa-check-circle"></i>
+      </div>
+    </div>
+  </div>
+  
+  <div class="pt-5">
+    <h4 class="title is-4">{{'YOUR_SENSOR_SETUP' | translate}}</h4>
+    <div class="content"> 
+      <table>
+        <thead>
+          <tr>
+            <th>{{'SENSOR' | translate}}</th>
+            <th>{{'PHENOMENON' | translate}}</th>
+            <th>{{'UNIT' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sensorElement of selectedSensorElements">
+            <td>{{sensorElement.sensor.label[0].value}}</td>
+            <td>{{phenomena[sensorElement.sensorElement.phenomenon].label[0].value}}</td>
+            <td>{{sensorElement.sensorElement.unit}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <div class="py-2 osem-overflow-auto">
+    <button
+      [disabled]="selectedSensorElements < 1"
+      class="button is-primary is-pulled-right"
+      [routerLink]="['../advanced']"
+      queryParamsHandling="preserve"
+      >
+      {{'NEXT' | translate}}
+    </button>
+  </div>
+</div>

@@ -5,6 +5,8 @@ import { slideInOutHorizontalBoolean, routingFadeIn, appearModal, appearSlow } f
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from './models/session/state/session.service';
 import { UiService } from './models/ui/state/ui.service';
+import { PhenomenonService } from './models/phenomenon/state/phenomenon.service';
+import { UnitService } from './models/unit/state/unit.service';
 
 @Component({
   selector: 'osem-root',
@@ -30,17 +32,26 @@ export class AppComponent {
     private uiQuery: UiQuery,
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
+    private phenoService: PhenomenonService,
+    private unitService: UnitService,
     private uiService: UiService){
 
+      //set default language to german, TODO: check browser language
       translate.setDefaultLang('de-DE');
       this.language$.subscribe(lang => {
         translate.use(lang);
       })
 
+      // check if a refreshtoken is in localstorage and recover the sesssion
       if(window.localStorage.getItem('sb_refreshtoken'))
         this.sessionService.recoverSession(window.localStorage.getItem('sb_refreshtoken'))
 
+      // get stats from the API (boxes, measurements, measurements/min)
       this.uiService.fetchStats().subscribe();
+
+      // get all the phenomenons and units that can be displayed on opensensemap (maybe find better way to do this? e.g. populate in sensor wiki)
+      this.phenoService.get().subscribe();
+      this.unitService.get().subscribe();
   }
 
   closeIntro(){

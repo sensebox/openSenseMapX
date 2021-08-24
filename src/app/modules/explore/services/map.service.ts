@@ -87,6 +87,19 @@ export class MapService {
       pitch: 21
     });
 
+    this.map.loadImage(
+      'assets/img/marker/gray.png',
+      function (error, image) {
+      if (error) throw error;
+      that.map.addImage('custom-marker', image);
+    })
+    this.map.loadImage(
+      'assets/img/marker/green-marker.png',
+      function (error, image) {
+      if (error) throw error;
+      that.map.addImage('custom-marker-green', image);
+    })
+
     // disable map rotation using right click + drag
     this.map.dragRotate.disable();
  
@@ -275,6 +288,30 @@ export class MapService {
   drawBaseLayer(layer){
     if (!this.map.getLayer(layer.id)) {
       this.map.addLayer(layer);
+
+      // BOX MAKER LAYER
+      // this.map.addLayer({
+      //   'id': 'points',
+      //   'type': 'symbol',
+      //   'source': 'boxes',
+      //   'layout': {
+      //   // 'icon-image': 'custom-marker',
+      //   'icon-image': ["case", [">=", 
+      //   ["to-string", ["get", "lastMeasurementAt"]],
+      //   ["to-string", "2020-03-27"]
+      //   ], "custom-marker-green", "custom-marker"],
+      //   'icon-allow-overlap': true,
+
+      //   // get the title name from the source's "title" property
+      //   'text-field': ['get', 'title'],
+      //   'text-font': [
+      //   'Open Sans Semibold',
+      //   'Arial Unicode MS Bold'
+      //   ],
+      //   'text-offset': [0, 1.25],
+      //   'text-anchor': 'top'
+      //   }
+      //   });
 
       if (this.map.getLayer('active-layer-text'))
         this.map.moveLayer(layer.id, 'active-layer-text');

@@ -27,6 +27,10 @@ import { DashboardContainerComponent } from './dashboard-container/dashboard-con
 import { MyBoxesContainerComponent } from './my-boxes-container/my-boxes-container.component';
 import { MyBoxesComponent } from './my-boxes/my-boxes.component';
 import { ProfileContainerComponent } from './profile-container/profile-container.component';
+import { ProfileBoxCreateAdvancedContainerComponent } from './box-create/profile-box-create-advanced-container/profile-box-create-advanced-container.component';
+import { ProfileBoxCreateAdvancedComponent } from './box-create/profile-box-create-advanced/profile-box-create-advanced.component';
+import { ProfileBoxCreateSummaryComponent } from './box-create/profile-box-create-summary/profile-box-create-summary.component';
+import { ProfileBoxCreateSummaryContainerComponent } from './box-create/profile-box-create-summary-container/profile-box-create-summary-container.component';
 
 
 @NgModule({
@@ -53,7 +57,11 @@ import { ProfileContainerComponent } from './profile-container/profile-container
     DashboardContainerComponent,
     MyBoxesContainerComponent,
     MyBoxesComponent,
-    ProfileContainerComponent
+    ProfileContainerComponent,
+    ProfileBoxCreateAdvancedContainerComponent,
+    ProfileBoxCreateAdvancedComponent,
+    ProfileBoxCreateSummaryComponent,
+    ProfileBoxCreateSummaryContainerComponent
   ],
   imports: [
     CommonModule,

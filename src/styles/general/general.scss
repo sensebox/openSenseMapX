@@ -374,3 +374,34 @@ input.ng-invalid {
 .osem-clickable {
     cursor: pointer;
 }
+
+
+//SELECTABLE CARDS
+
+.selectable-card {
+    border: 4px solid rgba(0,0,0,0);
+    transition: border-color ease-out 0.15s;
+    cursor: pointer;
+
+    .card-selected {
+        display: none;
+        position: absolute;
+        right: 0;
+        bottom: -5px;
+        color: var(--color-primary);
+        .fa {
+            font-size: 32px;
+        }
+    }
+
+    &.selected {
+        border-color: var(--color-primary);
+
+        .card-selected {
+            display: block;
+        }
+    }
+    &:hover {
+        border-color: var(--color-primary-light);
+    }
+}

@@ -1,0 +1,63 @@
+<div class="py-3">
+    <p class="title is-3">{{'YOUR_MEASUREMENT_STATION_SUMMARY' | translate}}</p>
+    <p class="subtitle is-4">{{'CHECK_IF_EVERYTHING_IS_CORRECT' | translate}}</p>
+
+
+    <div class="content">
+        <table>
+            <tbody>
+                <tr *ngIf="selectedDevice">
+                  <td>{{'DEVICE' | translate}}</td>
+                  <td>{{selectedDevice.label}}</td>
+                </tr>
+                <ng-container *ngIf="generalForm">
+                    <tr>
+                      <td>{{'NAME' | translate}}</td>
+                      <td>{{generalForm.value.name}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'TAGS' | translate}}</td>
+                      <td>{{generalForm.value.tags}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'EXPOSURE' | translate}}</td>
+                      <td>{{generalForm.value.exposure}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'DESC' | translate}}</td>
+                      <td>{{generalForm.value.desc}}</td>
+                    </tr>
+                </ng-container>
+              </tbody>
+        </table>
+    </div>
+    <div>
+        <h4 class="title is-4">{{'YOUR_SENSOR_SETUP' | translate}}</h4>
+        <div class="content"> 
+          <table>
+            <thead>
+              <tr>
+                <th>{{'SENSOR' | translate}}</th>
+                <th>{{'PHENOMENON' | translate}}</th>
+                <th>{{'UNIT' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sensorElement of selectedSensorElements">
+                <td>{{sensorElement.sensor.label[0].value}}</td>
+                <td>{{phenomena[sensorElement.sensorElement.phenomenon].label[0].value}}</td>
+                <td>{{sensorElement.sensorElement.unit}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+
+    <div class="py-2 osem-overflow-auto">
+        <button
+          class="button is-primary is-pulled-right">
+          {{'CREATE_BOX' | translate}}
+        </button>
+    </div>
+
+</div>  

@@ -8,6 +8,8 @@ import { ProfileBoxCreateDeviceContainerComponent } from './box-create/profile-b
 import { ProfileBoxCreateGeneralContainerComponent } from './box-create/profile-box-create-general-container/profile-box-create-general-container.component';
 import { ProfileBoxCreateSensorsContainerComponent } from './box-create/profile-box-create-sensors-container/profile-box-create-sensors-container.component';
 import { ProfileVisContainerComponent } from './profile-vis-container/profile-vis-container.component';
+import { ProfileBoxCreateAdvancedContainerComponent } from './box-create/profile-box-create-advanced-container/profile-box-create-advanced-container.component';
+import { ProfileBoxCreateSummaryContainerComponent } from './box-create/profile-box-create-summary-container/profile-box-create-summary-container.component';
 
 
 const routes: Routes = [
@@ -18,6 +20,8 @@ const routes: Routes = [
       {path: 'device', component: ProfileBoxCreateDeviceContainerComponent},
       {path: 'general', component: ProfileBoxCreateGeneralContainerComponent},
       {path: 'sensors', component: ProfileBoxCreateSensorsContainerComponent},
+      {path: 'advanced', component: ProfileBoxCreateAdvancedContainerComponent},
+      {path: 'summary', component: ProfileBoxCreateSummaryContainerComponent},
     ]},
     {path: '', component: ProfileNavContainerComponent},
     {path: 'vis', component: ProfileVisContainerComponent, data: {name: 'Visulizations'}},

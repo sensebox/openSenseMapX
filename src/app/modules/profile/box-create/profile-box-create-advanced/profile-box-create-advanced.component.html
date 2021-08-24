@@ -1,0 +1,146 @@
+<div class="py-3">
+	<p class="title is-3">{{'ADVANCED_OPTIONS' | translate}}</p>
+	<p class="subtitle is-4">{{'ARE_YOU_USING_DIFFERENT_CONNECTION_TYPES' | translate}}</p>
+  
+	<p>{{'DONT_DO_ANYTHING_HERE_IF_YOU_DONT_KNOW_WHAT_YOU_ARE_DOING' | translate}}</p>
+
+
+	<div id="accordion_first">
+		<article class="message">
+			<div class="message-header" href="#ttn" data-action="collapse" data-parent="accordion_first">
+				<p>{{'USE_TTN' | translate}}</p>
+			</div>
+			<div id="ttn" class="message-body is-collapsible" data-parent="accordion_first">
+				<div class="message-body-content">
+					<form [formGroup]="ttnForm">
+						<div class="field">
+							<label class="label">{{'PROFILE' | translate}}</label>
+							<div class="field-body">
+								<div class="control">
+									<div class="select">
+									<select [formControl]="ttnForm.controls.profile">
+										<option value="sensebox/home">senseBox:home</option>
+										<option value="lora-serialization">LoRa serialization</option>
+										<option value="json">JSON</option>
+										<option value="cayenne-lpp">Cayenne LPP</option>
+									</select>
+									</div>
+								</div>
+							</div>
+							<!-- <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message> -->
+						</div>
+		
+						<osem-form-input 
+							[typeString]="'text'"
+							[label]="'TTN APPLICATION ID' | translate"
+							[controlName]="'app_id'" 
+							[control]="ttnForm.controls.app_id">
+					
+						</osem-form-input>
+
+						<osem-form-input 
+							[typeString]="'text'"
+							[label]="'TTN DEVICE ID' | translate"
+							[controlName]="'dev_id'" 
+							[control]="ttnForm.controls.dev_id">
+						
+						</osem-form-input>
+						
+						<osem-form-input 
+							[typeString]="'text'"
+							[label]="'Decode Options' | translate"
+							[controlName]="'decodeOptions'" 
+							[control]="ttnForm.controls.decodeOptions">
+						
+						</osem-form-input>
+
+						<osem-form-input 
+							[typeString]="'number'"
+							[label]="'PORT' | translate"
+							[controlName]="'port'" 
+							[control]="ttnForm.controls.port">
+						
+						</osem-form-input>
+					  
+					</form>
+				</div>
+			</div>
+		</article>
+		<article class="message">
+			<div class="message-header" href="#mqtt" data-action="collapse" data-parent="accordion_first">
+				<p>{{'USE_MQTT' | translate}} </p>
+			</div>
+			<div id="mqtt" class="message-body is-collapsible" data-parent="accordion_first">
+				<div class="message-body-content">
+
+					<form [formGroup]="mqttForm">
+						<osem-form-input 
+							[typeString]="'text'"
+							[label]="'URL' | translate"
+							[controlName]="'url'" 
+							[control]="mqttForm.controls.url">
+					
+						</osem-form-input>
+						
+						<osem-form-input 
+							[typeString]="'text'"
+							[label]="'TOPIC' | translate"
+							[controlName]="'topic'" 
+							[control]="mqttForm.controls.topic">
+						
+						</osem-form-input>
+
+						<div class="field">
+							<label class="label">{{'MESSAGE_FORMAT' | translate}}</label>
+							<div class="field-body">
+								<div class="control">
+									<div class="select">
+									<select [formControl]="mqttForm.controls.message_format">
+										<option value="json">JSON</option>
+										<option value="csv">CSV</option>
+									</select>
+									</div>
+								</div>
+							</div>
+							<!-- <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message> -->
+						</div>
+		
+
+						
+						<osem-form-input 
+							[typeString]="'text'"
+							[label]="'Decode Options' | translate"
+							[controlName]="'decodeOptions'" 
+							[control]="mqttForm.controls.decodeOptions">
+						
+						</osem-form-input>
+
+						<osem-form-input 
+							[typeString]="'text'"
+							[label]="'Connection Options' | translate"
+							[controlName]="'connectionOptions'" 
+							[control]="mqttForm.controls.connectionOptions">
+						
+						</osem-form-input>
+					  
+					</form>
+
+
+				</div>
+			</div>
+		</article>
+	</div>
+
+	<div class="py-2 osem-overflow-auto">
+		<button
+		  [disabled]="false"
+		  class="button is-primary is-pulled-right"
+		  [routerLink]="['../summary']"
+		  queryParamsHandling="preserve"
+		  >
+		  {{'NEXT' | translate}}
+		</button>
+	</div>
+	
+</div>
+

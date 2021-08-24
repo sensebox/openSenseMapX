@@ -26,6 +26,22 @@
     <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message>
   </div>
 
+  <div class="field" *ngIf="selectedDevice && (selectedDevice.iri === 'sensebox_home' || selectedDevice.iri === 'sensebox_edu')">
+    <label class="label">{{'CONNECTION_TYPE' | translate}}</label>
+    <div class="field-body">
+      <div class="control">
+        <div class="select">
+          <select [formControl]="generalForm.controls.connection">
+            <option value="wifi">{{'WIFI' | translate}}</option>
+            <option value="lan">{{'LAN' | translate}}</option>
+            <option value="lora">{{'LORA' | translate}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message>
+  </div>
+
   <osem-form-input 
     [typeString]="'text'"
     [label]="'TAGS' | translate"
@@ -48,5 +64,7 @@
 <button
   [disabled]="!generalForm.valid"
   class="button is-primary is-pulled-right"
-  [routerLink]="['../sensors']">
+  [routerLink]="['../sensors']"
+  queryParamsHandling="preserve"
+  >
   {{'NEXT' | translate}}</button>

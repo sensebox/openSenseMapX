@@ -3,17 +3,30 @@
     <ul>
         <li 
             [routerLink]="['device']" 
+            queryParamsHandling="preserve"
             routerLinkActive="is-active"
             ><a>{{'DEVICE' | translate}}</a></li>
         <li            
             [routerLink]="['general']"
+            queryParamsHandling="preserve"
             routerLinkActive="is-active"
             ><a>{{'GENERAL' | translate}}</a></li>
     
         <li [routerLink]="['sensors']"
+        queryParamsHandling="preserve"
         routerLinkActive="is-active"
         ><a>{{'SENSORS' | translate}}</a></li>
-        <li><a>Overview</a></li>
+        <li
+            [routerLink]="['advanced']"
+            queryParamsHandling="preserve"
+            routerLinkActive="is-active"
+        ><a>{{'ADVANCED' | translate}}</a></li>
+
+        <li
+            [routerLink]="['summary']"
+            queryParamsHandling="preserve"
+            routerLinkActive="is-active"
+        ><a>{{'SUMMARY' | translate}}</a></li>
     </ul>
 </div>
 <router-outlet></router-outlet>

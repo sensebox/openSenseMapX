@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CreateboxQuery } from 'src/app/models/createbox/state/createbox.query';
 
 @Component({
   selector: 'osem-profile-box-create-general-container',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileBoxCreateGeneralContainerComponent implements OnInit {
 
-  constructor() { }
+  selectedDevice$ = this.createboxQuery.selectSelectedDevice$;
+
+  constructor(private createboxQuery: CreateboxQuery) { }
 
   ngOnInit() {
   }
