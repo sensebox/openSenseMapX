@@ -31,7 +31,7 @@
               </tbody>
         </table>
     </div>
-    <div>
+    <div class="py-2">
         <h4 class="title is-4">{{'YOUR_SENSOR_SETUP' | translate}}</h4>
         <div class="content"> 
           <table>
@@ -53,9 +53,69 @@
         </div>
     </div>
 
+    <div class="py-3" *ngIf="mqttForm && mqttForm.value && mqttForm.value.url">
+        <h4 class="title is-4">{{'MQTT' | translate}}</h4>
+        <div class="content"> 
+            <table>
+                <tbody>
+                    <tr>
+                        <td>{{'URL' | translate}}</td>
+                        <td>{{mqttForm.value.url}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'TOPIC' | translate}}</td>
+                        <td>{{mqttForm.value.topic}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'MESSAGE_FORMAT' | translate}}</td>
+                        <td>{{mqttForm.value.message_format}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'DECODE_OPTIONS' | translate}}</td>
+                        <td>{{mqttForm.value.decodeOptions}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'CONNECTION_OPTIONS' | translate}}</td>
+                        <td>{{mqttForm.value.connectionOptions}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="py-3" *ngIf="ttnForm">
+        <h4 class="title is-4">{{'TTN' | translate}}</h4>
+        <div class="content"> 
+            <table>
+                <tbody>
+                    <tr>
+                        <td>{{'PROFILE' | translate}}</td>
+                        <td>{{ttnForm.value.profile}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'APP_ID' | translate}}</td>
+                        <td>{{ttnForm.value.app_id}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'DEV_ID' | translate}}</td>
+                        <td>{{ttnForm.value.dev_id}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'DECODE_OPTIONS' | translate}}</td>
+                        <td>{{ttnForm.value.decodeOptions}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'PORT' | translate}}</td>
+                        <td>{{ttnForm.value.port}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="py-2 osem-overflow-auto">
         <button
-          class="button is-primary is-pulled-right">
+          class="button is-primary is-pulled-right" (click)="createBox()">
           {{'CREATE_BOX' | translate}}
         </button>
     </div>

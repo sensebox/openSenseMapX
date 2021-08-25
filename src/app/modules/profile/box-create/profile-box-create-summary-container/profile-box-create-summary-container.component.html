@@ -2,7 +2,8 @@
     [selectedDevice]="selectedDevice$ | async"
     [generalForm]="generalForm"
     [selectedSensorElements]="selectedSensorElements$ | async"
-    [ttnForm]="selectedDevice$ | async"
-    [mqttForm]="selectedDevice$ | async"
+    [ttnForm]="ttnForm"
+    [mqttForm]="mqttForm"
     [phenomena]="selectPhenomenon$ | async"
+    (boxCreated)="createBox($event)"
 ></osem-profile-box-create-summary>

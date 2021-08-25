@@ -6,13 +6,21 @@
 
 
 	<div id="accordion_first">
-		<article class="message">
-			<div class="message-header" href="#ttn" data-action="collapse" data-parent="accordion_first">
-				<p>{{'USE_TTN' | translate}}</p>
-			</div>
-			<div id="ttn" class="message-body is-collapsible" data-parent="accordion_first">
-				<div class="message-body-content">
-					<form [formGroup]="ttnForm">
+		<form [formGroup]="ttnForm">
+			<div class="message">
+				<div class="message-header" href="#ttn" data-action="collapse" data-parent="accordion_first">
+					<div clas="field" title="{{'USE_TTN' | translate}}">
+						<input 
+							class="is-checkradio is-small is-primary" 
+							id="use_ttn"
+							type="checkbox" 
+							name="use_ttn"
+							[formControl]="ttnForm.controls.useTTN">
+						<label for="use_ttn">{{'USE_TTN' | translate}}</label>
+					</div>
+				</div>
+				<div id="ttn" class="message-body is-collapsible" data-parent="accordion_first">
+					<div class="message-body-content">
 						<div class="field">
 							<label class="label">{{'PROFILE' | translate}}</label>
 							<div class="field-body">
@@ -61,19 +69,26 @@
 							[control]="ttnForm.controls.port">
 						
 						</osem-form-input>
-					  
-					</form>
+					</div>
 				</div>
 			</div>
-		</article>
-		<article class="message">
-			<div class="message-header" href="#mqtt" data-action="collapse" data-parent="accordion_first">
-				<p>{{'USE_MQTT' | translate}} </p>
-			</div>
-			<div id="mqtt" class="message-body is-collapsible" data-parent="accordion_first">
-				<div class="message-body-content">
+		</form>
+		<form [formGroup]="mqttForm">
+			<div class="message">
+				<div class="message-header" href="#mqtt" data-action="collapse" data-parent="accordion_first">
+					<div clas="field" title="{{'USE_MQTT' | translate}}">
+						<input 
+							class="is-checkradio is-small is-primary" 
+							id="use_mqtt"
+							type="checkbox" 
+							name="use_mqtt"
+							[formControl]="mqttForm.controls.useMQTT">
+						<label for="use_ttn">{{'USE_MQTT' | translate}}</label>
+					</div>
+				</div>
+				<div id="mqtt" class="message-body is-collapsible" data-parent="accordion_first">
+					<div class="message-body-content">
 
-					<form [formGroup]="mqttForm">
 						<osem-form-input 
 							[typeString]="'text'"
 							[label]="'URL' | translate"
@@ -105,8 +120,6 @@
 							<!-- <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message> -->
 						</div>
 		
-
-						
 						<osem-form-input 
 							[typeString]="'text'"
 							[label]="'Decode Options' | translate"
@@ -122,13 +135,10 @@
 							[control]="mqttForm.controls.connectionOptions">
 						
 						</osem-form-input>
-					  
-					</form>
-
-
+					</div>
 				</div>
 			</div>
-		</article>
+		</form>
 	</div>
 
 	<div class="py-2 osem-overflow-auto">

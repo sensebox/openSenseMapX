@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AkitaNgFormsManager } from '@datorama/akita-ng-forms-manager';
 import { CreateboxQuery } from 'src/app/models/createbox/state/createbox.query';
+import { CreateboxService } from 'src/app/models/createbox/state/createbox.service';
 import { PhenomenonQuery } from 'src/app/models/phenomenon/state/phenomenon.query';
 
 @Component({
@@ -20,10 +21,17 @@ export class ProfileBoxCreateSummaryContainerComponent implements OnInit {
 
   constructor(
     private createboxQuery: CreateboxQuery,
+    private createBoxService: CreateboxService,
     private phenomenonQuery: PhenomenonQuery,
     private formsManager: AkitaNgFormsManager) { }
 
   ngOnInit() {
+
+  }
+
+  createBox(options){
+
+    this.createBoxService.createBox(options);
 
   }
 

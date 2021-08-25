@@ -21,6 +21,7 @@ export class ProfileBoxCreateAdvancedComponent implements OnInit, AfterViewInit 
   ngOnInit() {
 
     this.ttnForm = this.builder.group({
+      useTTN: [false],
       profile: ['sensebox/home'],
       app_id: [null, Validators.required],
       dev_id: ['', Validators.required],
@@ -31,6 +32,7 @@ export class ProfileBoxCreateAdvancedComponent implements OnInit, AfterViewInit 
     
     
     this.mqttForm = this.builder.group({
+      useMQTT: [false],
       url: [null, Validators.required],
       topic: [null, Validators.required],
       message_format: ['', Validators.required],
@@ -41,20 +43,32 @@ export class ProfileBoxCreateAdvancedComponent implements OnInit, AfterViewInit 
 
   }
   ngAfterViewInit() {
-    let ttnEle = document.getElementById('ttn');
-    let mqttEle = document.getElementById('mqtt');
-    // this.ttn = new bulmaCollapsible(ttnEle);
+    let ttnEle:any = document.getElementById('ttn');
+    let mqttEle:any = document.getElementById('mqtt');
     bulmaCollapsible.attach(ttnEle, {allowMultiple: false});
     bulmaCollapsible.attach(mqttEle, {allowMultiple: false});
 
     this.addCollapseAction(ttnEle, mqttEle);
     this.addCollapseAction(mqttEle, ttnEle);
+
+    ttnEle.bulmaCollapsible().on('before:expand', (e) => {
+      this.ttnForm.controls.useTTN.setValue(true);
+    })
+    ttnEle.bulmaCollapsible().on('before:collapse', (e) => {
+      this.ttnForm.controls.useTTN.setValue(false);
+    })
+
+    mqttEle.bulmaCollapsible().on('before:expand', (e) => {
+      this.mqttForm.controls.useMQTT.setValue(true);
+    })
+    mqttEle.bulmaCollapsible().on('before:collapse', (e) => {
+      this.mqttForm.controls.useMQTT.setValue(false);
+    })
   }
 
   addCollapseAction(element, ele2){
     if (element) {
 
-      // Call method directly on Collapsible instance registered on the node
       element.bulmaCollapsible().on('before:expand', (e) => {
         ele2.bulmaCollapsible('collapse')
       });
