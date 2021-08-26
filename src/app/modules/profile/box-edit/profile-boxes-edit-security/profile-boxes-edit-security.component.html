@@ -1,1 +1,45 @@
-<p>profile-boxes-edit-security works!</p>
+<form [formGroup]="authForm" *ngIf="_box">
+
+    <div clas="field" title="{{'USE_AUTH' | translate}}">
+        <input 
+            class="is-checkradio is-small is-primary" 
+            id="use_auth"
+            type="checkbox" 
+            name="use_auth"
+            [formControl]="authForm.controls.useAuth">
+        <label for="use_auth">{{'USE_AUTH' | translate}}</label>
+    </div>
+
+
+    <div class="field">
+        <label class="label">{{'AUTH_TOKEN' | translate}}</label>
+        <div class="control has-icons-right">
+            <input 
+              [class.is-danger]="authForm.controls.access_token.errors && authForm.controls.access_token.touched"
+              [formControl]="authForm.controls.access_token"
+              type="password"
+              class="input" 
+              id="auth-field"
+              disabled
+              placeholder="{{'AUTH_TOKEN' | translate}}">
+              <span class="icon is-small is-right clear-search" (click)="revealPassword()">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+      </div>
+
+</form>
+
+<div class="notification is-warning is-light">
+    {{'GENERATE_NEW_TOKEN_WARNING' | translate}}
+    <button
+    class="button is-pulled-right"
+    (click)="generateNewToken()">
+    {{'GENERATE_NEW_TOKEN' | translate}}</button>
+</div>
+
+<button
+    class="button is-primary is-pulled-right"
+    (click)="saveBox()"
+    [disabled]="!authForm.valid">
+    {{'SAVE' | translate}}</button>

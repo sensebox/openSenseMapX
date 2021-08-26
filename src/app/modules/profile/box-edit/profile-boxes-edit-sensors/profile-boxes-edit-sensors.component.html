@@ -1,1 +1,22 @@
-<p>profile-boxes-edit-sensors works!</p>
+<div *ngIf="box">
+    <div class="card" *ngFor="let sensor of box.sensors">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">{{sensor.title}}</p>
+                    <p class="subtitle is-6">{{sensor._id}}</p>
+                </div>
+            </div>
+
+            <div class="content">
+                {{sensor.unit}}<br>
+                {{sensor.sensorType}}
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="#" class="card-footer-item">Measurements</a>
+            <a href="#" class="card-footer-item">Edit</a>
+            <a href="#" class="card-footer-item">Delete</a>
+          </footer>
+    </div>
+</div>

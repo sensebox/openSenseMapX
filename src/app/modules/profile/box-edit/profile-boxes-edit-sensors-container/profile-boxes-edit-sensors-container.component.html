@@ -1,1 +1,4 @@
-<p>profile-boxes-edit-sensors-container works!</p>
+<osem-profile-boxes-edit-sensors
+    [box]="box$ | async"
+    (boxSaved)="saveBox($event)"
+></osem-profile-boxes-edit-sensors>

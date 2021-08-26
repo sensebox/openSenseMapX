@@ -1,1 +1,5 @@
-<p>profile-boxes-edit-security-container works!</p>
+<osem-profile-boxes-edit-security
+    [box]="box$ | async"
+    (tokenGenerated)="generateNewToken($event)"
+    (boxSaved)="saveBox($event)"
+></osem-profile-boxes-edit-security>

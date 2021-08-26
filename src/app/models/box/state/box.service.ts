@@ -140,7 +140,19 @@ export class BoxService {
       this.sensorStore.upsertMany(ownNormalize[1]);
 
     });
+  }
 
+  generateNewToken(id){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+
+    this.http.put(this.AUTH_API_URL + '/boxes/'+id, {generate_access_token: true}, {headers: headers}).subscribe((res:any) => {
+
+      let ownNormalize = processBoxData([res.data]);
+      this.boxStore.upsertMany(ownNormalize[0]);
+      this.sensorStore.upsertMany(ownNormalize[1]);
+
+    });
   }
 
   add(box: Box) {
