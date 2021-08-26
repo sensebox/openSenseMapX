@@ -22,7 +22,6 @@ export class SessionQuery extends Query<SessionState> {
 
   selectMyBoxes(){
     return this.select(state => (state.details ? state.details.me : false)).pipe(flatMap(res => {
-      console.log("MYBOX", res);
       if(res){
         return this.boxQuery.selectManyWithSensors(res.boxes);
       }
@@ -34,7 +33,6 @@ export class SessionQuery extends Query<SessionState> {
 
   selectMyVis(){
     return this.select(state => (state.details ? state.details.me : false)).pipe(flatMap(res => {
-      console.log(res);
       if(res){
         return this.visQuery.selectMany(res.vis);
       }

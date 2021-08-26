@@ -1,0 +1,52 @@
+<p class="title is-3">{{'GENERAL_INFORMATION_BOX' | translate}}</p>
+
+
+<form [formGroup]="generalForm">
+  <osem-form-input 
+    [typeString]="'text'"
+    [label]="'NAME' | translate"
+    [controlName]="'name'" 
+    [control]="generalForm.controls.name">
+
+  </osem-form-input>
+ 
+  <div class="field">
+    <label class="label">{{'EXPOSURE' | translate}}</label>
+    <div class="field-body">
+      <div class="control">
+        <div class="select">
+          <select [formControl]="generalForm.controls.exposure">
+            <option value="outdoor">{{'OUTDOOR' | translate}}</option>
+            <option value="indoor">{{'INDOOR' | translate}}</option>
+            <option value="mobile">{{'MOBILE' | translate}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message>
+  </div>
+
+  <osem-form-input 
+    [typeString]="'text'"
+    [label]="'TAGS' | translate"
+    [controlName]="'tags'" 
+    [control]="generalForm.controls.tags">
+
+  </osem-form-input>
+
+  <div class="field">
+    <label class="label">{{'DESCRIPTION' | translate}}</label>
+    <div class="control">
+        <textarea 
+          [formControl]="generalForm.controls.desc"
+          class="textarea" 
+          placeholder="{{'BOX_DESCRIPTION' | translate}}"></textarea>
+    </div>
+  </div>
+</form>
+
+<button
+    class="button is-primary is-pulled-right"
+    (click)="saveBox()"
+    [disabled]="!generalForm.valid">
+    {{'SAVE' | translate}}</button>

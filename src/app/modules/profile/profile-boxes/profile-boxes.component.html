@@ -4,7 +4,10 @@
 
 <ul>
   <li *ngFor="let box of boxes" class="my-2">
-    <div class="card">
+    <div 
+      class="card" 
+      [routerLink]="[box._id]"
+		  queryParamsHandling="preserve">
       <div class="card-content">
         <div class="media">
           <div class="media-left">

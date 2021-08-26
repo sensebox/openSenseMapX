@@ -17,7 +17,6 @@ export class UnitService {
 
   get() {
     return this.http.get<Unit[]>(`${environment.sensor_wiki_url}/units`).pipe(tap(entities => {
-      console.log("ALL UNITS", entities);
       let mappedEntities = entities.map((ent:any) => {return {iri: ent.y.value, label: ent.label.value}})
       this.unitStore.set(mappedEntities);
     }));

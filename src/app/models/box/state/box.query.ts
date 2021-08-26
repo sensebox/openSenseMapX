@@ -128,6 +128,19 @@ export class BoxQuery extends QueryEntity<BoxState> {
       })
     );
   }
+  selectEntityWithSensor(id){
+    return combineQueries([
+      this.selectEntity(id),
+      this.sensorQuery.selectAll({ asObject: true })])
+    .pipe(
+      map(([box, sensors]) => {
+        return {
+          ...box,
+          sensors: box.sensors ? box.sensors.map(sensorId => sensors[sensorId]) : null
+        };
+      })
+    );
+  }
 
   selectManyWithSensors(boxIds){
     boxIds = Array.isArray(boxIds) ? boxIds : [boxIds];

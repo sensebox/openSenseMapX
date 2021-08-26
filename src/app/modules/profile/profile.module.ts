@@ -31,6 +31,17 @@ import { ProfileBoxCreateAdvancedContainerComponent } from './box-create/profile
 import { ProfileBoxCreateAdvancedComponent } from './box-create/profile-box-create-advanced/profile-box-create-advanced.component';
 import { ProfileBoxCreateSummaryComponent } from './box-create/profile-box-create-summary/profile-box-create-summary.component';
 import { ProfileBoxCreateSummaryContainerComponent } from './box-create/profile-box-create-summary-container/profile-box-create-summary-container.component';
+import { ProfileBoxesEditContainerComponent } from './box-edit/profile-boxes-edit-container/profile-boxes-edit-container.component';
+import { ProfileBoxesEditGeneralContainerComponent } from './box-edit/profile-boxes-edit-general-container/profile-boxes-edit-general-container.component';
+import { ProfileBoxesEditGeneralComponent } from './box-edit/profile-boxes-edit-general/profile-boxes-edit-general.component';
+import { ProfileBoxesEditSensorsContainerComponent } from './box-edit/profile-boxes-edit-sensors-container/profile-boxes-edit-sensors-container.component';
+import { ProfileBoxesEditSensorsComponent } from './box-edit/profile-boxes-edit-sensors/profile-boxes-edit-sensors.component';
+import { ProfileBoxesEditSecurityContainerComponent } from './box-edit/profile-boxes-edit-security-container/profile-boxes-edit-security-container.component';
+import { ProfileBoxesEditSecurityComponent } from './box-edit/profile-boxes-edit-security/profile-boxes-edit-security.component';
+import { ProfileBoxesEditAdvancedContainerComponent } from './box-edit/profile-boxes-edit-advanced-container/profile-boxes-edit-advanced-container.component';
+import { ProfileBoxesEditAdvancedComponent } from './box-edit/profile-boxes-edit-advanced/profile-boxes-edit-advanced.component';
+import { ProfileBoxesEditScriptContainerComponent } from './box-edit/profile-boxes-edit-script-container/profile-boxes-edit-script-container.component';
+import { ProfileBoxesEditScriptComponent } from './box-edit/profile-boxes-edit-script/profile-boxes-edit-script.component';
 
 
 @NgModule({
@@ -61,7 +72,18 @@ import { ProfileBoxCreateSummaryContainerComponent } from './box-create/profile-
     ProfileBoxCreateAdvancedContainerComponent,
     ProfileBoxCreateAdvancedComponent,
     ProfileBoxCreateSummaryComponent,
-    ProfileBoxCreateSummaryContainerComponent
+    ProfileBoxCreateSummaryContainerComponent,
+    ProfileBoxesEditContainerComponent,
+    ProfileBoxesEditGeneralContainerComponent,
+    ProfileBoxesEditGeneralComponent,
+    ProfileBoxesEditSensorsContainerComponent,
+    ProfileBoxesEditSensorsComponent,
+    ProfileBoxesEditSecurityContainerComponent,
+    ProfileBoxesEditSecurityComponent,
+    ProfileBoxesEditAdvancedContainerComponent,
+    ProfileBoxesEditAdvancedComponent,
+    ProfileBoxesEditScriptContainerComponent,
+    ProfileBoxesEditScriptComponent
   ],
   imports: [
     CommonModule,

@@ -21,7 +21,6 @@ export class PhenomenonService {
 
   get() {
     return this.http.get<Phenomenon[]>(`${environment.sensor_wiki_url}/phenomena/all?format=json`).pipe(tap(entities => {
-      console.log("ALL PHENOS", entities);
       entities = entities.map((ent: any) => {return {...ent, iri: ent.phenomenon.value}})
       this.phenomenonStore.set(entities);
     }));
