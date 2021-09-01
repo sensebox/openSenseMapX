@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 
 @Component({
   selector: 'osem-profile-boxes',
   templateUrl: './profile-boxes.component.html',
-  styleUrls: ['./profile-boxes.component.scss']
+  styleUrls: ['./profile-boxes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileBoxesComponent implements OnInit {
 

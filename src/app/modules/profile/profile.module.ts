@@ -42,6 +42,8 @@ import { ProfileBoxesEditAdvancedContainerComponent } from './box-edit/profile-b
 import { ProfileBoxesEditAdvancedComponent } from './box-edit/profile-boxes-edit-advanced/profile-boxes-edit-advanced.component';
 import { ProfileBoxesEditScriptContainerComponent } from './box-edit/profile-boxes-edit-script-container/profile-boxes-edit-script-container.component';
 import { ProfileBoxesEditScriptComponent } from './box-edit/profile-boxes-edit-script/profile-boxes-edit-script.component';
+import { ProfileSettingsContainerComponent } from './settings/profile-settings-container/profile-settings-container.component';
+import { ProfileSettingsComponent } from './settings/profile-settings/profile-settings.component';
 
 
 @NgModule({
@@ -83,7 +85,9 @@ import { ProfileBoxesEditScriptComponent } from './box-edit/profile-boxes-edit-s
     ProfileBoxesEditAdvancedContainerComponent,
     ProfileBoxesEditAdvancedComponent,
     ProfileBoxesEditScriptContainerComponent,
-    ProfileBoxesEditScriptComponent
+    ProfileBoxesEditScriptComponent,
+    ProfileSettingsContainerComponent,
+    ProfileSettingsComponent
   ],
   imports: [
     CommonModule,

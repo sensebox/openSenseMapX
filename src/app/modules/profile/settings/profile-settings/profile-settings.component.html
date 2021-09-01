@@ -1,0 +1,46 @@
+<div class="py-2">
+    <p class="title is-3">{{'ACCOUNT' | translate}}</p>
+
+    <form [formGroup]="profileForm">
+
+        <osem-form-input 
+            [typeString]="'text'"
+            [label]="'NAME' | translate"
+            [controlName]="'name'" 
+            [control]="profileForm.controls.name">
+        </osem-form-input>
+
+        <div class="field">
+            <label class="label">{{'EMAIL' | translate}}</label>
+            <p class="control has-icons-left">
+                <input formControlName="email" class="input" type="email" placeholder="Email">
+                <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i>
+                </span>
+            </p>
+        </div>
+
+        <div class="field">
+            <label class="label">{{'LANGUAGE' | translate}}</label>
+            <div class="field-body">
+              <div class="control">
+                <div class="select">
+                  <select [formControl]="profileForm.controls.language">
+                    <option value="en_US">{{'ENGLISH' | translate}}</option>
+                    <option value="de_DE">{{'GERMAN' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <osem-control-message [control]="profileForm.controls.language"></osem-control-message>
+        </div>
+    </form>
+
+    <button
+        class="button is-primary is-pulled-right"
+        (click)="saveProfile()"
+        [disabled]="!profileForm.valid">
+        {{'SAVE' | translate}}
+    </button>
+
+</div>

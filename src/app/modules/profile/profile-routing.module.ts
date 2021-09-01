@@ -16,6 +16,7 @@ import { ProfileBoxesEditSensorsContainerComponent } from './box-edit/profile-bo
 import { ProfileBoxesEditSecurityContainerComponent } from './box-edit/profile-boxes-edit-security-container/profile-boxes-edit-security-container.component';
 import { ProfileBoxesEditAdvancedContainerComponent } from './box-edit/profile-boxes-edit-advanced-container/profile-boxes-edit-advanced-container.component';
 import { ProfileBoxesEditScriptContainerComponent } from './box-edit/profile-boxes-edit-script-container/profile-boxes-edit-script-container.component';
+import { ProfileSettingsContainerComponent } from './settings/profile-settings-container/profile-settings-container.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
     ]},
     {path: '', component: ProfileNavContainerComponent},
     {path: 'vis', component: ProfileVisContainerComponent, data: {name: 'Visulizations'}},
+    {path: 'settings', component: ProfileSettingsContainerComponent, data: {name: 'Settings'}},
   ]},
 
 ];

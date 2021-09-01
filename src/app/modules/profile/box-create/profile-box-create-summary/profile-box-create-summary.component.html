@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="py-3" *ngIf="mqttForm && mqttForm.value && mqttForm.value.url">
+    <div class="py-3" *ngIf="mqttForm && mqttForm.value && mqttForm.value.useMQTT">
         <h4 class="title is-4">{{'MQTT' | translate}}</h4>
         <div class="content"> 
             <table>
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <div class="py-3" *ngIf="ttnForm">
+    <div class="py-3" *ngIf="ttnForm && ttnForm.value && ttnForm.value.useTTN">
         <h4 class="title is-4">{{'TTN' | translate}}</h4>
         <div class="content"> 
             <table>

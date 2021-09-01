@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'osem-profile-boxes-edit-script',
   templateUrl: './profile-boxes-edit-script.component.html',
-  styleUrls: ['./profile-boxes-edit-script.component.scss']
+  styleUrls: ['./profile-boxes-edit-script.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileBoxesEditScriptComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
@@ -6,7 +6,8 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 @Component({
   selector: 'osem-profile-boxes-edit-container',
   templateUrl: './profile-boxes-edit-container.component.html',
-  styleUrls: ['./profile-boxes-edit-container.component.scss']
+  styleUrls: ['./profile-boxes-edit-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileBoxesEditContainerComponent implements OnInit {
 

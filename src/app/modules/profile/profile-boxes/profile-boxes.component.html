@@ -1,68 +1,79 @@
-<button [routerLink]="['../newbox']" queryParamsHandling="merge" class="button is-primary">{{'NEW' | translate}}</button>
 
-<button (click)="showMyBoxesOnMap()" class="button is-primary">{{'SHOW_MY_BOXES_ON_MAP' | translate}}</button>
-
-<ul>
-  <li *ngFor="let box of boxes" class="my-2">
-    <div 
-      class="card" 
-      [routerLink]="[box._id]"
-		  queryParamsHandling="preserve">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img *ngIf="!box.image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-              <img *ngIf="box.image" [src]="'https://opensensemap.org/userimages/' +box.image" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="title is-4">{{box.name}}</p>
-            <p class="subtitle is-6">{{box.createdAt | date:'short'}}</p>
-          </div>
-        </div>
-
-        <div class="content">
-          {{box.description}}
-        </div>
-      </div>
-      <footer class="card-footer">
-        <a class="card-footer-item">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa fa-map-marker-alt"></i>
-            </span>
-            <span>{{'SHOW' | translate}}</span>
-          </span>  
-        </a>
-        <a [routerLink]="[box._id]" queryParamsHandling="preserve" class="card-footer-item">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa fa-edit"></i>
-            </span>
-            <span>{{'EDIT' | translate}}</span>
-          </span>  
-
-        </a>
-        <a href="#" class="card-footer-item">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa fa-table"></i>
-            </span>
-            <span>{{'DATA_UPLOAD' | translate}}</span>
-          </span>  
-          
-        </a>
-        <a href="#" class="card-footer-item">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="far fa-envelope"></i>
-            </span>
-            <span>{{'SUPPORT' | translate}}</span>
-          </span> 
-
-          </a>
-      </footer>
+<div class="py-2">
+  <div>
+    <p class="subtitle is-4">
+      {{'YOU_HAVE' | translate}} {{boxes.length}} {{'BOXES' | translate}}
+    </p>
+    <p>{{'ACCOUNT_NEW_SENSEBOX' | translate}}</p>
+    <div class="buttons pb-3">
+      <button [routerLink]="['../newbox']" queryParamsHandling="merge" class="button is-primary">{{'NEW' | translate}}</button>
+      <button [routerLink]="['https://sensebox.de/de/go-home']" class="button is-primary">{{'DOCUMENTATION' | translate}}</button>
+      <button (click)="showMyBoxesOnMap()" class="button is-primary">{{'SHOW_MY_BOXES_ON_MAP' | translate}}</button>
     </div>
-  </li>
-</ul>
+  </div>
+  
+  <ul>
+    <li *ngFor="let box of boxes" class="my-2">
+      <div 
+        class="card" 
+        [routerLink]="[box._id]"
+        queryParamsHandling="preserve">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img *ngIf="!box.image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                <img *ngIf="box.image" [src]="'https://opensensemap.org/userimages/' +box.image" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4">{{box.name}}</p>
+              <p class="subtitle is-6">{{box.createdAt | date:'short'}}</p>
+            </div>
+          </div>
+  
+          <div class="content">
+            {{box.description}}
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a class="card-footer-item">
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fa fa-map-marker-alt"></i>
+              </span>
+              <span>{{'SHOW' | translate}}</span>
+            </span>  
+          </a>
+          <a [routerLink]="[box._id]" queryParamsHandling="preserve" class="card-footer-item">
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fa fa-edit"></i>
+              </span>
+              <span>{{'EDIT' | translate}}</span>
+            </span>  
+  
+          </a>
+          <a href="#" class="card-footer-item">
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fa fa-table"></i>
+              </span>
+              <span>{{'DATA_UPLOAD' | translate}}</span>
+            </span>  
+            
+          </a>
+          <a href="#" class="card-footer-item">
+            <span class="icon-text">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              <span>{{'SUPPORT' | translate}}</span>
+            </span> 
+  
+            </a>
+        </footer>
+      </div>
+    </li>
+  </ul>
+</div>
