@@ -25,7 +25,7 @@
     </div>
     <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message>
   </div>
-
+<!-- 
   <div class="field" *ngIf="selectedDevice && (selectedDevice.iri === 'sensebox_home' || selectedDevice.iri === 'sensebox_edu')">
     <label class="label">{{'CONNECTION_TYPE' | translate}}</label>
     <div class="field-body">
@@ -40,7 +40,7 @@
       </div>
     </div>
     <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message>
-  </div>
+  </div> -->
 
   <osem-form-input 
     [typeString]="'text'"
@@ -54,7 +54,7 @@
     <label class="label">{{'DESCRIPTION' | translate}}</label>
     <div class="control">
         <textarea 
-          [formControl]="generalForm.controls.desc"
+          [formControl]="generalForm.controls.description"
           class="textarea" 
           placeholder="{{'BOX_DESCRIPTION' | translate}}"></textarea>
     </div>

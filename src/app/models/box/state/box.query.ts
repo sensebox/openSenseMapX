@@ -134,10 +134,12 @@ export class BoxQuery extends QueryEntity<BoxState> {
       this.sensorQuery.selectAll({ asObject: true })])
     .pipe(
       map(([box, sensors]) => {
-        return {
-          ...box,
-          sensors: box.sensors ? box.sensors.map(sensorId => sensors[sensorId]) : null
-        };
+        if(box){
+          return {
+            ...box,
+            sensors: box.sensors ? box.sensors.map(sensorId => sensors[sensorId]) : null
+          };
+        }
       })
     );
   }

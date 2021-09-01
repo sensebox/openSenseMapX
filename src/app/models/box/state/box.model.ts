@@ -7,6 +7,8 @@ export interface Box {
   sensors: ID[];
   lastMeasurementAt: string;
   values: any;
+  sensorWikiModel: string;
+  script: string;
 }
 
 /**

@@ -1,1 +1,135 @@
-<p>profile-boxes-edit-script works!</p>
+<div class="py-2">
+
+    <p class="title is-3">{{'SCRIPT' | translate}}</p>
+    
+    <p>{{'SCRIPT_EXPLANATION' | translate}}</p>
+    
+    <div class="notification is-warning is-light">
+        {{'THIS_DATA_NOT_SAVED' | translate}}
+    </div>
+
+    <form [formGroup]="scriptForm" >
+    
+        <div class="field">
+            <label class="label">{{'CONNECTION' | translate}}</label>
+            <div class="field-body">
+              <div class="control">
+                <div class="select">
+                  <select [formControl]="scriptForm.controls.connection">
+                    <option value="wifi">{{'WIFI' | translate}}</option>
+                    <option value="ethernet">{{'ETHERNET' | translate}}</option>
+                    <option value="lora">{{'LORA' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <osem-control-message [control]="scriptForm.controls.connection"></osem-control-message>
+        </div>
+    
+        <div class="field">
+            <label class="label">{{'PM_PORT' | translate}}</label>
+            <div class="field-body">
+              <div class="control">
+                <div class="select">
+                  <select [formControl]="scriptForm.controls.serialPort">
+                    <option value="Serial1">{{'Serial 1' | translate}}</option>
+                    <option value="Serial2">{{'Serial 2' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <osem-control-message [control]="scriptForm.controls.serialPort"></osem-control-message>
+        </div>
+    
+        <div class="field">
+            <label class="label">{{'SOIL_DIGITAL_PORT' | translate}}</label>
+            <div class="field-body">
+              <div class="control">
+                <div class="select">
+                  <select [formControl]="scriptForm.controls.soilDigitalPort">
+                    <option value="A">{{'A' | translate}}</option>
+                    <option value="B">{{'B' | translate}}</option>
+                    <option value="C">{{'C' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <osem-control-message [control]="scriptForm.controls.soilDigitalPort"></osem-control-message>
+        </div>
+    
+        <div class="field">
+            <label class="label">{{'SOUNDMETER_PORT' | translate}}</label>
+            <div class="field-body">
+              <div class="control">
+                <div class="select">
+                  <select [formControl]="scriptForm.controls.soundMeterPort">
+                    <option value="A">{{'A' | translate}}</option>
+                    <option value="B">{{'B' | translate}}</option>
+                    <option value="C">{{'C' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <osem-control-message [control]="scriptForm.controls.soundMeterPort"></osem-control-message>
+        </div>
+        
+        <div class="field">
+            <label class="label">{{'WINDSPEED_PORT' | translate}}</label>
+            <div class="field-body">
+              <div class="control">
+                <div class="select">
+                  <select [formControl]="scriptForm.controls.windSpeedPort">
+                    <option value="A">{{'A' | translate}}</option>
+                    <option value="B">{{'B' | translate}}</option>
+                    <option value="C">{{'C' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <osem-control-message [control]="scriptForm.controls.windSpeedPort"></osem-control-message>
+        </div>
+    
+        <osem-form-input 
+            [typeString]="'text'"
+            [label]="'SSID' | translate"
+            [controlName]="'ssid'" 
+            [control]="scriptForm.controls.ssid">
+    
+        </osem-form-input>
+    
+        <div class="field">
+            <label class="label">{{'WIFI_PASSWORD' | translate}}</label>
+            <div class="controls">
+                <input 
+                  [class.is-danger]="scriptForm.controls.password.errors && scriptForm.controls.password.touched"
+                  [formControl]="scriptForm.controls.password"
+                  type="password"
+                  class="input" 
+                  id="auth-field"
+                  placeholder="{{'WIFI_PASSWORD' | translate}}">
+            </div>
+          </div>
+    </form>
+    
+    
+    <!-- <button
+        class="button is-primary is-pulled-right"
+        (click)="generateScript()"
+        [disabled]="!scriptForm.valid">
+        {{'GENERATE_SCRIPT' | translate}}</button> -->
+    
+    
+    <div>
+        <textarea id="script" *ngIf="box && box.script">
+            {{box.script}}
+        </textarea>
+    </div>
+    
+    
+    <button
+        class="button is-primary is-pulled-right py-2"
+        (click)="compileScript()"
+        [disabled]="!scriptForm.valid">
+        {{'COMPILE_SCRIPT' | translate}}</button>
+
+</div>    

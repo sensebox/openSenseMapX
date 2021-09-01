@@ -26,6 +26,43 @@
           {{box.description}}
         </div>
       </div>
+      <footer class="card-footer">
+        <a class="card-footer-item">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fa fa-map-marker-alt"></i>
+            </span>
+            <span>{{'SHOW' | translate}}</span>
+          </span>  
+        </a>
+        <a [routerLink]="[box._id]" queryParamsHandling="preserve" class="card-footer-item">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <span>{{'EDIT' | translate}}</span>
+          </span>  
+
+        </a>
+        <a href="#" class="card-footer-item">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <span>{{'DATA_UPLOAD' | translate}}</span>
+          </span>  
+          
+        </a>
+        <a href="#" class="card-footer-item">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="far fa-envelope"></i>
+            </span>
+            <span>{{'SUPPORT' | translate}}</span>
+          </span> 
+
+          </a>
+      </footer>
     </div>
   </li>
 </ul>

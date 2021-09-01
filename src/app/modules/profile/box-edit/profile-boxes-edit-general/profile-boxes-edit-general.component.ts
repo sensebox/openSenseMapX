@@ -16,7 +16,7 @@ export class ProfileBoxesEditGeneralComponent implements OnInit {
   generalForm = this.builder.group({
     name: [null, Validators.required],
     exposure: ['outdoor', Validators.required],
-    desc: [null],
+    description: [null],
     tags: [null],
     connection: [null]
   }); 

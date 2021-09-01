@@ -1,1 +1,5 @@
-<p>profile-boxes-edit-script-container works!</p>
+<osem-profile-boxes-edit-script
+    [box]="box$ | async"
+    (scriptGenerated)="generateScript($event)"
+    (scriptCompiled)="compileScript($event)">
+</osem-profile-boxes-edit-script>

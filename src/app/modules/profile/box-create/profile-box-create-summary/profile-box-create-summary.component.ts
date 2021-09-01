@@ -39,7 +39,7 @@ export class ProfileBoxCreateSummaryComponent implements OnInit {
 
     options = {
       ...options, 
-      sensorWikiModel: this.selectedDevice, 
+      sensorWikiModel: this.selectedDevice.iri ? this.selectedDevice.iri : this.selectedDevice, 
       ttn: this.ttnForm.value.useTTN ? this.ttnForm.value : undefined, 
       mqtt: this.mqttForm.value.useMQTT ? this.mqttForm.value : undefined, 
       sensors: sensors

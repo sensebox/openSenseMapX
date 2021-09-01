@@ -1,5 +1,6 @@
 <div class="tabs">
     <ul>
+
         <li            
             [routerLink]="['general']"
             queryParamsHandling="preserve"
@@ -21,11 +22,12 @@
             routerLinkActive="is-active"
         ><a>{{'ADVANCED' | translate}}</a></li>
 
-        <li
+        <li *ngIf="(box$ | async)?.sensorWikiModel === 'sensebox_home'"
             [routerLink]="['script']"
             queryParamsHandling="preserve"
             routerLinkActive="is-active"
-        ><a>{{'SCRIPT' | translate}}</a></li>
+        ><a>{{'SCRIPT' | translate}}
+        </a></li>
     </ul>
 </div>
 <router-outlet></router-outlet>

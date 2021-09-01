@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ID } from '@datorama/akita';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BoxStore } from './box.store';
 import { Box } from './box.model';
 import { tap, share } from 'rxjs/operators';
@@ -68,7 +68,7 @@ export class BoxService {
     return this.http.get<any[]>(`${environment.api_url}/statistics/descriptive?&phenomenon=${pheno}&bbox=${bboxString}&format=json&columns=boxId,lat,lon,boxName,exposure&from-date=${dateRange[0].toISOString()}&to-date=${dateRange[1].toISOString()}&window=3600000&operation=arithmeticMean`).pipe(tap(entities => {
       entities = entities.map(ent => {
         let { boxId, sensorId, boxName, exposure,lat, lon, ...noEnt} = ent;
-        //TODO: find better place for vconverting to 2 decimal-diggits
+        //TODO: find better place for converting to 2 decimal-diggits
         Object.keys(noEnt).forEach(key => {if(noEnt[key]) { noEnt[key] = Math.round( noEnt[key] * 1e2 ) / 1e2 } })
         return {
           _id: ent.boxId,
@@ -153,6 +153,22 @@ export class BoxService {
       this.sensorStore.upsertMany(ownNormalize[1]);
 
     });
+  }
+
+  generateScript(data){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+    
+    this.http.get(this.AUTH_API_URL + '/boxes/'+data.id +'/script', {headers: headers, params: data.data, responseType: 'text'}).subscribe((res:any) => {
+      this.boxStore.update(data.id, {script: res});
+    });
+  }
+
+  compileScript(data){
+    this.http.post('https://compiler.sensebox.de/compile', data).subscribe((res:any) => {
+      var url = encodeURI('https://compiler.sensebox.de/download?id=' + res.data.id + '&board=sensebox-mcu');
+      window.open(url, '_self')
+    })
   }
 
   add(box: Box) {

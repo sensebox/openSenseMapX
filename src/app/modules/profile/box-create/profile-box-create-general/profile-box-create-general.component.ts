@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 export interface FormsState {
   general: {
     name: string;
-    desc: string;
+    description: string;
     exposure: string;
     tags: string[];
     connection: string;
@@ -32,11 +32,10 @@ export class ProfileBoxCreateGeneralComponent implements OnInit {
     private builder: FormBuilder) { }
 
   ngOnInit() {
-    console.log(this.selectedDevice)
     this.generalForm = this.builder.group({
       name: [null, Validators.required],
       exposure: ['outdoor', Validators.required],
-      desc: [null],
+      description: [null],
       tags: [null],
       connection: [null]
     }); 
