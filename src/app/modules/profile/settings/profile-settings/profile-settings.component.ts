@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'osem-profile-settings',
@@ -20,9 +20,10 @@ export class ProfileSettingsComponent implements OnInit {
   @Output() profileSaved = new EventEmitter();
 
   profileForm = this.builder.group({
-    name: [''],
-    email: [''],
-    language: ['']
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    language: [''],
+    currentPassword: ['', Validators.required]
   }); 
 
 
@@ -33,6 +34,10 @@ export class ProfileSettingsComponent implements OnInit {
 
   saveProfile(){
     this.profileSaved.emit(this.profileForm.getRawValue())
+  }
+
+  deleteAccount(){
+
   }
 
 }

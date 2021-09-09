@@ -116,4 +116,22 @@ export class SessionService {
       }
     })
   }
+
+  updateProfile(data){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+
+    this.http.put(this.AUTH_API_URL + '/users/me', data, {headers: headers}).subscribe((res:any) => {
+      console.log(res);
+      this.sessionStore.update(state => {
+        return {
+          ...state,
+          user: res.data.me
+        }
+      })
+    }, err => {
+      console.log(err);
+      // this.errorMessage$.next(err.error.message);
+    });
+  }
 }

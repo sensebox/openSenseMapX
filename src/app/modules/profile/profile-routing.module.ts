@@ -17,6 +17,7 @@ import { ProfileBoxesEditSecurityContainerComponent } from './box-edit/profile-b
 import { ProfileBoxesEditAdvancedContainerComponent } from './box-edit/profile-boxes-edit-advanced-container/profile-boxes-edit-advanced-container.component';
 import { ProfileBoxesEditScriptContainerComponent } from './box-edit/profile-boxes-edit-script-container/profile-boxes-edit-script-container.component';
 import { ProfileSettingsContainerComponent } from './settings/profile-settings-container/profile-settings-container.component';
+import { ChangePasswordContainerComponent } from './settings/change-password-container/change-password-container.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,8 @@ const routes: Routes = [
     ]},
     {path: '', component: ProfileNavContainerComponent},
     {path: 'vis', component: ProfileVisContainerComponent, data: {name: 'Visulizations'}},
-    {path: 'settings', component: ProfileSettingsContainerComponent, data: {name: 'Settings'}},
+    {path: 'settings', component: ProfileSettingsContainerComponent, data: {name: 'Settings'}}, 
+    {path: 'changepassword', component: ChangePasswordContainerComponent, data: {name: 'Change Password'}},
   ]},
 
 ];

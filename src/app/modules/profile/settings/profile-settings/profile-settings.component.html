@@ -34,13 +34,62 @@
             </div>
             <osem-control-message [control]="profileForm.controls.language"></osem-control-message>
         </div>
+
+        <div class="field">
+            <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD' | translate}})</label>
+            <div class="control">
+                <input 
+                  [formControl]="profileForm.controls.currentPassword"
+                  type="password"
+                  class="input" 
+                  id="password"
+                  placeholder="{{'CURRENT_PASSWORD' | translate}}">
+            </div>
+        </div>
+    
     </form>
 
-    <button
-        class="button is-primary is-pulled-right"
-        (click)="saveProfile()"
-        [disabled]="!profileForm.valid">
-        {{'SAVE' | translate}}
-    </button>
+    <div class="is-clearfix py-3">
+        <button
+            class="button is-primary is-pulled-right"
+            (click)="saveProfile()"
+            [disabled]="!profileForm.valid">
+            {{'SAVE' | translate}}
+        </button>
+    </div>
+
+    <hr>
+
+    <div class="field">
+        <label class="label">{{'CHANGE_PASSWORD' | translate}}</label>
+        <a 
+            [routerLink]="['',{ outlets: { sidebar: ['m', 'profile', 'changepassword'] }}]"            queryParamsHandling="merge"
+            class="">
+            {{'CHANGE_PASSWORD' | translate}}
+        </a>
+    </div>
+
+    <hr>
+    <div class="is-clearfix">
+        <div class="field">
+            <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD_TO_DELETE' | translate}})</label>
+            <p>{{'ACCOUNT_DELETE_INFO'|translate}}</p>
+            <div class="control">
+                <input 
+                  [formControl]="profileForm.controls.currentPassword"
+                  type="password"
+                  class="input" 
+                  id="password"
+                  placeholder="{{'CURRENT_PASSWORD' | translate}}">
+            </div>
+        </div>
+
+        <button
+            class="button is-danger is-pulled-left"
+            (click)="deleteAccount()">
+            {{'DELETE_ACCOUNT' | translate}}
+        </button>
+    </div>
+
 
 </div>
