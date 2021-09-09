@@ -17,6 +17,7 @@ import { PrivacyComponent } from './modules/core/privacy/privacy.component';
 import { AboutComponent } from './modules/core/about/about.component';
 import { ContactComponent } from './modules/core/contact/contact.component';
 import { NewVisContainerComponent } from './modules/core/new-vis-container/new-vis-container.component';
+import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'edit-legend', component: LegendEditContainerComponent, outlet: 'modal'},
   {path: 'login', component: LoginContainerComponent, outlet: 'sidebar'},
   {path: 'register', component: RegisterContainerComponent, outlet: 'sidebar'},
+  {path: 'resetpassword', component: ResetPasswordComponent, outlet: 'sidebar'},
   {path: 'm', component: SidebarMenuComponent, outlet: 'sidebar', children: [
     {
       path: '',

@@ -45,6 +45,7 @@ import { ProfileBoxesEditScriptComponent } from './box-edit/profile-boxes-edit-s
 import { ProfileSettingsContainerComponent } from './settings/profile-settings-container/profile-settings-container.component';
 import { ProfileSettingsComponent } from './settings/profile-settings/profile-settings.component';
 import { ChangePasswordContainerComponent } from './settings/change-password-container/change-password-container.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { ChangePasswordContainerComponent } from './settings/change-password-con
     ProfileBoxesEditScriptComponent,
     ProfileSettingsContainerComponent,
     ProfileSettingsComponent,
-    ChangePasswordContainerComponent
+    ChangePasswordContainerComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

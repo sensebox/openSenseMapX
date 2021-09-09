@@ -25,6 +25,11 @@
                     <i class="fa fa-lock"></i>
                 </span>
             </p>
+            <a class="is-small is-pulled-right" 
+                [routerLink]="['/',{ outlets: { sidebar: ['resetpassword'] } }]"
+                queryParamsHandling="merge">
+                {{'FORGOT_PASSWORD' | translate}}
+            </a>
         </div>
         <div class="field">
             <p class="control">

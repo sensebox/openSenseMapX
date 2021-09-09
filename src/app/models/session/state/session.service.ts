@@ -134,4 +134,14 @@ export class SessionService {
       // this.errorMessage$.next(err.error.message);
     });
   }
+
+  resetPassword(email){
+    this.http.post(this.AUTH_API_URL + '/users/request-password-reset', email).subscribe((res:any) => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+      // this.errorMessage$.next(err.error.message);
+    });
+
+  }
 }
