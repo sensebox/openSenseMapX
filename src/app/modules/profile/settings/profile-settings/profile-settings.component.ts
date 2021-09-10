@@ -18,12 +18,17 @@ export class ProfileSettingsComponent implements OnInit {
   };
 
   @Output() profileSaved = new EventEmitter();
+  @Output() accountDeleted = new EventEmitter();
 
   profileForm = this.builder.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     language: [''],
     currentPassword: ['', Validators.required]
+  }); 
+
+  deleteForm = this.builder.group({
+    password: ['', Validators.required]
   }); 
 
 
@@ -37,6 +42,8 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   deleteAccount(){
+    if(this.deleteForm.valid)
+      this.accountDeleted.emit(this.deleteForm.getRawValue())
 
   }
 

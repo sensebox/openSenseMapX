@@ -134,6 +134,28 @@ export class SessionService {
       // this.errorMessage$.next(err.error.message);
     });
   }
+  
+  deleteAccount(data){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+
+    const options = {
+      headers: headers,
+      body: data,
+    };
+    this.http.delete(this.AUTH_API_URL + '/users/me', options).subscribe((res:any) => {
+      console.log(res);
+      this.sessionStore.update(state => {
+        return {
+          ...state,
+          user: res.data.me
+        }
+      })
+    }, err => {
+      console.log(err);
+      // this.errorMessage$.next(err.error.message);
+    });
+  }
 
   resetPassword(email){
     this.http.post(this.AUTH_API_URL + '/users/request-password-reset', email).subscribe((res:any) => {
@@ -142,6 +164,14 @@ export class SessionService {
       console.log(err);
       // this.errorMessage$.next(err.error.message);
     });
+  }
 
+  register(data){
+    this.http.post(this.AUTH_API_URL + '/users/register', data).subscribe((res:any) => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+      // this.errorMessage$.next(err.error.message);
+    });
   }
 }

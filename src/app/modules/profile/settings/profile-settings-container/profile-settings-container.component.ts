@@ -21,5 +21,9 @@ export class ProfileSettingsContainerComponent implements OnInit {
   saveProfile(data){
     this.sessionService.updateProfile(data);
   }
+  
+  deleteAccount(data){
+    this.sessionService.deleteAccount(data);
+  }
 
 }

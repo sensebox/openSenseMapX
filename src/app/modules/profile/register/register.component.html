@@ -1,53 +1,62 @@
 <div>
-        <h2 class="title">{{'LOGIN' | translate}}</h2>
-    
-        <p>
-            {{'REGISTER YOUR NEW ACCOUNT HERE'}}
-        </p>
-        
+    <h2 class="title">{{'REGISTER' | translate}}</h2>
+
+    <p>
+        {{'REGISTER YOUR NEW ACCOUNT HERE'}}
+    </p>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+
         <div class="field">
             <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" placeholder="Email">
+                <input formControlName="name" class="input" type="text" placeholder="Username">
                 <span class="icon is-small is-left">
-                <i class="fa fa-envelope"></i>
+                    <i class="fa fa-user"></i>
                 </span>
                 <span class="icon is-small is-right">
-                <i class="fa fa-check"></i>
+                    <i class="fa fa-check"></i>
                 </span>
             </p>
-            </div>
+        </div>
+
         <div class="field">
             <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" placeholder="Email">
+                <input formControlName="email" class="input" type="email" placeholder="Email">
                 <span class="icon is-small is-left">
-                <i class="fa fa-envelope"></i>
+                    <i class="fa fa-envelope"></i>
                 </span>
                 <span class="icon is-small is-right">
-                <i class="fa fa-check"></i>
+                    <i class="fa fa-check"></i>
                 </span>
             </p>
         </div>
+
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="password" placeholder="Password">
+                <input formControlName="password" class="input" type="password" placeholder="Password">
                 <span class="icon is-small is-left">
-                <i class="fa fa-lock"></i>
+                    <i class="fa fa-lock"></i>
                 </span>
             </p>
         </div>
+
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="password" placeholder="Password">
+                <input formControlName="confirmPassword" class="input" type="password" placeholder="Confirm Password">
                 <span class="icon is-small is-left">
-                <i class="fa fa-lock"></i>
+                    <i class="fa fa-lock"></i>
                 </span>
             </p>
         </div>
+
         <div class="field">
             <p class="control">
-                <button class="button is-success">
-                    {{'LOGIN' | translate}}
+                <button 
+                    [disabled]="!registerForm.valid"
+                    class="button is-success">
+                    {{'REGISTER' | translate}}
                 </button>
             </p>
         </div>
-    </div>
+    </form>
+    
+</div>

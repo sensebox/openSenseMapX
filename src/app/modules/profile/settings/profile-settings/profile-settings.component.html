@@ -71,24 +71,28 @@
 
     <hr>
     <div class="is-clearfix">
-        <div class="field">
-            <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD_TO_DELETE' | translate}})</label>
-            <p>{{'ACCOUNT_DELETE_INFO'|translate}}</p>
-            <div class="control">
-                <input 
-                  [formControl]="profileForm.controls.currentPassword"
-                  type="password"
-                  class="input" 
-                  id="password"
-                  placeholder="{{'CURRENT_PASSWORD' | translate}}">
-            </div>
-        </div>
+        <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()">
 
-        <button
-            class="button is-danger is-pulled-left"
-            (click)="deleteAccount()">
-            {{'DELETE_ACCOUNT' | translate}}
-        </button>
+            <div class="field">
+                <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD_TO_DELETE' | translate}})</label>
+                <p>{{'ACCOUNT_DELETE_INFO'|translate}}</p>
+                <div class="control">
+                    <input 
+                      [formControl]="deleteForm.controls.password"
+                      type="password"
+                      class="input" 
+                      id="password"
+                      placeholder="{{'CURRENT_PASSWORD' | translate}}">
+                </div>
+            </div>
+    
+            <button
+                class="button is-danger is-pulled-left"
+                [disabled]="!deleteForm.valid"
+                (click)="deleteAccount()">
+                {{'DELETE_ACCOUNT' | translate}}
+            </button>
+        </form>
     </div>
 
 
