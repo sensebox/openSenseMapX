@@ -155,6 +155,7 @@
     "PM25_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen)..",
     "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung.",
 
+    "MENU": "Menu",
 
     "LOGIN_WITH_YOUR_OPENSENSEMAP_ACCOUNT": "Bitte logge dich mit deinem openSenseMap-Account ein.",
     "REGISTER_HERE": "Oder registriere dich hier!",
@@ -162,6 +163,8 @@
     "FORGOT_PASSWORD": "Passwort vergessen?",
     "PASSWORD": "Passwort",
     "EMAIL": "Email",
+    "GERMAN": "German",
+    "ENGLISH": "English",
 
     "REGISTER": "Registrieren",
     "REGISTER_YOUR_NEW_ACCOUNT": "Registriere einen neuen openSenseMap-Account.",
@@ -170,8 +173,20 @@
     "USER_REGISTERED": "Benutzer erfolgreich registriert.",
 
     "REQUEST_PASSWORD_RESET": "Passwort zurücksetzen",
-    "RESET": "Zurücksetzen"
+    "RESET": "Zurücksetzen",
 
+    "CURRENT_PASSWORD": "Dein Passwort",
+    "ACCOUNT_SETTINGS": "Account Einstellungen",
+    "PLEASE_PROVIDE_PASSWORD": "Bitte gib dein aktuelles Passwort an",
 
+    "CHANGE_PASSWORD": "Passwort ändern",
+    "ACCOUNT_DELETE_INFO": "VORSICHT: Wenn du dein Benutzerkonto löscht, werden alle senseBoxen und Messungen gelöscht.",
+    "PROVIDE_CURRENT_PASSWORD" : "Bitte gib dein aktuelles Passwort an um deinen Account zu löschen.",
+    "DELETE_ACCOUNT": "Account löschen",
+    "SAVE": "Speichern",
+    "EMAIL_NOT_CONFIRMED": "Email Adresse ist noch nicht bestätigt!",
+    "PROFILE_UPDATED": "Profil aktualisiert.",
 
+    "NEW_PASSWORD": "Neues Passwort",
+    "CONFIRM_NEW_PASSWORD": "Neues Passwort bestätigen"
 }

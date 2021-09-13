@@ -1,5 +1,5 @@
-<div class="py-2">
-    <p class="title is-3">{{'ACCOUNT' | translate}}</p>
+<div class="py-2" *ngIf="_user">
+    <p class="title is-3">{{'ACCOUNT_SETTINGS' | translate}}</p>
 
     <form [formGroup]="profileForm">
 
@@ -18,6 +18,13 @@
                     <i class="fa fa-envelope"></i>
                 </span>
             </p>
+            <osem-control-message [control]="profileForm.controls.email"></osem-control-message>
+            <div *ngIf="!_user.emailIsConfirmed">
+                <p class="notification is-warning is-light email-warning">
+                    {{'EMAIL_NOT_CONFIRMED' | translate}}
+                </p>
+
+            </div>
         </div>
 
         <div class="field">
@@ -61,7 +68,7 @@
     <hr>
 
     <div class="field">
-        <label class="label">{{'CHANGE_PASSWORD' | translate}}</label>
+        <label class="label">{{'PASSWORD' | translate}}</label>
         <a 
             [routerLink]="['',{ outlets: { sidebar: ['m', 'profile', 'changepassword'] }}]"            queryParamsHandling="merge"
             class="">
@@ -74,8 +81,9 @@
         <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()">
 
             <div class="field">
-                <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD_TO_DELETE' | translate}})</label>
-                <p>{{'ACCOUNT_DELETE_INFO'|translate}}</p>
+                <label class="label">{{'DELETE_ACCOUNT' | translate}}</label>
+                <p class="notification is-warning is-light">{{'ACCOUNT_DELETE_INFO'|translate}}</p>
+                <p>{{'PROVIDE_CURRENT_PASSWORD'|translate}}</p>
                 <div class="control">
                     <input 
                       [formControl]="deleteForm.controls.password"

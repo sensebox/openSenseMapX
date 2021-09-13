@@ -4,9 +4,10 @@
     <p>
         {{'REGISTER_YOUR_NEW_ACCOUNT' | translate}}
     </p>
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <form class="py-3" [formGroup]="registerForm" (ngSubmit)="register()">
 
         <div class="field">
+            <label class="label">{{'USERNAME' | translate}}</label>
             <p class="control has-icons-left has-icons-right">
                 <input formControlName="name" class="input" type="text" placeholder="{{'USERNAME' | translate}}">
                 <span class="icon is-small is-left">
@@ -17,6 +18,7 @@
         </div>
 
         <div class="field">
+            <label class="label">{{'EMAIL' | translate}}</label>
             <p class="control has-icons-left has-icons-right">
                 <input formControlName="email" class="input" type="email" placeholder="Email">
                 <span class="icon is-small is-left">
@@ -27,6 +29,7 @@
         </div>
 
         <div class="field">
+            <label class="label">{{'PASSWORD' | translate}}</label>
             <p class="control has-icons-left">
                 <input formControlName="password" class="input" type="password" placeholder="{{'PASSWORD' | translate}}">
                 <span class="icon is-small is-left">
@@ -38,6 +41,7 @@
         </div>
 
         <div class="field">
+            <label class="label">{{'CONFIRM_PASSWORD' | translate}}</label>
             <p class="control has-icons-left">
                 <input formControlName="confirmPassword" class="input" type="password" placeholder="{{'CONFIRM_PASSWORD' | translate}}">
                 <span class="icon is-small is-left">
@@ -45,7 +49,21 @@
                 </span>
             </p>
             <osem-control-message [control]="registerForm.controls.confirmPassword"></osem-control-message>
+        </div>
 
+
+        <div class="field">
+            <label class="label">{{'LANGUAGE' | translate}}</label>
+            <div class="field-body">
+              <div class="control">
+                <div class="select">
+                  <select [formControl]="registerForm.controls.language">
+                    <option value="de_DE">{{'GERMAN' | translate}}</option>
+                    <option value="en_US">{{'ENGLISH' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
         </div>
 
         <div class="field">

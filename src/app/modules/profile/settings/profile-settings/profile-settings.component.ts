@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ValidationService } from 'src/app/modules/core/services/validation.service';
 
 @Component({
   selector: 'osem-profile-settings',
@@ -21,7 +22,7 @@ export class ProfileSettingsComponent implements OnInit {
   @Output() accountDeleted = new EventEmitter();
 
   profileForm = this.builder.group({
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), ValidationService.userNameValidator]],
     email: ['', [Validators.required, Validators.email]],
     language: [''],
     currentPassword: ['', Validators.required]

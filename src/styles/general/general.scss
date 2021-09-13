@@ -410,3 +410,8 @@ input.ng-invalid {
 .osem-sidebar-page {
     padding: 1em 1.3em;
 }
+
+
+.label:not(:last-child) {
+    margin-bottom: 0.1em;
+}

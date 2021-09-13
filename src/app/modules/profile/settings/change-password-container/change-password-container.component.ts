@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/models/session/state/session.service';
+import { ValidationService } from 'src/app/modules/core/services/validation.service';
 
 @Component({
   selector: 'osem-change-password-container',
@@ -12,9 +13,11 @@ export class ChangePasswordContainerComponent implements OnInit {
 
   changePasswordForm = this.builder.group({
     currentPassword : ['', Validators.required],
-    newPassword: ['', Validators.required],
-    newPasswordConfirmed: ['', Validators.required]
-  })
+    newPassword: ['', [Validators.required, Validators.minLength(8)]],
+    newPasswordConfirmed: ['', [Validators.required, Validators.minLength(8)]]
+  }, {
+    validator: ValidationService.MatchPasswordNew
+  });
 
   constructor(
     private builder: FormBuilder,

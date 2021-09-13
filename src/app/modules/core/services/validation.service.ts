@@ -60,5 +60,20 @@ export class ValidationService {
         }
     }
 
+    static MatchPasswordNew(control: AbstractControl) {
+        try {
+            let password = control.get('newPassword').value; // to get value in input tag
+            let confirmPassword = control.get('newPasswordConfirmed').value; // to get value in input tag
+            if(password != confirmPassword) {
+                control.get('newPasswordConfirmed').setErrors( {MatchPassword: true} )
+            } else {
+                return null
+            }
+        } catch(err) {
+            control.get('newPasswordConfirmed').setErrors( {MatchPassword: true} )
+            return;
+        }
+    }
+
     
 }

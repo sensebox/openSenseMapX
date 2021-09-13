@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     language: ['de_DE']
   }, {
     validator: ValidationService.MatchPassword
-  })
+  });
 
   constructor(private builder: FormBuilder) { }
 
@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    console.log(this.registerForm)
     if(this.registerForm.valid)
       this.registered.emit(this.registerForm.getRawValue())
   }

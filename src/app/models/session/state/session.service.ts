@@ -43,7 +43,6 @@ export class SessionService {
 
 
     }, err => {
-      console.log(err);
       this.ngZone.run(() => {
         this.toasterService.pop('error', 'Error', err.error.message);
       })
@@ -135,15 +134,19 @@ export class SessionService {
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
 
     this.http.put(this.AUTH_API_URL + '/users/me', data, {headers: headers}).subscribe((res:any) => {
-      console.log(res);
       this.sessionStore.update(state => {
         return {
           ...state,
           user: res.data.me
         }
       })
+      this.toasterService.pop('success', '', this.translateService.instant('PROFILE_UPDATED'));
+      this.router.navigate([{ outlets: { sidebar: [ 'm', 'profile', 'settings' ] }}]);
+
     }, err => {
-      console.log(err);
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
       // this.errorMessage$.next(err.error.message);
     });
   }
@@ -157,16 +160,21 @@ export class SessionService {
       body: data,
     };
     this.http.delete(this.AUTH_API_URL + '/users/me', options).subscribe((res:any) => {
-      console.log(res);
+      this.router.navigate([{ outlets: { sidebar: null }}]);
+      
       this.sessionStore.update(state => {
         return {
           ...state,
-          user: res.data.me
+          user: null
         }
-      })
+      });
+
+      this.toasterService.pop('success', '', this.translateService.instant('ACCOUNT_DELETED'));
+
     }, err => {
-      console.log(err);
-      // this.errorMessage$.next(err.error.message);
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
     });
   }
 
