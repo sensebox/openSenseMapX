@@ -153,6 +153,25 @@
     "PM25_UNIT": "Feinstaub wird unabhängig vom Durchmesser der Teilchen in µm/m³ angebgegen.</br></br>Seit dem 1. Januar 2005 beträgt der einzuhaltende Tagesmittelwert für PM10 in der EU 50 µg/m³ bei 35 zugelassenen Überschreitungen im Kalenderjahr.</br></br>Feinstaub wird heute im Wesentlichen für die Auswirkungen von Luftverschmutzungen auf die Gesundheit verantwortlich gemacht. Auswirkungen sind u.a. die Verstärkung von Allergiesymptomen, die Zunahme von asthmatischen Anfällen, Atemwegsbeschwerden und Lungenkrebs sowie ein gesteigertes Risiko von Mittelohrentzündungen bei Kindern und Beeinträchtigungen des Nervensystems. Daneben werden auch Auswirkungen auf Herz-Kreislauf-Erkrankungen (z. B. Herzinfarkt) angenommen. Das Ausmaß der Auswirkung von Partikeln auf die Atemwege hängt neben der chemischen Zusammensetzung auch von der Größe der Partikel ab: Je kleiner ein Partikel ist, desto tiefer kann es in die Lunge eindringen.</br></br>Es gibt verschiede Möglichkeiten Feinstaub zu messen. Für die senseBox nutzen wir den Lasergestützten Sensor SDS011.",
     "PM25_INTERPRETATION": "Feinstaubmessungen, insb. Rohdaten von Einzelmessungen sollten mit Vorsicht genossen werden. Wie die Grenzwerte es schon andeuten werden normalerweise Mittelwerte aus vielen einzelnen Messungen über eine Stunde oder über einen Tag berechnet.",
     "PM25_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen)..",
-    "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung."
+    "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung.",
+
+
+    "LOGIN_WITH_YOUR_OPENSENSEMAP_ACCOUNT": "Bitte logge dich mit deinem openSenseMap-Account ein.",
+    "REGISTER_HERE": "Oder registriere dich hier!",
+    "LOGIN": "Login",
+    "FORGOT_PASSWORD": "Passwort vergessen?",
+    "PASSWORD": "Passwort",
+    "EMAIL": "Email",
+
+    "REGISTER": "Registrieren",
+    "REGISTER_YOUR_NEW_ACCOUNT": "Registriere einen neuen openSenseMap-Account.",
+    "USERNAME": "Benutzername",
+    "CONFIRM_PASSWORD": "Passwort wiederholen",
+    "USER_REGISTERED": "Benutzer erfolgreich registriert.",
+
+    "REQUEST_PASSWORD_RESET": "Passwort zurücksetzen",
+    "RESET": "Zurücksetzen"
+
+
 
 }

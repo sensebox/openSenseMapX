@@ -7,6 +7,8 @@ import { SessionService } from './models/session/state/session.service';
 import { UiService } from './models/ui/state/ui.service';
 import { PhenomenonService } from './models/phenomenon/state/phenomenon.service';
 import { UnitService } from './models/unit/state/unit.service';
+import * as bulmaToast from 'bulma-toast'
+import { ToasterConfig, ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'osem-root',
@@ -25,6 +27,10 @@ export class AppComponent {
   infoPheno$ = this.uiQuery.selectInfoPheno$;
   showDateModal$ = this.uiQuery.selectShowDateModal$;
 
+  toastConfig = new ToasterConfig({
+    showCloseButton: true
+  });
+
 
   constructor(
     private translate: TranslateService,
@@ -34,6 +40,7 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute,
     private phenoService: PhenomenonService,
     private unitService: UnitService,
+    private toasterService: ToasterService,
     private uiService: UiService){
 
       //set default language to german, TODO: check browser language
@@ -52,7 +59,8 @@ export class AppComponent {
       // get all the phenomenons and units that can be displayed on opensensemap (maybe find better way to do this? e.g. populate in sensor wiki)
       this.phenoService.get().subscribe();
       this.unitService.get().subscribe();
-  }
+
+    }
 
   closeIntro(){
     this.intro = false;

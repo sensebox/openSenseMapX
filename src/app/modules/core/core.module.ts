@@ -51,6 +51,6 @@ import { VisFormComponent } from './vis-form/vis-form.component';
     multi: true
   }
 ],
-  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent],
+  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent, SidebarBreadcrumbsComponent],
 })
 export class CoreModule { }

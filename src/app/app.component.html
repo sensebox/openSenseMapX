@@ -59,20 +59,25 @@
 
 
 <div id="osem-sidebar" class="px-2 py-2" [class.active]="sidebarOutlet.isActivated">
-    <div id="sidebar-header" class="level">
-        <div class="level-left">
-        </div>
-        <div class="level-right">
-            <div class="osem-close-text-no-pos" (click)="closeSidebar()">
-                <button class="delete is-medium"></button>
+    <div class="osem-sidebar-page">
+        <div id="sidebar-header" class="level">
+            <div class="level-left">
+                <osem-sidebar-breadcrumbs></osem-sidebar-breadcrumbs>
+            </div>
+            <div class="level-right">
+                <div class="osem-close-text-no-pos" (click)="closeSidebar()">
+                    <button class="delete is-medium"></button>
+                </div>
             </div>
         </div>
+    
+        <router-outlet name="sidebar" #sidebarOutlet="outlet"></router-outlet>
     </div>
-
-    <router-outlet name="sidebar" #sidebarOutlet="outlet"></router-outlet>
 </div>
 
 
 <osem-datetime-modal-container *ngIf="showDateModal$ | async">
 
 </osem-datetime-modal-container>
+
+<toaster-container [toasterconfig]="toastConfig"></toaster-container>

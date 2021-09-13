@@ -2,20 +2,18 @@
     <h2 class="title">{{'REGISTER' | translate}}</h2>
 
     <p>
-        {{'REGISTER YOUR NEW ACCOUNT HERE'}}
+        {{'REGISTER_YOUR_NEW_ACCOUNT' | translate}}
     </p>
     <form [formGroup]="registerForm" (ngSubmit)="register()">
 
         <div class="field">
             <p class="control has-icons-left has-icons-right">
-                <input formControlName="name" class="input" type="text" placeholder="Username">
+                <input formControlName="name" class="input" type="text" placeholder="{{'USERNAME' | translate}}">
                 <span class="icon is-small is-left">
                     <i class="fa fa-user"></i>
                 </span>
-                <span class="icon is-small is-right">
-                    <i class="fa fa-check"></i>
-                </span>
             </p>
+            <osem-control-message [control]="registerForm.controls.name"></osem-control-message>
         </div>
 
         <div class="field">
@@ -24,28 +22,30 @@
                 <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                 </span>
-                <span class="icon is-small is-right">
-                    <i class="fa fa-check"></i>
-                </span>
             </p>
+            <osem-control-message [control]="registerForm.controls.email"></osem-control-message>
         </div>
 
         <div class="field">
             <p class="control has-icons-left">
-                <input formControlName="password" class="input" type="password" placeholder="Password">
+                <input formControlName="password" class="input" type="password" placeholder="{{'PASSWORD' | translate}}">
                 <span class="icon is-small is-left">
                     <i class="fa fa-lock"></i>
                 </span>
             </p>
+            <osem-control-message [control]="registerForm.controls.password"></osem-control-message>
+
         </div>
 
         <div class="field">
             <p class="control has-icons-left">
-                <input formControlName="confirmPassword" class="input" type="password" placeholder="Confirm Password">
+                <input formControlName="confirmPassword" class="input" type="password" placeholder="{{'CONFIRM_PASSWORD' | translate}}">
                 <span class="icon is-small is-left">
                     <i class="fa fa-lock"></i>
                 </span>
             </p>
+            <osem-control-message [control]="registerForm.controls.confirmPassword"></osem-control-message>
+
         </div>
 
         <div class="field">

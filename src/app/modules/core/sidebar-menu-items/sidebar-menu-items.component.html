@@ -10,6 +10,9 @@
       </ng-container>
       <ng-container *ngIf="!(loggedIn$ | async)">
         <ul class="menu-list">
+          <li><a [routerLink]="['',{ outlets: { sidebar: ['register'] }}]" queryParamsHandling="merge">{{'REGISTER' | translate}}</a></li>
+        </ul>
+        <ul class="menu-list">
           <li><a [routerLink]="['',{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">{{'LOGIN' | translate}}</a></li>
         </ul>
       </ng-container>

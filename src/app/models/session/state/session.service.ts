@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { ID } from '@datorama/akita';
 import { SessionStore } from './session.store';
 import { SessionQuery } from './session.query';
@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
+import { ToasterService } from 'angular2-toaster';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {
@@ -16,6 +18,9 @@ export class SessionService {
     private sessionStore: SessionStore, 
     private sessionQuery: SessionQuery, 
     private router: Router,
+    private translateService: TranslateService,
+    private toasterService: ToasterService,
+    private ngZone : NgZone,
     private http: HttpClient) {
 
   }
@@ -34,9 +39,15 @@ export class SessionService {
         this.getUserDetails();
         this.router.navigate([{ outlets: { sidebar: [ 'm' ] }}]);
         
+        this.toasterService.pop('success', '', 'Logged In');
+
 
     }, err => {
       console.log(err);
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
+
     });
   }
 
@@ -45,7 +56,9 @@ export class SessionService {
     window.localStorage.removeItem('sb_accesstoken');
     window.localStorage.removeItem('sb_refreshtoken');
     this.router.navigate([{ outlets: { sidebar: null }}]);
-    this.sessionStore.logout()
+    this.sessionStore.logout();
+    this.toasterService.pop('success', '', 'Logged out');
+
   }
 
   getAccessToken(){
@@ -134,7 +147,7 @@ export class SessionService {
       // this.errorMessage$.next(err.error.message);
     });
   }
-  
+
   deleteAccount(data){
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
@@ -168,9 +181,12 @@ export class SessionService {
 
   register(data){
     this.http.post(this.AUTH_API_URL + '/users/register', data).subscribe((res:any) => {
-      console.log(res);
+      this.toasterService.pop('success', '', this.translateService.instant('USER_REGISTERED'));
+      this.router.navigate([{ outlets: { sidebar: [ 'login' ] }}]);
     }, err => {
-      console.log(err);
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
       // this.errorMessage$.next(err.error.message);
     });
   }
