@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{b4d0889c-bed7-4067-ae14-160f5f22fd17}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectView>ProjectFiles</ProjectView>
+    <StartupFile />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <EnableTypeScript>true</EnableTypeScript>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="angular.json" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="tsconfig.app.json" />
+    <None Include="tsconfig.json" />
+    <Content Include="tsconfig.spec.json" />
+    <Content Include="tslint.json" />
+    <Content Include="Coding.md" />
+    <Content Include="README.md" />
+    <None Include="e2e\tsconfig.json" />
+    <Content Include="src\index.html" />
+    <Content Include="src\favicon.ico" />
+    <None Include="src\main.ts" />
+    <None Include="src\polyfills.ts" />
+    <None Include="src\test.ts" />
+    <None Include="src\typings.d.ts" />
+    <None Include="e2e\src\app.e2e-spec.ts" />
+    <None Include="e2e\src\app.po.ts" />
+    <Content Include="src\app\app.component.html" />
+    <None Include="src\app\app-routing.module.ts" />
+    <None Include="src\app\app.component.spec.ts" />
+    <None Include="src\app\app.component.ts" />
+    <None Include="src\app\app.module.ts" />
+    <None Include="src\environments\environment.prod.ts" />
+    <None Include="src\environments\environment.ts" />
+    <None Include="src\app\helper\animations.ts" />
+    <None Include="src\app\helper\IntervalTimer.ts" />
+    <None Include="src\app\helper\sensorIcons.ts" />
+    <None Include="src\app\services\theme.service.spec.ts" />
+    <None Include="src\app\services\theme.service.ts" />
+    <None Include="src\app\models\filter\filter.model.ts" />
+    <None Include="src\app\models\box\state\box.model.ts" />
+    <None Include="src\app\models\box\state\box.query.ts" />
+    <None Include="src\app\models\box\state\box.service.ts" />
+    <None Include="src\app\models\box\state\box.store.ts" />
+    <None Include="src\app\models\createbox\state\createbox.query.ts" />
+    <None Include="src\app\models\createbox\state\createbox.store.ts" />
+    <None Include="src\app\models\createbox\state\ui.service.ts" />
+    <None Include="src\app\models\device\state\device.model.ts" />
+    <None Include="src\app\models\device\state\device.query.ts" />
+    <None Include="src\app\models\device\state\device.service.ts" />
+    <None Include="src\app\models\device\state\device.store.ts" />
+    <None Include="src\app\models\sensor\state\sensor.model.ts" />
+    <None Include="src\app\models\sensor\state\sensor.query.ts" />
+    <None Include="src\app\models\sensor\state\sensor.service.ts" />
+    <None Include="src\app\models\sensor\state\sensor.store.ts" />
+    <None Include="src\app\models\session\state\session.model.ts" />
+    <None Include="src\app\models\session\state\session.query.ts" />
+    <None Include="src\app\models\session\state\session.service.ts" />
+    <None Include="src\app\models\session\state\session.store.ts" />
+    <None Include="src\app\models\ui\state\layers.ts" />
+    <None Include="src\app\models\ui\state\ui.model.ts" />
+    <None Include="src\app\models\ui\state\ui.query.ts" />
+    <None Include="src\app\models\ui\state\ui.service.ts" />
+    <None Include="src\app\models\ui\state\ui.store.ts" />
+    <None Include="src\app\models\vis\state\vis.model.ts" />
+    <None Include="src\app\models\vis\state\vis.query.ts" />
+    <None Include="src\app\models\vis\state\vis.service.ts" />
+    <None Include="src\app\models\vis\state\vis.store.ts" />
+    <None Include="src\app\modules\core\core.module.ts" />
+    <None Include="src\app\modules\explore\explore.module.ts" />
+    <None Include="src\app\modules\profile\profile-routing.module.ts" />
+    <None Include="src\app\modules\profile\profile.module.ts" />
+    <None Include="src\app\modules\shared\shared.module.ts" />
+    <Content Include="src\app\modules\core\about\about.component.html" />
+    <None Include="src\app\modules\core\about\about.component.spec.ts" />
+    <None Include="src\app\modules\core\about\about.component.ts" />
+    <Content Include="src\app\modules\core\bottom-bar-container\bottom-bar-container.component.html" />
+    <None Include="src\app\modules\core\bottom-bar-container\bottom-bar-container.component.spec.ts" />
+    <None Include="src\app\modules\core\bottom-bar-container\bottom-bar-container.component.ts" />
+    <Content Include="src\app\modules\core\contact\contact.component.html" />
+    <None Include="src\app\modules\core\contact\contact.component.spec.ts" />
+    <None Include="src\app\modules\core\contact\contact.component.ts" />
+    <Content Include="src\app\modules\core\impressum\impressum.component.html" />
+    <None Include="src\app\modules\core\impressum\impressum.component.spec.ts" />
+    <None Include="src\app\modules\core\impressum\impressum.component.ts" />
+    <None Include="src\app\modules\core\interceptors\token-interceptor.ts" />
+    <Content Include="src\app\modules\core\new-vis\new-vis.component.html" />
+    <None Include="src\app\modules\core\new-vis\new-vis.component.spec.ts" />
+    <None Include="src\app\modules\core\new-vis\new-vis.component.ts" />
+    <Content Include="src\app\modules\core\new-vis-container\new-vis-container.component.html" />
+    <None Include="src\app\modules\core\new-vis-container\new-vis-container.component.spec.ts" />
+    <None Include="src\app\modules\core\new-vis-container\new-vis-container.component.ts" />
+    <Content Include="src\app\modules\core\pheno-info\pheno-info.component.html" />
+    <None Include="src\app\modules\core\pheno-info\pheno-info.component.spec.ts" />
+    <None Include="src\app\modules\core\pheno-info\pheno-info.component.ts" />
+    <Content Include="src\app\modules\core\pheno-info-modal\pheno-info-modal.component.html" />
+    <None Include="src\app\modules\core\pheno-info-modal\pheno-info-modal.component.spec.ts" />
+    <None Include="src\app\modules\core\pheno-info-modal\pheno-info-modal.component.ts" />
+    <Content Include="src\app\modules\core\privacy\privacy.component.html" />
+    <None Include="src\app\modules\core\privacy\privacy.component.spec.ts" />
+    <None Include="src\app\modules\core\privacy\privacy.component.ts" />
+    <None Include="src\app\modules\core\services\validation.service.spec.ts" />
+    <None Include="src\app\modules\core\services\validation.service.ts" />
+    <Content Include="src\app\modules\core\sidebar-breadcrumbs\sidebar-breadcrumbs.component.html" />
+    <None Include="src\app\modules\core\sidebar-breadcrumbs\sidebar-breadcrumbs.component.spec.ts" />
+    <None Include="src\app\modules\core\sidebar-breadcrumbs\sidebar-breadcrumbs.component.ts" />
+    <Content Include="src\app\modules\core\sidebar-menu\sidebar-menu.component.html" />
+    <None Include="src\app\modules\core\sidebar-menu\sidebar-menu.component.spec.ts" />
+    <None Include="src\app\modules\core\sidebar-menu\sidebar-menu.component.ts" />
+    <Content Include="src\app\modules\core\sidebar-menu-items\sidebar-menu-items.component.html" />
+    <None Include="src\app\modules\core\sidebar-menu-items\sidebar-menu-items.component.spec.ts" />
+    <None Include="src\app\modules\core\sidebar-menu-items\sidebar-menu-items.component.ts" />
+    <Content Include="src\app\modules\core\vis-form\vis-form.component.html" />
+    <None Include="src\app\modules\core\vis-form\vis-form.component.spec.ts" />
+    <None Include="src\app\modules\core\vis-form\vis-form.component.ts" />
+    <Content Include="src\app\modules\core\filter\datepicker\datepicker.component.html" />
+    <None Include="src\app\modules\core\filter\datepicker\datepicker.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\datepicker\datepicker.component.ts" />
+    <Content Include="src\app\modules\core\filter\datetime-modal\datetime-modal.component.html" />
+    <None Include="src\app\modules\core\filter\datetime-modal\datetime-modal.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\datetime-modal\datetime-modal.component.ts" />
+    <Content Include="src\app\modules\core\filter\datetime-modal-container\datetime-modal-container.component.html" />
+    <None Include="src\app\modules\core\filter\datetime-modal-container\datetime-modal-container.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\datetime-modal-container\datetime-modal-container.component.ts" />
+    <Content Include="src\app\modules\core\filter\filter\filter.component.html" />
+    <None Include="src\app\modules\core\filter\filter\filter.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\filter\filter.component.ts" />
+    <Content Include="src\app\modules\core\filter\filter-container\filter-container.component.html" />
+    <None Include="src\app\modules\core\filter\filter-container\filter-container.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\filter-container\filter-container.component.ts" />
+    <Content Include="src\app\modules\core\filter\filter-container-values\filter-container-values.component.html" />
+    <None Include="src\app\modules\core\filter\filter-container-values\filter-container-values.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\filter-container-values\filter-container-values.component.ts" />
+    <Content Include="src\app\modules\core\filter\filter-switcher\filter-switcher.component.html" />
+    <None Include="src\app\modules\core\filter\filter-switcher\filter-switcher.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\filter-switcher\filter-switcher.component.ts" />
+    <Content Include="src\app\modules\core\filter\filter-values\filter-values.component.html" />
+    <None Include="src\app\modules\core\filter\filter-values\filter-values.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\filter-values\filter-values.component.ts" />
+    <Content Include="src\app\modules\core\filter\phenomenon\phenomenon.component.html" />
+    <None Include="src\app\modules\core\filter\phenomenon\phenomenon.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\phenomenon\phenomenon.component.ts" />
+    <Content Include="src\app\modules\core\filter\search\search.component.html" />
+    <None Include="src\app\modules\core\filter\search\search.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\search\search.component.ts" />
+    <Content Include="src\app\modules\core\filter\search-container\search-container.component.html" />
+    <None Include="src\app\modules\core\filter\search-container\search-container.component.spec.ts" />
+    <None Include="src\app\modules\core\filter\search-container\search-container.component.ts" />
+    <Content Include="src\app\modules\core\nav\nav-container\nav-container.component.html" />
+    <None Include="src\app\modules\core\nav\nav-container\nav-container.component.spec.ts" />
+    <None Include="src\app\modules\core\nav\nav-container\nav-container.component.ts" />
+    <Content Include="src\app\modules\core\nav\nav-right\nav-right.component.html" />
+    <None Include="src\app\modules\core\nav\nav-right\nav-right.component.spec.ts" />
+    <None Include="src\app\modules\core\nav\nav-right\nav-right.component.ts" />
+    <Content Include="src\app\modules\core\vis\vis\vis.component.html" />
+    <None Include="src\app\modules\core\vis\vis\vis.component.spec.ts" />
+    <None Include="src\app\modules\core\vis\vis\vis.component.ts" />
+    <Content Include="src\app\modules\core\vis\vis-container\vis-container.component.html" />
+    <None Include="src\app\modules\core\vis\vis-container\vis-container.component.spec.ts" />
+    <None Include="src\app\modules\core\vis\vis-container\vis-container.component.ts" />
+    <None Include="src\app\modules\explore\services\map.service.spec.ts" />
+    <None Include="src\app\modules\explore\services\map.service.ts" />
+    <Content Include="src\app\modules\explore\box\box-chart\box-chart.component.html" />
+    <None Include="src\app\modules\explore\box\box-chart\box-chart.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\box-chart\box-chart.component.ts" />
+    <Content Include="src\app\modules\explore\box\box-compare-container\box-compare-container.component.html" />
+    <None Include="src\app\modules\explore\box\box-compare-container\box-compare-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\box-compare-container\box-compare-container.component.ts" />
+    <Content Include="src\app\modules\explore\box\box-compare-values\box-compare-values.component.html" />
+    <None Include="src\app\modules\explore\box\box-compare-values\box-compare-values.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\box-compare-values\box-compare-values.component.ts" />
+    <Content Include="src\app\modules\explore\box\box-container\box-container.component.html" />
+    <None Include="src\app\modules\explore\box\box-container\box-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\box-container\box-container.component.ts" />
+    <Content Include="src\app\modules\explore\box\box-single-container\box-single-container.component.html" />
+    <None Include="src\app\modules\explore\box\box-single-container\box-single-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\box-single-container\box-single-container.component.ts" />
+    <Content Include="src\app\modules\explore\box\box-single-values\box-single-values.component.html" />
+    <None Include="src\app\modules\explore\box\box-single-values\box-single-values.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\box-single-values\box-single-values.component.ts" />
+    <Content Include="src\app\modules\explore\box\box-values\box-values.component.html" />
+    <None Include="src\app\modules\explore\box\box-values\box-values.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\box-values\box-values.component.ts" />
+    <Content Include="src\app\modules\explore\box\chart-datepicker\chart-datepicker.component.html" />
+    <None Include="src\app\modules\explore\box\chart-datepicker\chart-datepicker.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\chart-datepicker\chart-datepicker.component.ts" />
+    <Content Include="src\app\modules\explore\box\osem-line-chart\osem-line-chart.component.html" />
+    <None Include="src\app\modules\explore\box\osem-line-chart\osem-line-chart.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\osem-line-chart\osem-line-chart.component.ts" />
+    <None Include="src\app\modules\explore\box\osem-line-chart\helper\helpers.ts" />
+    <None Include="src\app\modules\explore\box\osem-line-chart\helper\osem-chart-helper.ts" />
+    <Content Include="src\app\modules\explore\box\osem-line-chart\osem-line-series\osem-line-series.component.html" />
+    <None Include="src\app\modules\explore\box\osem-line-chart\osem-line-series\osem-line-series.component.spec.ts" />
+    <None Include="src\app\modules\explore\box\osem-line-chart\osem-line-series\osem-line-series.component.ts" />
+    <Content Include="src\app\modules\explore\legend\legend\legend.component.html" />
+    <None Include="src\app\modules\explore\legend\legend\legend.component.spec.ts" />
+    <None Include="src\app\modules\explore\legend\legend\legend.component.ts" />
+    <Content Include="src\app\modules\explore\legend\legend-container\legend-container.component.html" />
+    <None Include="src\app\modules\explore\legend\legend-container\legend-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\legend\legend-container\legend-container.component.ts" />
+    <Content Include="src\app\modules\explore\legend\legend-edit\legend-edit.component.html" />
+    <None Include="src\app\modules\explore\legend\legend-edit\legend-edit.component.spec.ts" />
+    <None Include="src\app\modules\explore\legend\legend-edit\legend-edit.component.ts" />
+    <Content Include="src\app\modules\explore\legend\legend-edit-container\legend-edit-container.component.html" />
+    <None Include="src\app\modules\explore\legend\legend-edit-container\legend-edit-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\legend\legend-edit-container\legend-edit-container.component.ts" />
+    <Content Include="src\app\modules\explore\map\base-map\base-map.component.html" />
+    <None Include="src\app\modules\explore\map\base-map\base-map.component.spec.ts" />
+    <None Include="src\app\modules\explore\map\base-map\base-map.component.ts" />
+    <Content Include="src\app\modules\explore\map\base-map-container\base-map-container.component.html" />
+    <None Include="src\app\modules\explore\map\base-map-container\base-map-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\map\base-map-container\base-map-container.component.ts" />
+    <Content Include="src\app\modules\explore\map\map-loading\map-loading.component.html" />
+    <None Include="src\app\modules\explore\map\map-loading\map-loading.component.spec.ts" />
+    <None Include="src\app\modules\explore\map\map-loading\map-loading.component.ts" />
+    <Content Include="src\app\modules\explore\map\map-options\map-options.component.html" />
+    <None Include="src\app\modules\explore\map\map-options\map-options.component.spec.ts" />
+    <None Include="src\app\modules\explore\map\map-options\map-options.component.ts" />
+    <Content Include="src\app\modules\explore\map\map-options-container\map-options-container.component.html" />
+    <None Include="src\app\modules\explore\map\map-options-container\map-options-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\map\map-options-container\map-options-container.component.ts" />
+    <Content Include="src\app\modules\explore\map\popup\popup.component.html" />
+    <None Include="src\app\modules\explore\map\popup\popup.component.spec.ts" />
+    <None Include="src\app\modules\explore\map\popup\popup.component.ts" />
+    <Content Include="src\app\modules\explore\map\popup-container\popup-container.component.html" />
+    <None Include="src\app\modules\explore\map\popup-container\popup-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\map\popup-container\popup-container.component.ts" />
+    <Content Include="src\app\modules\explore\timeSlider\time-slider\time-slider.component.html" />
+    <None Include="src\app\modules\explore\timeSlider\time-slider\time-slider.component.spec.ts" />
+    <None Include="src\app\modules\explore\timeSlider\time-slider\time-slider.component.ts" />
+    <Content Include="src\app\modules\explore\timeSlider\time-slider-container\time-slider-container.component.html" />
+    <None Include="src\app\modules\explore\timeSlider\time-slider-container\time-slider-container.component.spec.ts" />
+    <None Include="src\app\modules\explore\timeSlider\time-slider-container\time-slider-container.component.ts" />
+    <Content Include="src\app\modules\profile\dashboard\dashboard.component.html" />
+    <None Include="src\app\modules\profile\dashboard\dashboard.component.spec.ts" />
+    <None Include="src\app\modules\profile\dashboard\dashboard.component.ts" />
+    <Content Include="src\app\modules\profile\dashboard-container\dashboard-container.component.html" />
+    <None Include="src\app\modules\profile\dashboard-container\dashboard-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\dashboard-container\dashboard-container.component.ts" />
+    <Content Include="src\app\modules\profile\login\login.component.html" />
+    <None Include="src\app\modules\profile\login\login.component.spec.ts" />
+    <None Include="src\app\modules\profile\login\login.component.ts" />
+    <Content Include="src\app\modules\profile\login-container\login-container.component.html" />
+    <None Include="src\app\modules\profile\login-container\login-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\login-container\login-container.component.ts" />
+    <Content Include="src\app\modules\profile\my-boxes\my-boxes.component.html" />
+    <None Include="src\app\modules\profile\my-boxes\my-boxes.component.spec.ts" />
+    <None Include="src\app\modules\profile\my-boxes\my-boxes.component.ts" />
+    <Content Include="src\app\modules\profile\my-boxes-container\my-boxes-container.component.html" />
+    <None Include="src\app\modules\profile\my-boxes-container\my-boxes-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\my-boxes-container\my-boxes-container.component.ts" />
+    <Content Include="src\app\modules\profile\profile-boxes\profile-boxes.component.html" />
+    <None Include="src\app\modules\profile\profile-boxes\profile-boxes.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-boxes\profile-boxes.component.ts" />
+    <Content Include="src\app\modules\profile\profile-boxes-container\profile-boxes-container.component.html" />
+    <None Include="src\app\modules\profile\profile-boxes-container\profile-boxes-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-boxes-container\profile-boxes-container.component.ts" />
+    <Content Include="src\app\modules\profile\profile-breadcrumbs\profile-breadcrumbs.component.html" />
+    <None Include="src\app\modules\profile\profile-breadcrumbs\profile-breadcrumbs.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-breadcrumbs\profile-breadcrumbs.component.ts" />
+    <Content Include="src\app\modules\profile\profile-container\profile-container.component.html" />
+    <None Include="src\app\modules\profile\profile-container\profile-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-container\profile-container.component.ts" />
+    <Content Include="src\app\modules\profile\profile-nav-container\profile-nav-container.component.html" />
+    <None Include="src\app\modules\profile\profile-nav-container\profile-nav-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-nav-container\profile-nav-container.component.ts" />
+    <Content Include="src\app\modules\profile\profile-vis\profile-vis.component.html" />
+    <None Include="src\app\modules\profile\profile-vis\profile-vis.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-vis\profile-vis.component.ts" />
+    <Content Include="src\app\modules\profile\profile-vis-container\profile-vis-container.component.html" />
+    <None Include="src\app\modules\profile\profile-vis-container\profile-vis-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-vis-container\profile-vis-container.component.ts" />
+    <Content Include="src\app\modules\profile\profile-wrapper\profile-wrapper.component.html" />
+    <None Include="src\app\modules\profile\profile-wrapper\profile-wrapper.component.spec.ts" />
+    <None Include="src\app\modules\profile\profile-wrapper\profile-wrapper.component.ts" />
+    <Content Include="src\app\modules\profile\register\register.component.html" />
+    <None Include="src\app\modules\profile\register\register.component.spec.ts" />
+    <None Include="src\app\modules\profile\register\register.component.ts" />
+    <Content Include="src\app\modules\profile\register-container\register-container.component.html" />
+    <None Include="src\app\modules\profile\register-container\register-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\register-container\register-container.component.ts" />
+    <None Include="src\app\modules\profile\services\auth-guard.service.ts" />
+    <Content Include="src\app\modules\profile\box-create\profile-box-create-container\profile-box-create-container.component.html" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-container\profile-box-create-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-container\profile-box-create-container.component.ts" />
+    <Content Include="src\app\modules\profile\box-create\profile-box-create-device\profile-box-create-device.component.html" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-device\profile-box-create-device.component.spec.ts" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-device\profile-box-create-device.component.ts" />
+    <Content Include="src\app\modules\profile\box-create\profile-box-create-device-container\profile-box-create-device-container.component.html" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-device-container\profile-box-create-device-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-device-container\profile-box-create-device-container.component.ts" />
+    <Content Include="src\app\modules\profile\box-create\profile-box-create-general\profile-box-create-general.component.html" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-general\profile-box-create-general.component.spec.ts" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-general\profile-box-create-general.component.ts" />
+    <Content Include="src\app\modules\profile\box-create\profile-box-create-general-container\profile-box-create-general-container.component.html" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-general-container\profile-box-create-general-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-general-container\profile-box-create-general-container.component.ts" />
+    <Content Include="src\app\modules\profile\box-create\profile-box-create-sensors\profile-box-create-sensors.component.html" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-sensors\profile-box-create-sensors.component.spec.ts" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-sensors\profile-box-create-sensors.component.ts" />
+    <Content Include="src\app\modules\profile\box-create\profile-box-create-sensors-container\profile-box-create-sensors-container.component.html" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-sensors-container\profile-box-create-sensors-container.component.spec.ts" />
+    <None Include="src\app\modules\profile\box-create\profile-box-create-sensors-container\profile-box-create-sensors-container.component.ts" />
+    <Content Include="src\app\modules\shared\control-message\control-message.component.html" />
+    <None Include="src\app\modules\shared\control-message\control-message.component.spec.ts" />
+    <None Include="src\app\modules\shared\control-message\control-message.component.ts" />
+    <Content Include="src\app\modules\shared\form-input\form-input.component.html" />
+    <None Include="src\app\modules\shared\form-input\form-input.component.spec.ts" />
+    <None Include="src\app\modules\shared\form-input\form-input.component.ts" />
+    <Content Include="src\app\modules\shared\loading\loading.component.html" />
+    <None Include="src\app\modules\shared\loading\loading.component.spec.ts" />
+    <None Include="src\app\modules\shared\loading\loading.component.ts" />
+    <Content Include="src\assets\data\data-normalized.json" />
+    <Content Include="src\assets\data\start-data.json" />
+    <Content Include="src\assets\data\vis.json" />
+    <Content Include="src\assets\data\world.json" />
+    <Content Include="src\assets\i18n\de-DE.json" />
+    <Content Include="src\assets\i18n\en-US.json" />
+    <Content Include="src\assets\img\favicon.svg" />
+    <Content Include="src\assets\fonts\Lato\OFL.txt" />
+    <Content Include="src\assets\img\logos\prototypefund.png" />
+    <Content Include="src\assets\img\logos\bmbf.jpg" />
+    <Content Include="src\assets\img\logos\osem.svg" />
+    <Content Include="src\assets\img\userimg\vis\0.png" />
+    <Content Include="src\assets\img\userimg\vis\1.png" />
+    <Content Include="src\assets\img\userimg\vis\0_thumb.jpg" />
+    <Content Include="src\assets\img\userimg\vis\1_thumb.jpg" />
+    <Content Include="src\styles\icons\opensensemap.svg" />
+    <Content Include="src\styles\fonts\lato-v16-latin\lato-v16-latin-900.svg" />
+    <Content Include="src\styles\fonts\lato-v16-latin\lato-v16-latin-regular.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="e2e" />
+    <Folder Include="e2e\src" />
+    <Folder Include="openSenseMapX" />
+    <Folder Include="src" />
+    <Folder Include="src\app" />
+    <Folder Include="src\app\helper" />
+    <Folder Include="src\app\models" />
+    <Folder Include="src\app\models\box" />
+    <Folder Include="src\app\models\box\state" />
+    <Folder Include="src\app\models\createbox" />
+    <Folder Include="src\app\models\createbox\state" />
+    <Folder Include="src\app\models\device" />
+    <Folder Include="src\app\models\device\state" />
+    <Folder Include="src\app\models\filter" />
+    <Folder Include="src\app\models\sensor" />
+    <Folder Include="src\app\models\sensor\state" />
+    <Folder Include="src\app\models\session" />
+    <Folder Include="src\app\models\session\state" />
+    <Folder Include="src\app\models\ui" />
+    <Folder Include="src\app\models\ui\state" />
+    <Folder Include="src\app\models\vis" />
+    <Folder Include="src\app\models\vis\state" />
+    <Folder Include="src\app\modules" />
+    <Folder Include="src\app\modules\core" />
+    <Folder Include="src\app\modules\core\about" />
+    <Folder Include="src\app\modules\core\bottom-bar-container" />
+    <Folder Include="src\app\modules\core\contact" />
+    <Folder Include="src\app\modules\core\filter" />
+    <Folder Include="src\app\modules\core\filter\datepicker" />
+    <Folder Include="src\app\modules\core\filter\datetime-modal" />
+    <Folder Include="src\app\modules\core\filter\datetime-modal-container" />
+    <Folder Include="src\app\modules\core\filter\filter" />
+    <Folder Include="src\app\modules\core\filter\filter-container" />
+    <Folder Include="src\app\modules\core\filter\filter-container-values" />
+    <Folder Include="src\app\modules\core\filter\filter-switcher" />
+    <Folder Include="src\app\modules\core\filter\filter-values" />
+    <Folder Include="src\app\modules\core\filter\phenomenon" />
+    <Folder Include="src\app\modules\core\filter\search" />
+    <Folder Include="src\app\modules\core\filter\search-container" />
+    <Folder Include="src\app\modules\core\impressum" />
+    <Folder Include="src\app\modules\core\interceptors" />
+    <Folder Include="src\app\modules\core\nav" />
+    <Folder Include="src\app\modules\core\nav\nav-container" />
+    <Folder Include="src\app\modules\core\nav\nav-right" />
+    <Folder Include="src\app\modules\core\new-vis" />
+    <Folder Include="src\app\modules\core\new-vis-container" />
+    <Folder Include="src\app\modules\core\pheno-info" />
+    <Folder Include="src\app\modules\core\pheno-info-modal" />
+    <Folder Include="src\app\modules\core\privacy" />
+    <Folder Include="src\app\modules\core\services" />
+    <Folder Include="src\app\modules\core\sidebar-breadcrumbs" />
+    <Folder Include="src\app\modules\core\sidebar-menu" />
+    <Folder Include="src\app\modules\core\sidebar-menu-items" />
+    <Folder Include="src\app\modules\core\vis" />
+    <Folder Include="src\app\modules\core\vis\vis" />
+    <Folder Include="src\app\modules\core\vis\vis-container" />
+    <Folder Include="src\app\modules\core\vis-form" />
+    <Folder Include="src\app\modules\explore" />
+    <Folder Include="src\app\modules\explore\box" />
+    <Folder Include="src\app\modules\explore\box\box-chart" />
+    <Folder Include="src\app\modules\explore\box\box-compare-container" />
+    <Folder Include="src\app\modules\explore\box\box-compare-values" />
+    <Folder Include="src\app\modules\explore\box\box-container" />
+    <Folder Include="src\app\modules\explore\box\box-single-container" />
+    <Folder Include="src\app\modules\explore\box\box-single-values" />
+    <Folder Include="src\app\modules\explore\box\box-values" />
+    <Folder Include="src\app\modules\explore\box\chart-datepicker" />
+    <Folder Include="src\app\modules\explore\box\osem-line-chart" />
+    <Folder Include="src\app\modules\explore\box\osem-line-chart\helper" />
+    <Folder Include="src\app\modules\explore\box\osem-line-chart\osem-line-series" />
+    <Folder Include="src\app\modules\explore\legend" />
+    <Folder Include="src\app\modules\explore\legend\legend" />
+    <Folder Include="src\app\modules\explore\legend\legend-container" />
+    <Folder Include="src\app\modules\explore\legend\legend-edit" />
+    <Folder Include="src\app\modules\explore\legend\legend-edit-container" />
+    <Folder Include="src\app\modules\explore\map" />
+    <Folder Include="src\app\modules\explore\map\base-map" />
+    <Folder Include="src\app\modules\explore\map\base-map-container" />
+    <Folder Include="src\app\modules\explore\map\map-loading" />
+    <Folder Include="src\app\modules\explore\map\map-options" />
+    <Folder Include="src\app\modules\explore\map\map-options-container" />
+    <Folder Include="src\app\modules\explore\map\popup" />
+    <Folder Include="src\app\modules\explore\map\popup-container" />
+    <Folder Include="src\app\modules\explore\services" />
+    <Folder Include="src\app\modules\explore\timeSlider" />
+    <Folder Include="src\app\modules\explore\timeSlider\time-slider" />
+    <Folder Include="src\app\modules\explore\timeSlider\time-slider-container" />
+    <Folder Include="src\app\modules\profile" />
+    <Folder Include="src\app\modules\profile\box-create" />
+    <Folder Include="src\app\modules\profile\box-create\profile-box-create-container" />
+    <Folder Include="src\app\modules\profile\box-create\profile-box-create-device" />
+    <Folder Include="src\app\modules\profile\box-create\profile-box-create-device-container" />
+    <Folder Include="src\app\modules\profile\box-create\profile-box-create-general" />
+    <Folder Include="src\app\modules\profile\box-create\profile-box-create-general-container" />
+    <Folder Include="src\app\modules\profile\box-create\profile-box-create-sensors" />
+    <Folder Include="src\app\modules\profile\box-create\profile-box-create-sensors-container" />
+    <Folder Include="src\app\modules\profile\dashboard" />
+    <Folder Include="src\app\modules\profile\dashboard-container" />
+    <Folder Include="src\app\modules\profile\login" />
+    <Folder Include="src\app\modules\profile\login-container" />
+    <Folder Include="src\app\modules\profile\my-boxes" />
+    <Folder Include="src\app\modules\profile\my-boxes-container" />
+    <Folder Include="src\app\modules\profile\profile-boxes" />
+    <Folder Include="src\app\modules\profile\profile-boxes-container" />
+    <Folder Include="src\app\modules\profile\profile-breadcrumbs" />
+    <Folder Include="src\app\modules\profile\profile-container" />
+    <Folder Include="src\app\modules\profile\profile-nav-container" />
+    <Folder Include="src\app\modules\profile\profile-vis" />
+    <Folder Include="src\app\modules\profile\profile-vis-container" />
+    <Folder Include="src\app\modules\profile\profile-wrapper" />
+    <Folder Include="src\app\modules\profile\register" />
+    <Folder Include="src\app\modules\profile\register-container" />
+    <Folder Include="src\app\modules\profile\services" />
+    <Folder Include="src\app\modules\shared" />
+    <Folder Include="src\app\modules\shared\control-message" />
+    <Folder Include="src\app\modules\shared\form-input" />
+    <Folder Include="src\app\modules\shared\loading" />
+    <Folder Include="src\app\services" />
+    <Folder Include="src\assets" />
+    <Folder Include="src\assets\data" />
+    <Folder Include="src\assets\fonts" />
+    <Folder Include="src\assets\fonts\Lato" />
+    <Folder Include="src\assets\i18n" />
+    <Folder Include="src\assets\img" />
+    <Folder Include="src\assets\img\logos" />
+    <Folder Include="src\assets\img\userimg" />
+    <Folder Include="src\assets\img\userimg\vis" />
+    <Folder Include="src\environments" />
+    <Folder Include="src\styles" />
+    <Folder Include="src\styles\fonts" />
+    <Folder Include="src\styles\fonts\lato-v16-latin" />
+    <Folder Include="src\styles\general" />
+    <Folder Include="src\styles\icons" />
+    <Folder Include="src\styles\themes" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
