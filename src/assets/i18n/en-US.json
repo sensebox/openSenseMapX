@@ -166,8 +166,8 @@
     "FORGOT_PASSWORD": "Forgot password?",
     "PASSWORD": "Password",
     "EMAIL": "Email",
-    "GERMAN": "Deutsch",
-    "ENGLISH": "Englisch",
+    "GERMAN": "German",
+    "ENGLISH": "English",
 
     "REGISTER": "Register",
     "REGISTER_YOUR_NEW_ACCOUNT": "Register your new openSenseMap-Account.",
@@ -191,6 +191,21 @@
     "PROFILE_UPDATED": "Profile updated.",
 
     "NEW_PASSWORD": "New password",
-    "CONFIRM_NEW_PASSWORD": "Confirm new password"
+    "CONFIRM_NEW_PASSWORD": "Confirm new password",
+
+    "YOU_HAVE": "You have",
+    "REGISTERED_BOXES_INFO": "Create a new senseBox by clicking \"new\" or check out our documentation.",
+
+    "NEW": "New",
+    "DOCUMENTATION": "Documentation",
+    "FORUM": "Forum",
+    "SHOW_MY_BOXES_ON_MAP": "Show my stations on map",
+
+
+    "EDIT": "Edit",
+    "DATA_UPLOAD": "Upload data",
+    "SUPPORT": "Support"
+
+
 
 }

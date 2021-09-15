@@ -1,19 +1,51 @@
 
 <div class="py-2">
-  <div>
+  <div class="notification">
     <p class="subtitle is-4">
-      {{'YOU_HAVE' | translate}} {{boxes.length}} {{'BOXES' | translate}}
+      {{'YOU_HAVE' | translate}} {{sorted_boxes.length}} {{'BOXES' | translate}}
     </p>
-    <p>{{'ACCOUNT_NEW_SENSEBOX' | translate}}</p>
-    <div class="buttons pb-3">
+    <p>{{'REGISTERED_BOXES_INFO' | translate}}</p>
+    <div class="buttons py-3 are-normal">
       <button [routerLink]="['../newbox']" queryParamsHandling="merge" class="button is-primary">{{'NEW' | translate}}</button>
-      <button [routerLink]="['https://sensebox.de/de/go-home']" class="button is-primary">{{'DOCUMENTATION' | translate}}</button>
-      <button (click)="showMyBoxesOnMap()" class="button is-primary">{{'SHOW_MY_BOXES_ON_MAP' | translate}}</button>
+      <a href="https://sensebox.de/de/go-home" target="_blank" class="button">{{'DOCUMENTATION' | translate}}</a>
+      <a href="https://forum.sensebox.de" target="_blank" class="button">{{'FORUM' | translate}}</a>
+      <button (click)="showMyBoxesOnMap()" class="button">{{'SHOW_MY_BOXES_ON_MAP' | translate}}</button>
     </div>
   </div>
-  
+  <div class="is-clearfix">
+    <div class="is-pulled-right">
+        <button 
+          class="button is-small" 
+          (click)="setListStyle('list')"
+          [class.is-active]="listStyle === 'list'">
+          <span class="icon is-small">
+            <i class="fa fa-bars"></i>
+          </span>
+        </button>
+        <button 
+          class="button is-small mr-2" 
+          (click)="setListStyle('boxes')"
+          [class.is-active]="listStyle === 'boxes'">
+          <span class="icon is-small">
+            <i class="fa fa-th-large"></i>
+          </span>
+        </button>
+      <div class="is-pulled-right">
+        <button class="button is-small" (click)="sort('desc')" [class.is-active]="sorting === 'desc'">
+          <span class="icon is-small">
+            <i class="fa fa-sort-numeric-up"></i>
+          </span>
+        </button>
+        <button class="button is-small" (click)="sort('asc')" [class.is-active]="sorting === 'asc'">
+          <span class="icon">
+            <i class="fa fa-sort-numeric-down"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
   <ul>
-    <li *ngFor="let box of boxes" class="my-2">
+    <li *ngFor="let box of sorted_boxes" class="my-2">
       <div 
         class="card" 
         [routerLink]="[box._id]"
@@ -38,36 +70,36 @@
         </div>
         <footer class="card-footer">
           <a class="card-footer-item">
-            <span class="icon-text">
+            <span class="has-text-centered">
               <span class="icon">
                 <i class="fa fa-map-marker-alt"></i>
-              </span>
+              </span><br>
               <span>{{'SHOW' | translate}}</span>
             </span>  
           </a>
           <a [routerLink]="[box._id]" queryParamsHandling="preserve" class="card-footer-item">
-            <span class="icon-text">
+            <span class="has-text-centered">
               <span class="icon">
                 <i class="fa fa-edit"></i>
-              </span>
+              </span><br>
               <span>{{'EDIT' | translate}}</span>
             </span>  
   
           </a>
           <a href="#" class="card-footer-item">
-            <span class="icon-text">
+            <span class="has-text-centered">
               <span class="icon">
                 <i class="fa fa-table"></i>
-              </span>
+              </span><br>
               <span>{{'DATA_UPLOAD' | translate}}</span>
             </span>  
             
           </a>
           <a href="#" class="card-footer-item">
-            <span class="icon-text">
+            <span class="has-text-centered">
               <span class="icon">
                 <i class="far fa-envelope"></i>
-              </span>
+              </span><br>
               <span>{{'SUPPORT' | translate}}</span>
             </span> 
   

@@ -6,7 +6,7 @@
        </div>
     </div>
     <div class="nav-item-container osem-box-shadow-basic">
-        <div *ngIf="!user" class="nav-item osem-disabled" [routerLink]="[{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">
+        <div *ngIf="!user" class="nav-item" [routerLink]="[{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">
             Login
         </div>
         <div *ngIf="user" class="nav-item" [routerLink]="[{ outlets: { sidebar: ['m','profile'] }}]" queryParamsHandling="merge">
