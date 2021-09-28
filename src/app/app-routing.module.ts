@@ -17,6 +17,7 @@ import { PrivacyComponent } from './modules/core/privacy/privacy.component';
 import { AboutComponent } from './modules/core/about/about.component';
 import { ContactComponent } from './modules/core/contact/contact.component';
 import { NewVisContainerComponent } from './modules/core/new-vis-container/new-vis-container.component';
+import { FaqComponent } from './modules/core/faq/faq.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
       loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
     },
     { path: 'about', component: AboutComponent, data: {name: 'About'}},
+    { path: 'faq', component: FaqComponent, data: {name: 'FAQ'}},
     { path: 'contact', component: ContactComponent, data: {name: 'Contact'}},
     { path: 'imprint', component: ImpressumComponent, data: {name: 'Imprint'}},
     { path: 'privacy', component: PrivacyComponent, data: {name: 'Privacy'}},

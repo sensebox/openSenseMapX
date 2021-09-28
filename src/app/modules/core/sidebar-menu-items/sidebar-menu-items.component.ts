@@ -20,5 +20,5 @@ export class SidebarMenuItemsComponent implements OnInit {
   logout() {
     this.sessionService.logout();
   }
-
+//
 }
