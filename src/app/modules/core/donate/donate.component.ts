@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'osem-donate',
@@ -29,11 +30,11 @@ export class DonateComponent implements OnInit {
 
   @ViewChild('content') div: ElementRef;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, private translate: TranslateService) {
     // Init Betterplace global variables
     window["_bp_iframe"] = {
       project_id: 89947, /* REQUIRED */
-      lang: 'de', /* Language of the form */
+      lang: this.translate.currentLang.split('-')[0], /* Language of the form */
       width: 600, /* Custom iframe-tag-width, integer */
       color: '357f68', /* Button and banderole color, hex without "#" */
       background_color: 'fff', /* Background-color, hex without "#" */
