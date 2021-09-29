@@ -17,6 +17,8 @@ import { PrivacyComponent } from './modules/core/privacy/privacy.component';
 import { AboutComponent } from './modules/core/about/about.component';
 import { ContactComponent } from './modules/core/contact/contact.component';
 import { NewVisContainerComponent } from './modules/core/new-vis-container/new-vis-container.component';
+import { DonateComponent } from './modules/core/donate/donate.component';
+import { ThanksComponent } from './modules/core/thanks/thanks.component';
 
 
 const routes: Routes = [
@@ -43,6 +45,8 @@ const routes: Routes = [
     { path: 'contact', component: ContactComponent, data: {name: 'Contact'}},
     { path: 'imprint', component: ImpressumComponent, data: {name: 'Imprint'}},
     { path: 'privacy', component: PrivacyComponent, data: {name: 'Privacy'}},
+    { path: 'donate', component: DonateComponent, data: {name: 'Privacy'}},
+    { path: 'thanks', component: ThanksComponent, data: {name: 'Privacy'}},
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},
