@@ -41,12 +41,12 @@ const routes: Routes = [
       path: 'profile',
       loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
     },
-    { path: 'about', component: AboutComponent, data: {name: 'About'}},
-    { path: 'contact', component: ContactComponent, data: {name: 'Contact'}},
-    { path: 'imprint', component: ImpressumComponent, data: {name: 'Imprint'}},
-    { path: 'privacy', component: PrivacyComponent, data: {name: 'Privacy'}},
-    { path: 'donate', component: DonateComponent, data: {name: 'Privacy'}},
-    { path: 'thanks', component: ThanksComponent, data: {name: 'Privacy'}},
+    { path: 'about', component: AboutComponent, data: {name: 'ABOUT'}},
+    { path: 'contact', component: ContactComponent, data: {name: 'CONTACT'}},
+    { path: 'imprint', component: ImpressumComponent, data: {name: 'IMPRINT'}},
+    { path: 'privacy', component: PrivacyComponent, data: {name: 'PRIVACY'}},
+    { path: 'donate', component: DonateComponent, data: {name: 'DONATE'}},
+    { path: 'thanks', component: ThanksComponent, data: {name: 'THANKS'}},
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},
