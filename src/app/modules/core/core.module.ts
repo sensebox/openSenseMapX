@@ -15,6 +15,8 @@ import { FilterComponent } from './filter/filter/filter.component';
 import { ExploreModule } from '../explore/explore.module';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { FaqComponent } from './faq/faq.component';
+import { DonateComponent } from './donate/donate.component';
+import { ThanksComponent } from './thanks/thanks.component';
 import { PhenoInfoComponent } from './pheno-info/pheno-info.component';
 import { PhenoInfoModalComponent } from './pheno-info-modal/pheno-info-modal.component';
 import { SharedModule } from '../shared/shared.module';
@@ -37,7 +39,7 @@ import { NewVisComponent } from './new-vis/new-vis.component';
 import { VisFormComponent } from './vis-form/vis-form.component';
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, FaqComponent, PhenoInfoComponent, PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent, NewVisComponent, VisFormComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoComponent, PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent, NewVisComponent, VisFormComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -52,6 +54,6 @@ import { VisFormComponent } from './vis-form/vis-form.component';
     multi: true
   }
 ],
-  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, FaqComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent],
+  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent],
 })
 export class CoreModule { }

@@ -6,11 +6,11 @@
         </a>
       </li>
       <ng-container  *ngFor="let menuitem of menuItems; last as isLast; let i = index" >
-        <li 
+        <li
           [class.is-active]="isLast" >
-          <a [routerLink]="['',{outlets: { sidebar: menuitem.url.substr(1)}}]" href="#">{{menuitem.label}}</a>
+          <a [routerLink]="['',{outlets: { sidebar: menuitem.url.substr(1)}}]" href="#">{{menuitem.label | translate}}</a>
         </li>
-  
+
       </ng-container>
     </ul>
 </nav>

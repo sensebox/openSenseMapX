@@ -18,6 +18,8 @@ import { AboutComponent } from './modules/core/about/about.component';
 import { ContactComponent } from './modules/core/contact/contact.component';
 import { NewVisContainerComponent } from './modules/core/new-vis-container/new-vis-container.component';
 import { FaqComponent } from './modules/core/faq/faq.component';
+import { DonateComponent } from './modules/core/donate/donate.component';
+import { ThanksComponent } from './modules/core/thanks/thanks.component';
 
 
 const routes: Routes = [
@@ -42,9 +44,12 @@ const routes: Routes = [
     },
     { path: 'about', component: AboutComponent, data: {name: 'About'}},
     { path: 'faq', component: FaqComponent, data: {name: 'FAQ'}},
-    { path: 'contact', component: ContactComponent, data: {name: 'Contact'}},
-    { path: 'imprint', component: ImpressumComponent, data: {name: 'Imprint'}},
-    { path: 'privacy', component: PrivacyComponent, data: {name: 'Privacy'}},
+    { path: 'about', component: AboutComponent, data: {name: 'ABOUT'}},
+    { path: 'contact', component: ContactComponent, data: {name: 'CONTACT'}},
+    { path: 'imprint', component: ImpressumComponent, data: {name: 'IMPRINT'}},
+    { path: 'privacy', component: PrivacyComponent, data: {name: 'PRIVACY'}},
+    { path: 'donate', component: DonateComponent, data: {name: 'DONATE'}},
+    { path: 'thanks', component: ThanksComponent, data: {name: 'THANKS'}},
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},
