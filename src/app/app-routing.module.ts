@@ -42,9 +42,9 @@ const routes: Routes = [
       path: 'profile',
       loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
     },
-    { path: 'about', component: AboutComponent, data: {name: 'About'}},
+    // { path: 'about', component: AboutComponent, data: {name: 'About'}},
     { path: 'faq', component: FaqComponent, data: {name: 'FAQ'}},
-    { path: 'about', component: AboutComponent, data: {name: 'ABOUT'}},
+    // { path: 'about', component: AboutComponent, data: {name: 'ABOUT'}},
     { path: 'contact', component: ContactComponent, data: {name: 'CONTACT'}},
     { path: 'imprint', component: ImpressumComponent, data: {name: 'IMPRINT'}},
     { path: 'privacy', component: PrivacyComponent, data: {name: 'PRIVACY'}},
