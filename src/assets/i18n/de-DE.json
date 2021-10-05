@@ -64,7 +64,8 @@
     "THANKS": "Förderer",
     "THANKSDONATION": "Danke!",
     "THANKSDONATION_TEXT": "Wir möchten uns ganz herzlich bei allen Spenderinnen und Spendern für ihre Mithilfe bedanken. <br> <br> Ihr helft uns dabei, besser werden zu können.",
-    "SPECIALTHANKS": "Ein ganz besonderer Dank geht an die folgenden Forscher*innen und Organisationen:",
+    "SPECIALTHANKS_ORGS": "Ein ganz besonderer Dank geht an die folgenden Organisationen:",
+    "SPECIALTHANKS_PERSONS": "Ein ganz besonderer Dank geht an die folgenden Forscher*innen:",
     "SUPPORT_TEXT": "Liebe Nutzer*innen,<br><br><p>Bildung und freier Zugang zu Wissen und Informationen sind die Triebkraft für positive Veränderungen in unserer Welt. Schulen, Forschungseinrichtungen, engagierte Bürger*innen, Hobbyforscher*innen, Journalist*innen und Umweltaktivist*innen weltweit nutzen die openSenseMap als freie Plattform für Umwelt-Daten.</p><p>Uns liegt es am Herzen, dass die openSenseMap weiterhin für alle kosten- und werbefrei zur Verfügung steht.</p><p><b>Daher brauchen wir dringend Eure Unterstützung!</b></p>Danke!<br><br>Euer openSenseMap.org Team",
 
     "MY_BOXES": "Meine Messstationen",
