@@ -44,7 +44,7 @@ export class AppComponent {
     private uiService: UiService){
 
       //set default language to german, TODO: check browser language
-      translate.setDefaultLang('de-DE');
+      translate.setDefaultLang('de_DE');
       this.language$.subscribe(lang => {
         translate.use(lang);
       })

@@ -6,6 +6,7 @@ import { map, flatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DeviceQuery } from 'src/app/models/device/state/device.query';
 import { PhenomenonQuery } from 'src/app/models/phenomenon/state/phenomenon.query';
+import { UnitQuery } from 'src/app/models/unit/state/unit.query';
 
 @Component({
   selector: 'osem-profile-box-create-sensors-container',
@@ -17,7 +18,8 @@ export class ProfileBoxCreateSensorsContainerComponent implements OnInit {
   selectedDevice$ = this.createboxQuery.selectSelectedDevice$;
   selectedSensors$ = this.createboxQuery.selectSelectedSensors$;
   selectedSensorElements$ = this.createboxQuery.selectSelectedSensorElements$;
-  selectPhenomenon$ = this.phenomenonQuery.selectAll({ asObject: true });
+  phenomena$ = this.phenomenonQuery.selectAll({ asObject: true });
+  units$ = this.unitQuery.selectAll({ asObject: true });
   deviceSub;
   loading$ = this.deviceQuery.selectLoading();
   sensors$;
@@ -27,6 +29,7 @@ export class ProfileBoxCreateSensorsContainerComponent implements OnInit {
     private createboxQuery: CreateboxQuery,
     private deviceQuery: DeviceQuery,
     private phenomenonQuery: PhenomenonQuery,
+    private unitQuery: UnitQuery,
     private deviceService: DeviceService) { }
 
   ngOnInit() {
@@ -55,6 +58,10 @@ export class ProfileBoxCreateSensorsContainerComponent implements OnInit {
   selectSensorElement(sensorElement){
     console.log("SELEEEECT SENSOR ELE", sensorElement)
     this.createboxService.selectSensorElement(sensorElement);
+  }
+
+  updateSensorElements(elements){
+    this.createboxService.updateSensorElements(elements);
   }
 
 }

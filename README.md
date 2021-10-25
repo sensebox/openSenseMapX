@@ -11,6 +11,8 @@ You will need an [openSenseMap-api](https://github.com/sensebox/opensensemap-api
 
 ## Packages used
 
+[Angular](https://angular.io/) Angular is used as the frontend Framework
+
 [Bulma](https://bulma.io/) Is used as the css framework for this application.
 
 [Akita](https://datorama.github.io/akita/) is used as the state management pattern.

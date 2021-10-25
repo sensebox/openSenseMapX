@@ -56,6 +56,12 @@ export class CreateboxStore extends Store<CreateboxState> {
       }
     })
   }
+
+  updateSensorElements(sensorElements) {
+    this.update( state => {
+        return { ...state, selectedSensorElements: sensorElements} 
+    })
+  }
 }
 
 

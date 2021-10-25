@@ -3,6 +3,7 @@ import { AkitaNgFormsManager } from '@datorama/akita-ng-forms-manager';
 import { CreateboxQuery } from 'src/app/models/createbox/state/createbox.query';
 import { CreateboxService } from 'src/app/models/createbox/state/createbox.service';
 import { PhenomenonQuery } from 'src/app/models/phenomenon/state/phenomenon.query';
+import { UnitQuery } from 'src/app/models/unit/state/unit.query';
 
 @Component({
   selector: 'osem-profile-box-create-summary-container',
@@ -17,12 +18,14 @@ export class ProfileBoxCreateSummaryContainerComponent implements OnInit {
   ttnForm = this.formsManager.getForm('ttn');
   mqttForm = this.formsManager.getForm('mqtt');
   selectPhenomenon$ = this.phenomenonQuery.selectAll({ asObject: true });
+  units$ = this.unitQuery.selectAll({ asObject: true });
 
 
   constructor(
     private createboxQuery: CreateboxQuery,
     private createBoxService: CreateboxService,
     private phenomenonQuery: PhenomenonQuery,
+    private unitQuery: UnitQuery,
     private formsManager: AkitaNgFormsManager) { }
 
   ngOnInit() {

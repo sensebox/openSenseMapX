@@ -46,7 +46,7 @@
               <tr *ngFor="let sensorElement of selectedSensorElements">
                 <td>{{sensorElement.sensor.label[0].value}}</td>
                 <td>{{phenomena[sensorElement.sensorElement.phenomenon].label[0].value}}</td>
-                <td>{{sensorElement.sensorElement.unit}}</td>
+                <td>{{units[sensorElement.sensorElement.unit].label}}</td>
               </tr>
             </tbody>
           </table>

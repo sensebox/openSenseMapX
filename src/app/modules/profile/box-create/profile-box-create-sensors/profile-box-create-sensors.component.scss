@@ -1,3 +1,91 @@
 .card {
     margin: 0.5em 0;
+    box-shadow: none;
+
+    .title.is-4 span {
+        font-size: 1.2rem;
+    }
+}
+
+label span {
+    position: relative;
+    top: 3px;
+    padding-left: 0.5em;
+}
+
+.visible label span {
+    color: var(--color-primary);
+}
+// .osem-sensor-group-header {
+//     padding: 2em 2em;
+//     margin-bottom: 2em;
+//     // background: whitesmoke;
+//     border-left: 3px solid whitesmoke;
+
+//     // border-left: 5px solid whitesmoke;
+
+//     h5 {
+//         border-bottom: 3px solid var(--text-color-primary);
+//         font-size: 1.45rem;
+//     }
+// }
+
+// // .osem-sensor-group {
+// //     display: none;
+// // }
+
+// // .visible .osem-sensor-group {
+// //     display: block;
+// // }
+
+// .selectable-card {
+//     border: 4px solid rgba(0, 0, 0, 0.15);
+
+//     &.selected {
+//         border-color: var(--color-primary);
+//     }
+//     &:hover {
+//         border-color: var(--color-primary-light);
+//     }
+// }
+
+
+.osem-sensor-group {
+    display: none;
+}
+
+.visible .osem-sensor-group {
+    display: block;
+}
+
+.message-header {
+    background: white;
+    color: var(--text-color-primary);
+}
+
+
+.media-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.message {
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 1px rgb(10 10 10 / 2%);
+}
+
+.media-left {
+    .image {
+        width: 100px;
+        height: 60px;
+    }
+}
+
+.subtitle {
+    font-weight: normal;
+    .fa {
+        font-size: 14px;
+        position: relative;
+        top: 1px;
+    }
 }

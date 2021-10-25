@@ -97,6 +97,7 @@
 
     "CREATED_AT": "Online seit",
     "SENSORS": "Sensoren",
+    "SENSOR": "Sensor",
     "STATE" : "Status",
     "LOCATION": "Exposure",
     "COMPARE_TO_OTHER_BOX": "Mit anderer Box vergleichen",
@@ -199,5 +200,43 @@
 
     "EDIT": "Editieren",
     "DATA_UPLOAD": "Daten hochladen",
-    "SUPPORT": "Hilfe"
+    "SUPPORT": "Hilfe",
+    "SHOW_ON_MAP": "Auf Karte anzeigen",
+    
+    "DEVICE": "Gerät",
+    "GENERAL": "Allgemein",
+    "ADVANCED": "Erweitert",
+    "SUMMARY": "Zusammenfassung",
+    
+    "CHOOSE_YOUR_DEVICE": "Wähle dein Gerät aus",
+    "WHICH_DEVICE_ARE_U_USING": "Was für Hardware benutzt du?",
+    "NEXT": "Weiter",
+    "DEVICE_NOT_AVAILABLE": "Dein Gerät ist nicht in der Liste? Füge es im <a href='https://sensor.wiki'>Sensor-Wiki</a> hinzu um es auf der openSenseMap zu benutzen:",
+    "TUTORIAL": "Anleitung",
+
+
+    "GENERAL_INFORMATION_BOX": "Allgemeine Informationen zu deiner Messstation",
+    "NAME": "Name",
+    "TAGS": "Tags",
+    "DESCRIPTION": "Beschreibung",
+    "BOX_DESCRIPTION": "Beschreibung deiner Messstation",
+
+    "CHOOSE_YOUR_SENSORS": "Wähle deine Sensoren aus",
+    "WHAT_IS_YOUR_BOX_MEASURING": "Was misst deine Messstation?",
+    "SENSOR_NOT_AVAILABLE": "Dein Sensor oder Phänomen ist nicht verfügbar? Füge ihn im <a href='https://sensor.wiki'>Sensor-Wiki</a> hinzu um den Sensor auf der openSenseMap zu benutzen:",
+
+    "YOUR_SENSOR_SETUP": "Dein Sensor Setup:",
+
+    "ADVANCED_OPTIONS": "Erweiterte Optionen",
+    "ARE_YOU_USING_DIFFERENT_CONNECTION_TYPES": "Benutzt du spezielle Verbindungsmethoden?",
+    "DONT_DO_ANYTHING_HERE_IF_YOU_DONT_KNOW_WHAT_YOU_ARE_DOING": "Überspringe diesen Schritt falls du nicht weisst was du tust.",
+
+    "USE_TTN": "TTN benutzen",
+    "USE_MQTT": "MQTT benutzen",
+
+    "YOUR_MEASUREMENT_STATION_SUMMARY" : "Deine Messstation in der Übersicht",
+    "CHECK_IF_EVERYTHING_IS_CORRECT" : "Sind alle Angaben korrekt?",
+
+    "CREATE_BOX": "Station registrieren"
+
 }

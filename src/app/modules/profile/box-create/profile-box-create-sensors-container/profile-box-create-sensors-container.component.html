@@ -3,7 +3,9 @@
     [loading]="loading$ | async"
     [selectedSensors]="selectedSensors$ | async"
     [selectedSensorElements]="selectedSensorElements$ | async"
-    [phenomena]="selectPhenomenon$ | async"
+    [phenomena]="phenomena$ | async"
+    [units]="units$ | async"
     (sensorSelected)="selectSensors($event)"
     (sensorElementSelected)="selectSensorElement($event)"
+    (sensorElementsUpdated)="updateSensorElements($event)"
 ></osem-profile-box-create-sensors>

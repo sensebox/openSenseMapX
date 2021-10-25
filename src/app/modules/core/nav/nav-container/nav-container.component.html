@@ -4,6 +4,7 @@
     [theme]="theme$ | async"
     [user]="user$ | async"
     [clustering]="clustering$ | async"
+    [selectedPheno]="selectedPheno$ | async"
     (themeToggled)="toggleTheme($event)"
     (languageToggled)="setLanguage($event)"
     (settingsToggled)="toggleSettings()"

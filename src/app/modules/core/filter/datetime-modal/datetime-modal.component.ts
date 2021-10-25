@@ -74,7 +74,7 @@ export class DatetimeModalComponent implements OnInit {
     let that = this;
     setTimeout(function(){
       const timeStampOptions = {
-        lang: that.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+        lang: that.translateService.currentLang === 'de_DE' ? 'de' : 'en',
         minuteSteps: 10,
         startTime: that.dateStampValue ? that.dateStampValue : that.startAt,
         startDate: that.dateStampValue ? that.dateStampValue : that.startAt,
@@ -84,7 +84,7 @@ export class DatetimeModalComponent implements OnInit {
 
       const timeStampCalendar = bulmaCalendar.attach('#timestamp', timeStampOptions);
       const timeRangeOptions = {
-        lang: that.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+        lang: that.translateService.currentLang === 'de_DE' ? 'de' : 'en',
         minuteSteps: 10,
         startDate: that.dateRangeStart ? that.dateRangeStart : that.minDate,
         startTime: that.dateRangeStart ? that.dateRangeStart : that.minDate,

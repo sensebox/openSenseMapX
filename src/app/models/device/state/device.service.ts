@@ -21,8 +21,8 @@ export class DeviceService {
       let parsedEnts = entities.map(ent => {
         return {
           iri: ent.device.value.split('#')[1],
-          label: ent.deviceLabel[0].value ? ent.deviceLabel[0].value : null
-          // image: ent.image[0] ? ent.image[0].value : null,
+          label: ent.deviceLabel[0].value ? ent.deviceLabel[0].value : null,
+          image: ent.image[0] ? ent.image[0].value : null,
         }
       })
       this.deviceStore.set(parsedEnts);

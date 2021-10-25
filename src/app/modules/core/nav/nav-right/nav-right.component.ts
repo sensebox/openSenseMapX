@@ -20,6 +20,7 @@ export class NavRightComponent implements OnInit {
   @Input() settings;
   @Input() user;
   @Input() clustering;
+  @Input() selectedPheno;
 
   constructor() { }
 
@@ -35,10 +36,10 @@ export class NavRightComponent implements OnInit {
   }
 
   toggleLanguage(lang){
-    if(lang === "de-DE") {
-      this.languageToggled.emit('en-US');
+    if(lang === "de_DE") {
+      this.languageToggled.emit('en_US');
     } else {
-      this.languageToggled.emit('de-DE');
+      this.languageToggled.emit('de_DE');
     }
   }
 

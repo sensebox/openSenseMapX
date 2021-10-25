@@ -22,11 +22,11 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
-registerLocaleData(localeDe, 'de-DE');
-// registerLocaleData(localeEm, 'de-DE');
+registerLocaleData(localeDe, 'de_DE');
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  // return new TranslateHttpLoader(http, 'https://unpkg.com/@sensebox/opensensemap-i18n@latest/dist/', '.json');
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -56,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     ThemeService,
-    { provide: LOCALE_ID, useValue: "de-DE" }
+    { provide: LOCALE_ID, useValue: "de_DE" }
   ],
   bootstrap: [AppComponent]
 })

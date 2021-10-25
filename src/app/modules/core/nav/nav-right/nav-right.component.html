@@ -39,8 +39,8 @@
             <span class="option-name">{{'LANGUAGE' | translate}}:</span>
             <div class="options" (click)="toggleLanguage(language)">
                 <div class="inner">
-                    <span [class.active]="language === 'en-US'">en</span> /
-                    <span [class.active]="language === 'de-DE'">de</span>
+                    <span [class.active]="language === 'en_US'">en</span> /
+                    <span [class.active]="language === 'de_DE'">de</span>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
     <h2 class="pt-5 underline">{{'MAP_SETTINGS' | translate}}</h2>
     <div class="pt-2 option-container">
         <div clas="field" title="{{'TOGGLE_CLUSTERING' | translate}}">
-            <input (click)="toggleClustering()" class="is-checkradio is-small is-primary" id="clustering" type="checkbox" name="clustering" [checked]="clustering">
+            <input [disabled]="selectedPheno.title == 'ALL'"(click)="toggleClustering()" class="is-checkradio is-small is-primary" id="clustering" type="checkbox" name="clustering" [checked]="clustering">
             <label for="clustering">{{'CLUSTERING' | translate}}</label>
         </div>
     </div>

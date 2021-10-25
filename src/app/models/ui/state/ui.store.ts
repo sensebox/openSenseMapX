@@ -49,7 +49,7 @@ export function createInitialState(): UiState {
     activeTimeMode: "live",
     dateRangeChart: [new Date("2020-03-27T13:47:54.186Z"), new Date("2020-03-27T14:47:54.186Z")],
     selectedDate: null,
-    language: 'de-DE',
+    language: 'de_DE',
     theme: 'light',
     baseLayer:  {
       'id': 'base-layer',

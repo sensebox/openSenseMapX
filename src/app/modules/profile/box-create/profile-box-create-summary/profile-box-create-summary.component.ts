@@ -13,6 +13,7 @@ export class ProfileBoxCreateSummaryComponent implements OnInit {
   @Input() ttnForm;
   @Input() mqttForm;
   @Input() phenomena;
+  @Input() units;
 
   @Output() boxCreated = new EventEmitter();
 

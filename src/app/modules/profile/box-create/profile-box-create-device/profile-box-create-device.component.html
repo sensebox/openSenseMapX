@@ -13,7 +13,7 @@
       [class.selected]="selectedDevice?.label === device.label">  
       <div class="card-image">
         <figure class="image is-4by3">
-          <img src="{{device.image}}" alt="Placeholder image">
+          <img src="https://api.sensor-wiki.opensensemap.org/images/upload/{{device.image}}" alt="Placeholder image">
         </figure>
       </div>
       <div class="card-content">
@@ -41,13 +41,13 @@
       [class.selected]="selectedDevice?.label === 'custom'">  
       <div class="card-image">
         <figure class="image is-4by3">
-          <img src="" alt="Placeholder image">
+          <img src="http://via.placeholder.com/400x300" alt="Placeholder image">
         </figure>
       </div>
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4">{{'CUSTOM' | translate}}</p>
+            <p class="title is-4">{{'CUSTOM_DEVICE' | translate}}</p>
           </div>
         </div>
 
@@ -59,11 +59,18 @@
   </div>
 </div>
 
-<button
-  [disabled]="!selectedDevice"
-  class="button is-primary is-pulled-right"
-  [routerLink]="['../general']"
-  queryParamsHandling="preserve"
-  >
-  {{'NEXT' | translate}}
-</button>
+<div class="is-clearfix pb-2">
+  <button
+    [disabled]="!selectedDevice"
+    class="button is-primary is-pulled-right"
+    [routerLink]="['../general']"
+    queryParamsHandling="preserve"
+    >
+    {{'NEXT' | translate}}
+  </button>
+</div>
+
+<div class="notification is-warning is-light">
+  <p [innerHTML]="'DEVICE_NOT_AVAILABLE' | translate"></p>
+  <a href="https://sensor-wiki.opensensemap.org" target="_blank">{{'TUTORIAL' | translate }}</a>
+</div>

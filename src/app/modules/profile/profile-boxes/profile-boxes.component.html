@@ -45,14 +45,18 @@
     </div>
   </div>
   <ul>
-    <li *ngFor="let box of sorted_boxes" class="my-2">
+    <li 
+      *ngFor="let box of sorted_boxes" 
+      class="my-2 is-clearfix"
+      [class.osemBox]="listStyle === 'list'">
       <div 
-        class="card" 
+        [class.card]="listStyle === 'boxes'"
+        class="osemCard"
         [routerLink]="[box._id]"
         queryParamsHandling="preserve">
-        <div class="card-content">
+        <div class="card-content" [class.is-pulled-left]="listStyle === 'list'">
           <div class="media">
-            <div class="media-left">
+            <div class="media-left" *ngIf="listStyle === 'boxes'">
               <figure class="image is-48x48">
                 <img *ngIf="!box.image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
                 <img *ngIf="box.image" [src]="'https://opensensemap.org/userimages/' +box.image" alt="Placeholder image">
@@ -68,39 +72,64 @@
             {{box.description}}
           </div>
         </div>
-        <footer class="card-footer">
-          <a class="card-footer-item">
+        <footer 
+          [class.is-pulled-right]="listStyle === 'list'"
+          [class.card-footer]="listStyle === 'boxes'"
+          [title]="'SHOW_ON_MAP' | translate">
+          <a [class.card-footer-item]="listStyle === 'boxes'">
             <span class="has-text-centered">
               <span class="icon">
                 <i class="fa fa-map-marker-alt"></i>
-              </span><br>
-              <span>{{'SHOW' | translate}}</span>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'SHOW' | translate}}</span>
+              </ng-container>
             </span>  
           </a>
-          <a [routerLink]="[box._id]" queryParamsHandling="preserve" class="card-footer-item">
+          <a 
+          [routerLink]="[box._id]" 
+          queryParamsHandling="preserve" 
+          [class.card-footer-item]="listStyle === 'boxes'"
+          [title]="'EDIT' | translate">
             <span class="has-text-centered">
               <span class="icon">
                 <i class="fa fa-edit"></i>
-              </span><br>
-              <span>{{'EDIT' | translate}}</span>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'EDIT' | translate}}</span>
+              </ng-container>
             </span>  
   
           </a>
-          <a href="#" class="card-footer-item">
+          <a 
+            href="#" 
+            [class.card-footer-item]="listStyle === 'boxes'"
+            [title]="'DATA_UPLOAD' | translate">
             <span class="has-text-centered">
               <span class="icon">
                 <i class="fa fa-table"></i>
-              </span><br>
-              <span>{{'DATA_UPLOAD' | translate}}</span>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'DATA_UPLOAD' | translate}}</span>
+              </ng-container>
             </span>  
             
           </a>
-          <a href="#" class="card-footer-item">
+          <a 
+            href="#" 
+            [class.card-footer-item]="listStyle === 'boxes'"
+            [title]="'SUPPORT' | translate">
             <span class="has-text-centered">
               <span class="icon">
                 <i class="far fa-envelope"></i>
-              </span><br>
-              <span>{{'SUPPORT' | translate}}</span>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'SUPPORT' | translate}}</span>
+              </ng-container>
             </span> 
   
             </a>

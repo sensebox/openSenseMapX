@@ -43,5 +43,9 @@ export class CreateboxService {
       this.router.navigate([{ outlets: { sidebar: [ 'm', 'profile', 'boxes' ] }}]);
     });   
   }
+
+  updateSensorElements(elements){
+    this.createboxStore.updateSensorElements(elements);
+  }
 }
 

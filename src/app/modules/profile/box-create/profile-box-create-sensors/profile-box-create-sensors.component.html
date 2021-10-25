@@ -2,8 +2,8 @@
   <p class="title is-3">{{'CHOOSE_YOUR_SENSORS' | translate}}</p>
   <p class="subtitle is-4">{{'WHAT_IS_YOUR_BOX_MEASURING' | translate}}</p>
     
-  <div class="" 
-    *ngFor="let sensor of sensors">
+  <!-- <div class="" 
+    *ngFor="let sensor of oldsensors">
     <div 
       *ngFor="let sensorElement of sensor.sensorElement" 
       class="card selectable-card" 
@@ -25,35 +25,163 @@
               </span>
             </p>
             <p class="subtitle is-6"><span>{{phenomena[sensorElement.phenomenon].label[0].value}} </span></p>
-          </div>
-        </div>
-    
-        <!-- <div class="content">
-          <div *ngIf="sensor.sensorElement && sensor.sensorElement.length > 1">
-            <span>{{"CHOOSE_PHENOMENON_YOU_WANT_TO_MEASURE" | translate}}</span>
-            <div *ngFor="let sensorElement of sensor.sensorElement">
-              <div clas="field">
-                <input 
-                  (click)="addSensorElement($event, {sensor: sensor, sensorElement: sensorElement})" 
-                  class="is-checkradio is-small is-primary" 
-                  id="{{sensorElement.phenomenon}}" 
-                  type="checkbox"
-                  name="{{sensorElement.phenomenon}}">
-                <label for="{{sensorElement.phenomenon}}">{{phenomena[sensorElement.phenomenon].label[0].value}}</label>
+            <div class="field" *ngIf="phenomena[sensorElement.phenomenon].rovs.length > 1 && checkForElement(sensor, sensorElement)">
+              <label class="label">{{'UNIT_TRANSMITTED' | translate}}</label>
+              <div class="select">
+                <select (click)="select($event, sensor, sensorElement)">
+                  <option *ngFor="let rov of phenomena[sensorElement.phenomenon].rovs" [value]="rov.unit">
+                    {{units[rov.unit].label}}
+                  </option>
+                </select>
               </div>
             </div>
-          </div> -->
-          <!-- <span *ngFor="let desc of sensor.description; last as isLast">
-
-    </div>
-          {{desc.value}}
-        </span><br> -->
-        <!-- <a href="{{sensor.sensor.value}}">{{'MORE' | translate}}</a>  -->
+          </div>
+        </div>
       </div>
       <div class="card-selected">
         <i class="fa fa-2x fa-check-circle"></i>
       </div>
     </div>
+  </div> -->
+
+  <!-- <div 
+    class="osem-sensor-group-header" 
+    *ngFor="let pheno of groupedSensors | keyvalue"
+    #header>
+    <h5 
+      (click)="header.classList.toggle('visible')"      
+      class="title is-5">
+      {{phenomena[pheno.key].label[0].value}}
+    </h5>
+
+    <div class="osem-sensor-group">
+      <div 
+        class="card selectable-card sensor-card" 
+        *ngFor="let element of pheno.value"
+        [class.selected]="checkForElement(element.sensor, element)"
+        (click)="addSensorElement($event, {sensor: element.sensor, sensorElement: element})">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4" *ngIf="element.sensor.label">
+                <span *ngFor="let label of element.sensor.label; last as isLast">
+                  {{label.value}} 
+                  <span *ngIf="!isLast"> / </span>
+                </span>
+              </p> 
+              <p class="subtitle is-6"><span>{{phenomena[element.phenomenon].label[0].value}} </span></p>
+              <div class="field" *ngIf="phenomena[element.phenomenon].rovs.length > 1 && checkForElement(element.sensor, element)">
+                <label class="label">{{'UNIT_TRANSMITTED' | translate}}</label>
+                <div class="select">
+                  <select (click)="select($event, element.sensor, element)">
+                    <option *ngFor="let rov of phenomena[element.phenomenon].rovs" [value]="rov.unit">
+                      {{units[rov.unit].label}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-selected">
+          <i class="fa fa-2x fa-check-circle"></i>
+        </div>  
+      </div>
+    </div>
+  </div> -->
+
+  <div class="osem-phenomenon-list">
+    <article 
+      class="osem-sensor-group-header message" 
+      *ngFor="let pheno of groupedSensors | keyvalue"
+      #header>
+      <div class="message-header" (click)="togglePheno(header)">
+        <div class="field">
+          <input 
+          class="is-checkradio is-medium is-primary"
+          [checked]="header.classList && header.classList.contains('visible')"
+          type="checkbox">
+          <label>
+            <span>
+              {{phenomena[pheno.key].label[0].value}}
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="osem-sensor-group message-body">
+        <p *ngIf="pheno.value.length > 1">{{'CHOOSE_YOUR_SENSOR' | translate}}</p>
+        <div 
+          class="card selectable-card sensor-card" 
+          *ngFor="let element of pheno.value"
+          [class.selected]="checkForElement(element.sensor, element)"
+          (click)="addSensorElement($event, {sensor: element.sensor, sensorElement: element})">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image">
+                  <img *ngIf="element.sensor.image" src="https://api.sensor-wiki.opensensemap.org/images/upload/{{element.sensor.image[0].value}}">
+                  <img *ngIf="!element.sensor.image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5" *ngIf="element.sensor.label">
+                  <span *ngFor="let label of element.sensor.label; last as isLast">
+                    {{label.value}}
+                    <span *ngIf="!isLast"> / </span>
+                  </span>
+                  <br>
+                  <span class="subtitle is-7">
+                    <span class="icon-text">
+                      <a target="_blank" href="{{element.sensor.sensor.value}}">{{'LEARN_MORE' | translate}}</a> 
+                      <span class="icon is-small">
+                        <i class="fa fa-external-link-alt"></i>
+                      </span>
+                    </span>
+                  </span>
+                </p> 
+                <div class="field" *ngIf="phenomena[element.phenomenon].rovs.length > 1 && checkForElement(element.sensor, element)">
+                  <label class="label">{{'UNIT' | translate}}</label>
+                  <div class="select">
+                    <select (click)="select($event, element.sensor, element)">
+                      <option *ngFor="let rov of phenomena[element.phenomenon].rovs" [value]="rov.unit">
+                        {{units[rov.unit].label}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field" *ngIf="phenomena[element.phenomenon].rovs.length === 1 && checkForElement(element.sensor, element)">
+                  <label class="label">{{'UNIT' | translate}}</label>
+                  <div class="select">
+                    <select (click)="select($event, element.sensor, element)">
+                      <option *ngFor="let rov of phenomena[element.phenomenon].rovs" [value]="rov.unit">
+                        {{units[rov.unit].label}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-selected">
+            <i class="fa fa-2x fa-check-circle"></i>
+          </div>  
+        </div>
+      </div>
+  
+
+    </article>
+  </div>
+
+
+  <div class="notification is-warning is-light">
+    <p [innerHTML]="'SENSOR_NOT_AVAILABLE' | translate"></p>
+    <a href="https://sensor-wiki.opensensemap.org" target="_blank">{{'TUTORIAL' | translate}}</a>
   </div>
   
   <div class="pt-5">
@@ -71,7 +199,7 @@
           <tr *ngFor="let sensorElement of selectedSensorElements">
             <td>{{sensorElement.sensor.label[0].value}}</td>
             <td>{{phenomena[sensorElement.sensorElement.phenomenon].label[0].value}}</td>
-            <td>{{sensorElement.sensorElement.unit}}</td>
+            <td>{{units[sensorElement.sensorElement.unit].label}}</td>
           </tr>
         </tbody>
       </table>
