@@ -139,6 +139,7 @@
   },
   "defaultProject": "openSenseMapX",
   "cli": {
+    "analytics": false,
     "defaultCollection": "@datorama/akita"
   }
 }
