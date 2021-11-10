@@ -63,6 +63,11 @@
     "SUPPORT": "Support",
     "DONATE": "Donate",
     "THANKS": "Sponsors",
+
+    "CREATE NEW": "Create new",
+    "ONGOING": "Ongoing",
+    "FINISHED": "Finished",
+
     "THANKSDONATION": "Thank you!",
     "THANKSDONATION_TEXT": "We would like to thank all our donors for their help. <br> <br> You help us to become better.",
     "SPECIALTHANKS_ORGS": "Very special thanks go to the following organisations:",
