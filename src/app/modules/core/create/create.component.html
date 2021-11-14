@@ -1,0 +1,78 @@
+<form [formGroup]>
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+            <input formControlName="title" class="input" type="text" placeholder="Title">
+            <span class="icon is-small is-left">
+                <i class="fa fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+                <i class="fa fa-check"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="description" class="input" type="text" placeholder="Description">
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="start date" class="input" type="date" placeholder="Start Date">
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="end date" class="input" type="date" placeholder="End Date">
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="Goal" class="input" type="text" placeholder="Goal">
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <p>Choose the exposure of the campaign</p>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="exposure" id = "exposure1" type="radio">
+            <label for="exposure1"> indoor</label><br>
+            <input type="radio" id="exposure2" name="exposure2" value="outdoor">
+            <label for="exposure2"> outdoor</label>
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <p>Choose the sensors you want to measure during the campaign</p>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="sensors" id="sensor1" type="checkbox">
+            <label for="sensor1"> camera</label><br>
+            <input type="checkbox" id="sensor2" name="sensor2" value="temperature">
+            <label for="sensor2"> temperature</label><br>
+            <input type="checkbox" id="sensor3" name="sensor3" value="Pm10">
+            <label for="sensor3"> PM10</label>
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button class="button is-success" type="submit">
+                {{'CREATE' | translate}}
+            </button>
+        </p>
+    </div>
+</form>
