@@ -1,0 +1,22 @@
+<aside class="menu">
+    
+    <p>Choose the campaign you want to create</p>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="campaigntypes" id="campaigntype1" type="radio">
+            <label for="campaigntype1"> Campaign in a specific location</label><br>
+            <input type="radio" id="campaigntype2" name="campaigntype2">
+            <label for="campaigntype2"> Mobile Campaign on along a route</label><br>
+            <input type="radio" id="campaigntype3" name="campaigntype3">
+            <label for="campaigntype3"> Campaign in an area</label>
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+
+    <ul class="menu-list">
+        <li><a [routerLink]="['../create']" queryParamsHandling="merge">{{'CREATE NEW' | translate}}</a></li>
+    </ul> 
+   
+</aside>

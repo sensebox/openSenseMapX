@@ -21,6 +21,7 @@ import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
 import { CreateComponent } from './modules/core/create/create.component';
+import { CampaigntypeComponent } from './modules/core/campaigntype/campaigntype.component';
 
 const routes: Routes = [
   {path: '', component: BoxSingleContainerComponent, pathMatch: 'full'},
@@ -51,6 +52,7 @@ const routes: Routes = [
     { path: 'donate', component: DonateComponent, data: {name: 'DONATE'}},
     { path: 'thanks', component: ThanksComponent, data: {name: 'THANKS'}},
     { path: 'create', component: CreateComponent, data: {name: 'CREATE'}},
+    { path: 'campaigntype', component: CampaigntypeComponent, data: {name: 'CAMPAIGNTYPE'}},
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},
