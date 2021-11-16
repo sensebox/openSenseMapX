@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'osem-box-follow',
@@ -48,9 +49,14 @@ export class BoxFollowComponent implements OnInit {
 
   @Output() updatedLegend = new EventEmitter();
 
-  constructor(private fb: FormBuilder) { }
-
+  constructor(
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute) { }
+  
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(res => {
+      this.title = res.boxName;
+    });
   }
 
   anyFieldUpdated(){
