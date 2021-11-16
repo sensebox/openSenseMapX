@@ -81,4 +81,14 @@ export class AppComponent {
       }
     );
   }
+
+  closeViewer(){
+    this.router.navigate(
+      [{outlets: {notificationsViewer: null}}],
+      {
+        relativeTo: this.activatedRoute,
+        queryParamsHandling: 'merge'
+      }
+    );
+  }
 }

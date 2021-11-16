@@ -20,6 +20,7 @@ import { NewVisContainerComponent } from './modules/core/new-vis-container/new-v
 import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
+import { NotificationsViewerComponent } from './modules/core/notifications/notifications-viewer/notifications-viewer.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
     {path: 'boxes', component: MyBoxesContainerComponent, canActivate: [AuthGuard]}
     ]
   },
+  {path: 'notifications-viewer', component: NotificationsViewerComponent, outlet: 'notificationsViewer'},
 // {path: 'boxes', component: MyBoxesContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard]}
 ];
 

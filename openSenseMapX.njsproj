@@ -94,6 +94,9 @@
     <None Include="src\app\modules\core\impressum\impressum.component.spec.ts" />
     <None Include="src\app\modules\core\impressum\impressum.component.ts" />
     <None Include="src\app\modules\core\interceptors\token-interceptor.ts" />
+    <Content Include="src\app\modules\core\notifications\notifications-viewer.component.html" />
+    <None Include="src\app\modules\core\notifications\notifications-viewer.component.spec.ts" />
+    <None Include="src\app\modules\core\notifications\notifications-viewer.component.ts" />
     <Content Include="src\app\modules\core\new-vis\new-vis.component.html" />
     <None Include="src\app\modules\core\new-vis\new-vis.component.spec.ts" />
     <None Include="src\app\modules\core\new-vis\new-vis.component.ts" />
