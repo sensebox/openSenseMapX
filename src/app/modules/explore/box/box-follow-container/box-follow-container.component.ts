@@ -9,15 +9,9 @@ import { UiService } from 'src/app/models/ui/state/ui.service';
 })
 export class BoxFollowContainerComponent implements OnInit {
 
-  selectedPheno$ = this.uiQuery.selectSelectedPheno$;
-
   constructor(private uiQuery: UiQuery, private uiSerivce: UiService) { }
 
   ngOnInit() {
-  }
-
-  updateLegend(data) {
-    this.uiSerivce.updateLegend(data);
   }
 
 }
