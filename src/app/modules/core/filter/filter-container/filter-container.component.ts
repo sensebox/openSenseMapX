@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable, empty, of } from 'rxjs';
 
 import { BoxService } from 'src/app/models/box/state/box.service';
@@ -20,6 +20,8 @@ import { SessionQuery } from 'src/app/models/session/state/session.query';
 })
 export class FilterContainerComponent implements OnInit {
 
+  @Output() toggleIntro = new EventEmitter<string>();
+
   showDateModal$ = this.uiQuery.selectShowDateModal$;
   selectedDateRange$ = this.uiQuery.selectDateRange$;
   selectedDateStamp$ = this.uiQuery.selectDateStamp$;
@@ -29,7 +31,7 @@ export class FilterContainerComponent implements OnInit {
   user$ = this.sessionQuery.user$;
   searchTerm$ = this.uiQuery.selectSearchTerm$;
   locationAutocompleteResults$ = this.uiQuery.selectLocationAutocompleteResults$;
-  
+
   filters$ = this.uiQuery.selectFilters$;
   stats$ = this.uiQuery.selectStats$;
 
@@ -53,7 +55,7 @@ export class FilterContainerComponent implements OnInit {
     private uiQuery: UiQuery) { }
 
   ngOnInit() {
-   
+
     // fetch data for timerange-display
     // combineLatest(this.selectedDateRange$, this.selectedPheno$).subscribe(res => {
     //   if(res[0] && res[1]){
@@ -151,7 +153,11 @@ export class FilterContainerComponent implements OnInit {
   toggleChange(){
     this.change = !this.change;
   }
-  
+
+  openIntro(){
+    this.toggleIntro.emit('intro');
+  }
+
   selectInfoPheno(pheno){
     this.uiService.setInfoPheno(pheno);
   }

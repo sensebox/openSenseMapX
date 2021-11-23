@@ -15,7 +15,7 @@ import { UiService } from './models/ui/state/ui.service';
 export class AppComponent {
 
   title = 'openSenseMapX';
-  intro = true;
+  intro = false;
   backdrop = false;
 
   language$ = this.uiQuery.selectLanguage$;
@@ -47,16 +47,20 @@ export class AppComponent {
     this.intro = false;
   }
 
+  openIntro(){
+    this.intro = true;
+  }
+
   onModalActivate($event){
     this.backdrop = true;
   }
-  
+
   onModalDeactivate($event){
     this.backdrop = false;
   }
     // close modal on esc
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
+  handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode == 27){
       this.closeModal();
     }
