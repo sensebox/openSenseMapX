@@ -72,14 +72,10 @@
     color: var(--color-primary);
     padding: 0 1em;
     cursor: pointer;
+    justify-content: space-evenly;
 
     img {
-        padding: 0 0.5em 0 0;
         height: 80%;
-    }
-
-    span {
-        margin-right: 0.5em;
     }
 }
 .nav-right-container {
