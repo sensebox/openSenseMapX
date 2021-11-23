@@ -67,6 +67,10 @@
     <None Include="src\app\models\session\state\session.query.ts" />
     <None Include="src\app\models\session\state\session.service.ts" />
     <None Include="src\app\models\session\state\session.store.ts" />
+    <None Include="src\app\models\notifications\state\notifications.model.ts" />
+    <None Include="src\app\models\notifications\state\notifications.query.ts" />
+    <None Include="src\app\models\notifications\state\notifications.service.ts" />
+    <None Include="src\app\models\notifications\state\notifications.store.ts" />
     <None Include="src\app\models\ui\state\layers.ts" />
     <None Include="src\app\models\ui\state\ui.model.ts" />
     <None Include="src\app\models\ui\state\ui.query.ts" />
