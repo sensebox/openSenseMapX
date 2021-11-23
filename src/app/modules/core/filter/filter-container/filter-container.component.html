@@ -1,4 +1,21 @@
 <div class="filter-container">
+    <div class="nav-right-container">
+        <div class="logo" [routerLink]="['']">
+            <img src="/assets/img/logos/osem.svg">
+            <span>openSenseMap</span>
+            <span class="tag is-warning is-medium">Beta</span>
+        </div>
+        <div class="nav-item-container osem-box-shadow-basic">
+            <div class="nav-item">
+                <span data-feedback-fish class="icon-text">
+                    <span class="icon">
+                        <i class="fas fa-bell"></i>
+                    </span>
+                    <span>Feedback</span>
+                </span>
+            </div>
+        </div>
+    </div>
     <div class="filter-inner">
         <osem-search
             (changedSearchTerm)="search($event)"
@@ -10,14 +27,14 @@
             [autoCompleteResults]="autoCompleteResults$ | async"
             [locationAutocompleteResults]="locationAutocompleteResults$ | async"
         ></osem-search>
-        <osem-datepicker 
+        <osem-datepicker
             [dateRange]="selectedDateRange$ | async"
             [dateStamp]="selectedDateStamp$ | async"
             [activeTimeMode]="selectActiveTimeMode$ | async"
             [showDateModal]="showDateModal$ | async"
             (dateChanged)="changeDateRange($event)"
             (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
-        
+
         <osem-filter-switcher
             [activeTab]="activeTab$ | async"
             [selectedPheno]="selectedPheno$ | async"
@@ -35,9 +52,9 @@
 
         ></osem-filter-switcher>
     </div>
-    
-    <div 
-        id="filter-minimizer" 
+
+    <div
+        id="filter-minimizer"
         class="osem-box-shadow-basic"
         [class.minimized]="!(filterVisible$ | async)"
         (click)="toggleMinimizeFilter()">

@@ -1,7 +1,7 @@
 @import '../../../../../styles/variables.scss';
 
 .filter-container {
-    
+
     .filter-inner {
         background: var(--background-primary-full);
         box-shadow: var(--box-shadow-basic);
@@ -58,4 +58,57 @@
         // transform: translate3d(-50%, -50%, 0);
     }
 
+}
+
+.logo {
+    position: relative;
+    height: $headerHeight;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    font-weight: bold;
+    background: var(--background-primary-full);
+    right: 0;
+    color: var(--color-primary);
+    padding: 0 1em;
+    cursor: pointer;
+
+    img {
+        padding: 0 0.5em 0 0;
+        height: 80%;
+    }
+
+    span {
+        margin-right: 0.5em;
+    }
+}
+.nav-right-container {
+    // padding: 0.2em 0.3em;
+    display: flex;
+    position: relative;
+    height: $headerHeight;
+    @media screen and(max-width: $secondBreak){
+        box-shadow: var(--box-shadow-basic);
+        width: 100%;
+        justify-content: space-between;
+        background: var(--background-primary-full);
+    }
+    // width: 281px;
+
+    .nav-item-container {
+        display: flex;
+    }
+
+    .nav-item {
+        background: var(--background-secondary);
+        color: var(--text-color-secondary);
+        line-height: 38px;
+        min-width: 42px;
+        cursor: pointer;
+        padding: 0.2em 0.3em;
+        font-weight: bold;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
 }
