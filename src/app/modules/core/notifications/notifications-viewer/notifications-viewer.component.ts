@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NotificationsQuery } from 'src/app/models/notifications/state/notifications.query';
+import { NotificationsService } from 'src/app/models/notifications/state/notifications.service';
 
 @Component({
   selector: 'osem-notifications-viewer',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsViewerComponent implements OnInit {
 
-  constructor() { }
+  @Input() notifications;
+  @Input() areNotificationsLoaded;
 
-  ngOnInit() {
+  constructor(private notificationsService: NotificationsService, private notificationsQuery: NotificationsQuery) { }
+
+  async ngOnInit() {
   }
 
 }

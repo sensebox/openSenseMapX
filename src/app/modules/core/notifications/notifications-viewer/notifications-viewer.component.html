@@ -1,38 +1,7 @@
 <aside class="viewer">
-    <div class="notification">
-      High temperatures at X
-    </div>
-    <div class="notification">
-      Strong winds at Y
-    </div>
-    <div class="notification">
-      Lots of rain at Z
-    </div>
-    <div class="notification">
-      High temperatures at X
-    </div>
-    <div class="notification">
-      Strong winds at Y
-    </div>
-    <div class="notification">
-      Lots of rain at Z
-    </div>
-    <div class="notification">
-      High temperatures at X
-    </div>
-    <div class="notification">
-      Strong winds at Y
-    </div>
-    <div class="notification">
-      Lots of rain at Z
-    </div>
-    <div class="notification">
-      High temperatures at X
-    </div>
-    <div class="notification">
-      Strong winds at Y
-    </div>
-    <div class="notification">
-      Lots of rain at Z
-    </div>
+    <div *ngIf="areNotificationsLoaded">
+      <div *ngFor="let notification of notifications" class="notification">
+        {{ notification.notificationValue }} {{ notification.activationOperator }} {{ notification.activationThreshold }}
+      </div>
+   </div>
 </aside>

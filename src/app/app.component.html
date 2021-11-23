@@ -72,7 +72,7 @@
     <router-outlet name="sidebar" #sidebarOutlet="outlet"></router-outlet>
 </div> 
 
-<div id="osem-notifications-viewer" class="px-2 py-2" [class.active]="notificationsViewerOutlet.isActivated">
+<div id="osem-notifications-container" class="px-2 py-2" [class.active]="notificationsContainerOutlet.isActivated">
     <div id="sidebar-header" class="level">
         <div class="level-left">
             <p class="notifications-viewer-title">
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <router-outlet name="notificationsViewer" #notificationsViewerOutlet="outlet"></router-outlet>
+    <router-outlet name="notificationsContainer" #notificationsContainerOutlet="outlet"></router-outlet>
 </div>
 
 

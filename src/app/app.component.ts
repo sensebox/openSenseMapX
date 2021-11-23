@@ -84,7 +84,7 @@ export class AppComponent {
 
   closeViewer(){
     this.router.navigate(
-      [{outlets: {notificationsViewer: null}}],
+      [{outlets: {notificationsContainer: null}}],
       {
         relativeTo: this.activatedRoute,
         queryParamsHandling: 'merge'
