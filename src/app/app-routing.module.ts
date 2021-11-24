@@ -20,6 +20,7 @@ import { NewVisContainerComponent } from './modules/core/new-vis-container/new-v
 import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
+import { BoxFollowContainerComponent } from './modules/explore/box/box-follow-container/box-follow-container.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'vis', component: VisContainerComponent, outlet: 'modal'},
   {path: 'newvis', component: NewVisContainerComponent, outlet: 'modal'},
   {path: 'edit-legend', component: LegendEditContainerComponent, outlet: 'modal'},
+  {path: 'follow-box', component: BoxFollowContainerComponent, outlet: 'modal'},
   {path: 'login', component: LoginContainerComponent, outlet: 'sidebar'},
   {path: 'register', component: RegisterContainerComponent, outlet: 'sidebar'},
   {path: 'm', component: SidebarMenuComponent, outlet: 'sidebar', children: [
