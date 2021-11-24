@@ -90,4 +90,18 @@ export class PopupComponent implements OnInit {
     this.closed.emit();
   }
 
+  followSensor(){
+    this.router.navigate(
+      [{outlets: {modal: 'follow-box'}}],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: { boxName: this.box.name },
+        queryParamsHandling: 'merge'
+      }
+    ); 
+
+    this.closePopup();
+    
+  }
+
 }
