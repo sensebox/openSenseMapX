@@ -1,7 +1,12 @@
 <aside class="viewer">
     <div *ngIf="areNotificationsLoaded">
       <div *ngFor="let notification of notifications" class="notification">
-        {{ notification.notificationValue }} {{ notification.activationOperator }} {{ notification.activationThreshold }}
+        <div class="notification-title">
+          Threshold triggered!
+        </div>
+        Box: <a (click)="boxDetails(notification.box._id)">{{ notification.box.name }}</a> <br/>
+        Sensor: {{ notification.sensor.title }} <br/>
+        Measurment: <b>{{ notification.notificationValue }} {{ notification.sensor.unit }}</b> <br/>
       </div>
    </div>
 </aside>
