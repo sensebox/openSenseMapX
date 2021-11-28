@@ -1,4 +1,5 @@
-<osem-notifications-viewer 
+<osem-notifications-viewer *ngIf="loggedIn$ | async"
     [notifications]="notifications$ | async"
     [areNotificationsLoaded]="areNotificationsLoaded$ | async"
 ></osem-notifications-viewer>
+<div *ngIf="!(loggedIn$ | async)" style="color: red">Login to see your notifications</div>
