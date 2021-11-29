@@ -32,7 +32,7 @@
 
         <div class="control">
             <input type="checkbox" name="checkEmail" id="email" />
-            <label for="email">I want to receive notifications on my email.</label>
+            <label for="email">I want to receive notifications via email.</label>
             
         </div>
         <button class="osem-button" (click)="sendNotification()">Follow Sensor</button>
@@ -40,7 +40,9 @@
     </div>
     
 
-    <h3 class="title is-6">You are already following these sensors from {{title}}:</h3>  
+<h3 class="title is-6">You are already following these sensors from {{title}}:</h3>  
+
+<osem-box-threshold></osem-box-threshold>
 
 </div>
 <div class="card-footer">
