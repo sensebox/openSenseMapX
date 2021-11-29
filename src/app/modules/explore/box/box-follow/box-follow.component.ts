@@ -21,4 +21,8 @@ export class BoxFollowComponent implements OnInit {
     });
   }
 
+  sendNotification() {
+    console.log("Here it goes the notification.")
+  }
+
 }

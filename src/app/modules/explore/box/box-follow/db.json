@@ -1,0 +1,22 @@
+{
+  "sensors": [
+    {
+      "id": 1,
+      "sensor": "Temperature",
+      "action": "more than",
+      "value": 30
+    },
+    {
+      "id": 1,
+      "sensor": "Rain",
+      "action": "less than",
+      "value": 200
+    },
+    {
+      "id": 1,
+      "sensor": "UV",
+      "action": "more than",
+      "value": 8
+    }
+  ]
+}

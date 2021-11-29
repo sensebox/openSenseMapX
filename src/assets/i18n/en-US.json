@@ -98,7 +98,7 @@
     "COMPARE_TO": "Compare to other boxes",
 
     "FOLLOW": "Follow",
-    "FOLLOW_BOX": "Select a sensor and a threshold value.",
+    "FOLLOW_BOX": "Select a sensor to follow:",
 
     "INTRO_HEADLINE": "openSenseMap Beta",
     "INTRO_TEXT_1": "This is a beta version of the new openSenseMap!",
