@@ -101,6 +101,9 @@
     <Content Include="src\app\modules\core\notifications\notifications-container.component.html" />
     <None Include="src\app\modules\core\notifications\notifications-container.component.spec.ts" />
     <None Include="src\app\modules\core\notifications\notifications-container.component.ts" />
+    <Content Include="src\app\modules\core\notifications\notifications-popup\notifications-popup.component.html" />
+    <None Include="src\app\modules\core\notifications\notifications-popup\notifications-popup.component.spec.ts" />
+    <None Include="src\app\modules\core\notifications\notifications-popup\notifications-popup.component.ts" />
     <Content Include="src\app\modules\core\notifications\notifications-viewer\notifications-viewer.component.html" />
     <None Include="src\app\modules\core\notifications\notifications-viewer\notifications-viewer.component.spec.ts" />
     <None Include="src\app\modules\core\notifications\notifications-viewer\notifications-viewer.component.ts" />
