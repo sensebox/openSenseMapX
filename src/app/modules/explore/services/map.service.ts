@@ -97,14 +97,27 @@ export class MapService {
 
     //once the map is laoded fetch the data (maybe move this elsewhere for faster load time), TODO: fetch from API not static file
     this.map.once('load', function(){
-      that.fetchData('/assets/data/world.json');
+      that.fetchData(environment.api_url + '/boxes');
     })
   }
 
   // fetch the data and add the sources when its done
   fetchData(url){
     this.http.get(url).subscribe(res => {
-      this.worldData.next(res);
+      let mapData = {type:"FeatureCollection",features:[]};
+      // @ts-ignore
+      for(let i = 0; i < res.length; i++) {
+        let box = res[0];
+        let feature = {"type":"Feature",
+          properties: box,
+          geometry: {
+            type: "Point",
+            coordinates: box.currentLocation.coordinates
+          }
+        }
+        mapData.features.push(feature);
+      }
+      this.worldData.next(mapData);
       this.addMapSources();
     })
   }
