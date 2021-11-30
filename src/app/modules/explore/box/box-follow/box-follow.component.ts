@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { NotificationsService } from 'src/app/models/notifications/state/notifications.service';
 import { ActivatedRoute } from '@angular/router';
+import { BoxQuery } from 'src/app/models/box/state/box.query';
+import { BoxService } from 'src/app/models/box/state/box.service';
 
 @Component({
   selector: 'osem-box-follow',
@@ -10,97 +14,44 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BoxFollowComponent implements OnInit {
 
-
-  // legendSteps = new FormArray([]);
-  title = "";
-
-  legendForm = this.fb.group({
-    legendSteps: new FormArray([]),
-  });
-
-  @Input() set selectedPheno(pheno){
-    if(pheno && pheno.layer.paint['circle-color']){
-      this.title = pheno.title;
-      this.legendForm.controls.legendSteps = new FormArray([])
-      let control = <FormArray>this.legendForm.controls.legendSteps;
-      let prevControl = undefined;
-      pheno.layer.paint['circle-color'].forEach((item, index) => {
-        if(index > 2 && index % 2){
-          let newCont = new FormGroup({
-            value: new FormControl(item, [this.greaterThan(prevControl)]),
-            color: new FormControl(pheno.layer.paint['circle-color'][index+1])
-          })
-          control.push(newCont)
-          prevControl = newCont;
-        }
-      })
-      // console.log("CONTROL",control);
-      // control.controls.forEach((group:any, index) => {
-      //   // console.log(group.get("value"));
-      //   // console.log(index);selectedPheno
-      //   if(index > 0){
-      //     console.log("GROUPVALUE",group.get("value"))
-      //     group.get['value'].setValidators(this.greaterThan('value'))
-      //   }
-
-      // })
-    }
-  };
-
-  @Output() updatedLegend = new EventEmitter();
+  @Input() activeBox;
 
   constructor(
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private boxService: BoxService,
+    private boxQuery: BoxQuery,
+    private notificationsService: NotificationsService) { }
   
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(res => {
-      this.title = res.boxName;
-    });
   }
 
-  anyFieldUpdated(){
-    //TODO: CHECK HOW THIS WORKS FOR FORMGROUPS
-    this.legendForm.markAllAsTouched();
-  }
-
-  updateLegend(){
-    let flatSteps = [];
-    this.legendForm.getRawValue().legendSteps.forEach(step => {
-      flatSteps.push(step.value)
-      flatSteps.push(step.color)
-    })
-    this.updatedLegend.emit(flatSteps);
-  }
-
-  addLegendStep(){
-    let control = <FormArray>this.legendForm.controls.legendSteps;
-    control.push(new FormGroup({
-      value: new FormControl(""),
-      color: new FormControl("")
-    }))
-  }
-
-  removeLegendStep(i){
-    let control = <FormArray>this.legendForm.controls.legendSteps;
-    control.removeAt(i);
-  }
-
-  get legendStepsControls() {
-    return <FormArray>this.legendForm.controls.legendSteps;
-  }
-
-  greaterThan(oldControl): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} => {
-      var fieldToCompare;
-      if(oldControl){
-        fieldToCompare = oldControl.get('value').value;
-      } else {
-        fieldToCompare = -9999999;
-      }
-      // console.log("OLD", oldControl)
-      const isLessThan = Number(fieldToCompare) > Number(control.value);
-      return isLessThan ? {'lessThan': {value: control.value}} : null;
+  sendNotification() {
+    // get input elements of the form
+    let sensors = document.getElementById("form-sensors");
+    let operators = document.getElementById("form-operators");
+    let thresholds = document.getElementById("form-thresholds");
+    // check if the input elements have been found
+    // TODO: check if input elements have values!
+    if (sensors && operators && thresholds) {
+      // create a notification rule
+      this.notificationsService.createNotificationRule({
+        // @ts-ignore
+        sensor: sensors.value,
+        box: this.activeBox._id,
+        name: "aRule",
+        // @ts-ignore
+        activationThreshold: thresholds.value,
+        // @ts-ignore
+        activationOperator: operators.value,
+        activationTrigger: "any",
+        active: true,
+        user: "testuser",
+        notificationChannel: [{ "channel": "email", "email": "test@test.invalid" }]
+        // @ts-ignore
+      }, this.activeBox.name, sensors.textContent)
     }
+    // TODO: what happens after a notification rule has bee created? Will the form close? Do you get some message that it worked?
   }
+
 }

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { BoxFollowComponent } from './box-follow.component';
 
 describe('BoxFollowComponent', () => {
