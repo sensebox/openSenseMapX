@@ -107,7 +107,7 @@ export class MapService {
       let mapData = {type:"FeatureCollection",features:[]};
       // @ts-ignore
       for(let i = 0; i < res.length; i++) {
-        let box = res[0];
+        let box = res[i];
         let feature = {"type":"Feature",
           properties: box,
           geometry: {

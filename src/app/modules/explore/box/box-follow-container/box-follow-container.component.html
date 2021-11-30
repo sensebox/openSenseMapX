@@ -1,6 +1,3 @@
 <osem-box-follow
-    [selectedPheno]="selectedPheno$ | async"
-    (updatedLegend)="updateLegend($event)"
->
-
-</osem-box-follow>
+    [activeBox]="activeBox$ | async"
+></osem-box-follow>
