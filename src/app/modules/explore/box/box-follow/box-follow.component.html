@@ -1,33 +1,30 @@
+<div *ngIf="activeBox">
 <div class="card-header">
-    <a class="card-footer-item"><h1 class="title is-3">{{title}}</h1></a>
+    <a class="card-footer-item"><h1 class="title is-3">{{ activeBox.name }}</h1></a>
 </div>
 <div class="osem-padding"> 
     <h3 class="title is-6">Be notified when a measured value transpasses a threshold.</h3>
     <div>    
-    <form>
+    <form id="follow-box-form">
         <div action="/action_page.php">
             <label><p>{{'FOLLOW_BOX' | translate}}</p></label>
-            <select name="sensors" class="input is-small" id="sensors">
-                <option></option>
-                <option value="temperature">Temperature</option>
-                <option value="rain">Rain</option>
-                <option value="uv">UV</option>
-                <option value="pm10">PM10</option>
+            <select name="sensors" class="input is-small" id="form-sensors">
+                <option *ngFor="let sensor of activeBox.sensors" [value]="sensor._id">{{ sensor.title }}</option>
             </select>
         </div>    
 
         <div action="/action_page.php">
             <label><p>Select</p></label>
-            <select name="sensors" class="input is-small" id="sensors">
-                <option></option>
-                <option value="over">more than</option>
-                <option value="bellow">less than</option>
+            <select name="operator" class="input is-small" id="form-operators">
+                <option value="equal">equal</option>
+                <option value="over">over</option>
+                <option value="under">under</option>
             </select>
         </div>
 
         <div class="control">
             <label>Type a threshold value</label>
-            <input class="input is-small" type="number" placeholder="Value">
+            <input class="input is-small" type="number" placeholder="Value" id="form-thresholds">
         </div>
 
         <div class="control">
@@ -39,11 +36,12 @@
     </form>
     </div>
 
-<h3 class="title is-6">You are already following from {{title}}:</h3>
+<h3 class="title is-6">You are already following from {{activeBox.name}}:</h3>
 <osem-box-threshold></osem-box-threshold>
 
 </div>
 <div class="card-footer">
     <a class="card-footer-item">Configuration Center</a>
+</div>
 </div>
 
