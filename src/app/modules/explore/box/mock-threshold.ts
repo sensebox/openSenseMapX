@@ -3,22 +3,25 @@ import { Threshold } from "./threshold"
 export const THRESHOLDS: Threshold[] = [
       {
         "id": 1,
+        "box": "aaaaaa",
         "sensor": "Temperature",
-        "action": "more than",
+        "action": "over",
         "value": 30,
         "email": true
       },
       {
         "id": 1,
+        "box": "aaaaaa",
         "sensor": "Rain",
-        "action": "less than",
+        "action": "bellow",
         "value": 200,
         "email": true
       },
       {
         "id": 1,
+        "box": "aaaaaa",
         "sensor": "UV",
-        "action": "more than",
+        "action": "over",
         "value": 8,
         "email": false
       }
