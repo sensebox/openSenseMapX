@@ -95,7 +95,7 @@ export class PopupComponent implements OnInit {
       [{outlets: {modal: 'follow-box'}}],
       {
         relativeTo: this.activatedRoute,
-        queryParams: { boxName: this.box.name },
+        queryParams: { boxId: this.box._id },
         queryParamsHandling: 'merge'
       }
     ); 
