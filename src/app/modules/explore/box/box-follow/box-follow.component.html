@@ -3,7 +3,7 @@
     <a class="card-footer-item"><h1 class="title is-3">{{ activeBox.name }}</h1></a>
 </div>
 <div class="osem-padding"> 
-    <h3 class="title is-6">When following a sensor, you will be notified when a measured value transpasses a threshold.</h3>
+    <h3 class="title is-6">Be notified when a measured value transpasses a threshold.</h3>
     <div>    
     <form id="follow-box-form">
         <div action="/action_page.php">
@@ -16,9 +16,9 @@
         <div action="/action_page.php">
             <label><p>Select</p></label>
             <select name="operator" class="input is-small" id="form-operators">
-                <option value="equal">equal to</option>
-                <option value="over">more than</option>
-                <option value="under">less than</option>
+                <option value="equal">equal</option>
+                <option value="over">over</option>
+                <option value="under">under</option>
             </select>
         </div>
 
@@ -26,14 +26,18 @@
             <label>Type a threshold value</label>
             <input class="input is-small" type="number" placeholder="Value" id="form-thresholds">
         </div>
+
+        <div class="control">
+            <input type="checkbox" name="checkEmail" id="email" />
+            <label for="email">I want to receive notifications via email.</label>
+            
+        </div>
         <button class="osem-button" (click)="sendNotification()">Follow Sensor</button>
     </form>
     </div>
-    
 
-    <h3 class="title is-6">You are already following these sensors from {{activeBox.name}}:</h3>
-          
-        
+<h3 class="title is-6">You are already following from {{activeBox.name}}:</h3>
+<osem-box-threshold></osem-box-threshold>
 
 </div>
 <div class="card-footer">
