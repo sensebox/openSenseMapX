@@ -19,7 +19,9 @@ export class CreateComponent implements OnInit {
 
   model = new FormDesign(1,
                           'Sound measurement campaign',
+                          'Joseph Schwartz',
                           'I am retired and new in this neighbourhood.',
+                          'My neighbourhood became loud.',
                           'My campaign goals are sound levels in my street.',
                           'I do not have speific details about my campaign.',
                           this.startDate,
@@ -32,6 +34,7 @@ export class CreateComponent implements OnInit {
   onSubmit() {
               this.submitted = true;
             }
+
 
   constructor() { }
 
