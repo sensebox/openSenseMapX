@@ -1,8 +1,6 @@
-<aside class="popup">
-  <div class="notification-title">
-    Threshold triggered!
+<aside class="popup" id="notification-popup">
+  <a>Paulas Box</a> measured 32 °C!
+  <div class="osem-close-text-no-pos" (click)="removeNotificationPopup()"  title="{{'REMOVE_DATERANGE' | translate}}">
+    <button class="delete is-small"></button>
   </div>
-  Box: <a>PaulasBox</a> <br/>
-  Sensor: Temperatur <br/>
-  Measurment: 32 °C<br/>
 </aside>

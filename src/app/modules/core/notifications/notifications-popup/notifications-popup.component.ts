@@ -16,13 +16,24 @@ export class NotificationsPopupComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private notificationsService: NotificationsService, private notificationsQuery: NotificationsQuery) { }
 
   async ngOnInit() {
+    await this.sleep(3000);
+    document.getElementById("notification-popup").classList.add("active");
   }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
   
   boxDetails(id) {
     this.router.navigate(['/explore/' + id], {
       relativeTo: this.activatedRoute,
       queryParamsHandling: 'merge'
     }); 
+  }
+
+  removeNotificationPopup() {
+    console.log("TODO: remove notification popup")
   }
 
 }
