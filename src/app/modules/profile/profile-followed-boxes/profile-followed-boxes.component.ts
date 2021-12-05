@@ -73,8 +73,6 @@ export class ProfileFollowedBoxesComponent implements AfterViewInit, OnInit {
     constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService) { }
 
     async ngOnInit() {
-        await this.sleep(1000);
-        console.log(this.notificationRules)
         this.dataSource.dataSource = this.notificationRules;
     }
     sleep(ms) {
