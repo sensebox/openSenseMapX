@@ -6,8 +6,7 @@
     "BOXES": "Boxes",
     "MEASUREMENTS": "Measurements",
     "CHOOSE_A_PHENO": "Choose a Phenomenon!",
-    "SHARE":"Share",
-    "CONFIGURATION": "Configuration",
+    "SHARE":"Compartir",
 
     "LIVE": "Live",
     "TIMESTAMP": "Timestamp",
@@ -74,7 +73,6 @@
     "MY_BOXES": "My Boxes",
     "ALL_BOXES": "All Boxes",
     "ADD_BOX": "New Box",
-    "F_BOXES": "Followed Boxes",
     "MY_VIS": "Saved Maps",
     "MY_ACCOUNT": "My account",
 
