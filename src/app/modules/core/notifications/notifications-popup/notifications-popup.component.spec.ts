@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NotificationsPopupComponent } from './notifications-popup.component';
 
-describe('NotificationsViewerComponent', () => {
+describe('NotificationsPopupComponent', () => {
   let component: NotificationsPopupComponent;
   let fixture: ComponentFixture<NotificationsPopupComponent>;
 

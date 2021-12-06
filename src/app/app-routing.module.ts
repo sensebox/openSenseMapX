@@ -21,7 +21,6 @@ import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
 import { NotificationsContainerComponent } from './modules/core/notifications/notifications-container/notifications-container.component';
-import { NotificationsPopupComponent } from './modules/core/notifications/notifications-popup/notifications-popup.component';
 import { BoxFollowContainerComponent } from './modules/explore/box/box-follow-container/box-follow-container.component';
 
 
