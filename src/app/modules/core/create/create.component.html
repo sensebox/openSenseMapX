@@ -11,10 +11,7 @@
           name="title"
           #title="ngModel">
           <span class="icon is-small is-left">
-              <i class="fa fa-envelope"></i>
-          </span>
-          <span class="icon is-small is-right">
-              <i class="fa fa-check"></i>
+            <i class="fa fa-envelope"></i>
           </span>
         </p>
   </div>
@@ -165,12 +162,14 @@
     <div class="select is-multiple">
       <label for="power">Phenomena</label>
       <select multiple
-              size="2"
+              size="10"
               id="phenomena"
               required
               [(ngModel)]="model.phenomena"
               name="phenomena">
-        <option *ngFor="let one of phenomena" [value]="one">{{one}}</option>
+        <option *ngFor="let one of phenomena | async"
+                [value]="one.phenomenonLabel[0].value">{{one.phenomenonLabel[0].value}}
+              </option>
       </select>
     </div>
 
