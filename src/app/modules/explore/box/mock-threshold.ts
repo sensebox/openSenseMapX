@@ -13,7 +13,7 @@ export const THRESHOLDS: Threshold[] = [
         "id": 1,
         "box": "aaaaaa",
         "sensor": "Rain",
-        "action": "bellow",
+        "action": "below",
         "value": 200,
         "email": true
       },

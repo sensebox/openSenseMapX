@@ -5,6 +5,7 @@ import { NotificationsService } from 'src/app/models/notifications/state/notific
 import { ActivatedRoute } from '@angular/router';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { BoxService } from 'src/app/models/box/state/box.service';
+import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 
 @Component({
   selector: 'osem-box-follow',
@@ -15,6 +16,7 @@ import { BoxService } from 'src/app/models/box/state/box.service';
 export class BoxFollowComponent implements OnInit {
 
   @Input() activeBox;
+  sensorUnit;
 
   constructor(
     private fb: FormBuilder,
@@ -22,7 +24,7 @@ export class BoxFollowComponent implements OnInit {
     private boxService: BoxService,
     private boxQuery: BoxQuery,
     private notificationsService: NotificationsService) { }
-  
+
   ngOnInit() {
   }
 
@@ -53,5 +55,19 @@ export class BoxFollowComponent implements OnInit {
     }
     // TODO: what happens after a notification rule has bee created? Will the form close? Do you get some message that it worked?
   }
+
+  selected(){
+    let e = (document.getElementById("form-sensors")) as HTMLSelectElement;
+    let sel = e.selectedIndex;
+    let opt = e.options[sel];
+    let chosenSensor = (<HTMLSelectElement><unknown>opt).textContent;
+    let boxSensors = this.activeBox.sensors;
+    for(let i = 0; i < boxSensors.length; i++) {
+      if (chosenSensor == boxSensors[i].title){
+        this.sensorUnit = boxSensors[i].unit;
+      }
+    }
+  }
+  
 
 }
