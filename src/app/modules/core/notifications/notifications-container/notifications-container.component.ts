@@ -11,6 +11,7 @@ import { NotificationsService } from 'src/app/models/notifications/state/notific
 export class NotificationsContainerComponent implements OnInit {
 
   loggedIn$ = this.sessionQuery.isLoggedIn$;
+  user$ = this.sessionQuery.user$;
 
   notifications$ = this.notificationsQuery.notifications$;
   areNotificationsLoaded$ = this.notificationsQuery.areNotificationsLoaded$;
@@ -18,7 +19,6 @@ export class NotificationsContainerComponent implements OnInit {
   constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService, private sessionQuery: SessionQuery) { }
 
   ngOnInit() {
-    this.notificationsService.getNotificationRules();
   }
 
 }
