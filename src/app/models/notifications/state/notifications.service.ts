@@ -49,7 +49,11 @@ export class NotificationsService {
           // @ts-ignore
           boxName: box.name,
           // @ts-ignore
-          sensorName: box.sensors.find(sensor => sensor._id = notificationRule.sensor).title
+          boxExposure: box.exposure,
+          // @ts-ignore
+          sensorName: box.sensors.find(sensor => sensor._id = notificationRule.sensor).title,
+          // @ts-ignore
+          boxDate: box.updatedAt,
         }
       }
       this.notificationsStore.update(state => ({
