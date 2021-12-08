@@ -44,10 +44,20 @@ export class NotificationsService {
           }
           notifications.push(notification)
         }
+        res.data[i] = {
+          ...notificationRule,
+          // @ts-ignore
+          boxName: box.name,
+          // @ts-ignore
+          boxExposure: box.exposure,
+          // @ts-ignore
+          sensorName: box.sensors.find(sensor => sensor._id = notificationRule.sensor).title
+        }
       }
       this.notificationsStore.update(state => ({
         ...state,
         notifications: notifications,
+        notificationRules: res.data,
         areNotificationsLoaded: true
       }));
     });

@@ -15,6 +15,10 @@ export class NotificationsQuery extends Query<NotificationsState> {
   areNotificationsLoaded$ = this.select(state => {
     return state.areNotificationsLoaded;
   });
+
+  notificationRules$ = this.select(state => {
+    return state.notificationRules;
+  });
   
   constructor(protected store: NotificationsStore) {
     super(store);
