@@ -11,3 +11,17 @@
   width: 100%;
   margin: 20px 0px;
 }
+
+::placeholder {
+  color: gray;
+}
+
+select:required:invalid {
+  color: gray;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: black;
+}

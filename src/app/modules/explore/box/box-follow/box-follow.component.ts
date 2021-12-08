@@ -17,6 +17,7 @@ export class BoxFollowComponent implements OnInit {
 
   @Input() activeBox;
   sensorUnit;
+  textForm;
 
   constructor(
     private fb: FormBuilder,
@@ -65,6 +66,7 @@ export class BoxFollowComponent implements OnInit {
     for(let i = 0; i < boxSensors.length; i++) {
       if (chosenSensor == boxSensors[i].title){
         this.sensorUnit = boxSensors[i].unit;
+        this.textForm = "Value in " + this.sensorUnit
       }
     }
   }
