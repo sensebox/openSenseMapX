@@ -11,9 +11,6 @@ export class CreateComponent implements OnInit {
 
   phenomena
 
-  startDate: Date;
-  endDate: Date;
-
   model = new FormDesign();
 
   submitted = false;

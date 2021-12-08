@@ -44,7 +44,7 @@
     <ul class="menu-list">
       <!-- put create into container:<ng-container *ngIf="loggedIn$ | async"></ng-container>  -->
       <li><a [routerLink]="['create']" queryParamsHandling="merge">{{'CREATE NEW' | translate}}</a></li>
-      <li><a [routerLink]="['ongoing']" queryParamsHandling="merge">{{'ONGOING' | translate}}</a></li>
+      <li><a [routerLink]="['campaigns']" queryParamsHandling="merge">{{'ONGOING' | translate}}</a></li>
       <li><a [routerLink]="['finished']" queryParamsHandling="merge">{{'FINISHED' | translate}}</a></li>
     </ul>
 </aside>
