@@ -38,10 +38,12 @@ import { NewVisContainerComponent } from './new-vis-container/new-vis-container.
 import { NewVisComponent } from './new-vis/new-vis.component';
 import { VisFormComponent } from './vis-form/vis-form.component';
 import { NotificationsViewerComponent } from './notifications/notifications-viewer/notifications-viewer.component';
+import { NotificationsPopupComponent } from './notifications/notifications-popup/notifications-popup.component';
+import { NotificationsPopupContainerComponent } from './notifications/notifications-popup-container/notifications-popup-container.component';
 import { NotificationsContainerComponent } from './notifications/notifications-container/notifications-container.component';
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoComponent, PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent, NewVisComponent, VisFormComponent, NotificationsContainerComponent, NotificationsViewerComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoComponent, PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent, NewVisComponent, VisFormComponent, NotificationsContainerComponent, NotificationsViewerComponent, NotificationsPopupComponent, NotificationsPopupContainerComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -56,6 +58,6 @@ import { NotificationsContainerComponent } from './notifications/notifications-c
     multi: true
   }
 ],
-  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent, NotificationsContainerComponent],
+  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent, NotificationsContainerComponent, NotificationsPopupContainerComponent],
 })
 export class CoreModule { }

@@ -1,0 +1,8 @@
+<aside class="popup" id="notification-popup">
+  <div id="notification-popup-content" *ngIf="hasNotification && newNotification.type == 'notification-rule'">
+    Notification rule for <a (click)="boxDetails(newNotification.boxId)">{{ newNotification.boxName }}</a> created!
+  </div>
+  <div id="close-notification-popup" class="osem-close-text-no-pos" (click)="removeNotificationPopup()"  title="{{'REMOVE_DATERANGE' | translate}}">
+    <button class="delete is-small"></button>
+  </div>
+</aside>

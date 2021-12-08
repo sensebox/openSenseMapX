@@ -69,17 +69,26 @@ export class NotificationsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
     this.http.post(`${environment.api_url}/notification/notificationRule`, params, {headers: headers}).subscribe((res:any) => {
+      let newNotification = {
+        type: "notification-rule",
+        boxName: boxName,
+        boxId: params.box,
+        sensorTitle: sensorTitle
+      };
       this.notificationsStore.update(state => ({
         ...state,
-        notifications: state.notifications.concat([{
-          type: "notification-rule",
-          boxName: boxName,
-          sensorTitle: sensorTitle
-        }])
+        notifications: (typeof state.notifications != "undefined") ? state.notifications.concat([newNotification]) : [newNotification]
       }));
+      this.setNewNotification(newNotification)
     });
   }
 
+  setNewNotification(newNotification) {
+    this.notificationsStore.update(state => ({
+      ...state,
+      newNotification: newNotification
+    }))
+  }
 
   getBox(id, headers){
     return new Promise ((resolve, reject) => {
