@@ -21,6 +21,11 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
+import { ChartModule } from '@smart-webcomponents-angular/chart';
+import { GridModule } from '@smart-webcomponents-angular/grid';
+import { PivotTableModule } from '@smart-webcomponents-angular/pivottable';
+
+
 registerLocaleData(localeDe, 'de-DE');
 // registerLocaleData(localeEm, 'de-DE');
 // AoT requires an exported function for factories
@@ -50,7 +55,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    ChartModule,
+    GridModule,
+    PivotTableModule
   ],
   providers: [
     ThemeService,

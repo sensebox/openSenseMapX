@@ -1,41 +1,41 @@
 
 <aside class="menu">
-    <p class="menu-label">
-      Personal
-    </p>
-    <ul class="menu-list">
-      <ng-container *ngIf="loggedIn$ | async">
-        <li><a [routerLink]="['profile']" queryParamsHandling="merge">{{'PROFILE' | translate}}</a></li>
-        <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
-      </ng-container>
-      <ng-container *ngIf="!(loggedIn$ | async)">
-        <ul class="menu-list">
-          <li><a [routerLink]="['',{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">{{'LOGIN' | translate}}</a></li>
-        </ul>
-      </ng-container>
-    </ul>
-    <p class="menu-label">
-      Dokumentation
-    </p>
-    <ul class="menu-list">
-      <li><a href="https://tutorials.opensensemap.org" target="_blank">Tutorials <i class="fa fa-external-link-alt"></i></a></li>
-      <li><a href="https://docs.opensensemap.org" target="_blank">API <i class="fa fa-external-link-alt"></i></a></li>
-    </ul>
-    <p class="menu-label">
-      About
-    </p>
-    <ul class="menu-list">
-      <!-- <li><a [routerLink]="['about']" queryParamsHandling="merge">{{'ABOUT' | translate}}</a></li> -->
-      <li><a [routerLink]="['faq']" queryParamsHandling="merge">{{'FAQ' | translate}}</a></li>
-      <li><a [routerLink]="['contact']" queryParamsHandling="merge">{{'CONTACT' | translate}}</a></li>
-      <li><a [routerLink]="['imprint']" queryParamsHandling="merge">{{'IMPRINT' | translate}}</a></li>
-      <li><a [routerLink]="['privacy']" queryParamsHandling="merge">{{'PRIVACY' | translate}}</a></li>
-    </ul>
-    <p class="menu-label">
-      {{'SUPPORT' | translate}}
-    </p>
-    <ul class="menu-list">
-      <li><a [routerLink]="['donate']" queryParamsHandling="merge">{{'DONATE' | translate}}</a></li>
-      <li><a [routerLink]="['thanks']" queryParamsHandling="merge">{{'THANKS' | translate}}</a></li>
-    </ul>
+  <p class="menu-label">
+    Personal
+  </p>
+  <ul class="menu-list">
+    <ng-container *ngIf="loggedIn$ | async">
+      <li><a [routerLink]="['profile']" queryParamsHandling="merge">{{'PROFILE' | translate}}</a></li>
+      <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>
+    </ng-container>
+    <ng-container *ngIf="!(loggedIn$ | async)">
+      <ul class="menu-list">
+        <li><a [routerLink]="['',{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">{{'LOGIN' | translate}}</a></li>
+      </ul>
+    </ng-container>
+  </ul>
+  <p class="menu-label">
+    Dokumentation
+  </p>
+  <ul class="menu-list">
+    <li><a href="https://tutorials.opensensemap.org" target="_blank">Tutorials <i class="fa fa-external-link-alt"></i></a></li>
+    <li><a href="https://docs.opensensemap.org" target="_blank">API <i class="fa fa-external-link-alt"></i></a></li>
+  </ul>
+  <p class="menu-label">
+    About
+  </p>
+  <ul class="menu-list">
+    <!-- <li><a [routerLink]="['about']" queryParamsHandling="merge">{{'ABOUT' | translate}}</a></li> -->
+    <li><a [routerLink]="['faq']" queryParamsHandling="merge">{{'FAQ' | translate}}</a></li>
+    <li><a [routerLink]="['contact']" queryParamsHandling="merge">{{'CONTACT' | translate}}</a></li>
+    <li><a [routerLink]="['imprint']" queryParamsHandling="merge">{{'IMPRINT' | translate}}</a></li>
+    <li><a [routerLink]="['privacy']" queryParamsHandling="merge">{{'PRIVACY' | translate}}</a></li>
+  </ul>
+  <p class="menu-label">
+    {{'SUPPORT' | translate}}
+  </p>
+  <ul class="menu-list">
+    <li><a [routerLink]="['donate']" queryParamsHandling="merge">{{'DONATE' | translate}}</a></li>
+    <li><a [routerLink]="['thanks']" queryParamsHandling="merge">{{'THANKS' | translate}}</a></li>
+  </ul>
 </aside>

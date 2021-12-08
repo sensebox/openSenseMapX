@@ -12,10 +12,17 @@ export class NotificationsViewerComponent implements OnInit {
 
   @Input() notifications;
   @Input() areNotificationsLoaded;
+  @Input() user;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private notificationsService: NotificationsService, private notificationsQuery: NotificationsQuery) { }
 
-  async ngOnInit() {
+  ngOnInit() {
+  }
+
+  async ngOnChanges(changes) {
+    if(changes.user && typeof changes.user.currentValue != "undefined") {
+      this.notificationsService.getNotificationRules();
+    }
   }
   
   boxDetails(id) {

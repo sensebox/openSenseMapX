@@ -18,7 +18,10 @@
         <div class="nav-item" [routerLink]="[{ outlets: { sidebar: ['m'] }}]">
             <i class="fa fa-bars"></i>
         </div>
-        <div *ngIf="user" class="nav-item" [routerLink]="[{ outlets: { notificationsContainer: ['notifications-container'] }}]">
+        <div *ngIf="user && !router.url.includes('(notificationsContainer:notifications-container)')" class="nav-item" [routerLink]="[{ outlets: { notificationsContainer: ['notifications-container'] }}]">
+            <i class="fa fa-bell"></i>
+        </div>
+        <div *ngIf="router.url.includes('(notificationsContainer:notifications-container)')" class="nav-item" [routerLink]="[{outlets: {notificationsContainer: null}}]">
             <i class="fa fa-bell"></i>
         </div>
     </div>

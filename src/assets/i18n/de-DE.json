@@ -6,6 +6,8 @@
     "BOXES": "Stationen",
     "MEASUREMENTS": "Messungen",
     "CHOOSE_A_PHENO": "Wähle ein Phänomen!",
+    "SHARE": "Teilen",
+    "CONFIGURATION": "Einstellung",
 
     "LIVE": "Live",
     "TIMESTAMP": "Zeitpunkt",
@@ -71,6 +73,7 @@
     "MY_BOXES": "Meine Messstationen",
     "ALL_BOXES": "Alle Messstationen",
     "ADD_BOX": "Neue Box",
+    "F_BOXES": "Gefolgte Messstationen",
     "MY_VIS": "Gespeicherte Karten",
     "MY_ACCOUNT": "Mein Account",
 

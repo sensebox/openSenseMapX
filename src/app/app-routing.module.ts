@@ -56,6 +56,7 @@ const routes: Routes = [
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},
+    //{path: 'fbox', component: FollowedBoxesContainerComponent, canActivate: [AuthGuard]},
     {path: 'boxes', component: MyBoxesContainerComponent, canActivate: [AuthGuard]}
     ]
   },

@@ -75,17 +75,12 @@
     <router-outlet name="sidebar" #sidebarOutlet="outlet"></router-outlet>
 </div> 
 
-<div id="osem-notifications-container" class="px-2 py-2" [class.active]="notificationsContainerOutlet.isActivated">
+<div id="osem-notifications-container" [class.active]="notificationsContainerOutlet.isActivated">
     <div id="sidebar-header" class="level">
         <div class="level-left">
             <p class="notifications-viewer-title">
                 notifications feed
             </p>
-        </div>
-        <div class="level-right">
-            <div class="osem-close-text-no-pos" (click)="closeViewer()">
-                <button class="delete is-medium"></button>
-            </div>
         </div>
     </div>
 

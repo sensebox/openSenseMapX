@@ -1,0 +1,14 @@
+@import 'smart-webcomponents-angular/source/styles/smart.default.css';
+
+html, body {
+	height: 500px !important;
+	
+}
+
+smart-grid {
+	width: auto;
+	--smart-surface:#4EAF47;
+	--smart-font-size: 18px;
+	--smart-font-family:BrixSlab,Helvetica,sans-serif;
+}
+
