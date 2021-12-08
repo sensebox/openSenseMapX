@@ -335,6 +335,7 @@
     <Content Include="src\assets\data\vis.json" />
     <Content Include="src\assets\data\world.json" />
     <Content Include="src\assets\i18n\de-DE.json" />
+    <Content Include="src\assets\i18n\es-SP.json" />
     <Content Include="src\assets\i18n\en-US.json" />
     <Content Include="src\assets\img\favicon.svg" />
     <Content Include="src\assets\fonts\Lato\OFL.txt" />

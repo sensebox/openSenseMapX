@@ -27,6 +27,11 @@ import { DashboardContainerComponent } from './dashboard-container/dashboard-con
 import { MyBoxesContainerComponent } from './my-boxes-container/my-boxes-container.component';
 import { MyBoxesComponent } from './my-boxes/my-boxes.component';
 import { ProfileContainerComponent } from './profile-container/profile-container.component';
+import { ProfileFollowedBoxesComponent } from './profile-followed-boxes/profile-followed-boxes.component';
+import { ProfileFollowedBoxesContainerComponent } from './profile-followed-boxes-container/profile-followed-boxes-container.component';
+import { ChartModule } from '@smart-webcomponents-angular/chart';
+import { GridModule } from '@smart-webcomponents-angular/grid';
+import { PivotTableModule } from '@smart-webcomponents-angular/pivottable';
 
 
 @NgModule({
@@ -53,14 +58,19 @@ import { ProfileContainerComponent } from './profile-container/profile-container
     DashboardContainerComponent,
     MyBoxesContainerComponent,
     MyBoxesComponent,
-    ProfileContainerComponent
+    ProfileContainerComponent,
+    ProfileFollowedBoxesComponent,
+    ProfileFollowedBoxesContainerComponent
   ],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    ChartModule,
+    GridModule,
+    PivotTableModule
   ]
 })
 export class ProfileModule { }
