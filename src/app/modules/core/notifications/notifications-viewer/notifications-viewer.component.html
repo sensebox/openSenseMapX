@@ -1,0 +1,21 @@
+<aside class="viewer">
+  <div *ngIf="areNotificationsLoaded">
+    <div *ngFor="let notification of notifications" class="notification">
+      <div *ngIf="notification.type=='threshold'">
+        <div class="threshold-title">
+          Threshold triggered!
+        </div>
+        Box: <a (click)="boxDetails(notification.box._id)">{{ notification.box.name }}</a> <br/>
+        Sensor: {{ notification.sensor.title }} <br/>
+        Measurment: <b>{{ notification.notificationValue }} {{ notification.sensor.unit }}</b> <br/>
+      </div>
+    
+      <div *ngIf="notification.type=='notification-rule'">
+        <div class="rule-title">
+          Created a notification rule
+        </div>
+        You cretated a notification rule for <b>'{{notification.sensorTitle}}'</b> of <b>'{{notification.boxName}}'</b>.
+      </div>
+    </div>
+  </div>
+</aside>

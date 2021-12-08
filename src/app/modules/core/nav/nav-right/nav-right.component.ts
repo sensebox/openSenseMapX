@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { slideInOutMenu } from 'src/app/helper/animations';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'osem-nav-right',
@@ -21,7 +22,7 @@ export class NavRightComponent implements OnInit {
   @Input() user;
   @Input() clustering;
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
   }

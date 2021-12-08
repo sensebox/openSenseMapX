@@ -12,12 +12,12 @@ export class NotificationsQuery extends Query<NotificationsState> {
     return state.notifications;
   });
 
-  notificationRules$ = this.select(state => {
-    return state.notificationRules;
-  });
-
   areNotificationsLoaded$ = this.select(state => {
     return state.areNotificationsLoaded;
+  });
+
+  notificationRules$ = this.select(state => {
+    return state.notificationRules;
   });
   
   constructor(protected store: NotificationsStore) {

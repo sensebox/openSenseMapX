@@ -67,6 +67,10 @@
     <None Include="src\app\models\session\state\session.query.ts" />
     <None Include="src\app\models\session\state\session.service.ts" />
     <None Include="src\app\models\session\state\session.store.ts" />
+    <None Include="src\app\models\notifications\state\notifications.model.ts" />
+    <None Include="src\app\models\notifications\state\notifications.query.ts" />
+    <None Include="src\app\models\notifications\state\notifications.service.ts" />
+    <None Include="src\app\models\notifications\state\notifications.store.ts" />
     <None Include="src\app\models\ui\state\layers.ts" />
     <None Include="src\app\models\ui\state\ui.model.ts" />
     <None Include="src\app\models\ui\state\ui.query.ts" />
@@ -94,6 +98,12 @@
     <None Include="src\app\modules\core\impressum\impressum.component.spec.ts" />
     <None Include="src\app\modules\core\impressum\impressum.component.ts" />
     <None Include="src\app\modules\core\interceptors\token-interceptor.ts" />
+    <Content Include="src\app\modules\core\notifications\notifications-container.component.html" />
+    <None Include="src\app\modules\core\notifications\notifications-container.component.spec.ts" />
+    <None Include="src\app\modules\core\notifications\notifications-container.component.ts" />
+    <Content Include="src\app\modules\core\notifications\notifications-viewer\notifications-viewer.component.html" />
+    <None Include="src\app\modules\core\notifications\notifications-viewer\notifications-viewer.component.spec.ts" />
+    <None Include="src\app\modules\core\notifications\notifications-viewer\notifications-viewer.component.ts" />
     <Content Include="src\app\modules\core\new-vis\new-vis.component.html" />
     <None Include="src\app\modules\core\new-vis\new-vis.component.spec.ts" />
     <None Include="src\app\modules\core\new-vis\new-vis.component.ts" />

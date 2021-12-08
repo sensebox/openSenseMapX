@@ -100,6 +100,9 @@
     "NO_RECENT_MEASUREMENT": "No recent measurement",
     "COMPARE_TO": "Compare to other boxes",
 
+    "FOLLOW": "Follow",
+    "FOLLOW_BOX": "Select a sensor to follow:",
+
     "INTRO_HEADLINE": "openSenseMap Beta",
     "INTRO_TEXT_1": "This is a beta version of the new openSenseMap!",
     "INTRO_TEXT_2": "The platforms aims to make the data collected by the openSenseMap more accessible and easier to analyse",

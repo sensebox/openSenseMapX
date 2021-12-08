@@ -70,6 +70,18 @@
     </div>
 
     <router-outlet name="sidebar" #sidebarOutlet="outlet"></router-outlet>
+</div> 
+
+<div id="osem-notifications-container" [class.active]="notificationsContainerOutlet.isActivated">
+    <div id="sidebar-header" class="level">
+        <div class="level-left">
+            <p class="notifications-viewer-title">
+                notifications feed
+            </p>
+        </div>
+    </div>
+
+    <router-outlet name="notificationsContainer" #notificationsContainerOutlet="outlet"></router-outlet>
 </div>
 
 
