@@ -14,6 +14,7 @@ export class PopupComponent implements OnInit {
 
   @Input() box;
   @Input() cluster;
+  @Input() user;
   @Output() closed = new EventEmitter();
 
   public sensorIconsObject = sensorIcons;
