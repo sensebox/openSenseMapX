@@ -2,6 +2,7 @@
   <div *ngIf="areNotificationsLoaded">
     <div *ngFor="let notification of notifications" class="notification">
       <div *ngIf="notification.type=='threshold'">
+        <div class="notification-time">{{ notification.timeText }}</div>
         <div class="threshold-title">
           Threshold triggered!
         </div>

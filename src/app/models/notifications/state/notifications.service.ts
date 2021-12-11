@@ -32,8 +32,10 @@ export class NotificationsService {
         let box = await this.getBox(notificationRule.box, headers);
         for (let j = 0; j < notificationRule.notifications.length; j++) {
           let notification = notificationRule.notifications[i];
+          let notiTime = notification.notificationTime
           notification = {
             ...notification,
+            timeText: notiTime.slice(8, 10) + "." + notiTime.slice(5, 7) + "." + notiTime.slice(2, 4) + ", " + notiTime.slice(11, 16),
             type: "threshold",
             activationOperator: notificationRule.activationOperator,
             activationThreshold: notificationRule.activationThreshold,
