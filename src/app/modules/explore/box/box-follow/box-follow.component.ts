@@ -16,6 +16,7 @@ import { SensorService } from 'src/app/models/sensor/state/sensor.service';
 export class BoxFollowComponent implements OnInit {
 
   @Input() activeBox;
+  @Input() user;
   sensorUnit;
   textForm;
 
@@ -34,9 +35,18 @@ export class BoxFollowComponent implements OnInit {
     let sensors = document.getElementById("form-sensors");
     let operators = document.getElementById("form-operators");
     let thresholds = document.getElementById("form-thresholds");
+    let email = document.getElementById("form-email");
     // check if the input elements have been found
     // TODO: check if input elements have values!
-    if (sensors && operators && thresholds) {
+    if (sensors && operators && thresholds && email) {
+      let notificationChannels = [];
+      // @ts-ignore
+      if(email.value == "on") {
+        notificationChannels.push({
+            "channel": "email", 
+            "email": this.user.email
+        })
+      }
       // create a notification rule
       this.notificationsService.createNotificationRule({
         // @ts-ignore
@@ -49,8 +59,7 @@ export class BoxFollowComponent implements OnInit {
         activationOperator: operators.value,
         activationTrigger: "any",
         active: true,
-        user: "testuser",
-        notificationChannel: [{ "channel": "email", "email": "test@test.invalid" }]
+        notificationChannel: notificationChannels
         // @ts-ignore
       }, this.activeBox.name, sensors.textContent)
     }
