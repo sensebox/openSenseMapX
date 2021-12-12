@@ -31,7 +31,7 @@ export class NotificationsService {
         let notificationRule = res.data[i];
         let box = await this.getBox(notificationRule.box, headers);
         for (let j = 0; j < notificationRule.notifications.length; j++) {
-          let notification = notificationRule.notifications[i];
+          let notification = notificationRule.notifications[j];
           let notiTime = notification.notificationTime
           notification = {
             ...notification,
@@ -42,7 +42,7 @@ export class NotificationsService {
             ruleName: notificationRule.name,
             box: box,
             // @ts-ignore
-            sensor: box.sensors.find(sensor => sensor._id = notificationRule.sensor)
+            sensor: box.sensors.find(sensor => sensor._id == notificationRule.sensor)
           }
           notifications.push(notification)
         }
@@ -53,11 +53,12 @@ export class NotificationsService {
           // @ts-ignore
           boxExposure: box.exposure,
           // @ts-ignore
-          sensorName: box.sensors.find(sensor => sensor._id = notificationRule.sensor).title,
+          sensorName: box.sensors.find(sensor => sensor._id == notificationRule.sensor).title,
           // @ts-ignore
           boxDate: box.updatedAt,
         }
       }
+      notifications.sort((a,b) => b.notificationTime.localeCompare(a.notificationTime));
       this.notificationsStore.update(state => ({
         ...state,
         notifications: notifications,
@@ -71,15 +72,17 @@ export class NotificationsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
     this.http.post(`${environment.api_url}/notification/notificationRule`, params, {headers: headers}).subscribe((res:any) => {
+      var d = new Date();
       let newNotification = {
         type: "notification-rule",
         boxName: boxName,
         boxId: params.box,
-        sensorTitle: sensorTitle
+        sensorTitle: sensorTitle,
+        timeText: d.getDate() + "." + (d.getMonth()+1) + "." + (String(d.getFullYear()).slice(2,4)) + ", " + d.getHours() + ":" + d.getMinutes()
       };
       this.notificationsStore.update(state => ({
         ...state,
-        notifications: (typeof state.notifications != "undefined") ? state.notifications.concat([newNotification]) : [newNotification]
+        notifications: (typeof state.notifications != "undefined") ? [newNotification].concat(state.notifications) : [newNotification]
       }));
       this.setNewNotification(newNotification)
     });

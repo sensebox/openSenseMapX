@@ -41,7 +41,7 @@ export class BoxFollowComponent implements OnInit {
     if (sensors && operators && thresholds && email) {
       let notificationChannels = [];
       // @ts-ignore
-      if(email.value == "on") {
+      if(email.checked) {
         notificationChannels.push({
             "channel": "email", 
             "email": this.user.email
@@ -61,7 +61,7 @@ export class BoxFollowComponent implements OnInit {
         active: true,
         notificationChannel: notificationChannels
         // @ts-ignore
-      }, this.activeBox.name, sensors.textContent)
+      }, this.activeBox.name, sensors.options[sensors.selectedIndex].text)
     }
     // TODO: what happens after a notification rule has bee created? Will the form close? Do you get some message that it worked?
   }
