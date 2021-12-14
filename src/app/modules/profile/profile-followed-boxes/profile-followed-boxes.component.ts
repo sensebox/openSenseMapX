@@ -90,14 +90,18 @@ export class ProfileFollowedBoxesComponent implements AfterViewInit, OnInit {
         showRowHeaderFocusIcon: true
     };
 
+    @Input() user;
+
     constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService) { }
 
-    async ngOnInit() {
+    ngOnInit() {
     }
 
     ngOnChanges(changes) {
-        if(changes.notificationRules && typeof changes.notificationRules.currentValue != "undefined") {
+        if(changes.notificationRules && typeof changes.notificationRules.currentValue != "undefined" && changes.notificationRules.currentValue != null) {
             this.dataSource.dataSource = changes.notificationRules.currentValue;
+        } else if(changes.user && typeof changes.user.currentValue != "undefined" && changes.user.currentValue != null) {
+            this.notificationsService.getNotificationRules();
         }
     }
 

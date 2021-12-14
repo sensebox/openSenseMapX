@@ -23,7 +23,7 @@ export class NotificationsPopupComponent implements OnInit {
   }
   
   async ngOnChanges(changes) {
-    if(changes.newNotification && typeof changes.newNotification.currentValue != "undefined") {
+    if(changes.newNotification && typeof changes.newNotification.currentValue != "undefined" && changes.newNotification.currentValue != null) {
       document.getElementById("notification-popup").classList.remove("active");
       this.hasNotification = true;
       await this.sleep(200)
