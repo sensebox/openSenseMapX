@@ -20,7 +20,7 @@ export class NotificationsViewerComponent implements OnInit {
   }
 
   async ngOnChanges(changes) {
-    if(changes.user && typeof changes.user.currentValue != "undefined") {
+    if(changes.user && typeof changes.user.currentValue != "undefined" && changes.user.currentValue != null) {
       this.notificationsService.getNotificationRules();
     }
   }

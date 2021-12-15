@@ -5,6 +5,7 @@
         <div class="notification-time">{{ notification.timeText }}</div>
         <div class="threshold-title">
           Threshold triggered!
+          <span class="tooltiptext">{{ notification.activationOperator }} {{ notification.activationThreshold }} {{ notification.sensor.unit }}</span>
         </div>
         Box: <a (click)="boxDetails(notification.box._id)">{{ notification.box.name }}</a> <br/>
         Sensor: {{ notification.sensor.title }} <br/>
