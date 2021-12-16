@@ -143,10 +143,11 @@
         </p>
     </div>
 
-    <p>Choose the end date of the campain</p>
-    <div class="field">
+    <p *ngIf="model.startDate">Choose the end date of the campain</p>
+    <div *ngIf="model.startDate" class="field">
       <p class="control has-icons-left">
           <input type="date"
+          min="{{model.startDate}}"
           class="input"
           id="enddate"
           required
@@ -172,7 +173,6 @@
               </option>
       </select>
     </div>
-
     <div>
       <button
             type="submit"
