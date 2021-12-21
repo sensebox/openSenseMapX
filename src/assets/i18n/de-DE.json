@@ -62,6 +62,11 @@
     "SUPPORT": "Unterstüzen",
     "DONATE": "Spenden",
     "THANKS": "Förderer",
+
+    "CREATE NEW": "Neu erstellen",
+    "ONGOING": "Andauernd/laufend",
+    "FINISHED": "Fertig",
+
     "THANKSDONATION": "Danke!",
     "THANKSDONATION_TEXT": "Wir möchten uns ganz herzlich bei allen Spenderinnen und Spendern für ihre Mithilfe bedanken. <br> <br> Ihr helft uns dabei, besser werden zu können.",
     "SPECIALTHANKS_ORGS": "Ein ganz besonderer Dank geht an die folgenden Organisationen:",

@@ -1,0 +1,183 @@
+<div [hidden]="submitted">
+<form (ngSubmit)="onSubmit()" #myForm = "ngForm" method="POST" action="/users/campaign">
+  <div class="field">
+        <p class="control has-icons-left has-icons-right">
+          <input type="text"
+          class="input"
+          id="title"
+          required
+          placeholder="Title"
+          [(ngModel)]="model.title"
+          name="title"
+          #title="ngModel">
+          <span class="icon is-small is-left">
+              <i class="fa fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+              <i class="fa fa-check"></i>
+          </span>
+        </p>
+  </div>
+  <div
+      [hidden]="title.valid || title.pristine"
+      class="notification is-danger is-light">
+      Title is required!
+  </div>
+
+  <div class="field">
+    <p class="control has-icons-left">
+         <input type="text"
+         class="input"
+         id="aboutme"
+         required
+         placeholder="About me"
+         [(ngModel)]="model.aboutMe"
+         name="aboutme"
+         #aboutme="ngModel">
+        <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+        </span>
+    </p>
+  </div>
+  <div
+      [hidden]="aboutme.valid || aboutme.pristine"
+      class="notification is-danger is-light">
+      "About me" is required!
+  </div>
+
+  <div class="field">
+    <p class="control has-icons-left">
+      <input type="text"
+      class="input"
+      id="campaigngoals"
+      required
+      placeholder="Campaign goals are..."
+      [(ngModel)]="model.campaignGoals"
+      name="campaigngoals"
+      #campaigngoals="ngModel">
+        <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+        </span>
+    </p>
+  </div>
+  <div
+    [hidden]="campaigngoals.valid || campaigngoals.pristine"
+    class="notification is-danger is-light">
+    Campaign goals are required!
+  </div>
+
+
+  <div class="field">
+    <p class="control has-icons-left">
+      <input type="text"
+      class="input"
+      id="campaigndetails"
+      required
+      placeholder="Campaign details are..."
+      [(ngModel)]="model.campaignDetails"
+      name="campaigndetails"
+      #campaigndetails="ngModel">
+        <span class="icon is-small is-left">
+              <i class="fa fa-lock"></i>
+        </span>
+    </p>
+  </div>
+  <div
+    [hidden]="campaigndetails.valid || campaigndetails.pristine"
+    class="notification is-danger is-light">
+    Campaign details are required!
+  </div>
+
+  <p>Choose the start date of the campain</p>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input type="date"
+            class="input"
+            id="startdate"
+            required
+            placeholder="Start Date"
+            [(ngModel)]="model.startDate"
+            name="startdate">
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+    </div>
+
+    <p>Choose the end date of the campain</p>
+    <div class="field">
+      <p class="control has-icons-left">
+          <input type="date"
+          class="input"
+          id="enddate"
+          required
+          placeholder="End Date"
+          [(ngModel)]="model.endDate"
+          name="enddate">
+          <span class="icon is-small is-left">
+              <i class="fa fa-lock"></i>
+          </span>
+      </p>
+  </div>
+
+    <div class="select is-multiple">
+      <label for="power">Phenomena</label>
+      <select multiple
+              size="2"
+              id="phenomena"
+              required
+              [(ngModel)]="model.phenomena"
+              name="phenomena">
+        <option *ngFor="let one of phenomena" [value]="one">{{one}}</option>
+      </select>
+    </div>
+
+    <div>
+      <button
+            type="submit"
+            class="button is-dark"
+            [disabled]="!myForm.form.valid">
+            Submit
+          </button>
+    </div>
+  </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>You submitted the following:</h2>
+    <div class="box">
+      <div class="col-xs-3">Title of campaign</div>
+      <div class="col-xs-9">{{ model.title }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">About me</div>
+      <div class="col-xs-9">{{ model.aboutMe }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">Campaign goals</div>
+      <div class="col-xs-9">{{ model.campaignGoals }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">Campaign details</div>
+      <div class="col-xs-9">{{ model.campaignDetails }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">Start date</div>
+      <div class="col-xs-9">{{ model.startDate }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">End date</div>
+      <div class="col-xs-9">{{ model.endDate }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">Selected phenomena</div>
+      <div class="col-xs-9">{{ model.phenomena }}</div>
+    </div>
+  </div>
+
+  <div *ngFor="let campaign of allCampaigns$ | async">
+
+
+    campaign{{campaign.title}}
+
+  </div>

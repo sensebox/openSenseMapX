@@ -20,7 +20,7 @@ import { NewVisContainerComponent } from './modules/core/new-vis-container/new-v
 import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
-
+import { CreateComponent } from './modules/core/create/create.component';
 
 const routes: Routes = [
   {path: '', component: BoxSingleContainerComponent, pathMatch: 'full'},
@@ -50,6 +50,7 @@ const routes: Routes = [
     { path: 'privacy', component: PrivacyComponent, data: {name: 'PRIVACY'}},
     { path: 'donate', component: DonateComponent, data: {name: 'DONATE'}},
     { path: 'thanks', component: ThanksComponent, data: {name: 'THANKS'}},
+    { path: 'create', component: CreateComponent, data: {name: 'CREATE'}}
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},
