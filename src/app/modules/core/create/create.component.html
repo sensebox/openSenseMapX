@@ -1,5 +1,5 @@
 <div [hidden]="submitted">
-<form (ngSubmit)="onSubmit()" #myForm = "ngForm">
+<form (ngSubmit)="onSubmit()" #myForm = "ngForm" method="POST" action="/users/campaign">
   <div class="field">
         <p class="control has-icons-left has-icons-right">
           <input type="text"
