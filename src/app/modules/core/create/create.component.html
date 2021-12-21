@@ -1,5 +1,5 @@
 <div [hidden]="submitted">
-<form (ngSubmit)="onSubmit()" #myForm = "ngForm">
+<form (ngSubmit)="onSubmit()" #myForm = "ngForm" method="POST" action="/users/campaign">
   <div class="field">
         <p class="control has-icons-left has-icons-right">
           <input type="text"
@@ -224,3 +224,9 @@
     </div>
   </div>
 
+  <div *ngFor="let campaign of allCampaigns$ | async">
+
+
+    campaign{{campaign.title}}
+
+  </div>

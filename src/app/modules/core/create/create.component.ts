@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDesign } from 'src/app/form';
 import { PhenomenaService } from '../services/phenomena.service';
+import { CampaignQuery } from 'src/app/models/campaign/campaign.query';
+import { CampaignService } from 'src/app/models/campaign/campaign.service';
 
 @Component({
   selector: 'osem-create',
@@ -14,16 +16,19 @@ export class CreateComponent implements OnInit {
   model = new FormDesign();
 
   submitted = false;
+  allCampaigns$ = this.campaignQuery.selectAll();
 
   onSubmit() {
               this.submitted = true;
             }
 
+  constructor(private campaignQuery: CampaignQuery, private campaignservice: CampaignService, private phenomenaService: PhenomenaService) {
 
-  constructor(private phenomenaService: PhenomenaService) { }
+   }
 
   ngOnInit(): void {
-    this.phenomena = this.phenomenaService.getPhenomena();
+     this.phenomena = this.phenomenaService.getPhenomena();
+     this.campaignservice.get().subscribe(); 
   }
 
 }
