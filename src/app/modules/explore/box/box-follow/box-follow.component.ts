@@ -50,7 +50,7 @@ export class BoxFollowComponent implements OnInit {
       // create a notification rule
       this.notificationsService.createNotificationRule({
         // @ts-ignore
-        sensor: sensors.value,
+        sensors: [sensors.value],
         box: this.activeBox._id,
         name: "aRule",
         // @ts-ignore

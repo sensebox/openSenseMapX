@@ -5,11 +5,12 @@
         <div class="notification-time">{{ notification.timeText }}</div>
         <div class="threshold-title">
           Threshold triggered!
-          <span class="tooltiptext">{{ notification.activationOperator }} {{ notification.activationThreshold }} {{ notification.sensor.unit }}</span>
+          <span class="tooltiptext">{{ notification.activationOperator }} {{ notification.activationThreshold }} {{ notification.sensors[0].unit }}</span>
         </div>
         Box: <a (click)="boxDetails(notification.box._id)">{{ notification.box.name }}</a> <br/>
-        Sensor: {{ notification.sensor.title }} <br/>
-        Measurment: <b>{{ notification.notificationValue }} {{ notification.sensor.unit }}</b> <br/>
+        <!-- TODO: a notification could theoretically have more than one sensor, but Im not sure if we care about that... -->
+        Sensor: {{ notification.sensors[0].title }} <br/>
+        Measurment: <b>{{ notification.notificationValue }} {{ notification.sensors[0].unit }}</b> <br/>
       </div>
     
       <div *ngIf="notification.type=='notification-rule'">

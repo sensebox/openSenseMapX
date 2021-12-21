@@ -33,6 +33,11 @@ export class NotificationsService {
         for (let j = 0; j < notificationRule.notifications.length; j++) {
           let notification = notificationRule.notifications[j];
           let notiTime = notification.notificationTime
+          let sensors = [];
+          for ( let i = 0; i < notificationRule.sensors.length; i++) {
+            // @ts-ignore
+            sensors.push(box.sensors.find(sensor => sensor._id == notificationRule.sensors[i]))
+          }
           notification = {
             ...notification,
             timeText: notiTime.slice(8, 10) + "." + notiTime.slice(5, 7) + "." + notiTime.slice(2, 4) + ", " + notiTime.slice(11, 16),
@@ -42,7 +47,7 @@ export class NotificationsService {
             ruleName: notificationRule.name,
             box: box,
             // @ts-ignore
-            sensor: box.sensors.find(sensor => sensor._id == notificationRule.sensor)
+            sensors: sensors
           }
           notifications.push(notification)
         }
@@ -52,8 +57,8 @@ export class NotificationsService {
           boxName: box.name,
           // @ts-ignore
           boxExposure: box.exposure,
-          // @ts-ignore
-          sensorName: box.sensors.find(sensor => sensor._id == notificationRule.sensor).title,
+          // @ts-ignore //TODO: a notificationRule could theoretically have more than one sensor, but Im not sure if we care about that...
+          sensorName: box.sensors.find(sensor => sensor._id == notificationRule.sensors[0]).title,
           // @ts-ignore
           boxDate: box.updatedAt,
         }
