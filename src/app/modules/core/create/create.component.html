@@ -174,3 +174,10 @@
       <div class="col-xs-9">{{ model.phenomena }}</div>
     </div>
   </div>
+
+  <div *ngFor="let campaign of allCampaigns$ | async">
+
+
+    campaign{{campaign.title}}
+
+  </div>

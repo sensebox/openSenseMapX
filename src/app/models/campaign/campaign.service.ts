@@ -23,8 +23,9 @@ export class CampaignService {
 
         const campaign = new schema.Entity('campaigns', {}, { idAttribute: '_id'});
     
-       return this.http.get<Campaign[]>(`${environment.api_url}/users/campaigns`).pipe(tap(entities => {
-           console.log(entities);
+       return this.http.get<any>(`${environment.api_url}/users/campaigns`).pipe(tap(entities => {
+            this.campaignStore.upsertMany(entities.data.stream)   
+            console.log(entities.data.stream);
        }))
     }
 

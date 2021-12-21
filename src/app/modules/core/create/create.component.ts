@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDesign } from 'src/app/form';
-
+import { CampaignQuery } from 'src/app/models/campaign/campaign.query';
+import { CampaignService } from 'src/app/models/campaign/campaign.service';
 @Component({
   selector: 'osem-create',
   templateUrl: './create.component.html',
@@ -28,14 +29,19 @@ export class CreateComponent implements OnInit {
                           )
 
   submitted = false;
+  allCampaigns$ = this.campaignQuery.selectAll();
 
   onSubmit() {
               this.submitted = true;
             }
 
-  constructor() { }
+  constructor(private campaignQuery: CampaignQuery, private campaignservice: CampaignService) {
+
+   }
 
   ngOnInit() {
+     this.campaignservice.get().subscribe(); 
+
   }
 
 }

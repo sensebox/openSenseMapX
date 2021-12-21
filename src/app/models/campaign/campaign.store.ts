@@ -10,7 +10,7 @@ const initialState = {
 
 @Injectable({ providedIn: 'root'})
 @StoreConfig({name: 'Campaign', idKey: '_id'})
-export class CampaignStore extends EntityStore<Campaign>{
+export class CampaignStore extends EntityStore<CampaignState>{
 
     constructor(){
         super(initialState);
