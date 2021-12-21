@@ -10,7 +10,9 @@ export class CampaignsComponent implements OnInit {
   dummyCampaigns = [
     {
     "_id": "ajiodsdakjsdajkhdskjhad",
-        "title": "testcampaign",
+        "title": "testcampaign1",
+        "startDate": "1st November",
+        "endDate": "1st December",
         "owner": "testowner",
         "aboutMe": "test",
         "campaignGoals": "testgoals",
@@ -19,7 +21,9 @@ export class CampaignsComponent implements OnInit {
     },
     {
     "_id": "ajiodsdakjsdajkhdskjhad",
-        "title": "testcampaign",
+        "title": "testcampaign2",
+        "startDate": "1st November",
+        "endDate": "1st December",
         "owner": "testowner",
         "aboutMe": "test",
         "campaignGoals": "testgoals",
@@ -28,7 +32,9 @@ export class CampaignsComponent implements OnInit {
     },
     {
     "_id": "ajiodsdakjsdajkhdskjhad",
-        "title": "testcampaign",
+        "title": "testcampaign3",
+        "startDate": "1st November",
+        "endDate": "1st December",
         "owner": "testowner",
         "aboutMe": "test",
         "campaignGoals": "testgoals",
@@ -37,7 +43,9 @@ export class CampaignsComponent implements OnInit {
     },
     {
       "_id": "ajiodsdakjsdajkhdskjhad",
-          "title": "testcampaign",
+          "title": "testcampaign4",
+          "startDate": "1st November",
+          "endDate": "1st December",
           "owner": "testowner",
           "aboutMe": "test",
           "campaignGoals": "testgoals",
@@ -46,7 +54,9 @@ export class CampaignsComponent implements OnInit {
     },
     {
       "_id": "ajiodsdakjsdajkhdskjhad",
-          "title": "testcampaign",
+          "title": "testcampaign5",
+          "startDate": "1st November",
+          "endDate": "1st December",
           "owner": "testowner",
           "aboutMe": "test",
           "campaignGoals": "testgoals",
@@ -55,7 +65,9 @@ export class CampaignsComponent implements OnInit {
     },
     {
       "_id": "ajiodsdakjsdajkhdskjhad",
-          "title": "testcampaign",
+          "title": "testcampaign6",
+          "startDate": "1st November",
+          "endDate": "1st December",
           "owner": "testowner",
           "aboutMe": "test",
           "campaignGoals": "testgoals",
