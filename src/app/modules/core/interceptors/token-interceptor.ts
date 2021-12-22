@@ -16,7 +16,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private auth: SessionService) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler):                   
+  intercept(request: HttpRequest<any>, next: HttpHandler):
   Observable<any> {
   return next.handle(request)
     .pipe(catchError((error:HttpErrorResponse) => {
@@ -24,7 +24,7 @@ export class TokenInterceptor implements HttpInterceptor {
         request.url.includes("refresh-auth") ||
         request.url.includes("sign-in")
       ) {
-        
+
         if (request.url.includes("refresh-auth")) {
             this.auth.logout();
             //maybe redirect somewhere or open login modal?
@@ -40,7 +40,7 @@ export class TokenInterceptor implements HttpInterceptor {
         // return this.refreshTokenSubject
         //   .filter(result => result !== null)
         //   .take(1)
-        //   .switchMap(() => next.handle(this.addAuthenticationToken(request)));     
+        //   .switchMap(() => next.handle(this.addAuthenticationToken(request)));
       } else {
         this.refreshTokenInProgress = true;
         this.refreshTokenSubject.next(null);
@@ -68,7 +68,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (!accessToken) {
       return request;
     }
-  
+
     return request.clone({
       setHeaders: {
         Authorization: this.auth.getAccessToken()

@@ -74,7 +74,7 @@ export function createInitialState(): UiState {
       },
       'layout' : {
         visibility: 'none'
-      } 
+      }
     },
     layers: [{
       'id': 'base-layer',
@@ -88,7 +88,7 @@ export function createInitialState(): UiState {
       },
       'circle-stroke-width': 1,
       'circle-stroke-color': '#383838',
-      
+
       // 'circle-blur': 0.8,
       'circle-color': [
         'match',
@@ -97,7 +97,7 @@ export function createInitialState(): UiState {
         'old', '#eb5933',
         /* other */ '#ccc200'
         ]
-      } 
+      }
     }],
     clusterLayers: [clusterLayer, clusterLayerSolo],
     fitlerVisible: true,
@@ -144,13 +144,13 @@ export class UiStore extends Store<UiState> {
   updateSelectedPheno(pheno) {
     console.log("updateSelectedPheno")
     this.update( state =>  {
-      let circleColorCluster:any = 
+      let circleColorCluster:any =
         ['match',
           ['get', 'model'],
           'custom',
           '#fbb03b',
         /* other */ '#ccc'];
-      let circleColorSolo:any = 
+      let circleColorSolo:any =
         ['match',
           ['get', 'model'],
           'custom',
@@ -161,7 +161,7 @@ export class UiStore extends Store<UiState> {
         circleColorCluster =JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
         circleColorCluster[2] = JSON.parse(JSON.stringify(state.clusterLayers[0].paint['circle-color']))[2];
         circleColorCluster[2][1][1] = pheno.title;
-        
+
         circleColorSolo = JSON.parse(JSON.stringify(pheno.layer.paint['circle-color']));
         circleColorSolo[2] = JSON.parse(JSON.stringify(state.clusterLayers[1].paint['circle-color']))[2];
         circleColorSolo[2][1] = pheno.title;
@@ -170,8 +170,8 @@ export class UiStore extends Store<UiState> {
       if(pheno.title != 'ALL'){
 
         return {
-          ...state, 
-          selectedPheno: pheno, 
+          ...state,
+          selectedPheno: pheno,
           baseLayer: {
             ...state.baseLayer,
             filter: pheno.layer.filter,

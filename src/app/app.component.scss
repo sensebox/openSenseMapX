@@ -91,7 +91,7 @@ osem-map-options-container {
     right: 10px;
     top: 160px;
     z-index: 9;
-    
+
 }
 
 #osem-popup {
@@ -147,7 +147,7 @@ osem-map-options-container {
     top: 0;
     background: var(--background-primary-full);
     z-index: 3000;
-    width: 60%;
+    width: 45%;
     height: 100%;
     transform: translateX(100%);
     transition:  transform 0.3s ease-in-out;

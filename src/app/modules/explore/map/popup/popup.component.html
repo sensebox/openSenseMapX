@@ -56,7 +56,7 @@
           <i class="osem-icon map-icon {{sensorIconsObject[sensor.key]}}"></i>
           <!-- <div  *ngIf="sensorIconsObject.indexOf(sensor.key) != -1; else notAvail">
           </div> -->
-            
+
           <!-- <ng-template #notAvail>
             <i class="osem-icon map-icon osem-not-available"></i>
           </ng-template> -->
@@ -66,34 +66,34 @@
     </div>
   </div>
   <div class="card-footer">
-    
-    <a 
-      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1" 
+
+    <a
+      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1"
       class="card-footer-item"
       (click)="compareToOther(box._id)"
     >{{'COMPARE_TO_OTHER_BOX' | translate}}</a>
-    <a 
-      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+    <a
+      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1"
       class="card-footer-item"
       (click)="details(box._id)"
     >{{'DETAILS' | translate}}</a>
-    <a 
-      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+    <a
+      *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1"
       class="card-footer-item"
       (click)="compareToCurrent(box._id)"
     >{{'COMPARE_TO_CURRENT_BOX' | translate}}</a>
-    <a 
-      *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1" 
+    <a
+      *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1"
       class="card-footer-item"
       (click)="details(box._id)"
     >{{'DETAILS' | translate}}</a>
-    <a 
-      *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1" 
+    <a
+      *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1"
       class="card-footer-item"
       (click)="addToCompare(box._id)"
     >{{'ADD_TO_COMPARE' | translate}}</a>
-    <a 
-      *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1" 
+    <a
+      *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1"
       class="card-footer-item"
       (click)="removeFromCompare(box._id)"
     >{{'REMOVE_FROM_COMPARE' | translate}}</a>
@@ -128,28 +128,28 @@
     </div>
     <br>
     <div class="osem-padding-small">
-        <button 
-            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1" 
+        <button
+            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) != -1"
             class="osem-button"
             (click)="compareToOther(box._id)"
         >{{'COMPARE_TO_OTHER_BOX' | translate}}</button>
-        <button 
-            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1" 
+        <button
+            *ngIf="router.url.indexOf('explore') != -1 && router.url.indexOf(box._id) === -1"
             class="osem-button"
             (click)="compareToCurrent(box._id)"
         >{{'COMPARE_TO_CURRENT_BOX' | translate}}</button>
-        <button 
-            *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1" 
+        <button
+            *ngIf="router.url.indexOf('explore') === -1 && router.url.indexOf('compare') === -1"
             class="osem-button"
             (click)="details(box._id)"
         >{{'DETAILS' | translate}}</button>
-        <button 
-            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1" 
+        <button
+            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) === -1"
             class="osem-button"
             (click)="addToCompare(box._id)"
         >{{'ADD_TO_COMPARE' | translate}}</button>
-        <button 
-            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1" 
+        <button
+            *ngIf="router.url.indexOf('compare') != -1  && router.url.indexOf(box._id) != -1"
             class="osem-button"
             (click)="removeFromCompare(box._id)"
         >{{'REMOVE_FROM_COMPARE' | translate}}</button>

@@ -52,7 +52,8 @@ const routes: Routes = [
     { path: 'donate', component: DonateComponent, data: {name: 'DONATE'}},
     { path: 'thanks', component: ThanksComponent, data: {name: 'THANKS'}},
     { path: 'create', component: CreateComponent, data: {name: 'CREATE'}},
-    { path: 'campaigns', component: CampaignsComponent, data: {name: 'CAMPAIGNS'}}
+    { path: 'campaigns', component: CampaignsComponent, data: {name: 'CAMPAIGNS'}},
+
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},

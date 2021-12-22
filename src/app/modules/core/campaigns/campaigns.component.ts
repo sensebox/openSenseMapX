@@ -10,56 +10,56 @@ export class CampaignsComponent implements OnInit {
   dummyCampaigns = [
     {
     "_id": "ajiodsdakjsdajkhdskjhad",
-        "title": "testcampaign",
+        "title": "Camp",
         "owner": "testowner",
         "aboutMe": "test",
-        "campaignGoals": "testgoals",
-        "campaignDetails": "testdetails",
+        "campaignGoals": "goals",
+        "campaignDetails": "details",
         "phenomena": "PM10"
     },
     {
     "_id": "ajiodsdakjsdajkhdskjhad",
-        "title": "testcampaign",
-        "owner": "testowner",
+        "title": "Camp",
+        "owner": "owner",
         "aboutMe": "test",
-        "campaignGoals": "testgoals",
-        "campaignDetails": "testdetails",
+        "campaignGoals": "goals",
+        "campaignDetails": "details",
         "phenomena": "PM10"
     },
     {
     "_id": "ajiodsdakjsdajkhdskjhad",
-        "title": "testcampaign",
-        "owner": "testowner",
+        "title": "Camp",
+        "owner": "owner",
         "aboutMe": "test",
-        "campaignGoals": "testgoals",
-        "campaignDetails": "testdetails",
+        "campaignGoals": "goals",
+        "campaignDetails": "details",
         "phenomena": "PM10"
     },
     {
       "_id": "ajiodsdakjsdajkhdskjhad",
-          "title": "testcampaign",
-          "owner": "testowner",
+          "title": "Camp",
+          "owner": "owner",
           "aboutMe": "test",
-          "campaignGoals": "testgoals",
-          "campaignDetails": "testdetails",
+          "campaignGoals": "goals",
+          "campaignDetails": "details",
           "phenomena": "PM10"
     },
     {
       "_id": "ajiodsdakjsdajkhdskjhad",
-          "title": "testcampaign",
-          "owner": "testowner",
+          "title": "Camp",
+          "owner": "owner",
           "aboutMe": "test",
-          "campaignGoals": "testgoals",
-          "campaignDetails": "testdetails",
+          "campaignGoals": "goals",
+          "campaignDetails": "details",
           "phenomena": "PM10"
     },
     {
       "_id": "ajiodsdakjsdajkhdskjhad",
-          "title": "testcampaign",
-          "owner": "testowner",
+          "title": "Camp",
+          "owner": "owner",
           "aboutMe": "test",
-          "campaignGoals": "testgoals",
-          "campaignDetails": "testdetails",
+          "campaignGoals": "goals",
+          "campaignDetails": "details",
           "phenomena": "PM10"
     }]
 

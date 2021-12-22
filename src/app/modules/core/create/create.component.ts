@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDesign } from 'src/app/form';
+import { UiService } from 'src/app/models/ui/state/ui.service';
 import { PhenomenaService } from '../services/phenomena.service';
+
 
 @Component({
   selector: 'osem-create',
@@ -20,10 +22,12 @@ export class CreateComponent implements OnInit {
             }
 
 
-  constructor(private phenomenaService: PhenomenaService) { }
+  constructor(private phenomenaService: PhenomenaService,
+    private uiService: UiService) { }
 
   ngOnInit(): void {
     this.phenomena = this.phenomenaService.getPhenomena();
+    this.uiService.setFilterVisible(false);
   }
 
 }
