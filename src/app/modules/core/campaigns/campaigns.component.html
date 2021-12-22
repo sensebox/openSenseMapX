@@ -1,0 +1,26 @@
+<section class="section" *ngFor="let campaign of dummyCampaigns">
+<div class="item-container">
+  <div class="img-container">
+      <img src="https://i.stack.imgur.com/WpMdM.png" alt="Location map">
+      <div class="course-details">
+          <p class="date">
+              Starting {{ campaign.startDate }}
+          </p>
+          <p class="price">
+              Ending {{ campaign.endDate }}
+          </p>
+      </div>
+  </div>
+  <div class="separator"></div>
+  <div class="course-info">
+      <p class="title">{{ campaign.title }}</p>
+      <p class="sub-title">{{ campaign.owner}}</p>
+      <div class="title-separator"></div>
+      <div class="toggle">
+        <i class="fa fa-lock"></i>
+      </div>
+      <!--><a href="#" class="more-info">More info</a><-->
+  </div>
+  </div>
+</section>
+

@@ -11,10 +11,7 @@
           name="title"
           #title="ngModel">
           <span class="icon is-small is-left">
-              <i class="fa fa-envelope"></i>
-          </span>
-          <span class="icon is-small is-right">
-              <i class="fa fa-check"></i>
+            <i class="fa fa-lock"></i>
           </span>
         </p>
   </div>
@@ -22,6 +19,27 @@
       [hidden]="title.valid || title.pristine"
       class="notification is-danger is-light">
       Title is required!
+  </div>
+
+  <div class="field">
+    <p class="control has-icons-left">
+         <input type="text"
+         class="input"
+         id="name"
+         required
+         placeholder="Name and surname"
+         [(ngModel)]="model.name"
+         name="name"
+         #name="ngModel">
+        <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+        </span>
+    </p>
+  </div>
+  <div
+      [hidden]="name.valid || name.pristine"
+      class="notification is-danger is-light">
+      Name is required!
   </div>
 
   <div class="field">
@@ -43,6 +61,27 @@
       [hidden]="aboutme.valid || aboutme.pristine"
       class="notification is-danger is-light">
       "About me" is required!
+  </div>
+
+  <div class="field">
+    <p class="control has-icons-left">
+      <input type="text"
+      class="input"
+      id="campaignreasons"
+      required
+      placeholder="Campaign reasons are..."
+      [(ngModel)]="model.campaignReasons"
+      name="campaignreasons"
+      #campaignreasons="ngModel">
+        <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+        </span>
+    </p>
+  </div>
+  <div
+    [hidden]="campaignreasons.valid || campaignreasons.pristine"
+    class="notification is-danger is-light">
+    Campaign reasons are required!
   </div>
 
   <div class="field">
@@ -104,10 +143,11 @@
         </p>
     </div>
 
-    <p>Choose the end date of the campain</p>
-    <div class="field">
+    <p *ngIf="model.startDate">Choose the end date of the campain</p>
+    <div *ngIf="model.startDate" class="field">
       <p class="control has-icons-left">
           <input type="date"
+          min="{{model.startDate}}"
           class="input"
           id="enddate"
           required
@@ -123,15 +163,16 @@
     <div class="select is-multiple">
       <label for="power">Phenomena</label>
       <select multiple
-              size="2"
+              size="10"
               id="phenomena"
               required
               [(ngModel)]="model.phenomena"
               name="phenomena">
-        <option *ngFor="let one of phenomena" [value]="one">{{one}}</option>
+        <option *ngFor="let one of phenomena | async"
+                [value]="one.phenomenonLabel[0].value">{{one.phenomenonLabel[0].value}}
+              </option>
       </select>
     </div>
-
     <div>
       <button
             type="submit"
@@ -152,6 +193,14 @@
     <div class="box">
       <div class="col-xs-3">About me</div>
       <div class="col-xs-9">{{ model.aboutMe }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">Name and surname</div>
+      <div class="col-xs-9">{{ model.name }}</div>
+    </div>
+    <div class="box">
+      <div class="col-xs-3">Campaign reasons</div>
+      <div class="col-xs-9">{{ model.campaignReasons }}</div>
     </div>
     <div class="box">
       <div class="col-xs-3">Campaign goals</div>

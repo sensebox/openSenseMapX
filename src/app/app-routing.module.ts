@@ -1,3 +1,4 @@
+import { CampaignsComponent } from './modules/core/campaigns/campaigns.component';
 import { MyBoxesContainerComponent } from './modules/profile/my-boxes-container/my-boxes-container.component';
 import { AuthGuard } from './modules/profile/services/auth-guard.service';
 import { LoginContainerComponent } from './modules/profile/login-container/login-container.component';
@@ -50,7 +51,8 @@ const routes: Routes = [
     { path: 'privacy', component: PrivacyComponent, data: {name: 'PRIVACY'}},
     { path: 'donate', component: DonateComponent, data: {name: 'DONATE'}},
     { path: 'thanks', component: ThanksComponent, data: {name: 'THANKS'}},
-    { path: 'create', component: CreateComponent, data: {name: 'CREATE'}}
+    { path: 'create', component: CreateComponent, data: {name: 'CREATE'}},
+    { path: 'campaigns', component: CampaignsComponent, data: {name: 'CAMPAIGNS'}}
   ]},
   {path: 'dashboard', component: ProfileContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard], children: [
     {path: '', component: DashboardContainerComponent, canActivate: [AuthGuard], pathMatch: 'full'},

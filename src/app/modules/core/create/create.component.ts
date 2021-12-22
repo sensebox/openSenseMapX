@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDesign } from 'src/app/form';
+import { PhenomenaService } from '../services/phenomena.service';
 import { CampaignQuery } from 'src/app/models/campaign/campaign.query';
 import { CampaignService } from 'src/app/models/campaign/campaign.service';
+
 @Component({
   selector: 'osem-create',
   templateUrl: './create.component.html',
@@ -9,24 +11,9 @@ import { CampaignService } from 'src/app/models/campaign/campaign.service';
 })
 export class CreateComponent implements OnInit {
 
-  phenomena = ['Air temperature',
-               'Noise level',
-               'PM10',
-               'PM2.5'
-              ];
+  phenomena
 
-  startDate: Date = new Date("2019-05-27");
-  endDate: Date = new Date("2019-05-28");
-
-  model = new FormDesign(1,
-                          'Sound measurement campaign',
-                          'I am retired and new in this neighbourhood.',
-                          'My campaign goals are sound levels in my street.',
-                          'I do not have speific details about my campaign.',
-                          this.startDate,
-                          this.endDate,
-                          this.phenomena[0],
-                          )
+  model = new FormDesign();
 
   submitted = false;
   allCampaigns$ = this.campaignQuery.selectAll();
@@ -35,13 +22,13 @@ export class CreateComponent implements OnInit {
               this.submitted = true;
             }
 
-  constructor(private campaignQuery: CampaignQuery, private campaignservice: CampaignService) {
+  constructor(private campaignQuery: CampaignQuery, private campaignservice: CampaignService, private phenomenaService: PhenomenaService) {
 
    }
 
-  ngOnInit() {
+  ngOnInit(): void {
+     this.phenomena = this.phenomenaService.getPhenomena();
      this.campaignservice.get().subscribe(); 
-
   }
 
 }
