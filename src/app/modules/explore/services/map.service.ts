@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Map, NavigationControl } from 'mapbox-gl';
 import * as mapboxgl from 'mapbox-gl';
+import * as MapboxDraw from '@mapbox/mapbox-gl-draw';
+import * as turf from '@turf/turf';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import { environment } from '../../../../environments/environment';
 import { UiService } from 'src/app/models/ui/state/ui.service';
@@ -9,13 +13,16 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 
-import { arrayRemove, extractDateSteps, positionPopup } from '../box/osem-line-chart/helper/helpers';
+import { arrayRemove, extractDateSteps, positionPopup, roundCoordinates } from '../box/osem-line-chart/helper/helpers';
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { withLatestFrom } from 'rxjs/operators';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { FeatureCollection } from 'geojson';
+import { getAllJSDocTags } from 'typescript';
 
+import worldLocalJSONFile from '/src/assets/data/world.json';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +30,8 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 export class MapService {
 
   map;  // the map element (gets initilisaed on page load)
+
+  worldLocalJSONData: any = worldLocalJSONFile;
 
   worldData:BehaviorSubject<any>; // all the live Data as geojson, gets pulled on page load
   selectedPheno$ = this.uiQuery.selectSelectedPheno$;
@@ -56,7 +65,7 @@ export class MapService {
   numbersSub;
 
   clusterMouseleaveFunctionSave;
-  
+
   mouseLeaveFunction;
   activatePopupTimer;
   deactivatePopupTimer;
@@ -69,7 +78,7 @@ export class MapService {
     private boxQuery: BoxQuery,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) { 
+  ) {
     this.worldData = new BehaviorSubject(false);
   }
 
@@ -87,13 +96,242 @@ export class MapService {
       pitch: 21
     });
 
+      // GEOCODER
+    this.map.addControl(
+      new MapboxGeocoder({
+        accessToken: environment.mapbox_token,
+        mapboxgl: mapboxgl
+      })
+    );
+
+    //DRAWING POLYGONS WITH MAPBOX GL DRAW
+    const draw = new MapboxDraw({
+      // Instead of showing all the draw tools, show only the line string and delete tools.
+      displayControlsDefault: false,
+      controls: {
+        combine_features: false,
+        uncombine_features: false,
+        point: true,
+        line_string: false,
+        polygon: true,
+        trash: true
+      },
+  });
+
+
+
+  //MOUSE COORDINATES
+    this.map.on('mousemove', (e) => {
+      document.getElementById('info').innerHTML =
+      // `e.point` is the x, y coordinates of the `mousemove` event
+      // relative to the top-left corner of the map.
+      JSON.stringify(e.point) +
+      '<br />' +
+      // `e.lngLat` is the longitude, latitude geographical position of the event.
+      JSON.stringify(e.lngLat.wrap());
+      });
+
+
+//(12.14.21) GETTING THE DATA FROM LOCAL JSON FILE (See file json-typings.d.ts in app folder and worldLocalJSONData and import worldLocalJSONFile)
+
+//Creating points from local boxes database
+console.log('console_WORDL_DATA',this.worldLocalJSONData);
+var pointworldgeoJSON = turf.points(turf.coordAll(this.worldLocalJSONData));
+console.log('pointWorldgeoJSON',pointworldgeoJSON);
+
+//POLYGON AREA CALCULATION
+
+      this.map.on('draw.create', updateArea);
+      this.map.on('draw.delete', updateArea);
+      this.map.on('draw.update', updateArea);
+
+      function updateArea(e) {
+          const data = draw.getAll();
+          const answer = document.getElementById('calculated-area');
+          if (data.features.length > 0) {
+              const area = turf.area(data);
+              // Restrict the area to 2 decimal points.
+              const rounded_area = Math.round(area * 100) / 100;
+
+          //Creating multipolygon from drawn features
+            var polygeoJSON = turf.multiPolygon([[turf.coordAll(data)]]);
+            console.log('polygeoJSON',polygeoJSON);
+
+          // Calculating points within the polygons
+            var ptsWithin = turf.pointsWithinPolygon(pointworldgeoJSON, polygeoJSON);
+            console.log('ptsWithin',ptsWithin);
+          //Providing a message for the box
+            answer.innerHTML = `<p><strong>#Polygons: </string>${JSON.stringify(polygeoJSON.geometry.coordinates.length)}<strong><br>Area (km2):${rounded_area}<strong><br>#Points within the polygon area?: </strong>${ptsWithin.features[0]?.geometry?.coordinates.length ? "Yes" : "No"}
+            <strong>(${JSON.stringify(ptsWithin.features.length)}<strong> from </strong>${JSON.stringify(pointworldgeoJSON.features.length)})</strong></p>`;
+
+          } else {
+              answer.innerHTML = '';
+              if (e.type !== 'draw.delete')
+                  alert('Click the map to draw a polygon.');
+          }
+      }
+
+/*
+//TO DELETE
+var convertedData = JSON.stringify(data);
+console.log('Get ALL',data.features);
+console.log('Last feature number',data.features.length);
+const lastFeature = data.features.length - 1;
+const coords_last = data.features[lastFeature].geometry.coordinates[1];
+console.log('Last feature coord',coords_last);
+
+const json = data.features;
+if (draw.getMode() === 'draw_polygon') {
+ console.log('shift',data.features.shift);
+ const onlyPoly = 'GeoJSON:' + JSON.stringify(data)
+ }
+//TO DELETE BEFORE
+
+this.map.on('load', () => {
+// Add a data source containing GeoJSON data.
+this.map.addSource('maine', {
+'type': 'geojson',
+'data': {
+'type': 'Feature',
+'properties': {},
+'geometry': {
+   'type': 'Polygon',
+   // These coordinates outline Maine.
+   'coordinates': [
+     [
+       [14.3, 52.1],
+       [14.7, 52.7],
+       [14.1, 52.7],
+       [14.3, 52.1]]
+     ]
+}
+}
+});
+
+// Add a new layer to visualize the polygon.
+this.map.addLayer({
+'id': 'maine',
+'type': 'fill',
+'source': 'maine', // reference the data source
+'layout': {},
+'paint': {
+'fill-color': '#0080ff', // blue color fill
+'fill-opacity': 0.5
+}
+});
+// Add a black outline around the polygon.
+this.map.addLayer({
+'id': 'outline',
+'type': 'line',
+'source': 'maine',
+'layout': {},
+'paint': {
+'line-color': '#000',
+'line-width': 3
+}
+});
+});
+
+const hospitals: FeatureCollection = {
+'type': 'FeatureCollection',
+'features': [
+{
+'type': 'Feature',
+'properties': {
+'Name': 'VA Medical Center -- Leestown Division',
+'Address': '2250 Leestown Rd'
+},
+'geometry': {
+'type': 'Point',
+'coordinates': [14.3, 52.5]
+}
+},
+{
+'type': 'Feature',
+'properties': {
+'Name': 'St. Joseph East',
+'Address': '150 N Eagle Creek Dr'
+},
+'geometry': {
+'type': 'Point',
+'coordinates': [15.1, 52.7]
+}
+},
+{
+'type': 'Feature',
+'properties': {
+'Name': 'St. East',
+'Address': 'Creek Dr'
+},
+'geometry': {
+'type': 'Point',
+'coordinates': [12.5, 52.3]
+}
+},
+{
+'type': 'Feature',
+'properties': {
+'Name': 'Joseph',
+'Address': '200 Dr'
+},
+'geometry': {
+'type': 'Point',
+'coordinates': [14.9, 52.9]
+}
+},
+]
+};
+
+this.map.on('load', () => {
+this.map.addLayer({
+id: 'hospitals',
+type: 'symbol',
+source: {
+type: 'geojson',
+data: hospitals
+},
+layout: {
+'icon-image': 'hospital-15',
+'icon-allow-overlap': true
+},
+paint: {}
+});
+});
+*/
+
+//POINTS IN POLYGON
+
+/*
+var points = turf.points([
+   [15.1, 52.7],
+   [14.3, 52.5],
+   [12.5, 52.3],
+   [14.9, 52.9]
+]);
+
+var searchWithin = turf.polygon([[
+ [14.3, 52.1],
+ [14.7, 52.7],
+ [14.1, 52.7],
+ [14.3, 52.1]
+]], { name: 'poly1', population: 400});
+
+var polygeoJSONcoords = ([[turf.coordAll(data)]]);
+console.log('polygeoJSONcoords',polygeoJSONcoords);
+
+*/
+
+      //#ORIGINAL
+
+
+    this.map.addControl(draw,'top-left');
+    this.map.addControl(new NavigationControl(), 'top-left');
+
     // disable map rotation using right click + drag
     this.map.dragRotate.disable();
- 
+
     // disable map rotation using touch rotation gesture
     this.map.touchZoomRotate.disableRotation();
-
-    this.map.addControl(new NavigationControl());
 
     //once the map is laoded fetch the data (maybe move this elsewhere for faster load time), TODO: fetch from API not static file
     this.map.once('load', function(){
@@ -111,7 +349,7 @@ export class MapService {
 
   //adds the map sources for cluster and no cluster layers
   addMapSources(){
- 
+
     let that = this;
 
     if(this.dataSub){
@@ -127,7 +365,7 @@ export class MapService {
           filteredData = this.filterData(this.worldData.getValue(), false, res[1]);
         } else {
           filteredData = this.filterData(this.worldData.getValue(), res[0].title, res[1]);
-        } 
+        }
         if(this.map.getLayer('boxes-cluster')){
           this.map.removeLayer('boxes-no-cluster')
           this.map.removeLayer('boxes-cluster')
@@ -158,11 +396,11 @@ export class MapService {
           'data': filteredData,
           'cluster': true,
           'clusterRadius': 65,
-          'clusterProperties': { 
+          'clusterProperties': {
             [res[0].title]: ['+', ['case', ["!=", null, [ "get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]], [ "get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]], null]],
           }
         })
-        
+
       }
       // when the sources are added subscribe to the selected Pheno for the displaying of the right layers
       this.map.once('sourcedata', function(){
@@ -191,7 +429,7 @@ export class MapService {
       this.baseLayerBehaviour$.next(res);
       that.drawBaseLayer(res);
     });
-    
+
     this.clusterLayerSub = this.clusterLayers$.subscribe(res => {
       that.drawClusterLayers(res);
     });
@@ -217,7 +455,7 @@ export class MapService {
           this.map.off('click', 'base-layer', this.baseClickFunction);
           this.map.on('mouseenter', 'base-layer', this.compareMouseenterFunction);
           this.map.on('click', 'base-layer', this.compareClickFunction);
-         
+
           this.map.off('mouseenter', 'boxes-no-cluster', this.baseMouseenterFunction);
           this.map.off('click', 'boxes-no-cluster', this.baseClickFunction);
           this.map.on('mouseenter', 'boxes-no-cluster', this.compareMouseenterFunction);
@@ -227,7 +465,7 @@ export class MapService {
           this.map.off('mouseenter', 'base-layer', this.compareMouseenterFunction);
           this.map.on('mouseenter', 'base-layer', this.baseMouseenterFunction);
           this.map.on('click', 'base-layer', this.baseClickFunction);
-         
+
           this.map.off('click', 'boxes-no-cluster', this.compareClickFunction);
           this.map.off('mouseenter', 'boxes-no-cluster', this.compareMouseenterFunction);
           this.map.on('mouseenter', 'boxes-no-cluster', this.baseMouseenterFunction);
@@ -247,7 +485,7 @@ export class MapService {
       }
     })
 
-    // this.dateRangeData$.subscribe(res => {  
+    // this.dateRangeData$.subscribe(res => {
     //   if(res){
     //     // if(!this.map.getSource('date-range-boxes')){
     //     //   this.map.addSource('date-range-boxes', {
@@ -312,18 +550,18 @@ export class MapService {
     if(this.map.getSource('cluster-boxes')){
 
       layers.forEach(layer => {
-  
+
         if (!this.map.getLayer(layer.id)) {
           if (this.map.getLayer('active-layer-text')){
             this.map.addLayer(layer, 'active-layer-text');
           } else {
             this.map.addLayer(layer);
           }
-    
+
         } else {
-    
+
           this.map.setPaintProperty(layer.id, 'circle-color', layer.paint['circle-color']);
-    
+
           if (layer.filter) {
             this.map.setFilter(layer.id, layer.filter);
           } else {
@@ -334,14 +572,14 @@ export class MapService {
           }
         }
       });
-  
+
       if (!this.map.getLayer('cluster-number-layer')) {
         this.addClusterNumberLayers(layers);
         this.addHoverCluster('boxes-cluster', layers[1]['paint']['circle-color'])
         this.addPopup('boxes-no-cluster');
         this.addClusterClickFunction(layers[0].id);
       }
-      
+
       let textField = ["concat", ['/',['round',[ '*', ['/', ["get", layers[0].paint['circle-color'][2][1][1]], ["get", "point_count"]], 100]],100], ""];
       this.map.setPaintProperty('no-cluster-number', 'text-color', layers[0].paint['circle-color']);
       this.map.setLayoutProperty('cluster-number-layer', 'text-field', textField);
@@ -450,7 +688,7 @@ export class MapService {
           "layout": {
             "text-field": ['format', ["get", "name"], { 'font-scale': 1.2 }],
             "text-variable-anchor": ["top"],
-            "text-offset": { 
+            "text-offset": {
               "stops": [
               [1, [0, 0.3]],
               [8, [0, 0.8]],
@@ -552,7 +790,7 @@ export class MapService {
         'text-font': ['Montserrat Bold', 'Arial Unicode MS Bold'],
       }
     }, insertBeforeActiveLLayer ? 'active-layer-text' : null);
-    
+
     this.map.addLayer({
       'id': 'no-cluster-number',
       'type': 'symbol',
@@ -574,7 +812,7 @@ export class MapService {
         "visibility": layers[0].layout && layers[0].layout.visibility ? layers[0].layout.visibility : 'visible',
         "text-field": ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
         "text-variable-anchor": ["bottom"],
-        "text-offset": { 
+        "text-offset": {
           "stops": [
           [1, [0, 0.3]],
           [8, [0, 0.8]],
@@ -614,14 +852,14 @@ export class MapService {
   clusterMouseoverFunction = (e) => {
     if (e.features.length > 0) {
       this.map.getCanvas().style.cursor = 'pointer';
-      
+
       let layer = e.features[0].layer.id;
       let that = this;
       let features = this.map.queryRenderedFeatures(e.point, { layers: [layer] });
       let clusterId = features[0].properties.cluster_id,
         point_count = features[0].properties.point_count,
         clusterSource = this.map.getSource(this.map.getLayer(layer).source);
-    
+
       // Get all points under a cluster
       clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures){
         //MAKE LAYER+SOURCE AND ADD TO MAP
@@ -645,7 +883,7 @@ export class MapService {
     clearTimeout(this.deactivatePopupTimer);
     this.map.getCanvas().style.cursor = 'pointer';
     // let box = e.features[0].properties;
-    
+
     this.uiService.setCluster(null);
     // var coordinates = e.features[0].geometry.coordinates.slice();
     // let pixelPosition = this.map.project(coordinates);
@@ -666,7 +904,7 @@ export class MapService {
           features: []
         }
       });
-  
+
       this.map.addLayer({
         'id': 'cluster-hover-layer',
         'type': 'circle',
@@ -698,7 +936,7 @@ export class MapService {
   mouseEnterPopup(box){
     this.boxService.setPopupBox(box)
   }
-  
+
   //function called when the mouse leaves the popup
   mouseLeavePopup(){
     this.boxService.setPopupBox(null);
@@ -710,7 +948,7 @@ export class MapService {
   addClusterClickFunction(layer) {
     this.map.on('click', layer, this.clusterClickFunction);
   }
-  
+
   baseClickFunction = e => {
     // if (e.features.length > 0) {
     //   this.router.navigate(['/explore/' + e.features[0].properties._id], {
@@ -730,7 +968,7 @@ export class MapService {
   }
   clusterClickFunction = e => {
     this.map.getCanvas().style.cursor = 'pointer';
-    
+
     let that = this;
     let layer = e.features[0].layer.id;
     let coordinates = e.features[0].geometry.coordinates.slice();
@@ -740,7 +978,7 @@ export class MapService {
       point_count = e.features[0].properties.point_count;
 
     // Get all points under a cluster
-    clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures){     
+    clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures){
       that.uiService.setCluster(aFeatures);
     });
 
@@ -751,7 +989,7 @@ export class MapService {
 
     if (e.features.length > 0) {
       var coordinates = e.features[0].geometry.coordinates.slice();
-    
+
       let box = e.features[0].properties;
       if(e.features[0].properties.sensors){
         this.boxService.setPopupBox({ ...box, sensors: JSON.parse(e.features[0].properties.sensors) });
@@ -793,7 +1031,7 @@ export class MapService {
   compareMouseenterFunction = e => {
     this.map.getCanvas().style.cursor = 'pointer';
     // var coordinates = e.features[0].geometry.coordinates.slice();
-    
+
     // let box = e.features[0].properties;
     // this.boxService.setPopupBox({ ...box, sensors: JSON.parse(e.features[0].properties.sensors) });
     // let pixelPosition = this.map.project(coordinates);
@@ -805,7 +1043,7 @@ export class MapService {
 
   addPopup(layer) {
     let that = this;
-    this.map.on('mouseenter', layer, 
+    this.map.on('mouseenter', layer,
       function(e){
         that.activatePopupTimer = setTimeout(function(){
           that.baseMouseenterFunction(e);
@@ -957,7 +1195,7 @@ export class MapService {
     this.map.setPaintProperty('active-layer-text', 'text-halo-color', '#f6f6f6');
     this.map.setPaintProperty('active-layer', 'circle-color', '#383838');
     this.map.setStyle("mapbox://styles/mapbox/light-v9");
-    
+
 
     this.map.once('styledata', function() {
       setTimeout(() => {
@@ -1006,3 +1244,7 @@ export class MapService {
   //   console.log(features)
   // }
 }
+function worldLocalJSONData(worldLocalJSONData: any) {
+  throw new Error('Function not implemented.');
+}
+

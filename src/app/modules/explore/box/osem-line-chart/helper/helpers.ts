@@ -4,7 +4,7 @@ export function arrayRemove(arr, value) {
     return arr.filter(function(ele){
         return ele != value;
     });
- 
+
 }
 
 export function extractDateSteps(dateRange) {
@@ -16,7 +16,7 @@ export function extractDateSteps(dateRange) {
         currentDate = new Date(currentDate.getTime() +  step);
     }
     return steps;
-    // const steps = 
+    // const steps =
 }
 
 
@@ -69,7 +69,7 @@ export function applyFilters(data, filter){
 }
 
 export function processBoxData(data){
-    // console.log(data);
+    console.log('data',data);
     let boxes = [];
     let sensors = [];
     data.forEach(box => {
@@ -99,7 +99,7 @@ export function roundCoordinates(coordinates){
 
 
 export function toGeoJson(data) {
-    
+
     let geojson = data.map(item => {
     //   if (item.lat && item.lon) {
         return {

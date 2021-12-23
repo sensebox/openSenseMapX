@@ -1,6 +1,60 @@
-#map {
+/*#map {
     //use viewport width/height because of mapbox gl bug
     height: 100VH;
     width: 100VW;
     position: relative;
+}*/
+
+//Map for fitting the sidebar
+#map {
+  position: absolute;
+  top: 8%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+  background-color: white;
+  border: 20px;
+  border-color: black;
+
+}
+
+.info-box {
+  position: absolute;
+  margin: 20px;
+  width: 25%;
+  height: 50%;
+  top: 50;
+  bottom: 20px;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  overflow-y: scroll;
+  font-size: 14px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 1px;
+  overflow-y: scroll;
+}
+
+
+#info {
+  display: table;
+  position: relative;
+  margin: 0px auto;
+  word-wrap: anywhere;
+  white-space: pre-wrap;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  color: rgb(14, 13, 13);
+  background: #fff;
+  overflow-y: scroll;
+}
+
+li {
+  list-style-type: square;
 }

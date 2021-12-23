@@ -50,13 +50,13 @@ export class AppComponent {
   onModalActivate($event){
     this.backdrop = true;
   }
-  
+
   onModalDeactivate($event){
     this.backdrop = false;
   }
     // close modal on esc
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
+  handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode == 27){
       this.closeModal();
     }

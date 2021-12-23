@@ -15,19 +15,20 @@ export class CampaignsComponent implements OnInit {
         "endDate": "1st December",
         "owner": "testowner",
         "aboutMe": "test",
-        "campaignGoals": "testgoals",
-        "campaignDetails": "testdetails",
+        "campaignGoals": "goals",
+        "campaignDetails": "details",
         "phenomena": "PM10"
     },
     {
     "_id": "ajiodsdakjsdajkhdskjhad",
+
         "title": "testcampaign2",
         "startDate": "1st November",
         "endDate": "1st December",
         "owner": "testowner",
         "aboutMe": "test",
-        "campaignGoals": "testgoals",
-        "campaignDetails": "testdetails",
+        "campaignGoals": "goals",
+        "campaignDetails": "details",
         "phenomena": "PM10"
     },
     {
@@ -37,8 +38,8 @@ export class CampaignsComponent implements OnInit {
         "endDate": "1st December",
         "owner": "testowner",
         "aboutMe": "test",
-        "campaignGoals": "testgoals",
-        "campaignDetails": "testdetails",
+        "campaignGoals": "goals",
+        "campaignDetails": "details",
         "phenomena": "PM10"
     },
     {
@@ -48,8 +49,8 @@ export class CampaignsComponent implements OnInit {
           "endDate": "1st December",
           "owner": "testowner",
           "aboutMe": "test",
-          "campaignGoals": "testgoals",
-          "campaignDetails": "testdetails",
+          "campaignGoals": "goals",
+          "campaignDetails": "details",
           "phenomena": "PM10"
     },
     {
@@ -59,8 +60,8 @@ export class CampaignsComponent implements OnInit {
           "endDate": "1st December",
           "owner": "testowner",
           "aboutMe": "test",
-          "campaignGoals": "testgoals",
-          "campaignDetails": "testdetails",
+          "campaignGoals": "goals",
+          "campaignDetails": "details",
           "phenomena": "PM10"
     },
     {
@@ -70,8 +71,8 @@ export class CampaignsComponent implements OnInit {
           "endDate": "1st December",
           "owner": "testowner",
           "aboutMe": "test",
-          "campaignGoals": "testgoals",
-          "campaignDetails": "testdetails",
+          "campaignGoals": "goals",
+          "campaignDetails": "details",
           "phenomena": "PM10"
     }]
 

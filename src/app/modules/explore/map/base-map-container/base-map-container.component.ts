@@ -14,7 +14,7 @@ export class BaseMapContainerComponent implements OnInit {
 
   mapLoading$ = this.uiQuery.select(ent => ent.mapLoading);
 
-  
+
   ngOnInit() {
   }
 
