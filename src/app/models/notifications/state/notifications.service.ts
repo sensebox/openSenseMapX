@@ -112,22 +112,21 @@ export class NotificationsService {
   }
 
   initializeWebsocket(notificationRules) {
-    // alternatively get rules from: this.notificationsQuery.notificationRules$
-
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
 
     console.log('connecting')
+    // TODO: websocket should be a variable of this class. Everytime this message is called it should only update the subscriptions and not create a new websocket
+    // TODO: The url of the websocket should go into the configuration file
     let ws = new WebSocket('ws://localhost:12345/')
     ws.onopen = (evt) => {
       console.log('connection opened')
 
-      var testrules = [ 
-          '61c4cf161885f45a708bbd4a' 
-      ]
+      notificationRules.forEach((rule) => {
+        console.log('subscribing to ', rule._id)
+        ws.send('subscribe:'+rule._id)
+      })
 
-      console.log('subscribed to', testrules)
-      ws.send('subscribe:'+testrules.join(':'))
     }
     ws.onmessage = async (evt) => {
       // console.log(evt.data)

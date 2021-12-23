@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ID } from '@datorama/akita';
 import { SessionStore } from './session.store';
 import { SessionQuery } from './session.query';
+import { NotificationsService } from '../../notifications/state/notifications.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Router } from '@angular/router';
@@ -16,7 +17,8 @@ export class SessionService {
     private sessionStore: SessionStore, 
     private sessionQuery: SessionQuery, 
     private router: Router,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private notificationService: NotificationsService) {
 
   }
 
@@ -33,7 +35,7 @@ export class SessionService {
         this.sessionStore.setLoading(false);
         this.getUserDetails();
         this.router.navigate([{ outlets: { sidebar: [ 'm' ] }}]);
-        
+        this.notificationService.initializeWebsocket("TODO");
 
     }, err => {
       console.log(err);
@@ -62,6 +64,7 @@ export class SessionService {
               user: response.data.user }});
             observer.next(response.refreshToken);
             observer.complete();
+            this.notificationService.getNotificationRules();
           }, (err) => {
             const error = err && err.errorMessage ? err.errorMessage : 'Error';
             observer.error({error});
@@ -78,6 +81,7 @@ export class SessionService {
       window.localStorage.setItem('sb_accesstoken', res.token);
       window.localStorage.setItem('sb_refreshtoken', res.refreshToken);
       this.getUserDetails();
+      this.notificationService.getNotificationRules();
 
     }, err => {
       console.log(err);

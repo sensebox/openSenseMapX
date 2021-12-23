@@ -18,12 +18,6 @@ export class NotificationsViewerComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  async ngOnChanges(changes) {
-    if(changes.user && typeof changes.user.currentValue != "undefined" && changes.user.currentValue != null) {
-      this.notificationsService.getNotificationRules();
-    }
-  }
   
   boxDetails(id) {
     this.router.navigate(['/explore/' + id], {
