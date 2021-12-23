@@ -24,7 +24,7 @@ export class CreateComponent implements OnInit {
               this.submitted = true;
             }
 
-  constructor(private campaignQuery: CampaignQuery, private campaignservice: CampaignService, private phenomenaService: PhenomenaService, private uiService: UiService) {
+  constructor(private campaignQuery: CampaignQuery, private campaignservice: CampaignService, private phenomenaService: PhenomenaService, private uiService: UiService) {}
 
   ngOnInit(): void {
      this.phenomena = this.phenomenaService.getPhenomena();
