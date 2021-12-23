@@ -1,5 +1,5 @@
 <div [hidden]="submitted">
-<form (ngSubmit)="onSubmit()" #myForm = "ngForm">
+<form (ngSubmit)="onSubmit()" #myForm = "ngForm" method="POST" action="/users/campaign">
   <div class="field">
         <p class="control has-icons-left has-icons-right">
           <input type="text"
@@ -11,7 +11,7 @@
           name="title"
           #title="ngModel">
           <span class="icon is-small is-left">
-            <i class="fa fa-envelope"></i>
+            <i class="fa fa-lock"></i>
           </span>
         </p>
   </div>
@@ -143,10 +143,11 @@
         </p>
     </div>
 
-    <p>Choose the end date of the campain</p>
-    <div class="field">
+    <p *ngIf="model.startDate">Choose the end date of the campain</p>
+    <div *ngIf="model.startDate" class="field">
       <p class="control has-icons-left">
           <input type="date"
+          min="{{model.startDate}}"
           class="input"
           id="enddate"
           required
@@ -172,7 +173,6 @@
               </option>
       </select>
     </div>
-
     <div>
       <button
             type="submit"
@@ -224,3 +224,9 @@
     </div>
   </div>
 
+  <div *ngFor="let campaign of allCampaigns$ | async">
+
+
+    campaign{{campaign.title}}
+
+  </div>
