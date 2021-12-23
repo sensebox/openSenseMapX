@@ -70,6 +70,7 @@ export class NotificationsService {
         notificationRules: res.data,
         areNotificationsLoaded: true
       }));
+      this.initializeWebsocket(res.data)
     });
   }
 
@@ -93,6 +94,7 @@ export class NotificationsService {
     });
   }
 
+  // this will be shown in the popup
   setNewNotification(newNotification) {
     this.notificationsStore.update(state => ({
       ...state,
@@ -101,10 +103,63 @@ export class NotificationsService {
   }
 
   getBox(id, headers){
+    // TODO: this should not be requested from the backend again. Maybe it is already saved in another model in the frontend
     return new Promise ((resolve, reject) => {
       this.http.get(this.AUTH_API_URL + '/boxes/' + id, {headers: headers}).subscribe((res:any) => {
         resolve(res)
       });
     })
+  }
+
+  initializeWebsocket(notificationRules) {
+    // alternatively get rules from: this.notificationsQuery.notificationRules$
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+
+    console.log('connecting')
+    let ws = new WebSocket('ws://localhost:12345/')
+    ws.onopen = (evt) => {
+      console.log('connection opened')
+
+      var testrules = [ 
+          '61c4cf161885f45a708bbd4a' 
+      ]
+
+      console.log('subscribed to', testrules)
+      ws.send('subscribe:'+testrules.join(':'))
+    }
+    ws.onmessage = async (evt) => {
+      // console.log(evt.data)
+      const message = JSON.parse(evt.data)
+      let box = await this.getBox(message.rule.box, headers);
+      let sensors = [];
+        for ( let i = 0; i < message.rule.sensors.length; i++) {
+          // @ts-ignore
+          sensors.push(box.sensors.find(sensor => sensor._id == message.rule.sensors[i]))
+        }
+      let notification = {
+        notificationRule: message.rule._id,
+        notificationValue: message.measurement.value,
+        notificationTime: message.createdAt,
+        timeText: message.createdAt.slice(8, 10) + "." + message.createdAt.slice(5, 7) + "." + message.createdAt.slice(2, 4) + ", " + message.createdAt.slice(11, 16),
+        type: "threshold",
+        activationOperator: message.rule.activationOperator,
+        activationThreshold: message.rule.activationThreshold,
+        ruleName: message.rule.name,
+        box: box,
+        // @ts-ignore
+        sensors: sensors
+      }
+      this.notificationsStore.update(state => ({
+        ...state,
+        notifications: (typeof state.notifications != "undefined") ? [notification].concat(state.notifications) : [notification]
+      }));
+    }
+    ws.onerror = (evt) => console.error('onerror', evt)
+    ws.onclose = (evt) => setTimeout(
+      () => {
+          console.warn('onclose', evt)
+      }, 1000)
   }
 }
