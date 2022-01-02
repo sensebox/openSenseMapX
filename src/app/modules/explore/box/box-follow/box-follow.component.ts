@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter
 import { Observable } from 'rxjs';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { NotificationsService } from 'src/app/models/notifications/state/notifications.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { SensorService } from 'src/app/models/sensor/state/sensor.service';
@@ -25,7 +25,9 @@ export class BoxFollowComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private boxService: BoxService,
     private boxQuery: BoxQuery,
-    private notificationsService: NotificationsService) { }
+    private notificationsService: NotificationsService,
+    public router: Router) { }
+
 
   ngOnInit() {
   }
@@ -78,6 +80,11 @@ export class BoxFollowComponent implements OnInit {
         this.textForm = "Value in " + this.sensorUnit
       }
     }
+  }
+  configCenter(){
+    this.router.navigate(
+      [{ outlets: { sidebar: ['m','profile','fbox'] }}]
+    )
   }
   
 
