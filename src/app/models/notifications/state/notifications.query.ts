@@ -23,6 +23,10 @@ export class NotificationsQuery extends Query<NotificationsState> {
   notificationRules$ = this.select(state => {
     return state.notificationRules;
   });
+
+  unread$ = this.select(state => {
+    return state.unread;
+  });
   
   constructor(protected store: NotificationsStore) {
     super(store);

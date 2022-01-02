@@ -153,6 +153,7 @@ export class NotificationsService {
         }
         this.notificationsStore.update(state => ({
           ...state,
+          unread: true,
           notifications: (typeof state.notifications != "undefined") ? [notification].concat(state.notifications) : [notification]
         }));
       }
@@ -164,5 +165,12 @@ export class NotificationsService {
         }, 3000)
     }
     connectws();
+  }
+
+  unreadFalse() {
+    this.notificationsStore.update(state => ({
+      ...state,
+      unread: false
+    }));
   }
 }
