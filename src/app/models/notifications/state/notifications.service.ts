@@ -115,50 +115,54 @@ export class NotificationsService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
 
-    console.log('connecting')
-    // TODO: websocket should be a variable of this class. Everytime this message is called it should only update the subscriptions and not create a new websocket
-    // TODO: The url of the websocket should go into the configuration file
-    let ws = new WebSocket('ws://localhost:12345/')
-    ws.onopen = (evt) => {
-      console.log('connection opened')
+    let connectws = () => {
+      console.log('connecting')
+      // TODO: websocket should be a variable of this class. Everytime this message is called it should only update the subscriptions and not create a new websocket
+      // TODO: The url of the websocket should go into the configuration file
+      let ws = new WebSocket('ws://localhost:12345/')
+      ws.onopen = (evt) => {
+        console.log('connection opened')
 
-      notificationRules.forEach((rule) => {
-        console.log('subscribing to ', rule._id)
-        ws.send('subscribe:'+rule._id)
-      })
+        notificationRules.forEach((rule) => {
+          console.log('subscribing to ', rule._id)
+          ws.send('subscribe:'+rule._id)
+        })
 
-    }
-    ws.onmessage = async (evt) => {
-      // console.log(evt.data)
-      const message = JSON.parse(evt.data)
-      let box = await this.getBox(message.rule.box, headers);
-      let sensors = [];
-        for ( let i = 0; i < message.rule.sensors.length; i++) {
-          // @ts-ignore
-          sensors.push(box.sensors.find(sensor => sensor._id == message.rule.sensors[i]))
-        }
-      let notification = {
-        notificationRule: message.rule._id,
-        notificationValue: message.measurement.value,
-        notificationTime: message.createdAt,
-        timeText: message.createdAt.slice(8, 10) + "." + message.createdAt.slice(5, 7) + "." + message.createdAt.slice(2, 4) + ", " + message.createdAt.slice(11, 16),
-        type: "threshold",
-        activationOperator: message.rule.activationOperator,
-        activationThreshold: message.rule.activationThreshold,
-        ruleName: message.rule.name,
-        box: box,
-        // @ts-ignore
-        sensors: sensors
       }
-      this.notificationsStore.update(state => ({
-        ...state,
-        notifications: (typeof state.notifications != "undefined") ? [notification].concat(state.notifications) : [notification]
-      }));
+      ws.onmessage = async (evt) => {
+        // console.log(evt.data)
+        const message = JSON.parse(evt.data)
+        let box = await this.getBox(message.rule.box, headers);
+        let sensors = [];
+          for ( let i = 0; i < message.rule.sensors.length; i++) {
+            // @ts-ignore
+            sensors.push(box.sensors.find(sensor => sensor._id == message.rule.sensors[i]))
+          }
+        let notification = {
+          notificationRule: message.rule._id,
+          notificationValue: message.measurement.value,
+          notificationTime: message.createdAt,
+          timeText: message.createdAt.slice(8, 10) + "." + message.createdAt.slice(5, 7) + "." + message.createdAt.slice(2, 4) + ", " + message.createdAt.slice(11, 16),
+          type: "threshold",
+          activationOperator: message.rule.activationOperator,
+          activationThreshold: message.rule.activationThreshold,
+          ruleName: message.rule.name,
+          box: box,
+          // @ts-ignore
+          sensors: sensors
+        }
+        this.notificationsStore.update(state => ({
+          ...state,
+          notifications: (typeof state.notifications != "undefined") ? [notification].concat(state.notifications) : [notification]
+        }));
+      }
+      ws.onerror = (evt) => console.error('onerror', evt)
+      ws.onclose = (evt) => setTimeout(
+        () => {
+            console.warn('onclose', evt);
+            connectws();
+        }, 3000)
     }
-    ws.onerror = (evt) => console.error('onerror', evt)
-    ws.onclose = (evt) => setTimeout(
-      () => {
-          console.warn('onclose', evt)
-      }, 1000)
+    connectws();
   }
 }

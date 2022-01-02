@@ -35,7 +35,7 @@ export class SessionService {
         this.sessionStore.setLoading(false);
         this.getUserDetails();
         this.router.navigate([{ outlets: { sidebar: [ 'm' ] }}]);
-        this.notificationService.initializeWebsocket("TODO");
+        this.notificationService.getNotificationRules();
 
     }, err => {
       console.log(err);
