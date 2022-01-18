@@ -28,6 +28,7 @@ export class ShareVisContainerComponent implements OnInit {
   }
 
   shareVis() {
-    this.visService.generatePDF();
+    console.log("this.bbox", this.bbox);
+    // this.mapService.fitBounds(vis.bbox);
   }
 }

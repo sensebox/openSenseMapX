@@ -31,6 +31,8 @@ import { SharedModule } from '../shared/shared.module';
 import { MapLoadingComponent } from './map/map-loading/map-loading.component';
 import { LegendEditContainerComponent } from './legend/legend-edit-container/legend-edit-container.component';
 import { LegendEditComponent } from './legend/legend-edit/legend-edit.component';
+// import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+// import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 @NgModule({
   declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent, MapLoadingComponent, LegendEditContainerComponent, LegendEditComponent],
@@ -43,7 +45,9 @@ import { LegendEditComponent } from './legend/legend-edit/legend-edit.component'
     ReactiveFormsModule,
     RouterModule,
     // TranslateModule,
-    ColorPickerModule
+    ColorPickerModule,
+    // ShareButtonsModule,
+    // ShareIconsModule
   ],
   providers: [MapService],
   exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent, LegendContainerComponent]
