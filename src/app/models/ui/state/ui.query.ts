@@ -26,11 +26,14 @@ export class UiQuery extends Query<UiState> {
   selectReloadMapData$ = this.select(state => state.reloadMapData);
   selectShowDateModal$ = this.select(state => state.showDateModal);
   selectStats$ = this.select(state => state.stats);
-  
+
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);
   selectActiveTab$ = this.select(state => state.activeTab);
   selectChartLoading$ = this.select(state => state.chartLoading);
+
+  //selectedPolygon$ = this.select(state => state.selectedPolygon);
+  drawmode$ = this.select(state => state.drawmode);
 
   constructor(protected store: UiStore) {
     super(store);

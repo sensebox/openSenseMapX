@@ -16,12 +16,12 @@ export class UiService {
 
 
   constructor(
-    private uiStore: UiStore, 
+    private uiStore: UiStore,
     private http: HttpClient) {
   }
 
   fetchStats() {
-    
+
     return this.http.get(`${environment.api_url}/stats`).pipe(tap(stats => {
       this.uiStore.update(state => ({ ...state , stats: { totalBoxes: stats[0], totalMeasurements: stats[1]} }))
     }));
@@ -36,7 +36,7 @@ export class UiService {
       .set('addressdetails', "1")
       .set('limit', "4")
       .set('q', searchstring)
- 
+
 
     return this.http.get("//locationiq.org/v1/search.php", {params: params}).pipe(first()).pipe(tap((res:any) => {
       this.uiStore.update(state => ({ ...state , locationAutocompleteResults: res }))
@@ -103,7 +103,7 @@ export class UiService {
     console.log("UPDATING BASE LAYER")
     this.uiStore.updateBaseLayer(layer);
   }
-  
+
   toggleFilterVisible(){
     this.uiStore.update( state => ({ ...state , fitlerVisible: !state.fitlerVisible }));
   }
@@ -118,44 +118,44 @@ export class UiService {
   }
   setClustering(clustering){
     this.uiStore.update( state => (
-      {...state, baseLayer: 
+      {...state, baseLayer:
           {
-            ...state.baseLayer, 
-            layout: 
-              {...state.baseLayer.layout, 
+            ...state.baseLayer,
+            layout:
+              {...state.baseLayer.layout,
                 visibility: clustering ? 'none' : 'visible'}}}));
     this.uiStore.update( state => (
       {...state, clusterLayers: [
-        {...state.clusterLayers[0], layout: 
-          {...state.baseLayer.layout, 
+        {...state.clusterLayers[0], layout:
+          {...state.baseLayer.layout,
             visibility: clustering && !state.selectedDate ? 'visible' : 'none'}},
-            {...state.clusterLayers[1], layout: 
-              {...state.baseLayer.layout, 
+            {...state.clusterLayers[1], layout:
+              {...state.baseLayer.layout,
                 visibility: clustering && !state.selectedDate ? 'visible' : 'none'}}
-    
+
       ]} ));
- 
+
     this.uiStore.update( state => ({ ...state , clustering: clustering }));
   }
   toggleClustering(){
     this.uiStore.update( state => (
-      {...state, baseLayer: 
+      {...state, baseLayer:
           {
-            ...state.baseLayer, 
-            layout: 
-              {...state.baseLayer.layout, 
+            ...state.baseLayer,
+            layout:
+              {...state.baseLayer.layout,
                 visibility: state.clustering ? 'none' : 'visible'}}}));
 
-    
+
     this.uiStore.update( state => (
       {...state, clusterLayers: [
-        {...state.clusterLayers[0], layout: 
-          {...state.baseLayer.layout, 
+        {...state.clusterLayers[0], layout:
+          {...state.baseLayer.layout,
             visibility: !state.clustering && !state.selectedDate ? 'visible' : 'none'}},
-            {...state.clusterLayers[1], layout: 
-              {...state.baseLayer.layout, 
+            {...state.clusterLayers[1], layout:
+              {...state.baseLayer.layout,
                 visibility: !state.clustering && !state.selectedDate ? 'visible' : 'none'}}
-    
+
       ]}
     ));
 
@@ -210,4 +210,14 @@ export class UiService {
   setChartLoading(loading){
     this.uiStore.update( state => ({ ...state, chartLoading: loading}))
   }
+
+  /*setselectedPolygon(selectedPolygon){
+    this.uiStore.update( state => ({ ...state , selectedPolygon: selectedPolygon }));
+  }
+*/
+  setdrawmode(drawmode){
+    this.uiStore.update( state => ({ ...state , drawmode: drawmode }));
+  }
+
+
 }

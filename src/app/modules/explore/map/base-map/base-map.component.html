@@ -1,8 +1,14 @@
 <div id="map"></div>
+<div id="demo"></div>
 <pre id="info"></pre>
 <!-- Create a container for the instructions and directions -->
-<div class="info-box">
+
+<router-outlet></router-outlet>
+
+<!--*ngIf="drawmode$ | async"-->y
+<div  class="info-box">
     <ul>
+      <h2>Url comparison <br> {{comparison}}-- <br> current url: {{my_url_var}}</h2>
       <li>Please use the market drawing tool to select the location of posible box locations for your campaign.
       <strong><br>Note: </strong>You can create multipoints
       </li>
@@ -12,12 +18,6 @@
       </li>
     </ul>
   <br>
-  <div class="calculation-box">
-    <p>To continue draw a polygon.</p>
-    <div id="calculated-area"></div>
-  </div>
-  <!--div id="directions"></div-->
-</div>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.2/mapbox-gl-draw.css" rel="stylesheet" />
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>

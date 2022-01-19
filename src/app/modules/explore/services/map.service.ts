@@ -17,7 +17,7 @@ import { arrayRemove, extractDateSteps, positionPopup, roundCoordinates } from '
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
-import { withLatestFrom } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { FeatureCollection } from 'geojson';
 import { getAllJSDocTags } from 'typescript';
@@ -30,7 +30,7 @@ import worldLocalJSONFile from '/src/assets/data/world.json';
 export class MapService {
 
   map;  // the map element (gets initilisaed on page load)
-
+  visible;
   worldLocalJSONData: any = worldLocalJSONFile;
 
   worldData:BehaviorSubject<any>; // all the live Data as geojson, gets pulled on page load
@@ -96,13 +96,34 @@ export class MapService {
       pitch: 21
     });
 
-      // GEOCODER
-    this.map.addControl(
-      new MapboxGeocoder({
-        accessToken: environment.mapbox_token,
-        mapboxgl: mapboxgl
-      })
-    );
+    this.map.addControl(new NavigationControl(), 'top-left');
+    // disable map rotation using right click + drag
+    this.map.dragRotate.disable();
+
+    // disable map rotation using touch rotation gesture
+    this.map.touchZoomRotate.disableRotation();
+
+    //once the map is laoded fetch the data (maybe move this elsewhere for faster load time), TODO: fetch from API not static file
+    this.map.once('load', function(){
+      that.fetchData('/assets/data/world.json');
+    })
+
+    //MOUSE COORDINATES
+    this.map.on('mousemove', (e) => {
+      document.getElementById('info').innerHTML =
+      // `e.point` is the x, y coordinates of the `mousemove` event
+      // relative to the top-left corner of the map.
+      //JSON.stringify(e.point) +
+      //'<br />' +
+      // `e.lngLat` is the longitude, latitude geographical position of the event.
+      JSON.stringify(e.lngLat.wrap(), function(key, val) {
+        return val.toFixed ? Number(val.toFixed(3)) : val;
+      });
+    });
+
+  }
+
+  DrawControlMap(){
 
     //DRAWING POLYGONS WITH MAPBOX GL DRAW
     const draw = new MapboxDraw({
@@ -117,20 +138,15 @@ export class MapService {
         trash: true
       },
   });
+  // DRAW CONTROLS
+this.map.addControl(draw,'top-left');
 
-
-
-  //MOUSE COORDINATES
-    this.map.on('mousemove', (e) => {
-      document.getElementById('info').innerHTML =
-      // `e.point` is the x, y coordinates of the `mousemove` event
-      // relative to the top-left corner of the map.
-      JSON.stringify(e.point) +
-      '<br />' +
-      // `e.lngLat` is the longitude, latitude geographical position of the event.
-      JSON.stringify(e.lngLat.wrap());
-      });
-
+  // GEOCODER
+    const geocoder = new MapboxGeocoder({
+  accessToken: environment.mapbox_token,
+  mapboxgl: mapboxgl
+})
+this.map.addControl(geocoder);
 
 //(12.14.21) GETTING THE DATA FROM LOCAL JSON FILE (See file json-typings.d.ts in app folder and worldLocalJSONData and import worldLocalJSONFile)
 
@@ -141,35 +157,70 @@ console.log('pointWorldgeoJSON',pointworldgeoJSON);
 
 //POLYGON AREA CALCULATION
 
-      this.map.on('draw.create', updateArea);
-      this.map.on('draw.delete', updateArea);
-      this.map.on('draw.update', updateArea);
+    this.map.on('draw.create', updateArea);
+    this.map.on('draw.delete', updateArea);
+    this.map.on('draw.update', updateArea);
 
-      function updateArea(e) {
-          const data = draw.getAll();
-          const answer = document.getElementById('calculated-area');
-          if (data.features.length > 0) {
-              const area = turf.area(data);
-              // Restrict the area to 2 decimal points.
-              const rounded_area = Math.round(area * 100) / 100;
+    function updateArea(e) {
+        const data: any = draw.getAll();
+        const answer = document.getElementById('calculated-area');
+        if (data.features.length > 0) {
+            const area = turf.area(data);
+            // Restrict the area to 2 decimal points.
+            const rounded_area = Math.round(area * 100) / 100;
 
-          //Creating multipolygon from drawn features
-            var polygeoJSON = turf.multiPolygon([[turf.coordAll(data)]]);
-            console.log('polygeoJSON',polygeoJSON);
+        //Creating multipolygon from drawn features
+          var polygeoJSON = turf.multiPolygon([[turf.coordAll(data)]]);
+          console.log('polygeoJSON',polygeoJSON);
 
-          // Calculating points within the polygons
-            var ptsWithin = turf.pointsWithinPolygon(pointworldgeoJSON, polygeoJSON);
-            console.log('ptsWithin',ptsWithin);
-          //Providing a message for the box
-            answer.innerHTML = `<p><strong>#Polygons: </string>${JSON.stringify(polygeoJSON.geometry.coordinates.length)}<strong><br>Area (km2):${rounded_area}<strong><br>#Points within the polygon area?: </strong>${ptsWithin.features[0]?.geometry?.coordinates.length ? "Yes" : "No"}
-            <strong>(${JSON.stringify(ptsWithin.features.length)}<strong> from </strong>${JSON.stringify(pointworldgeoJSON.features.length)})</strong></p>`;
+        // Calculating points within the polygons
+          var ptsWithin = turf.pointsWithinPolygon(pointworldgeoJSON, polygeoJSON);
+          console.log('ptsWithin',ptsWithin);
+        //Providing a message for the box
+          answer.innerHTML = `<p><strong>#Polygons: </string>${JSON.stringify(polygeoJSON.geometry.coordinates.length)}<strong><br>Area (km2):${rounded_area}<strong><br>#Points within the polygon area?: </strong>${ptsWithin.features[0]?.geometry?.coordinates.length ? "Yes" : "No"}
+          <strong>(${JSON.stringify(ptsWithin.features[0].geometry.coordinates)}<strong> from </strong>${JSON.stringify(pointworldgeoJSON.features.length)})</strong></p>`;
+          console.log("answer",answer.innerHTML)
+          this.answerWORKS = `<p><strong>#Polygons: </string>${JSON.stringify(polygeoJSON.geometry.coordinates.length)}<strong><br>Area (km2):${rounded_area}<strong><br>#Points within the polygon area?: </strong>${ptsWithin.features[0]?.geometry?.coordinates.length ? "Yes" : "No"}
+          <strong>(${JSON.stringify(ptsWithin.features[0].geometry.coordinates)}<strong> from </strong>${JSON.stringify(pointworldgeoJSON.features.length)})</strong></p>`;
+          console.log("answer",answer.innerHTML)
 
-          } else {
-              answer.innerHTML = '';
-              if (e.type !== 'draw.delete')
-                  alert('Click the map to draw a polygon.');
-          }
-      }
+        } else {
+            answer.innerHTML = '';
+            if (e.type !== 'draw.delete')
+                alert('Click the map to draw a polygon.');
+        }
+    }
+
+    var disableBtn = document.getElementById('disable-draw');
+    var enableBtn = document.getElementById('enable-draw');
+
+    const drawPolygon = document.getElementsByClassName('mapbox-gl-draw_polygon');
+    const drawPoint = document.getElementsByClassName('mapbox-gl-draw_point');
+
+
+    enableBtn.onclick = (e) => {
+      this.visible = true;
+      this.map.addControl(draw,'top-left');
+      this.map.addControl(geocoder);
+      (<HTMLInputElement> drawPolygon[0]).disabled = false;
+      drawPolygon[0].classList.remove('disabled-button');
+      (<HTMLInputElement> drawPoint[0]).disabled = false;
+      drawPoint[0].classList.remove('disabled-button');
+    };
+
+    //}
+
+    disableBtn.onclick = (e) => {
+      //disablefunction(){
+      this.visible = false;
+      this.map.removeControl(draw);
+      this.map.removeControl(geocoder);
+      (<HTMLInputElement> drawPolygon[0]).disabled = true;
+      drawPolygon[0].classList.add('disabled-button');
+      (<HTMLInputElement> drawPoint[0]).disabled = true;
+      drawPoint[0].classList.add('disabled-button');
+    }
+    }
 
 /*
 //TO DELETE
@@ -182,9 +233,9 @@ console.log('Last feature coord',coords_last);
 
 const json = data.features;
 if (draw.getMode() === 'draw_polygon') {
- console.log('shift',data.features.shift);
- const onlyPoly = 'GeoJSON:' + JSON.stringify(data)
- }
+console.log('shift',data.features.shift);
+const onlyPoly = 'GeoJSON:' + JSON.stringify(data)
+}
 //TO DELETE BEFORE
 
 this.map.on('load', () => {
@@ -195,15 +246,15 @@ this.map.addSource('maine', {
 'type': 'Feature',
 'properties': {},
 'geometry': {
-   'type': 'Polygon',
-   // These coordinates outline Maine.
-   'coordinates': [
-     [
-       [14.3, 52.1],
-       [14.7, 52.7],
-       [14.1, 52.7],
-       [14.3, 52.1]]
-     ]
+ 'type': 'Polygon',
+ // These coordinates outline Maine.
+ 'coordinates': [
+   [
+     [14.3, 52.1],
+     [14.7, 52.7],
+     [14.1, 52.7],
+     [14.3, 52.1]]
+   ]
 }
 }
 });
@@ -303,17 +354,17 @@ paint: {}
 
 /*
 var points = turf.points([
-   [15.1, 52.7],
-   [14.3, 52.5],
-   [12.5, 52.3],
-   [14.9, 52.9]
+ [15.1, 52.7],
+ [14.3, 52.5],
+ [12.5, 52.3],
+ [14.9, 52.9]
 ]);
 
 var searchWithin = turf.polygon([[
- [14.3, 52.1],
- [14.7, 52.7],
- [14.1, 52.7],
- [14.3, 52.1]
+[14.3, 52.1],
+[14.7, 52.7],
+[14.1, 52.7],
+[14.3, 52.1]
 ]], { name: 'poly1', population: 400});
 
 var polygeoJSONcoords = ([[turf.coordAll(data)]]);
@@ -321,23 +372,7 @@ console.log('polygeoJSONcoords',polygeoJSONcoords);
 
 */
 
-      //#ORIGINAL
-
-
-    this.map.addControl(draw,'top-left');
-    this.map.addControl(new NavigationControl(), 'top-left');
-
-    // disable map rotation using right click + drag
-    this.map.dragRotate.disable();
-
-    // disable map rotation using touch rotation gesture
-    this.map.touchZoomRotate.disableRotation();
-
-    //once the map is laoded fetch the data (maybe move this elsewhere for faster load time), TODO: fetch from API not static file
-    this.map.once('load', function(){
-      that.fetchData('/assets/data/world.json');
-    })
-  }
+    //#ORIGINAL
 
   // fetch the data and add the sources when its done
   fetchData(url){
@@ -1245,6 +1280,10 @@ console.log('polygeoJSONcoords',polygeoJSONcoords);
   // }
 }
 function worldLocalJSONData(worldLocalJSONData: any) {
+  throw new Error('Function not implemented.');
+}
+
+function control(control: any) {
   throw new Error('Function not implemented.');
 }
 
