@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   @Input() resultsActive;
   @Input() autoCompleteResults;
   @Input() locationAutocompleteResults;
-  
+
   showAll = false;
 
   autocompleteToShow;
@@ -79,17 +79,17 @@ export class SearchComponent implements OnInit {
         }
         //HIGHLIGHT BOX
       }
-    } 
+    }
   }
 
   openDetails(box){
-    //fly to Box
-    this.resultSelected.emit(box);
-    //open box
-    this.router.navigate(['/explore/' + box._id], {
-      relativeTo: this.activatedRoute,
-      queryParamsHandling: 'merge'
-    });  
+    // //fly to Box
+    // this.resultSelected.emit(box);
+    // //open box
+    // this.router.navigate(['/explore/' + box._id], {
+    //   relativeTo: this.activatedRoute,
+    //   queryParamsHandling: 'merge'
+    // });
   }
 
   selectResult(e, box){
@@ -99,7 +99,7 @@ export class SearchComponent implements OnInit {
 
   selectLocationResult(loc){
     this.locResultSelected.emit(loc);
-   
+
   }
 
   showLocationResult(e, box){

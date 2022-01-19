@@ -31,11 +31,10 @@ import { SharedModule } from '../shared/shared.module';
 import { MapLoadingComponent } from './map/map-loading/map-loading.component';
 import { LegendEditContainerComponent } from './legend/legend-edit-container/legend-edit-container.component';
 import { LegendEditComponent } from './legend/legend-edit/legend-edit.component';
-// import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
-// import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { ShareComponent } from './share/share.component';
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent, MapLoadingComponent, LegendEditContainerComponent, LegendEditComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent, MapLoadingComponent, LegendEditContainerComponent, LegendEditComponent, ShareComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -45,9 +44,7 @@ import { LegendEditComponent } from './legend/legend-edit/legend-edit.component'
     ReactiveFormsModule,
     RouterModule,
     // TranslateModule,
-    ColorPickerModule,
-    // ShareButtonsModule,
-    // ShareIconsModule
+    ColorPickerModule
   ],
   providers: [MapService],
   exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent, LegendContainerComponent]
