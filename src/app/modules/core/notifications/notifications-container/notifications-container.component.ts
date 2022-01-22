@@ -15,6 +15,7 @@ export class NotificationsContainerComponent implements OnInit {
 
   notifications$ = this.notificationsQuery.notifications$;
   areNotificationsLoaded$ = this.notificationsQuery.areNotificationsLoaded$;
+  unread$ = this.notificationsQuery.unread$;
 
   constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService, private sessionQuery: SessionQuery) { }
 

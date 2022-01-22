@@ -97,14 +97,6 @@ export class ProfileFollowedBoxesComponent implements AfterViewInit, OnInit {
     ngOnInit() {
     }
 
-    ngOnChanges(changes) {
-        if(changes.notificationRules && typeof changes.notificationRules.currentValue != "undefined" && changes.notificationRules.currentValue != null) {
-            this.dataSource.dataSource = changes.notificationRules.currentValue;
-        } else if(changes.user && typeof changes.user.currentValue != "undefined" && changes.user.currentValue != null) {
-            this.notificationsService.getNotificationRules();
-        }
-    }
-
     sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
