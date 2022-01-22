@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class NotificationsService {
 
   AUTH_API_URL = environment.api_url;
+  websocket;
 
   constructor(
     private notificationsStore: NotificationsStore, 
@@ -70,7 +71,7 @@ export class NotificationsService {
         notificationRules: res.data,
         areNotificationsLoaded: true
       }));
-      this.initializeWebsocket(res.data)
+      this.initializeWebsocket()
     });
   }
 
@@ -86,11 +87,22 @@ export class NotificationsService {
         sensorTitle: sensorTitle,
         timeText: d.getDate() + "." + (d.getMonth()+1) + "." + (String(d.getFullYear()).slice(2,4)) + ", " + d.getHours() + ":" + d.getMinutes()
       };
+      //@ts-ignore
+      let currentRules = this.notificationsStore.store._value.state.notificationRules;
+      let indexOfChanged = currentRules.findIndex(x => x._id === res.data._id);
+      if (indexOfChanged >= 0) currentRules[indexOfChanged] = res.data;
       this.notificationsStore.update(state => ({
         ...state,
-        notifications: (typeof state.notifications != "undefined") ? [newNotification].concat(state.notifications) : [newNotification]
+        notifications: (typeof state.notifications != "undefined") ? [newNotification].concat(state.notifications) : [newNotification],
+        notificationRules: currentRules
       }));
-      this.setNewNotification(newNotification)
+      this.setNewNotification(newNotification);
+
+      // websocket
+      if (this.websocket) {
+        console.log('subscribing to ', res.data._id)
+        this.websocket.send('subscribe:'+res.data._id)
+      }
     });
   }
 
@@ -111,7 +123,7 @@ export class NotificationsService {
     })
   }
 
-  initializeWebsocket(notificationRules) {
+  initializeWebsocket() {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
 
@@ -119,17 +131,18 @@ export class NotificationsService {
       console.log('connecting')
       // TODO: websocket should be a variable of this class. Everytime this message is called it should only update the subscriptions and not create a new websocket
       // TODO: The url of the websocket should go into the configuration file
-      let ws = new WebSocket('ws://localhost:12345/')
-      ws.onopen = (evt) => {
+      this.websocket = new WebSocket('ws://localhost:12345/')
+      this.websocket.onopen = (evt) => {
         console.log('connection opened')
 
-        notificationRules.forEach((rule) => {
+        //@ts-ignore
+        this.notificationsStore.store._value.state.notificationRules.forEach((rule) => {
           console.log('subscribing to ', rule._id)
-          ws.send('subscribe:'+rule._id)
+          this.websocket.send('subscribe:'+rule._id)
         })
 
       }
-      ws.onmessage = async (evt) => {
+      this.websocket.onmessage = async (evt) => {
         // console.log(evt.data)
         const message = JSON.parse(evt.data)
         let box = await this.getBox(message.rule.box, headers);
@@ -157,8 +170,8 @@ export class NotificationsService {
           notifications: (typeof state.notifications != "undefined") ? [notification].concat(state.notifications) : [notification]
         }));
       }
-      ws.onerror = (evt) => console.error('onerror', evt)
-      ws.onclose = (evt) => setTimeout(
+      this.websocket.onerror = (evt) => console.error('onerror', evt)
+      this.websocket.onclose = (evt) => setTimeout(
         () => {
             console.warn('onclose', evt);
             connectws();
