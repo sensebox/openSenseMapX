@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ID } from '@datorama/akita';
+import * as moment from 'moment';
 import { NotificationsStore } from './notifications.store';
 import { NotificationsQuery } from './notifications.query';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -32,7 +33,6 @@ export class NotificationsService {
         let box = await this.getBox(notificationRule.box, headers);
         for (let j = 0; j < notificationRule.notifications.length; j++) {
           let notification = notificationRule.notifications[j];
-          let notiTime = notification.notificationTime
           let sensors = [];
           for ( let i = 0; i < notificationRule.sensors.length; i++) {
             // @ts-ignore
@@ -40,7 +40,7 @@ export class NotificationsService {
           }
           notification = {
             ...notification,
-            timeText: notiTime.slice(8, 10) + "." + notiTime.slice(5, 7) + "." + notiTime.slice(2, 4) + ", " + notiTime.slice(11, 16),
+            timeText: moment(notification.notificationTime).format("DD.MM.YYYY, HH:mm"),
             type: "threshold",
             activationOperator: notificationRule.activationOperator,
             activationThreshold: notificationRule.activationThreshold,
