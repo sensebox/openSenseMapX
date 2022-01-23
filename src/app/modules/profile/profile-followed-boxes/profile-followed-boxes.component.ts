@@ -11,7 +11,8 @@ import { NotificationsService } from 'src/app/models/notifications/state/notific
 export class ProfileFollowedBoxesComponent implements OnInit {
     
     @Input() notificationRules;
-    
+    @Input () user;
+
     constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService) { }
     dataSource: any [] = [];
     editField: string;
@@ -41,12 +42,14 @@ export class ProfileFollowedBoxesComponent implements OnInit {
       this.notificationsService.deleteNotificationRule(id);
     }
 
-    constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService) { }
-
     ngOnChanges(changes) {
         if(changes.notificationRules && typeof changes.notificationRules.currentValue != "undefined") {
             this.dataSource = changes.notificationRules.currentValue;
         }
+    }
+
+    ngOnInit(): void {
+        
     }
 
     sleep(ms) {
