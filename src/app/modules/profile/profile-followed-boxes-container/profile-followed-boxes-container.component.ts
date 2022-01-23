@@ -3,6 +3,7 @@ import { GridComponent, GridColumn, DataAdapter, Smart } from '@smart-webcompone
 import { GetData } from './../../../../assets/data/data';
 import { NotificationsQuery } from 'src/app/models/notifications/state/notifications.query';
 import { NotificationsService } from 'src/app/models/notifications/state/notifications.service';
+import { SessionQuery } from 'src/app/models/session/state/session.query';
   
 @Component({
     selector: 'osem-profile-followed-boxes-container',
@@ -13,11 +14,11 @@ import { NotificationsService } from 'src/app/models/notifications/state/notific
 export class ProfileFollowedBoxesContainerComponent implements AfterViewInit, OnInit {
     
     notificationRules$ = this.notificationsQuery.notificationRules$;
+    user$ = this.sessionQuery.user$;
 
-    constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService) { }
+    constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService, private sessionQuery: SessionQuery) { }
 
     ngOnInit() {
-        this.notificationsService.getNotificationRules();
     }
 
     ngAfterViewInit(): void {
@@ -26,6 +27,5 @@ export class ProfileFollowedBoxesContainerComponent implements AfterViewInit, On
     }
 
     init(): void {
-        this.notificationsService.getNotificationRules();
     }
 }

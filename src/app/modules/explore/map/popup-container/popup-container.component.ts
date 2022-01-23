@@ -4,6 +4,7 @@ import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { MapService } from '../../services/map.service';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
+import { SessionQuery } from 'src/app/models/session/state/session.query';
 
 @Component({
   selector: 'osem-popup-container',
@@ -14,13 +15,16 @@ export class PopupContainerComponent implements OnInit {
 
   popupBox$ = this.boxQuery.selectPopupBox$;
   cluster$ = this.uiQuery.selectCluster$;
+  user$ = this.sessionQuery.user$;
 
   box;
   constructor(
-    private boxQuery: BoxQuery, 
+    private boxQuery: BoxQuery,
     private mapService: MapService, 
     private uiService: UiService,
-    private uiQuery: UiQuery) { }
+    private uiQuery: UiQuery,
+    private sessionQuery: SessionQuery
+    ) { }
 
   mouseenter(){
     this.mapService.mouseEnterPopup(this.box);

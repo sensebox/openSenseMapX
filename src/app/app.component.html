@@ -38,6 +38,9 @@
 <div id="osem-popup">
     <osem-popup-container></osem-popup-container>
 </div>
+<div id="osem-popup" style="position: relative; left: -45%; float: right;">
+    <osem-notifications-popup-container></osem-notifications-popup-container>
+</div>
 
 
 <!-- <osem-map-options-container></osem-map-options-container> -->
@@ -76,12 +79,17 @@
     <div id="sidebar-header" class="level">
         <div class="level-left">
             <p class="notifications-viewer-title">
-                notifications feed
+                Notifications Feed
             </p>
+        </div>
+        <div class="level-right">
+            <div style="cursor: pointer;" [routerLink]="[{ outlets: { sidebar: ['m','profile','fbox'] }}]"><i class="fa fa-cog"></i></div>
         </div>
     </div>
 
-    <router-outlet name="notificationsContainer" #notificationsContainerOutlet="outlet"></router-outlet>
+    <div id="notifications-container-wrapper">
+        <router-outlet name="notificationsContainer" #notificationsContainerOutlet="outlet"></router-outlet>
+    </div>
 </div>
 
 

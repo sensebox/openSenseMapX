@@ -41,8 +41,7 @@ export class ProfileFollowedBoxesComponent implements OnInit {
       this.notificationsService.deleteNotificationRule(id);
     }
 
-    async ngOnInit() {
-    }
+    constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService) { }
 
     ngOnChanges(changes) {
         if(changes.notificationRules && typeof changes.notificationRules.currentValue != "undefined") {

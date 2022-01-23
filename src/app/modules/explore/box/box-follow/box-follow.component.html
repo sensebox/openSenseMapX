@@ -3,19 +3,21 @@
     <a class="card-footer-item"><h1 class="title is-3">{{ activeBox.name }}</h1></a>
 </div>
 <div class="osem-padding"> 
-    <h3 class="title is-6">Be notified when a measured value transpasses a threshold.</h3>
+    <p class="title is-6">Be notified when a measured value transpasses a threshold.</p>
     <div>    
     <form id="follow-box-form">
         <div action="/action_page.php">
-            <label><p>{{'FOLLOW_BOX' | translate}}</p></label>
-            <select name="sensors" class="input is-small" id="form-sensors">
+            <label><p>Sensor:</p></label>
+            <select name="sensors" class="input is-small" id="form-sensors" (change)="selected()" required>
+                <option value= "" disabled selected hidden>Sensor</option>
                 <option *ngFor="let sensor of activeBox.sensors" [value]="sensor._id">{{ sensor.title }}</option>
             </select>
         </div>    
 
         <div action="/action_page.php">
-            <label><p>Select</p></label>
-            <select name="operator" class="input is-small" id="form-operators">
+            <label><p>Operator:</p></label>
+            <select name="operator" class="input is-small" id="form-operators" required>
+                <option value= "" disabled selected hidden>Operator</option>
                 <option value="equal">equal</option>
                 <option value="over">over</option>
                 <option value="under">under</option>
@@ -23,12 +25,12 @@
         </div>
 
         <div class="control">
-            <label>Type a threshold value</label>
-            <input class="input is-small" type="number" placeholder="Value" id="form-thresholds">
+            <label>Threshold:</label>
+            <input class="input is-small" type="number" placeholder={{textForm}} id="form-thresholds">
         </div>
 
         <div class="control">
-            <input type="checkbox" name="checkEmail" id="email" />
+            <input type="checkbox" name="checkEmail" id="form-email" />
             <label for="email">I want to receive notifications via email.</label>
             
         </div>

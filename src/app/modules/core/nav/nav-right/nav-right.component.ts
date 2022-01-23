@@ -20,6 +20,7 @@ export class NavRightComponent implements OnInit {
   @Input() language;
   @Input() settings;
   @Input() user;
+  @Input() unread;
   @Input() clustering;
 
   constructor(public router: Router) { }

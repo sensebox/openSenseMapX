@@ -1,0 +1,42 @@
+.notification-title {
+    color: #f14646;
+    font-size: 1.4em;
+    margin-bottom: 0.4em;
+}
+.popup {
+    background-color: white;
+    border-radius: 5px;
+    font-size: 0.85em;
+    margin-top: 0.3em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    box-shadow: var(--box-shadow-basic);
+    transform: translateY(100%);
+    transition:  transform 0.6s ease-in-out;
+    top: -40em;
+    position: absolute;
+    width: 213px;
+    .osem-close-text-no-pos {
+        padding-left: 0.3em;
+    }
+    a {
+        color: var(--text-color-primary);
+        text-decoration: underline;
+    }
+    &.active {
+        transform: translateY(40em);
+    }
+}
+
+#close-notification-popup {
+    float: right;
+    margin-top: 1px;
+}
+
+#notification-popup-content {
+    float: left;
+}
+
+#notification-popup {
+    display: flex;
+}

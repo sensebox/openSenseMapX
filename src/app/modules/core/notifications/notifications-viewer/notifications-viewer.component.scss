@@ -13,3 +13,28 @@
     font-size: 1.4em;
     margin-bottom: 0.4em;
 }
+
+.notification-time {
+    color: gray;
+    font-size: 0.9em;
+    text-align: right;
+    margin: -0.3em 0 -0.2em 0;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    color: gray;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 52%;
+    left: 0%;
+    font-size: 0.5em;
+}
+
+.threshold-title:hover .tooltiptext {
+    visibility: visible;
+  }
