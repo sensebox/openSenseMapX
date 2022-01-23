@@ -32,7 +32,7 @@ export class UiQuery extends Query<UiState> {
   selectActiveTab$ = this.select(state => state.activeTab);
   selectChartLoading$ = this.select(state => state.chartLoading);
 
-  //selectedPolygon$ = this.select(state => state.selectedPolygon);
+  selectedPolygon$ = this.select(state => state.selectedPolygon);
   drawmode$ = this.select(state => state.drawmode);
 
   constructor(protected store: UiStore) {

@@ -30,7 +30,11 @@ import worldLocalJSONFile from '/src/assets/data/world.json';
 export class MapService {
 
   map;  // the map element (gets initilisaed on page load)
-  visible;
+  geocoder;
+  draw;
+  UserLocation;
+  drawPolygon;
+  drawPoint;
   worldLocalJSONData: any = worldLocalJSONFile;
 
   worldData:BehaviorSubject<any>; // all the live Data as geojson, gets pulled on page load
@@ -96,6 +100,17 @@ export class MapService {
       pitch: 21
     });
 
+    //GPS LOCATION
+    this.UserLocation = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true},
+      // When active the map will receive updates to the device's location as it changes.
+      trackUserLocation: true,
+      })
+      // Add geolocate control to the map.
+    this.map.addControl(this.UserLocation,'top-left');
+
+
     this.map.addControl(new NavigationControl(), 'top-left');
     // disable map rotation using right click + drag
     this.map.dragRotate.disable();
@@ -126,27 +141,18 @@ export class MapService {
   DrawControlMap(){
 
     //DRAWING POLYGONS WITH MAPBOX GL DRAW
-    const draw = new MapboxDraw({
+    this.draw = new MapboxDraw({
       // Instead of showing all the draw tools, show only the line string and delete tools.
       displayControlsDefault: false,
       controls: {
         combine_features: false,
         uncombine_features: false,
-        point: true,
+        point: false,
         line_string: false,
         polygon: true,
         trash: true
       },
   });
-  // DRAW CONTROLS
-this.map.addControl(draw,'top-left');
-
-  // GEOCODER
-    const geocoder = new MapboxGeocoder({
-  accessToken: environment.mapbox_token,
-  mapboxgl: mapboxgl
-})
-this.map.addControl(geocoder);
 
 //(12.14.21) GETTING THE DATA FROM LOCAL JSON FILE (See file json-typings.d.ts in app folder and worldLocalJSONData and import worldLocalJSONFile)
 
@@ -161,66 +167,61 @@ console.log('pointWorldgeoJSON',pointworldgeoJSON);
     this.map.on('draw.delete', updateArea);
     this.map.on('draw.update', updateArea);
 
+    let that = this;
     function updateArea(e) {
-        const data: any = draw.getAll();
+        const data: any = that.draw.getAll();
+        console.log("GetALL",that.draw.getAll())
         const answer = document.getElementById('calculated-area');
         if (data.features.length > 0) {
             const area = turf.area(data);
-            // Restrict the area to 2 decimal points.
-            const rounded_area = Math.round(area * 100) / 100;
+            // Restrict the area (km2) to 2 decimal points.
+            const rounded_area = Math.round(area/10000)/100;
+
+            console.log("data length",data.features.length)
+            console.log("data",data)
+
+            const type_feat = turf.getType(data)
+
+            console.log("type_feat",type_feat)
 
         //Creating multipolygon from drawn features
-          var polygeoJSON = turf.multiPolygon([[turf.coordAll(data)]]);
-          console.log('polygeoJSON',polygeoJSON);
+        var polygeoJSON = turf.multiPolygon([[turf.coordAll(data)]]);
+        that.uiService.setSelectedPolygon(`${JSON.stringify(polygeoJSON.geometry.coordinates)}`)
 
         // Calculating points within the polygons
           var ptsWithin = turf.pointsWithinPolygon(pointworldgeoJSON, polygeoJSON);
-          console.log('ptsWithin',ptsWithin);
-        //Providing a message for the box
-          answer.innerHTML = `<p><strong>#Polygons: </string>${JSON.stringify(polygeoJSON.geometry.coordinates.length)}<strong><br>Area (km2):${rounded_area}<strong><br>#Points within the polygon area?: </strong>${ptsWithin.features[0]?.geometry?.coordinates.length ? "Yes" : "No"}
-          <strong>(${JSON.stringify(ptsWithin.features[0].geometry.coordinates)}<strong> from </strong>${JSON.stringify(pointworldgeoJSON.features.length)})</strong></p>`;
-          console.log("answer",answer.innerHTML)
-          this.answerWORKS = `<p><strong>#Polygons: </string>${JSON.stringify(polygeoJSON.geometry.coordinates.length)}<strong><br>Area (km2):${rounded_area}<strong><br>#Points within the polygon area?: </strong>${ptsWithin.features[0]?.geometry?.coordinates.length ? "Yes" : "No"}
-          <strong>(${JSON.stringify(ptsWithin.features[0].geometry.coordinates)}<strong> from </strong>${JSON.stringify(pointworldgeoJSON.features.length)})</strong></p>`;
-          console.log("answer",answer.innerHTML)
 
-        } else {
-            answer.innerHTML = '';
+        //Providing a message for the box
+          answer.innerHTML = `<p><strong>#Polygons: </strong> ${JSON.stringify(data.features.length)}
+          <strong><br>Total area: </strong> ${rounded_area} (km2)
+          <strong><br>Points within the polygon: </strong>
+          ${JSON.stringify(ptsWithin.features.length)} of ${JSON.stringify(pointworldgeoJSON.features.length)}</p>`;
+
+      } else {
+        var polygeoJSON_null = '';
+        that.uiService.setSelectedPolygon(polygeoJSON_null)
+
+        answer.innerHTML = '';
             if (e.type !== 'draw.delete')
                 alert('Click the map to draw a polygon.');
-        }
+      }
     }
 
-    var disableBtn = document.getElementById('disable-draw');
-    var enableBtn = document.getElementById('enable-draw');
+    this.drawPolygon = document.getElementsByClassName('mapbox-gl-draw_polygon');
+    this.drawPoint = document.getElementsByClassName('mapbox-gl-draw_point');
 
-    const drawPolygon = document.getElementsByClassName('mapbox-gl-draw_polygon');
-    const drawPoint = document.getElementsByClassName('mapbox-gl-draw_point');
+  }
 
+  enableFunction(){
+    console.log("this.draw",this.draw)
+    this.map.addControl(this.draw,'top-left');
+  };
 
-    enableBtn.onclick = (e) => {
-      this.visible = true;
-      this.map.addControl(draw,'top-left');
-      this.map.addControl(geocoder);
-      (<HTMLInputElement> drawPolygon[0]).disabled = false;
-      drawPolygon[0].classList.remove('disabled-button');
-      (<HTMLInputElement> drawPoint[0]).disabled = false;
-      drawPoint[0].classList.remove('disabled-button');
-    };
-
-    //}
-
-    disableBtn.onclick = (e) => {
-      //disablefunction(){
-      this.visible = false;
-      this.map.removeControl(draw);
-      this.map.removeControl(geocoder);
-      (<HTMLInputElement> drawPolygon[0]).disabled = true;
-      drawPolygon[0].classList.add('disabled-button');
-      (<HTMLInputElement> drawPoint[0]).disabled = true;
-      drawPoint[0].classList.add('disabled-button');
+  disableFunction(){
+    if(this.draw) {
+    this.map.removeControl(this.draw);
     }
-    }
+  }
 
 /*
 //TO DELETE

@@ -1,21 +1,20 @@
 <div id="map"></div>
 <div id="demo"></div>
 <pre id="info"></pre>
-<!-- Create a container for the instructions and directions -->
-
 <router-outlet></router-outlet>
 
-<!--*ngIf="drawmode$ | async"-->y
-<div  class="info-box">
+<div  class="info-box" *ngIf="drawmode$ | async">
     <ul>
-      <h2>Url comparison <br> {{comparison}}-- <br> current url: {{my_url_var}}</h2>
-      <li>Please use the market drawing tool to select the location of posible box locations for your campaign.
-      <strong><br>Note: </strong>You can create multipoints
+      <!--li>Use the <b>market drawing tool</b> to mark relevant locations for your campaign.
+      </li>
+      <br-->
+      <li>Use the <b>polygon drawing tools</b> to cover the boxes you want to send an invitation to participate in the campaign.
       </li>
       <br>
-      <li>Please use the polygon drawing tools to cover the boxes you want to send an invitation to participate in the campaign.
-      <strong><br>Note: </strong>You can create multipolygons
-      </li>
+
+      <div class="calculation-box">
+        <div id="calculated-area"></div>
+      </div>
     </ul>
   <br>
 

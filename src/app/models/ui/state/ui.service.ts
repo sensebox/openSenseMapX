@@ -211,10 +211,10 @@ export class UiService {
     this.uiStore.update( state => ({ ...state, chartLoading: loading}))
   }
 
-  /*setselectedPolygon(selectedPolygon){
+  setSelectedPolygon(selectedPolygon){
     this.uiStore.update( state => ({ ...state , selectedPolygon: selectedPolygon }));
   }
-*/
+
   setdrawmode(drawmode){
     this.uiStore.update( state => ({ ...state , drawmode: drawmode }));
   }

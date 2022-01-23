@@ -14,41 +14,21 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 })
 export class BaseMapComponent implements OnInit {
 
-  router:string = "happy";
-  currentUrl = window.location.href;
-  //drawmode$ = this.uiQuery.drawmode$;
-  //data:any;
-  my_url_var = (window.location != window.parent.location)
-            ? document.referrer
-            : document.location.href;
-url: string;
-  comparison:boolean = 'http://localhost:4200/(sidebar:m/create)'==this.currentUrl;
+  drawmode$ = this.uiQuery.drawmode$;
 
-  previousUrl: string;
-
-  constructor(private mapService: MapService, public _router: Router, private activatedRoute: ActivatedRoute, private uiQuery: UiQuery) {
-    this._router.events.pipe(
-      // identify navigation end
-      filter((event) => event instanceof NavigationEnd))
-      // now query the activated route
-      .subscribe(event => {
-        this
-          console.log("event:",event);
-          console.log("comparison:","NavigationEnd(id: 1, url: '/(sidebar:m/create)', urlAfterRedirects: '/(sidebar:m/create)')" === event.toString());
-      });
-
-
-
-  }
+  constructor(private mapService: MapService, public _router: Router,
+    private activatedRoute: ActivatedRoute, private uiQuery: UiQuery) {}
 
   ngOnInit() {
-
-    console.log("current url:",this.currentUrl)
-    console.log("comparison:", this.comparison)
-
     this.mapService.generateMap('map');
-    //this.mapService.DrawControlMap();
 
+    this.drawmode$.subscribe(drawmode => { console.log("drawmode",drawmode);
+    if(drawmode) {
+      this.mapService.enableFunction()
+    }
+      else { this.mapService.disableFunction()}
+    }
+    );
 
   }
 

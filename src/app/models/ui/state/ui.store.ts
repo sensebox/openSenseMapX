@@ -38,8 +38,8 @@ export interface UiState {
   activeTab: string,
   chartLoading: boolean,
 
-  //selectedPolygon: any,
-  drawmode: boolean
+  selectedPolygon: any,
+  drawmode: boolean,
 }
 
 export function createInitialState(): UiState {
@@ -128,8 +128,8 @@ export function createInitialState(): UiState {
     activeTab: 'phenos',
     chartLoading: false,
 
-    //selectedPolygon: [],
-    drawmode: true,
+    selectedPolygon: [],
+    drawmode: false,
   };
 }
 

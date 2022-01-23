@@ -1,22 +1,5 @@
 
 <p id="demo"></p>
-<button id="disable-draw">
-  Disable Draw Btns
-</button>
-
-<button id="enable-draw">
-  Enable Draw Btns
-</button>
-
-<div class="calculation-box">
-  <p>To continue draw a polygon.</p>
-  <div id="calculated-area"></div>
-</div>
-
-<div id="directions"></div>
-<h1>Toggle (hide/Show) in Angular</h1>
-<button (click)="toogleTag()">{{showMe}}</button>
-<h2 *ngIf="showMe">{{showMe}}</h2>
 
 <div [hidden]="submitted">
 <form (ngSubmit)="onSubmit()" #myForm = "ngForm" method="POST" action="/users/campaign">
@@ -41,13 +24,11 @@
       Title is required!
   </div>
 
-
   <div class="field">
     <p class="control is-expanded has-icons-left has-icons-right">
       <input type="text"
-        class="input is-success" readonly
+        class="input"
         id="polygonDraw"
-        value = "{{showMeTRY}}"
       placeholder="polygonDraw are f..."
       [(ngModel)]="model.polygonDraw"
       name="polygonDraw"
@@ -202,7 +183,7 @@
       </p>
   </div>
 
-  <!--div class="select is-multiple">
+  <div class="select is-multiple">
       <label for="power">Phenomena</label>
       <select multiple
               size="10"
@@ -214,7 +195,7 @@
                 [value]="one.phenomenonLabel[0].value">{{one.phenomenonLabel[0].value}}
               </option>
       </select>
-    </div-->
+    </div>
     <div>
       <button
             type="submit"
