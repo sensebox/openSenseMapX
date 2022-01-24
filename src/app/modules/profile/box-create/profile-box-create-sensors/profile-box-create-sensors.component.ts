@@ -26,11 +26,14 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
   @Output() sensorSelected = new EventEmitter();
   @Output() sensorElementSelected = new EventEmitter();
   @Output() sensorElementsUpdated = new EventEmitter();
+  @Output() phenoRemoved = new EventEmitter();
 
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.phenomena);
+    console.log("UNITS", this.units);
   }
   
   selectSensor(sensor){
@@ -80,7 +83,6 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
 
     for(let sensor of sensors) {
       for(let sensorElement of sensor.sensorElement){
-        console.log(sensorElement);
         if(groupedSensors[sensorElement.phenomenon]){
           groupedSensors[sensorElement.phenomenon].push({...sensorElement, sensor: sensor})
         } else {
@@ -91,10 +93,17 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
     return groupedSensors;
   }
 
-  togglePheno(item){
-    console.log(item)
+  togglePheno(item, pheno){
     item.classList.toggle('visible')
-    console.log("ACTIVE", item.classList.contains('visible'))
+    if (!item.classList.contains('visible')) {
+      this.phenoRemoved.emit(pheno)
+    } else {
+      // autoselect if only one sensorElement available
+      if(pheno.value.length === 1){
+        console.log(pheno);
+        this.sensorElementSelected.emit({sensor: pheno.value[0].sensor, sensorElement: pheno.value[0]});
+      }
+    }
   }
 
 }

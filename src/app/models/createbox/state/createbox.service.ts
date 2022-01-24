@@ -47,5 +47,9 @@ export class CreateboxService {
   updateSensorElements(elements){
     this.createboxStore.updateSensorElements(elements);
   }
+
+  removePhenoSensors(pheno){
+    this.createboxStore.removeSensorElementsWithPheno(pheno.key);
+  }
 }
 

@@ -64,4 +64,8 @@ export class ProfileBoxCreateSensorsContainerComponent implements OnInit {
     this.createboxService.updateSensorElements(elements);
   }
 
+  removePhenoSensors(pheno){
+    this.createboxService.removePhenoSensors(pheno);
+  }
+
 }

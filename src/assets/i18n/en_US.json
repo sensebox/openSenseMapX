@@ -202,7 +202,7 @@
     "FORUM": "Forum",
     "SHOW_MY_BOXES_ON_MAP": "Show my stations on map",
 
-
+    "ADD_SENSOR": "Add sensor",
     "EDIT": "Edit",
     "DATA_UPLOAD": "Upload data",
     "SUPPORT": "Support",
@@ -216,7 +216,7 @@
     "CHOOSE_YOUR_DEVICE": "Choose your device!",
     "WHICH_DEVICE_ARE_U_USING": "Which hardware are you using?",
     "NEXT": "Next",
-    "DEVICE_NOT_AVAILABLE": "Your device is not listed here? Add it in the <a href='https://sensor.wiki'>Sensor-Wiki</a> to make it available on openSenseMap:",
+    "DEVICE_NOT_AVAILABLE": "Your device is not listed here? Add it in the <a href='https://sensors.wiki'>Sensor-Wiki</a> to make it available on openSenseMap:",
 
     "GENERAL_INFORMATION_BOX": "General Information about your measurement station",
     "NAME": "Name",
@@ -226,7 +226,7 @@
 
     "CHOOSE_YOUR_SENSORS": "Choose your sensors",
     "WHAT_IS_YOUR_BOX_MEASURING": "What are you measuring?",
-    "SENSOR_NOT_AVAILABLE": "Your sensor or phenomenon is not listed here? Add it in the <a href='https://sensor.wiki'>Sensor-Wiki</a> to make it available on openSenseMap:",
+    "SENSOR_NOT_AVAILABLE": "Your sensor or phenomenon is not listed here? Add it in the <a href='https://sensors.wiki'>Sensor-Wiki</a> to make it available on openSenseMap:",
     "TUTORIAL": "Tutorial",
     
     "YOUR_SENSOR_SETUP": "Your sensor setup:",

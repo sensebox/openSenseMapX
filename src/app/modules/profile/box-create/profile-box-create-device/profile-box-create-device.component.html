@@ -13,7 +13,7 @@
       [class.selected]="selectedDevice?.label === device.label">  
       <div class="card-image">
         <figure class="image is-4by3">
-          <img src="https://api.sensor-wiki.opensensemap.org/images/upload/{{device.image}}" alt="Placeholder image">
+          <img src="https://api.sensors.wiki/images/upload/{{device.image}}" alt="Placeholder image">
         </figure>
       </div>
       <div class="card-content">
@@ -72,5 +72,5 @@
 
 <div class="notification is-warning is-light">
   <p [innerHTML]="'DEVICE_NOT_AVAILABLE' | translate"></p>
-  <a href="https://sensor-wiki.opensensemap.org" target="_blank">{{'TUTORIAL' | translate }}</a>
+  <a href="https://sensors.wiki" target="_blank">{{'TUTORIAL' | translate }}</a>
 </div>
