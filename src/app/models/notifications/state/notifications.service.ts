@@ -75,11 +75,12 @@ export class NotificationsService {
     });
   }
 
-  createNotificationRule(params, boxName, sensorTitle) {
+  async createNotificationRule(params, boxName, sensorTitle) {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
-    this.http.post(`${environment.api_url}/notification/notificationRule`, params, {headers: headers}).subscribe((res:any) => {
+    this.http.post(`${environment.api_url}/notification/notificationRule`, params, {headers: headers}).subscribe(async (res:any) => {
       var d = new Date();
+      // give a notification that a rule was created
       let newNotification = {
         type: "notification-rule",
         boxName: boxName,
@@ -87,16 +88,29 @@ export class NotificationsService {
         sensorTitle: sensorTitle,
         timeText: d.getDate() + "." + (d.getMonth()+1) + "." + (String(d.getFullYear()).slice(2,4)) + ", " + d.getHours() + ":" + d.getMinutes()
       };
+      this.setNewNotification(newNotification);
+      // update the notification rules
+      let box = await this.getBox(res.data.box, headers);
+      res.data = {
+        ...res.data,
+        // @ts-ignore
+        boxName: box.name,
+        // @ts-ignore
+        boxExposure: box.exposure,
+        // @ts-ignore //TODO: a notificationRule could theoretically have more than one sensor, but Im not sure if we care about that...
+        sensorName: box.sensors.find(sensor => sensor._id == res.data.sensors[0]).title,
+        // @ts-ignore
+        boxDate: box.updatedAt,
+      }
       //@ts-ignore
       let currentRules = this.notificationsStore.store._value.state.notificationRules;
-      let indexOfChanged = currentRules.findIndex(x => x._id === res.data._id);
-      if (indexOfChanged >= 0) currentRules[indexOfChanged] = res.data;
+      let newRules = [res.data].concat(currentRules);
+      currentRules.push(res.data);
       this.notificationsStore.update(state => ({
         ...state,
         notifications: (typeof state.notifications != "undefined") ? [newNotification].concat(state.notifications) : [newNotification],
-        notificationRules: currentRules
+        notificationRules: newRules
       }));
-      this.setNewNotification(newNotification);
 
       // websocket
       if (this.websocket) {
