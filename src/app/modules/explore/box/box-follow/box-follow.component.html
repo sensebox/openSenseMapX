@@ -4,6 +4,7 @@
 </div>
 <div class="osem-padding"> 
     <p class="title is-6">Be notified when a measured value transpasses a threshold.</p>
+    <div>{{ notificationsService.messageToUser }}</div>
     <div>    
     <form id="follow-box-form">
         <div action="/action_page.php">
@@ -38,12 +39,24 @@
     </form>
     </div>
 
-<h3 class="title is-6">You are already following from {{activeBox.name}}:</h3>
-<osem-box-threshold></osem-box-threshold>
-
+    <h3 class="title is-6">You are already following from {{activeBox.name}}:</h3>
+    
+    <div *ngIf="areNotificationsLoaded">
+        <div *ngFor="let notificationRule of notificationRules">
+            <div *ngIf="notificationRule.boxName==activeBox.name">
+                <div *ngFor="let sensor of activeBox.sensors">
+                    <div *ngIf="sensor.title==notificationRule.sensorName" class="notification">
+                        <!-- <div class="osem-icon-container" title="Temperatur"></div> -->
+                        <div>{{ notificationRule.sensorName }} {{ notificationRule.activationOperator }} {{ notificationRule.activationThreshold }}{{ sensor.unit }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <div class="card-footer">
     <a class="card-footer-item" (click)="configCenter()">Configuration Center</a>
-</div>
+
 </div>
 
