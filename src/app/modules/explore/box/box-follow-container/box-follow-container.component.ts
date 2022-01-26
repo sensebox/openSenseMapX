@@ -6,6 +6,7 @@ import { BoxService } from 'src/app/models/box/state/box.service';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { SessionQuery } from 'src/app/models/session/state/session.query';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationsQuery } from 'src/app/models/notifications/state/notifications.query';
 
 @Component({
   selector: 'osem-box-follow-container',
@@ -16,6 +17,8 @@ export class BoxFollowContainerComponent implements OnInit {
 
   activeBox$: Observable<any>;
   user$ = this.sessionQuery.user$;
+  notificationRules$ = this.notificationsQuery.notificationRules$;
+  areNotificationsLoaded$ = this.notificationsQuery.areNotificationsLoaded$;
 
   constructor(
     private uiQuery: UiQuery, 
@@ -23,7 +26,8 @@ export class BoxFollowContainerComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private boxService: BoxService,
     private boxQuery: BoxQuery,
-    private sessionQuery: SessionQuery) { }
+    private sessionQuery: SessionQuery,
+    private notificationsQuery: NotificationsQuery) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(res => {
