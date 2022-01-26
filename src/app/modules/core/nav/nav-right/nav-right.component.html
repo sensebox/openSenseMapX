@@ -18,11 +18,15 @@
         <div class="nav-item" [routerLink]="[{ outlets: { sidebar: ['m'] }}]">
             <i class="fa fa-bars"></i>
         </div>
+        <!-- to open the notifications -->
         <div *ngIf="user && !router.url.includes('(notificationsContainer:notifications-container)')" class="nav-item" [routerLink]="[{ outlets: { notificationsContainer: ['notifications-container'] }}]">
             <i class="fa fa-bell"></i>
+            <span *ngIf="unread" class="notifications_badge"></span>
         </div>
+        <!-- to close the notifications -->
         <div *ngIf="router.url.includes('(notificationsContainer:notifications-container)')" class="nav-item" [routerLink]="[{outlets: {notificationsContainer: null}}]">
             <i class="fa fa-bell"></i>
+            <span *ngIf="unread" class="notifications_badge"></span>
         </div>
     </div>
 </div>

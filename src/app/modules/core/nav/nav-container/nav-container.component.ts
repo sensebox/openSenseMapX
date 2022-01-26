@@ -1,4 +1,5 @@
 import { SessionQuery } from 'src/app/models/session/state/session.query';
+import { NotificationsQuery } from 'src/app/models/notifications/state/notifications.query';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,6 +18,7 @@ export class NavContainerComponent implements OnInit {
   language$ = this.uiQuery.selectLanguage$;
   theme$ = this.uiQuery.selectTheme$;
   user$ = this.sessionQuery.user$;
+  unread$ = this.notificationsQuery.unread$;
   clustering$ = this.uiQuery.selectClustering$;
 
   constructor(
@@ -25,6 +27,7 @@ export class NavContainerComponent implements OnInit {
     private uiService: UiService,
     private uiQuery: UiQuery,
     private sessionQuery: SessionQuery,
+    private notificationsQuery: NotificationsQuery,
     ) { }
 
   ngOnInit() {

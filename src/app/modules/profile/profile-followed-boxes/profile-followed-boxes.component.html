@@ -1,2 +1,70 @@
-<smart-grid #grid id="grid" [dataSource]="dataSource" [editing]="editing" [selection]="selection" [sorting]="sorting" [behavior]="behavior" [grouping]="grouping" [columns]="columns" [appearance]="appearance"> 
-    </smart-grid>
+<div class="card">
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <table id="table-rules" class="table">
+          <thead>
+          <tr>
+            <th class="text-center">Box Name</th>
+            <th class="text-center">Sensor</th>
+            <th class="text-center">Exposure</th>
+            <th class="text-center">Action</th>
+            <th class="text-center">Value</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Update</th>
+            <th class="text-center">Delete</th>
+            <th class="text-center">Add</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let box of dataSource; let i = index " >
+            <td>
+                <span contenteditable="false">{{box.boxName}}</span>
+            </td>
+            <td>
+              <span contenteditable="false">{{box.sensorName}}</span>
+            </td>
+            <td>
+              <span contenteditable="false" >{{box.boxExposure}}</span>
+            </td>
+            <td>
+              <span contenteditable="true">
+                    <select class="input is-small osem-border-radius" id="{{ 'sel-operators' + i }}" name="sellist1">
+                        <option selected>{{box.activationOperator}}</option>
+                        <option disabled class="separator"></option>
+                        <option value=1>under</option>
+                        <option value=2>equal</option>
+                        <option value=3>over</option>
+                        <option value=4>unusual</option>
+                    </select>
+                </span>
+            </td>
+            <td>
+              <span contenteditable="true">
+                <input class="input is-small osem-border-radius" type="number" size="4" [value]= "box.activationThreshold" id="{{ 'form-thresholds' + i }}">
+              </span>
+            </td>
+            <td>
+                <input class="form-check-input" type="checkbox" id="{{ 'check-email' + i }}" name="option1" value="something" checked>
+            </td>
+            <td>
+                <span class="osem-clickable-icon" (click)="updateValue(i,box._id, box.sensors, box.box, box.name, box.activationTrigger, box.active, box.user, box.notificationChannel, $event)">
+                  <i class="far fa-save"></i>
+                  </span>
+            </td>
+            <td>
+                <span class="osem-clickable-icon" (click)="remove(i,box._id)">
+                  <i class="fas fa-trash-alt"></i>
+                </span>
+            </td>
+            <td>
+                <span class="osem-clickable-icon">
+                  <i class="fas fa-plus-circle"></i>
+                </span>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->

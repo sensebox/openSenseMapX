@@ -1,5 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit, Input } from '@angular/core';
-import { GridComponent, GridAppearance } from '@smart-webcomponents-angular/grid';
+import { Component, OnInit, Input } from '@angular/core';
 import { NotificationsQuery } from 'src/app/models/notifications/state/notifications.query';
 import { NotificationsService } from 'src/app/models/notifications/state/notifications.service';
   
@@ -9,100 +8,48 @@ import { NotificationsService } from 'src/app/models/notifications/state/notific
     styleUrls: ['./profile-followed-boxes.component.scss'],
 })
 
-export class ProfileFollowedBoxesComponent implements AfterViewInit, OnInit {
+export class ProfileFollowedBoxesComponent implements OnInit {
     
     @Input() notificationRules;
-
-    @ViewChild('grid', { read: GridComponent, static: false }) grid: GridComponent;
-    dataSource = new window.Smart.DataAdapter({
-        dataSource: [],
-        groupBy: ['boxName'],
-        dataFields: [
-            { name: 'name', type: 'string' },
-            { name: 'boxName', type: 'string' },
-            { name: 'sensorName', type: 'string' },
-            { name: 'boxDate', type: 'date' },
-            { name: 'boxExposure', type: 'string' },
-            { name: 'activationOperator', type: 'string' },
-            { name: 'activationThreshold', type: 'string' },
-            
-
-
-        ]
-    });
-
-    editing = {
-        enabled: true,
-        action: 'none',
-        mode: 'row',
-        commandColumn: {
-            visible: true,
-            displayMode: 'icon',
-            dataSource: {
-                'commandColumnDelete': { visible: false },
-                'commandColumnCustom': { icon: 'smart-icon-ellipsis-vert', command: 'commandColumnCustomCommand', visible: true, label: 'Text' }
-            }
-        }
-    };
-    selection = {
-        enabled: true,
-        allowCellSelection: true,
-        allowRowHeaderSelection: false,
-        allowColumnHeaderSelection: true,
-        mode: 'extended'
-    };
-    sorting = {
-		enabled: false
-	};
-
-	behavior = {
-		allowColumnReorder: false,
-        columnResizeMode: 'growAndShrink',
-	};
-
-    grouping = {
-		enabled: true,
-		renderMode: 'compact',
-		groupBar: {
-			visible: false
-		}
-	};
-
-    public layout = {
-        rowHeight: 'auto',
-        allowCellsWrap: true
-    };
-
-    columns = [
-        //{ label: 'Rule Name', width: 200,  dataField: 'name'},
-        { freeze: true, label: 'Box Name', width: 200,  dataField: 'boxName'},
-        { freeze: true, label: 'Sensor', width: 150, dataField: 'sensorName'},
-        { label: 'Date activated', width: 120, dataField: 'boxDate',cellsFormat: 'dd/MM/yyyy'},
-        { label: 'Exposure', dataField: 'boxExposure'},
-        { label: 'Action',showDescriptionButton: true, description: 'Threshold condition', dataField: 'activationOperator'},
-        { label: 'Value',showDescriptionButton: true, description: 'Threshold value', dataField: 'activationThreshold',  editor: 'numberInput', cellsFormat: 'd2'},
-        { label: 'Email', dataField: 'emailNotification', template: 'checkBox', editor: 'checkBox'}   
-];
-    appearance: GridAppearance = {
-        
-        showRowHeader: true,
-        showRowHeaderSelectIcon: true,
-        showRowHeaderFocusIcon: true
-    };
-
-    @Input() user;
+    @Input () user;
 
     constructor(private notificationsQuery: NotificationsQuery, private notificationsService: NotificationsService) { }
-
-    ngOnInit() {
+    dataSource: any [] = [];
+    editField: string;
+    
+    updateValue(i:number, id:string, boxSensors: any, boxBox:string , boxName: string, boxActivationTrigger:string, boxActive: boolean, boxUser: string , boxNotCha:any, event: any) {
+      let e = (document.getElementById('sel-operators'+i)) as HTMLSelectElement;
+      let operators = e.options[e.selectedIndex].text;
+      let thresholds = document.getElementById('form-thresholds'+i);
+      let f = document.getElementById("check-email"); //TODO: Getting notification by email option
+      console.log(thresholds);
+      this.notificationsService.updateNotificationRule({
+        notificationRuleId:id,
+        sensors:boxSensors,
+        box:boxBox,
+        name:boxName,
+        // @ts-ignore
+        activationThreshold: thresholds.value,
+        activationOperator: operators,
+        activationTrigger:boxActivationTrigger,
+        active:boxActive,
+        user:boxUser,
+        notificationChannel:boxNotCha,
+      })
+    }
+    
+    remove(i:number, id:string) {
+      this.notificationsService.deleteNotificationRule(id);
     }
 
     ngOnChanges(changes) {
-        if(changes.notificationRules && typeof changes.notificationRules.currentValue != "undefined" && changes.notificationRules.currentValue != null) {
-            this.dataSource.dataSource = changes.notificationRules.currentValue;
-        } else if(changes.user && typeof changes.user.currentValue != "undefined" && changes.user.currentValue != null) {
-            this.notificationsService.getNotificationRules();
+        if(changes.notificationRules && typeof changes.notificationRules.currentValue != "undefined") {
+            this.dataSource = changes.notificationRules.currentValue;
         }
+    }
+
+    ngOnInit(): void {
+        
     }
 
     sleep(ms) {
