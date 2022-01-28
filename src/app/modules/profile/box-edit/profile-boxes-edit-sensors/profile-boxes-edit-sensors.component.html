@@ -65,7 +65,7 @@
   </div>
 
 
-  <div class="card" *ngFor="let sensor of box.sensors">
+  <div class="card" *ngFor="let sensor of box.sensors; let i = index;">
     <div class="card-content">
       <div class="media">
         <div class="media-content">
@@ -88,9 +88,31 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" class="card-footer-item">Measurements</a>
-      <a href="#" class="card-footer-item">Edit</a>
-      <a (click)="deleteSensor(box._id, sensor)" href="#" class="card-footer-item has-text-danger">Delete</a>
+      <a class="card-footer-item">Measurements</a>
+      <a class="card-footer-item">Edit</a>
+      <a (click)="openDeleteModal = i" class="card-footer-item has-text-danger">Delete</a>
     </footer>
+    <div *ngIf="i == openDeleteModal" class="osem-danger-overlay">
+      <div class="osem-danger-overlay-content p-5">
+        <p>
+          {{'DELETE_SENSOR?' | translate}}
+        </p>
+        <div class="buttons is-pulled-right">
+          <button
+            (click)="deleteSensor(box._id, sensor); openDeleteModal = -1"
+            class="button is-primary is-pulled-right">
+            {{'JA' | translate}}
+          </button>
+          <button
+            class="button is-danger is-pulled-right"
+            (click)="openDeleteModal = -1">
+            {{'NEIN' | translate}}
+        </button>
+      </div>
+  
+      </div>
+    </div>
   </div>
+
+
 </div>

@@ -36,6 +36,7 @@ export class ProfileBoxesEditGeneralContainerComponent implements OnInit {
   }
 
   saveBox(box){
+    console.log(box);
     this.boxService.saveBox(box);
   }
 

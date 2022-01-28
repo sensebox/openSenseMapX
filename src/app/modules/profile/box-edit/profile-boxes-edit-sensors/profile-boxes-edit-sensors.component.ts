@@ -53,5 +53,14 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
 
   deleteSensor(box, sensor){
 
+    this.boxSaved.emit({
+       _id: box,
+        sensors: [
+            {
+                "_id": sensor._id,
+                "deleted": true,
+            }
+        ]
+    })
   }
 }

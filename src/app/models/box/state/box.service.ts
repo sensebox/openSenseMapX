@@ -11,6 +11,7 @@ import { SensorStore } from '../../sensor/state/sensor.store';
 import { UiService } from '../../ui/state/ui.service';
 import { BoxQuery } from './box.query';
 import { processBoxData, toGeoJson } from 'src/app/modules/explore/box/osem-line-chart/helper/helpers';
+import { ToasterService } from 'angular2-toaster';
 
 @Injectable({ providedIn: 'root' })
 export class BoxService {
@@ -24,6 +25,7 @@ export class BoxService {
     private sensorStore: SensorStore, 
     private boxQuery: BoxQuery, 
     private uiService: UiService,
+    private toasterService: ToasterService,
     private http: HttpClient) {
   }
 
@@ -138,7 +140,7 @@ export class BoxService {
       let ownNormalize = processBoxData([res.data]);
       this.boxStore.upsertMany(ownNormalize[0]);
       this.sensorStore.upsertMany(ownNormalize[1]);
-
+      this.toasterService.pop('success', '', 'Box updated');
     });
   }
 
