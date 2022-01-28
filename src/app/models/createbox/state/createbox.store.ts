@@ -62,6 +62,20 @@ export class CreateboxStore extends Store<CreateboxState> {
         return { ...state, selectedSensorElements: sensorElements} 
     })
   }
+
+  removeSensorElementsWithPheno(phenoKey){
+    this.update( state => {
+      return {
+        ...state,
+        selectedSensorElements: state.selectedSensorElements.filter(item => {
+          if(item.sensorElement.phenomenon === phenoKey){
+            return false;
+          } else {
+            return true;
+          }
+        })}
+    })
+  }
 }
 
 

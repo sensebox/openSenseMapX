@@ -1,22 +1,96 @@
 <div *ngIf="box">
-    <div class="card" *ngFor="let sensor of box.sensors">
-        <div class="card-content">
-            <div class="media">
-                <div class="media-content">
-                    <p class="title is-4">{{sensor.title}}</p>
-                    <p class="subtitle is-6">{{sensor._id}}</p>
-                </div>
-            </div>
 
-            <div class="content">
-                {{sensor.unit}}<br>
-                {{sensor.sensorType}}
+  <button class="button is-success" (click)="addSensorBoolean = !addSensorBoolean">
+    <span class="icon is-small">
+      <i class="fa fa-plus"></i>
+    </span>
+    <span class="text">{{'ADD_SENSOR' | translate}}</span>
+  </button>
+
+  <div class="box" *ngIf="addSensorBoolean">
+    <h3>{{'ADD_SENSOR' | translate}}</h3>
+    <form [formGroup]="sensorForm">
+
+      <div class="field">
+        <label class="label">{{'PHENOMENON' | translate}}</label>
+        <div class="field-body">
+          <div class="control">
+            <div class="select">
+
+              <select [formControl]="sensorForm.controls.phenomenon">
+                <option *ngFor="let pheno of groupedSensors | keyvalue" [value]="pheno.key">{{pheno.key}}</option>
+              </select>
             </div>
+          </div>
         </div>
-        <footer class="card-footer">
-            <a href="#" class="card-footer-item">Measurements</a>
-            <a href="#" class="card-footer-item">Edit</a>
-            <a href="#" class="card-footer-item">Delete</a>
-          </footer>
+      </div>
+      
+      <div class="field">
+        <label class="label">{{'SENSOR_TYPE' | translate}}</label>
+        <div class="field-body">
+          <div class="control">
+            <div class="select">
+
+              <select [formControl]="sensorForm.controls.sensorWikiSensorType" *ngIf="sensorForm.value.phenomenon">
+                <option *ngFor="let sensor of groupedSensors[sensorForm.value.phenomenon]" [value]="sensor.sensor.sensor.value">{{sensor.sensor.label ? sensor.sensor.label[0].value : sensor.sensor.sensor.value}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="buttons">
+        <div class="field">
+          <p class="control">
+            <button 
+              [disabled]="!this.sensorForm.valid"
+              class="button is-success" 
+              type="submit">
+              {{'SAVE' | translate}}
+            </button>
+          </p>
+        </div>
+        <div class="field pl-2">
+          <p class="control">
+            <button 
+              (click)="addSensorBoolean = false"
+              class="button is-danger" 
+              type="cancel">
+              {{'CANCEL' | translate}}
+            </button>
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="card" *ngFor="let sensor of box.sensors">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-4">{{sensor.title}}</p>
+          <p class="subtitle is-6">ID: {{sensor._id}}</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <table class="table osem-small-text is-narrow">
+          <tr>
+            <td>{{'UNIT' | translate}}</td>
+            <td><b>{{sensor.unit}}</b></td>
+          </tr>
+          <tr>
+            <td>{{'SENSOR_TYPE' | translate}}</td>
+            <td><b>{{sensor.sensorType}}</b></td>
+          </tr>
+        </table>
+      </div>
     </div>
+    <footer class="card-footer">
+      <a href="#" class="card-footer-item">Measurements</a>
+      <a href="#" class="card-footer-item">Edit</a>
+      <a (click)="deleteSensor(box._id, sensor)" href="#" class="card-footer-item has-text-danger">Delete</a>
+    </footer>
+  </div>
 </div>

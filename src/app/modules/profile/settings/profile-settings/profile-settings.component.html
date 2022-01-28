@@ -1,107 +1,112 @@
 <div class="py-2" *ngIf="_user">
     <p class="title is-3">{{'ACCOUNT_SETTINGS' | translate}}</p>
 
-    <form [formGroup]="profileForm">
+    <div class="box">
 
-        <osem-form-input 
-            [typeString]="'text'"
-            [label]="'NAME' | translate"
-            [controlName]="'name'" 
-            [control]="profileForm.controls.name">
-        </osem-form-input>
-
-        <div class="field">
-            <label class="label">{{'EMAIL' | translate}}</label>
-            <p class="control has-icons-left">
-                <input formControlName="email" class="input" type="email" placeholder="Email">
-                <span class="icon is-small is-left">
-                    <i class="fa fa-envelope"></i>
-                </span>
-            </p>
-            <osem-control-message [control]="profileForm.controls.email"></osem-control-message>
-            <div *ngIf="!_user.emailIsConfirmed">
-                <p class="notification is-warning is-light email-warning">
-                    {{'EMAIL_NOT_CONFIRMED' | translate}}
-                </p>
-
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">{{'LANGUAGE' | translate}}</label>
-            <div class="field-body">
-              <div class="control">
-                <div class="select">
-                  <select [formControl]="profileForm.controls.language">
-                    <option value="en_US">{{'ENGLISH' | translate}}</option>
-                    <option value="de_DE">{{'GERMAN' | translate}}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <osem-control-message [control]="profileForm.controls.language"></osem-control-message>
-        </div>
-
-        <div class="field">
-            <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD' | translate}})</label>
-            <div class="control">
-                <input 
-                  [formControl]="profileForm.controls.currentPassword"
-                  type="password"
-                  class="input" 
-                  id="password"
-                  placeholder="{{'CURRENT_PASSWORD' | translate}}">
-            </div>
-        </div>
+        <form [formGroup]="profileForm">
     
-    </form>
-
-    <div class="is-clearfix py-3">
-        <button
-            class="button is-primary is-pulled-right"
-            (click)="saveProfile()"
-            [disabled]="!profileForm.valid">
-            {{'SAVE' | translate}}
-        </button>
-    </div>
-
-    <hr>
-
-    <div class="field">
-        <label class="label">{{'PASSWORD' | translate}}</label>
-        <a 
-            [routerLink]="['',{ outlets: { sidebar: ['m', 'profile', 'changepassword'] }}]"            queryParamsHandling="merge"
-            class="">
-            {{'CHANGE_PASSWORD' | translate}}
-        </a>
-    </div>
-
-    <hr>
-    <div class="is-clearfix">
-        <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()">
-
+            <osem-form-input 
+                [typeString]="'text'"
+                [label]="'NAME' | translate"
+                [controlName]="'name'" 
+                [control]="profileForm.controls.name">
+            </osem-form-input>
+    
             <div class="field">
-                <label class="label">{{'DELETE_ACCOUNT' | translate}}</label>
-                <p class="notification is-warning is-light">{{'ACCOUNT_DELETE_INFO'|translate}}</p>
-                <p>{{'PROVIDE_CURRENT_PASSWORD'|translate}}</p>
+                <label class="label">{{'EMAIL' | translate}}</label>
+                <p class="control has-icons-left">
+                    <input formControlName="email" class="input" type="email" placeholder="Email">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                </p>
+                <osem-control-message [control]="profileForm.controls.email"></osem-control-message>
+                <div *ngIf="!_user.emailIsConfirmed">
+                    <p class="notification is-warning is-light email-warning">
+                        {{'EMAIL_NOT_CONFIRMED' | translate}}
+                    </p>
+    
+                </div>
+            </div>
+    
+            <div class="field">
+                <label class="label">{{'LANGUAGE' | translate}}</label>
+                <div class="field-body">
+                  <div class="control">
+                    <div class="select">
+                      <select [formControl]="profileForm.controls.language">
+                        <option value="en_US">{{'ENGLISH' | translate}}</option>
+                        <option value="de_DE">{{'GERMAN' | translate}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <osem-control-message [control]="profileForm.controls.language"></osem-control-message>
+            </div>
+    
+            <div class="field">
+                <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD' | translate}})</label>
                 <div class="control">
                     <input 
-                      [formControl]="deleteForm.controls.password"
+                      [formControl]="profileForm.controls.currentPassword"
                       type="password"
                       class="input" 
                       id="password"
                       placeholder="{{'CURRENT_PASSWORD' | translate}}">
                 </div>
             </div>
-    
-            <button
-                class="button is-danger is-pulled-left"
-                [disabled]="!deleteForm.valid"
-                (click)="deleteAccount()">
-                {{'DELETE_ACCOUNT' | translate}}
-            </button>
+        
         </form>
+    
+        <div class="is-clearfix py-3">
+            <button
+                class="button is-primary is-pulled-right"
+                (click)="saveProfile()"
+                [disabled]="!profileForm.valid">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
     </div>
 
+    <hr>
 
+    <div class="box">
+        <div class="field">
+            <label class="label">{{'PASSWORD' | translate}}</label>
+            <a 
+                [routerLink]="['',{ outlets: { sidebar: ['m', 'profile', 'changepassword'] }}]"            queryParamsHandling="merge"
+                class="">
+                {{'CHANGE_PASSWORD' | translate}}
+            </a>
+        </div>
+    </div>
+
+    <hr>
+    <div class="box">
+        <div class="is-clearfix">
+            <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()">
+    
+                <div class="field">
+                    <label class="label">{{'DELETE_ACCOUNT' | translate}}</label>
+                    <p class="notification is-warning is-light">{{'ACCOUNT_DELETE_INFO'|translate}}</p>
+                    <p>{{'PROVIDE_CURRENT_PASSWORD'|translate}}</p>
+                    <div class="control">
+                        <input 
+                          [formControl]="deleteForm.controls.password"
+                          type="password"
+                          class="input" 
+                          id="password"
+                          placeholder="{{'CURRENT_PASSWORD' | translate}}">
+                    </div>
+                </div>
+        
+                <button
+                    class="button is-danger is-pulled-left"
+                    [disabled]="!deleteForm.valid"
+                    (click)="deleteAccount()">
+                    {{'DELETE_ACCOUNT' | translate}}
+                </button>
+            </form>
+        </div>
+    </div>
 </div>

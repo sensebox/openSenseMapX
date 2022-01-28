@@ -198,6 +198,7 @@
     "FORUM": "Forum",
     "SHOW_MY_BOXES_ON_MAP": "Zeige meine Stationen auf der Karte",
 
+    "ADD_SENSOR": "Sensor hinzufügen",
     "EDIT": "Editieren",
     "DATA_UPLOAD": "Daten hochladen",
     "SUPPORT": "Hilfe",
@@ -211,7 +212,7 @@
     "CHOOSE_YOUR_DEVICE": "Wähle dein Gerät aus",
     "WHICH_DEVICE_ARE_U_USING": "Was für Hardware benutzt du?",
     "NEXT": "Weiter",
-    "DEVICE_NOT_AVAILABLE": "Dein Gerät ist nicht in der Liste? Füge es im <a href='https://sensor.wiki'>Sensor-Wiki</a> hinzu um es auf der openSenseMap zu benutzen:",
+    "DEVICE_NOT_AVAILABLE": "Dein Gerät ist nicht in der Liste? Füge es im <a href='https://sensors.wiki'>Sensor-Wiki</a> hinzu um es auf der openSenseMap zu benutzen:",
     "TUTORIAL": "Anleitung",
 
 
@@ -223,7 +224,7 @@
 
     "CHOOSE_YOUR_SENSORS": "Wähle deine Sensoren aus",
     "WHAT_IS_YOUR_BOX_MEASURING": "Was misst deine Messstation?",
-    "SENSOR_NOT_AVAILABLE": "Dein Sensor oder Phänomen ist nicht verfügbar? Füge ihn im <a href='https://sensor.wiki'>Sensor-Wiki</a> hinzu um den Sensor auf der openSenseMap zu benutzen:",
+    "SENSOR_NOT_AVAILABLE": "Dein Sensor oder Phänomen ist nicht verfügbar? Füge ihn im <a href='https://sensors.wiki'>Sensor-Wiki</a> hinzu um den Sensor auf der openSenseMap zu benutzen:",
 
     "YOUR_SENSOR_SETUP": "Dein Sensor Setup:",
 
