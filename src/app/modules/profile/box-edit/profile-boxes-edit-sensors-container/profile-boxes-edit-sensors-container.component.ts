@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BoxQuery } from 'src/app/models/box/state/box.query';
 import { BoxService } from 'src/app/models/box/state/box.service';
 import { DeviceService } from 'src/app/models/device/state/device.service';
+import { UnitQuery } from 'src/app/models/unit/state/unit.query';
 
 @Component({
   selector: 'osem-profile-boxes-edit-sensors-container',
@@ -15,13 +16,15 @@ export class ProfileBoxesEditSensorsContainerComponent implements OnInit {
   activeRouteSub;
   boxSub;
   box$;
+  units$ = this.unitQuery.selectAll({ asObject: true });
   sensors$;
 
   constructor(
     private boxQuery: BoxQuery,
     private boxService: BoxService,
     private activatedRoute: ActivatedRoute,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private unitQuery: UnitQuery,
   ) { }
 
   ngOnInit() {

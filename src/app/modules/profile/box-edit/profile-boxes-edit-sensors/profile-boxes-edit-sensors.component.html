@@ -30,9 +30,23 @@
         <div class="field-body">
           <div class="control">
             <div class="select">
-
               <select [formControl]="sensorForm.controls.sensorWikiSensorType" *ngIf="sensorForm.value.phenomenon">
                 <option *ngFor="let sensor of groupedSensors[sensorForm.value.phenomenon]" [value]="sensor.sensor.sensor.value">{{sensor.sensor.label ? sensor.sensor.label[0].value : sensor.sensor.sensor.value}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">{{'SENSOR_UNIT' | translate}}</label>
+        <div class="field-body">
+          <div class="control">
+            <div class="select">
+              <select [formControl]="sensorForm.controls.unit" (click)="showPossibleUnits(sensorForm.value.sensorWikiSensorType)" *ngIf= "sensorForm.value.sensorWikiSensorType">
+                <option *ngFor="let unit of possibleUnits" [value]="unit.iri">
+                  {{unit.label}}
+                </option>
               </select>
             </div>
           </div>
@@ -45,7 +59,8 @@
             <button 
               [disabled]="!this.sensorForm.valid"
               class="button is-success" 
-              type="submit">
+              type="submit"
+              (click)="addSensor(box._id)">
               {{'SAVE' | translate}}
             </button>
           </p>
@@ -90,7 +105,7 @@
     <footer class="card-footer">
       <a href="#" class="card-footer-item">Measurements</a>
       <a href="#" class="card-footer-item">Edit</a>
-      <a (click)="deleteSensor(box._id, sensor)" href="#" class="card-footer-item has-text-danger">Delete</a>
+      <a (click)="deleteSensor(box._id, sensor)"  class="card-footer-item has-text-danger">Delete</a>
     </footer>
   </div>
 </div>

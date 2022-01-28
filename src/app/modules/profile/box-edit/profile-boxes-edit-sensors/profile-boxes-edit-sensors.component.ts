@@ -10,48 +10,77 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ProfileBoxesEditSensorsComponent implements OnInit {
 
   @Input() box;
-  @Input() set sensors(sensors){
-    if(sensors){
+  @Input() set sensors(sensors) {
+    if (sensors) {
       this.groupedSensors = this.groupByPhenomenon(sensors);
-      console.log(this.groupedSensors);
     }
   };
+  @Input() units;
   @Output() boxSaved = new EventEmitter();
 
   addSensorBoolean = false;
   groupedSensors = {};
-
+  possibleUnits;
   sensorForm = this.builder.group({
     phenomenon: ['', [Validators.required]],
-    sensorWikiSensorType: ['']
+    sensorWikiSensorType: [''],
+    unit:['']
   })
 
-  constructor(private builder: FormBuilder) { }
+  constructor(
+    private builder: FormBuilder) { }
 
   ngOnInit() {
   }
 
-  saveBox(box){
+  saveBox(box) {
     this.boxSaved.emit(box);
   }
 
-  groupByPhenomenon(sensors){
+  groupByPhenomenon(sensors) {
 
     let groupedSensors = {};
 
-    for(let sensor of sensors) {
-      for(let sensorElement of sensor.sensorElement){
-        if(groupedSensors[sensorElement.phenomenon]){
-          groupedSensors[sensorElement.phenomenon].push({...sensorElement, sensor: sensor})
+    for (let sensor of sensors) {
+      for (let sensorElement of sensor.sensorElement) {
+        if (groupedSensors[sensorElement.phenomenon]) {
+          groupedSensors[sensorElement.phenomenon].push({ ...sensorElement, sensor: sensor })
         } else {
-          groupedSensors[sensorElement.phenomenon] = [{...sensorElement, sensor: sensor}];
+          groupedSensors[sensorElement.phenomenon] = [{ ...sensorElement, sensor: sensor }];
         }
       }
     }
     return groupedSensors;
   }
 
-  deleteSensor(box, sensor){
+  showPossibleUnits(sensor){
+    let tmp_unit = this.groupedSensors[this.sensorForm.value.phenomenon][0].unit;
+    this.possibleUnits = [this.units[tmp_unit]]
+  }
 
+  addSensor(box) {
+    this.boxSaved.emit({
+      _id: box,
+      sensors: [
+        {
+          "new": true,
+          "edited":true,
+          "sensorType": this.sensorForm.value.sensorWikiSensorType,
+          "title": this.sensorForm.value.phenomenon,
+          "unit": this.sensorForm.value.unit
+        }]
+    })
+  }
+
+  deleteSensor(box, sensor) {
+    this.boxSaved.emit({
+      _id: box,
+      sensors: [
+        {
+          "_id": sensor._id,
+          "deleted": true
+        }
+      ]
+    })
   }
 }
