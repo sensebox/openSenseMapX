@@ -218,7 +218,7 @@ export class NotificationsService {
           notificationRule: message.rule._id,
           notificationValue: message.measurement.value,
           notificationTime: message.createdAt,
-          timeText: message.createdAt.slice(8, 10) + "." + message.createdAt.slice(5, 7) + "." + message.createdAt.slice(2, 4) + ", " + message.createdAt.slice(11, 16),
+          timeText: moment(message.createdAt).format("DD.MM.YYYY, HH:mm"),
           type: "threshold",
           activationOperator: message.rule.activationOperator,
           activationThreshold: message.rule.activationThreshold,
