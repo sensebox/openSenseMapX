@@ -6,4 +6,5 @@ export interface Notification {
   newNotification: {any};
   unread: Boolean;
   notificationRules: Array<any>;
+  notificationConnectors: Array<any>;
 }

@@ -24,6 +24,10 @@ export class NotificationsQuery extends Query<NotificationsState> {
     return state.notificationRules;
   });
 
+  notificationConnectors$ = this.select(state => {
+    return state.notificationConnectors;
+  });
+
   unread$ = this.select(state => {
     return state.unread;
   });

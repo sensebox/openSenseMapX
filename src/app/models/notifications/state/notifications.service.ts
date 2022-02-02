@@ -26,24 +26,25 @@ export class NotificationsService {
     private http: HttpClient
     ) { }
 
-  async getNotificationRules(){
+  async getRulesAndConnectors(){
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
 
     this.http.get(this.AUTH_API_URL + '/notification/notificationRule', {headers: headers}).subscribe(async (res:any) => {
+      let notificationRules = res.data;
       this.notificationsStore.set({});
       let notifications = [];
-      for (let i = 0; i < res.data.length; i++) {
+      for (let i = 0; i < notificationRules.length; i++) {
         try {
-          let notificationRule = res.data[i];
+          let notificationRule = notificationRules[i];
           let box = await this.getBox(notificationRule.box, headers);
+          let sensors = [];
+          for ( let i = 0; i < notificationRule.sensors.length; i++) {
+            // @ts-ignore
+            sensors.push(box.sensors.find(sensor => sensor._id == notificationRule.sensors[i]))
+          }
           for (let j = 0; j < notificationRule.notifications.length; j++) {
             let notification = notificationRule.notifications[j];
-            let sensors = [];
-            for ( let i = 0; i < notificationRule.sensors.length; i++) {
-              // @ts-ignore
-              sensors.push(box.sensors.find(sensor => sensor._id == notificationRule.sensors[i]))
-            }
             notification = {
               ...notification,
               timeText: moment(notification.notificationTime).format("DD.MM.YYYY, HH:mm"),
@@ -57,20 +58,22 @@ export class NotificationsService {
             }
             notifications.push(notification)
           }
-          res.data[i] = {
+          notificationRules[i] = {
             ...notificationRule,
-            // @ts-ignore
+            boxWhole:box,
+            // @ts-ignore // TODO: redundant
             boxName: box.name,
             // @ts-ignore
             boxExposure: box.exposure,
             // @ts-ignore //TODO: a notificationRule could theoretically have more than one sensor, but Im not sure if we care about that...
-            sensorName: box.sensors.find(sensor => sensor._id == notificationRule.sensors[0]).title,
+            sensorName: sensors[0].title,
+            sensorWhole: sensors[0],
             // @ts-ignore
             boxDate: box.updatedAt,
           }
         } catch(e) {
-          console.log(e);
-          res.data.splice(i, 1);
+          console.error(e);
+          notificationRules.splice(i, 1);
           i--;
         }
       }
@@ -78,10 +81,48 @@ export class NotificationsService {
       this.notificationsStore.update(state => ({
         ...state,
         notifications: notifications,
-        notificationRules: res.data,
+        notificationRules: notificationRules,
         areNotificationsLoaded: true
       }));
-      this.initializeWebsocket()
+
+      // get all teh connectors and their notifications and add them to the store
+      this.http.get(this.AUTH_API_URL + '/notification/notificationRule/connects', {headers: headers}).subscribe(async (res:any) => {
+
+        let notifications = [];
+        for (let i = 0; i < res.data.length; i++) {
+          try {
+            let notificationConnector = res.data[i];
+            let ruleA = notificationRules.find(rule => rule._id == notificationConnector.ruleA)
+            let ruleB = notificationRules.find(rule => rule._id == notificationConnector.ruleB)
+            for (let j = 0; j < notificationConnector.notifications.length; j++) {
+              let notification = notificationConnector.notifications[j];
+              notification = {
+                ...notification,
+                timeText: moment(notification.notificationTime).format("DD.MM.YYYY, HH:mm"),
+                type: "threshold",
+                connectionOperator: notificationConnector.connectionOperator,
+                ruleName: notificationConnector.name,
+                box: ruleA.boxWhole,
+                sensors: [ruleA.sensorWhole]
+              }
+              notifications.push(notification)
+            }
+          } catch(e) {
+            console.error(e);
+            res.data.splice(i, 1);
+            i--;
+          }
+        }
+        notifications.sort((a,b) => b.notificationTime.localeCompare(a.notificationTime));
+        this.notificationsStore.update(state => ({
+          ...state,
+          notifications: notifications.concat(state.notifications),
+          notificationConnectors: res.data,
+          areNotificationsLoaded: true
+        }));
+        // after everything loaded initialize the websocket
+        this.initializeWebsocket()
+      });
     });
   }
 
@@ -118,19 +159,14 @@ export class NotificationsService {
         // @ts-ignore
         boxDate: box.updatedAt,
       }
-      //@ts-ignore
-      let currentRules = this.notificationsStore.store._value.state.notificationRules;
-      let newRules = [res.data].concat(currentRules);
-      currentRules.push(res.data);
       this.notificationsStore.update(state => ({
         ...state,
         notifications: (typeof state.notifications != "undefined") ? [newNotification].concat(state.notifications) : [newNotification],
-        notificationRules: newRules
+        notificationRules: [res.data].concat(state.notificationRules)
       }));
 
       // websocket
       if (this.websocket) {
-        console.log('subscribing to ', res.data._id)
         this.websocket.send('subscribe:'+res.data._id)
       }
     });
@@ -191,22 +227,23 @@ export class NotificationsService {
     headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
 
     let connectws = () => {
-      console.log('connecting')
       // TODO: websocket should be a variable of this class. Everytime this message is called it should only update the subscriptions and not create a new websocket
       // TODO: The url of the websocket should go into the configuration file
       this.websocket = new WebSocket('ws://localhost:12345/')
       this.websocket.onopen = (evt) => {
-        console.log('connection opened')
 
         //@ts-ignore
         this.notificationsStore.store._value.state.notificationRules.forEach((rule) => {
-          console.log('subscribing to ', rule._id)
           this.websocket.send('subscribe:'+rule._id)
+        })
+
+        //@ts-ignore
+        this.notificationsStore.store._value.state.notificationConnectors.forEach((connector) => {
+          this.websocket.send('subscribe:'+connector._id)
         })
 
       }
       this.websocket.onmessage = async (evt) => {
-        // console.log(evt.data)
         const message = JSON.parse(evt.data)
         let box = await this.getBox(message.rule.box, headers);
         let sensors = [];

@@ -35,7 +35,7 @@ export class SessionService {
         this.sessionStore.setLoading(false);
         this.getUserDetails();
         this.router.navigate([{ outlets: { sidebar: [ 'm' ] }}]);
-        this.notificationService.getNotificationRules();
+        this.notificationService.getRulesAndConnectors();
 
     }, err => {
       console.log(err);
@@ -64,7 +64,7 @@ export class SessionService {
               user: response.data.user }});
             observer.next(response.refreshToken);
             observer.complete();
-            this.notificationService.getNotificationRules();
+            this.notificationService.getRulesAndConnectors();
           }, (err) => {
             const error = err && err.errorMessage ? err.errorMessage : 'Error';
             observer.error({error});
@@ -81,7 +81,7 @@ export class SessionService {
       window.localStorage.setItem('sb_accesstoken', res.token);
       window.localStorage.setItem('sb_refreshtoken', res.refreshToken);
       this.getUserDetails();
-      this.notificationService.getNotificationRules();
+      this.notificationService.getRulesAndConnectors();
 
     }, err => {
       console.log(err);

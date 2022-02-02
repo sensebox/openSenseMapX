@@ -43,7 +43,7 @@ export class BoxFollowComponent implements OnInit {
 
   async ngOnChanges(changes) {
     if (changes.user && typeof changes.user.currentValue != "undefined" && changes.user.currentValue != null) {
-      this.notificationsService.getNotificationRules();
+      this.notificationsService.getRulesAndConnectors();
     }
   }
 
