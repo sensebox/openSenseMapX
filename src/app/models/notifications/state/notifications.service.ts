@@ -102,8 +102,10 @@ export class NotificationsService {
                 type: "threshold",
                 connectionOperator: notificationConnector.connectionOperator,
                 ruleName: notificationConnector.name,
-                box: ruleA.boxWhole,
-                sensors: [ruleA.sensorWhole]
+                boxA: ruleA.boxWhole,
+                sensorsA: [ruleA.sensorWhole],
+                boxB: ruleB.boxWhole,
+                sensorsB: [ruleB.sensorWhole]
               }
               notifications.push(notification)
             }
