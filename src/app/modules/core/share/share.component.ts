@@ -9,7 +9,7 @@ import { slideInOutAnimation } from 'src/app/helper/animations';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { Observable, zip, forkJoin, combineLatest } from 'rxjs';
-import { MapService } from "../services/map.service";
+import { MapService } from "../../explore/services/map.service";
 
 //Container for displaying values of a single box
 @Component({

@@ -21,7 +21,7 @@ import { ShareVisContainerComponent } from './modules/core/share-vis-container/s
 import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
-import { ShareComponent } from './modules/explore/share/share.component';
+import { ShareComponent } from './modules/core/share/share.component';
 
 
 const routes: Routes = [

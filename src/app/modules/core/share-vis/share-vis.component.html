@@ -1,5 +1,15 @@
 <div id="share-vis-window">
   <h1 class="title is-1">{{'SHARE_VIS' | translate}}</h1>
+  <div class="container-fluid py-3">
+    <share-buttons theme="circles-dark"
+                   [include]="['copy', 'facebook', 'linkedin', 'telegram', 'whatsapp']"
+                   [showIcon]="true"
+                   [showText]="false"
+                   url="https://opensensemap.org/explore/5c4082821b7ca80019327adc"
+                   description="OpenSenseMap"
+                   class="pt-5">
+    </share-buttons>
+  </div>
   <div class="osem-padding share-vis-box">
     <div class="share-vis-elem">
       <div class="share-vis-preview">

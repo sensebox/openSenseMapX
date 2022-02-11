@@ -31,15 +31,15 @@ import { SharedModule } from '../shared/shared.module';
 import { MapLoadingComponent } from './map/map-loading/map-loading.component';
 import { LegendEditContainerComponent } from './legend/legend-edit-container/legend-edit-container.component';
 import { LegendEditComponent } from './legend/legend-edit/legend-edit.component';
-import { ShareComponent } from './share/share.component';
-import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
-import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 @NgModule({
-  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent, BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent, OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent, BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent, MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent, MapLoadingComponent, LegendEditContainerComponent, LegendEditComponent, ShareComponent],
+  declarations: [BaseMapContainerComponent, BaseMapComponent, BoxContainerComponent, BoxValuesComponent,
+    BoxChartComponent, LegendContainerComponent, LegendComponent, TimeSliderContainerComponent, TimeSliderComponent,
+    OsemLineChartComponent, OsemLineSeriesComponent, BoxSingleContainerComponent, BoxSingleValuesComponent,
+    BoxCompareContainerComponent, BoxCompareValuesComponent, PopupComponent, PopupContainerComponent,
+    MapOptionsContainerComponent, MapOptionsComponent, ChartDatepickerComponent, MapLoadingComponent,
+    LegendEditContainerComponent, LegendEditComponent],
   imports: [
-    ShareButtonsModule,
-    ShareIconsModule,
     CommonModule,
     SharedModule,
     NgxChartsModule,
@@ -51,6 +51,8 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     ColorPickerModule
   ],
   providers: [MapService],
-  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent, MapOptionsContainerComponent, LegendContainerComponent]
+  exports: [BaseMapContainerComponent, LegendContainerComponent, TimeSliderContainerComponent, PopupContainerComponent,
+    MapOptionsContainerComponent, LegendContainerComponent]
 })
-export class ExploreModule { }
+export class ExploreModule {
+}

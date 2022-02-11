@@ -39,16 +39,27 @@ import { NewVisComponent } from './new-vis/new-vis.component';
 import { ShareVisContainerComponent } from './share-vis-container/share-vis-container.component';
 import { ShareVisComponent } from './share-vis/share-vis.component';
 import { VisFormComponent } from './vis-form/vis-form.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { ShareComponent } from './share/share.component';
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoComponent, PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent, NewVisComponent, ShareVisContainerComponent, ShareVisComponent, VisFormComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent,
+    NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent,
+    FilterComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoComponent,
+    PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent,
+    DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent,
+    AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent,
+    NewVisComponent, ShareVisContainerComponent, ShareVisComponent, VisFormComponent, ShareComponent],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
     ExploreModule,
-    SharedModule
+    SharedModule,
+    ShareButtonsModule,
+    ShareIconsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -56,6 +67,9 @@ import { VisFormComponent } from './vis-form/vis-form.component';
     multi: true
   }
 ],
-  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent, ShareVisContainerComponent],
+  exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent,
+    ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoModalComponent,
+    FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent,
+    ShareVisContainerComponent],
 })
 export class CoreModule { }
