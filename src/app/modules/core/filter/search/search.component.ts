@@ -83,13 +83,13 @@ export class SearchComponent implements OnInit {
   }
 
   openDetails(box){
-    // //fly to Box
-    // this.resultSelected.emit(box);
-    // //open box
-    // this.router.navigate(['/explore/' + box._id], {
-    //   relativeTo: this.activatedRoute,
-    //   queryParamsHandling: 'merge'
-    // });
+    //fly to Box
+    this.resultSelected.emit(box);
+    //open box
+    this.router.navigate(['/explore/' + box._id], {
+      relativeTo: this.activatedRoute,
+      queryParamsHandling: 'merge'
+    });
   }
 
   selectResult(e, box){
