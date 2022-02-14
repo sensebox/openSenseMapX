@@ -39,7 +39,7 @@
     "dotenv": "^8.6.0",
     "mapbox-gl": "^1.13.1",
     "ngx-color-picker": "^11.0.0",
-    "ngx-sharebuttons": "^10.0.0",
+    "ngx-sharebuttons": "^9.0.0",
     "normalizr": "^3.6.1",
     "rxjs": "^7.5.4",
     "tslib": "^2.0.0",

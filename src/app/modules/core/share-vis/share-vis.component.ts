@@ -1,30 +1,35 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MapService } from '../../explore/services/map.service';
+import { UiQuery } from '../../../models/ui/state/ui.query';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'osem-share-vis',
   templateUrl: './share-vis.component.html',
-  styleUrls: ['./share-vis.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./share-vis.component.scss']
 })
 export class ShareVisComponent implements OnInit {
 
-  constructor(private mapService: MapService) { }
+  baseURL = 'http://localhost:4200';
+  URL = this.baseURL;
 
-  bbox;
-  URL = 'https://opensensemap.org';
+  constructor(private activatedRoute: ActivatedRoute, private uiQuery: UiQuery, private mapService: MapService) {
+  }
 
   ngOnInit() {
   }
 
   shareWebMap() {
-    this.bbox = this.mapService.getBounds();
-    console.log('BBOX', this.bbox);
-    console.log('BBOX STRING', this.bbox.join());
+    const bbox = this.mapService.getBounds();
+    console.log('BBOX', bbox);
+    console.log('BBOX STRING', bbox.join());
 
-    // this.URL = 'https://opensensemap.org/explore/5c4082821b7ca80019327adc';
-    // this.URL = 'https://opensensemap.org/share/' + this.bbox.join();
-    this.URL = 'http://localhost:4200/share/' + this.bbox.join();
+    const queryParams = this.activatedRoute.snapshot.queryParams;
+    const paramsURL = Object.keys(queryParams).map(key => `${key}=${queryParams[key]}`);
+    console.log(paramsURL);
+
+    this.URL = `${this.baseURL}/share/${bbox.join()}?${paramsURL.join('&')}`;
+    // http://localhost:4200/share/13.5123939167743,52.53654639491532,13.613392628220424,52.58341402678505?mapPheno=Luftdruck
     console.log('URL', this.URL);
   }
 
