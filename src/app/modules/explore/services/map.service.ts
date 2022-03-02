@@ -82,8 +82,8 @@ export class MapService {
     this.map = new Map({
       container: elementName,
       style: 'mapbox://styles/mapbox/light-v9',
-      center: [7.624233, 51.961622],
-      zoom: 13,
+      center: [13.5, 52.4],
+      zoom: 8,
       pitch: 21
     });
 
@@ -97,8 +97,7 @@ export class MapService {
 
     //once the map is laoded fetch the data (maybe move this elsewhere for faster load time), TODO: fetch from API not static file
     this.map.once('load', function() {
-      that.fetchData('/assets/data/world-outliers.json');
-      // that.fetchData('http://localhost:8000/boxes?phenomenon=Temperatur&exposure=outdoor&format=geojson');
+      that.fetchData('/assets/data/world-generated.json');
     });
   }
 
@@ -285,7 +284,7 @@ export class MapService {
     if (!this.map.getLayer(layer.id)){
       this.map.addLayer(layer);
 
-      if (this.map.getLayer('active-layer-text')) {
+      if (this.map.getLayer('active-layer-text')){
         this.map.moveLayer(layer.id, 'active-layer-text');
       }
 
