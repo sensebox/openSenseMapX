@@ -55,7 +55,8 @@ export function createInitialState(): UiState {
       'id': 'base-layer',
       'type': 'circle',
       'source': 'boxes',
-      'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+      // 'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+      'filter': ["!=", null, [ "get", "value", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
       'paint': {
         'circle-radius': {
           'base': 2,
@@ -64,7 +65,8 @@ export function createInitialState(): UiState {
         'circle-color': [
           'interpolate',
           ['linear'],
-          [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          // [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          [ "get", "value", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
           -5, '#9900cc',
           0, '#0000ff',
           10, '#0099ff',
@@ -200,7 +202,8 @@ export class UiStore extends Store<UiState> {
             ...state.clusterLayers[1],
             filter:  [
               'all',
-              ["!=", null, [ "get", pheno.title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+              // ["!=", null, [ "get", pheno.title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+              ["!=", null, [ "get", "value", ["object", ["get", pheno.title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
               ['!', ['has', 'point_count']]
             ],
             paint: {

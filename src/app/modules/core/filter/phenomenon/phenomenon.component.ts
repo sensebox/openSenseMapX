@@ -70,7 +70,8 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        // 'filter': ["!=", null, [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        'filter': ["!=", null, [ "get", "value", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
         'paint': {
           'circle-opacity': 0.7,
           'circle-radius': {
@@ -80,7 +81,8 @@ export class PhenomenonComponent implements OnInit {
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            // [ "get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            [ "get", "value", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
             -5, '#9900cc',
             0, '#0000ff',
             10, '#0099ff',
@@ -97,7 +99,8 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        // 'filter': ["!=", null, [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        'filter': ["!=", null, [ "get", "value", ["object", ["get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
         'paint': {
           'circle-opacity': 0.7,
           'circle-radius': {
@@ -107,7 +110,8 @@ export class PhenomenonComponent implements OnInit {
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            // [ "get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            [ "get", "value", ["object", ["get", "rel. Luftfeuchte", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
             0, '#9900cc',
             25, '#0000ff',
             50, '#0099ff',
@@ -125,7 +129,8 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        // 'filter': ["!=", null, [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        'filter': ["!=", null, [ "get", "value", ["object", ["get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
         'paint': {
           'circle-opacity': 0.7,
           'circle-radius': {
@@ -135,7 +140,8 @@ export class PhenomenonComponent implements OnInit {
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            // [ "get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            [ "get", "value", ["object", ["get", "Luftdruck", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
             0, '#9900cc',
             25, '#0000ff',
             50, '#0099ff',
@@ -152,7 +158,8 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        // 'filter': ["!=", null, [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        'filter': ["!=", null, [ "get", "value", ["object", ["get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
         'paint': {
           'circle-opacity': 0.7,
           'circle-radius': {
@@ -162,7 +169,8 @@ export class PhenomenonComponent implements OnInit {
           'circle-color': [
             'interpolate',
             ['linear'],
-          [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          // [ "get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          [ "get", "value", ["object", ["get", "Beleuchtungsstärke", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
           0, '#9900cc',
           1000, '#0000ff',
           2000, '#0099ff',
@@ -180,7 +188,8 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        // 'filter': ["!=", null, [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        'filter': ["!=", null, [ "get", "value", ["object", ["get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
         'paint': {
           'circle-opacity': 0.7,
           'circle-radius': {
@@ -190,7 +199,8 @@ export class PhenomenonComponent implements OnInit {
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            // [ "get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            [ "get", "value", ["object", ["get", "UV-Intensität", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
             0, '#9900cc',
             100, '#0000ff',
             200, '#0099ff',
@@ -207,7 +217,8 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        // 'filter': ["!=", null, [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        'filter': ["!=", null, [ "get", "value", ["object", ["get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
         'paint': {
           'circle-opacity': 0.7,
           'circle-radius': {
@@ -217,7 +228,8 @@ export class PhenomenonComponent implements OnInit {
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            // [ "get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            [ "get", "value", ["object", ["get", "PM10", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
             0, '#9900cc',
             15, '#0000ff',
             30, '#0099ff',
@@ -235,7 +247,8 @@ export class PhenomenonComponent implements OnInit {
         'id': 'base-layer',
         'type': 'circle',
         'source': 'boxes',
-        'filter': ["!=", null, [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        // 'filter': ["!=", null, [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]],
+        'filter': ["!=", null, [ "get", "value", ["object", ["get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
         'paint': {
           'circle-opacity': 0.7,
           'circle-radius': {
@@ -245,7 +258,8 @@ export class PhenomenonComponent implements OnInit {
           'circle-color': [
             'interpolate',
             ['linear'],
-            [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            // [ "get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+            [ "get", "value", ["object", ["get", "PM2.5", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
             0, '#9900cc',
             10, '#0000ff',
             20, '#0099ff',

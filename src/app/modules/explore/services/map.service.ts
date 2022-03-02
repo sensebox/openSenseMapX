@@ -82,8 +82,8 @@ export class MapService {
     this.map = new Map({
       container: elementName,
       style: 'mapbox://styles/mapbox/light-v9',
-      center: [13.5, 52.4],
-      zoom: 8,
+      center: [7.624233, 51.961622],
+      zoom: 13,
       pitch: 21
     });
 
@@ -97,7 +97,8 @@ export class MapService {
 
     //once the map is laoded fetch the data (maybe move this elsewhere for faster load time), TODO: fetch from API not static file
     this.map.once('load', function(){
-      that.fetchData('/assets/data/world.json');
+      that.fetchData('/assets/data/world-outliers.json');
+      // that.fetchData('http://localhost:8000/boxes?phenomenon=Temperatur&exposure=outdoor&format=geojson');
     })
   }
 
@@ -159,7 +160,8 @@ export class MapService {
           'cluster': true,
           'clusterRadius': 65,
           'clusterProperties': {
-            [res[0].title]: ['+', ['case', ["!=", null, [ "get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]], [ "get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]], null]],
+            // [res[0].title]: ['+', ['case', ["!=", null, [ "get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]], [ "get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]], null]],
+            [res[0].title]: ['+', ['case', ["!=", null, [ "get", "value", ["object", ["get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]], [ "get", "value", ["object", ["get", res[0].title, ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]], null]],
           }
         })
 
@@ -497,11 +499,13 @@ export class MapService {
       'id': 'number-layer',
       'type': 'symbol',
       'source': 'boxes',
+      'filter': [ "==", "True", [ "get", "is_outlier", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]]],
       "paint": {
         'text-color': [
           'interpolate',
           ['linear'],
-          ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          // ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          [ "get", "value", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
           -5, '#9900cc',
           0, '#0000ff',
           10, '#0099ff',
@@ -562,7 +566,8 @@ export class MapService {
         'text-color': [
           'interpolate',
           ['linear'],
-          ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          // ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+          [ "get", "value", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
           -5, '#9900cc',
           0, '#0000ff',
           10, '#0099ff',
@@ -572,7 +577,8 @@ export class MapService {
       },
       "layout": {
         "visibility": layers[0].layout && layers[0].layout.visibility ? layers[0].layout.visibility : 'visible',
-        "text-field": ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+        // "text-field": ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]],
+        "text-field": [ "get", "value", ["object", ["get", "Temperatur", ["object", ["get", "live", ["object", ["get", "sensors"]]]]]]],
         "text-variable-anchor": ["bottom"],
         "text-offset": {
           "stops": [
@@ -973,11 +979,9 @@ export class MapService {
   }
 
   getBounds(){
-    console.log("this.map.getBounds()", this.map.getBounds())
     return this.map.getBounds().toArray();
   }
   fitBounds(bbox){
-    console.log("bbox 222", bbox)
     this.map.fitBounds(bbox);
   }
 
@@ -1007,28 +1011,4 @@ export class MapService {
   //   const features = this.map.queryRenderedFeatures([[0,0],[180,180]], { layers: ['boxes-cluster', 'base-layer'] })
   //   console.log(features)
   // }
-
-  createSnapshot() {
-    const style = this.map.getStyle().metadata['mapbox:origin'];
-    const center = this.map.getCenter();
-    const lon = center.lng;
-    const lat = center.lat;
-    const zoom = this.map.getZoom();
-    const bearing = this.map.getBearing();
-    const pitch = this.map.getPitch();
-    const width = 1280;
-    const height = 960;
-    const scale = ''; //@2x
-    const featureArray = this.map.queryRenderedFeatures({layers:['base-layer', 'boxes-cluster', 'boxes-no-cluster']});
-    const features = arrayToFeatureCollection(featureArray);
-    console.log(features);
-
-    var url = `https://api.mapbox.com/styles/v1/mapbox/${style}/static/geojson(${features})/${lon},${lat},${zoom},${bearing},${pitch}/${width}x${height}${scale}?access_token=${environment.mapbox_token}`;
-    //console.log(url);
-
-    function arrayToFeatureCollection(array) {
-      return {"type": "FeatureCollection",
-    "features": array};
-    }
-  }
 }
