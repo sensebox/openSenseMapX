@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { UiStore, UiState } from './ui.store';
+import { UiState, UiStore } from './ui.store';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class UiQuery extends Query<UiState> {
 
   selectColors$ = this.select(state => state.colors);
@@ -26,7 +26,7 @@ export class UiQuery extends Query<UiState> {
   selectReloadMapData$ = this.select(state => state.reloadMapData);
   selectShowDateModal$ = this.select(state => state.showDateModal);
   selectStats$ = this.select(state => state.stats);
-  
+
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);
   selectActiveTab$ = this.select(state => state.activeTab);
