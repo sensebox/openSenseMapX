@@ -4,8 +4,10 @@
     [theme]="theme$ | async"
     [user]="user$ | async"
     [clustering]="clustering$ | async"
+    [hideOutliers]="hideOutliers$ | async"
     (themeToggled)="toggleTheme($event)"
     (languageToggled)="setLanguage($event)"
     (settingsToggled)="toggleSettings()"
     (clusteringToggled)="toggleClustering()"
+    (hideOutliersToggled)="toggleHideOutliers()"
 ></osem-nav-right>

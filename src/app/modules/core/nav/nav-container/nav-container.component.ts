@@ -18,6 +18,7 @@ export class NavContainerComponent implements OnInit {
   theme$ = this.uiQuery.selectTheme$;
   user$ = this.sessionQuery.user$;
   clustering$ = this.uiQuery.selectClustering$;
+  hideOutliers$ = this.uiQuery.selectHideOutliers$;
 
   constructor(
     private themeService: ThemeService,
@@ -46,6 +47,10 @@ export class NavContainerComponent implements OnInit {
 
   toggleClustering() {
     this.uiService.toggleClustering();
+  }
+
+  toggleHideOutliers() {
+    this.uiService.toggleHideOutliers();
   }
 
 }

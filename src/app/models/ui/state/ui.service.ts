@@ -205,6 +205,10 @@ export class UiService {
     this.uiStore.update(state => ({...state, clustering: !state.clustering}));
   }
 
+  toggleHideOutliers() {
+    this.uiStore.update(state => ({...state, hideOutliers: !state.hideOutliers}));
+  }
+
   toggleCircles() {
     this.uiStore.update(state => ({...state, circles: !state.circles}));
   }
