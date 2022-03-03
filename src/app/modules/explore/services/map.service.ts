@@ -39,6 +39,8 @@ export class MapService {
   clustering$ = this.uiQuery.selectClustering$;
   selectedDate$ = this.uiQuery.selectSelectedDate$;
 
+  hideOutliers$ = this.uiQuery.selectHideOutliers$;
+
   compareModus$ = this.boxQuery.selectCompareModus$;
   compareModus: Boolean = false;
 
@@ -119,14 +121,17 @@ export class MapService {
     }
 
     // subscribes to the Pheno, Filter and Date selection to update the sources accordingly, subscribes to Layers once sources are done
-    this.dataSub = combineLatest(this.selectedPheno$, this.filters$, this.dateRangeData$).subscribe(res => {
-      // console.log("DATASUB", res)
+    this.dataSub = combineLatest(this.selectedPheno$, this.filters$, this.dateRangeData$, this.hideOutliers$).subscribe(res => {
       if (res[0]){
-        let filteredData;
+        let hideOutliersData, filteredData;
+
+        // Update Filters and Outliers
         if (res[0].title === 'ALL'){
-          filteredData = this.filterData(this.worldData.getValue(), false, res[1]);
+          hideOutliersData = this.outlierData(this.worldData.getValue(), false, false);
+          filteredData = this.filterData(hideOutliersData, false, res[1]);
         } else {
-          filteredData = this.filterData(this.worldData.getValue(), res[0].title, res[1]);
+          hideOutliersData = this.outlierData(this.worldData.getValue(), res[0].title, res[3]);
+          filteredData = this.filterData(hideOutliersData, res[0].title, res[1]);
         }
         if (this.map.getLayer('boxes-cluster')){
           this.map.removeLayer('boxes-no-cluster');
@@ -870,6 +875,20 @@ export class MapService {
     });
     return {type: 'FeatureCollection', features: filteredData};
 
+  }
+
+  outlierData(data, property, hideOutliers) {
+    const hideOutliersData = data['features'].filter(res => {
+      if (property && hideOutliers){
+        if (res['properties']['sensors']['live'] && res['properties']['sensors']['live'][property]
+          && res['properties']['sensors']['live'][property]['is_outlier'] === false){
+          return res;
+        }
+      } else {
+        return res;
+      }
+    });
+    return {type: 'FeatureCollection', features: hideOutliersData};
   }
 
   // THEMING
