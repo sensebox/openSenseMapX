@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'osem-profile-boxes-edit-sensors',
@@ -21,6 +22,9 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
   addSensorBoolean = false;
   groupedSensors = {};
   possibleUnits;
+  activeSensor;
+  showModal = false;
+
   sensorForm = this.builder.group({
     phenomenon: ['', [Validators.required]],
     sensorWikiSensorType: [''],
@@ -28,7 +32,9 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
   })
 
   constructor(
-    private builder: FormBuilder) { }
+    private builder: FormBuilder,
+    private toasterService: ToasterService
+    ) { }
 
   ngOnInit() {
   }
@@ -71,16 +77,24 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
         }]
     })
   }
-
-  deleteSensor(box, sensor) {
+  toggleModal(show, sensor){
+    this.showModal = show;
+    this.activeSensor = sensor;
+  }
+  deleteSensor(box) {
+    // hier popup für bestätigung
     this.boxSaved.emit({
       _id: box,
       sensors: [
         {
-          "_id": sensor._id,
+          "_id": this.activeSensor._id,
           "deleted": true
         }
       ]
     })
+    this.toggleModal(false,null);
+    this.toasterService.pop('success','','Sensor removed');
+
   }
+
 }

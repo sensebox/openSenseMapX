@@ -7,7 +7,6 @@ import { SessionService } from './models/session/state/session.service';
 import { UiService } from './models/ui/state/ui.service';
 import { PhenomenonService } from './models/phenomenon/state/phenomenon.service';
 import { UnitService } from './models/unit/state/unit.service';
-import * as bulmaToast from 'bulma-toast'
 import { ToasterConfig, ToasterService } from 'angular2-toaster';
 
 @Component({

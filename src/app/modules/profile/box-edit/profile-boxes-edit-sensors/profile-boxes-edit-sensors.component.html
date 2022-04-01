@@ -1,5 +1,44 @@
-<div *ngIf="box">
+<div class="modal" [class.is-active]="showModal" id="intro-layer">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">{{'CONFIRM_REMOVE_TITLE' | translate}}</p>
+        <button class="delete" aria-label="close" (click)="closeIntro()"></button>
+      </header>
+      <section class="modal-card-body">
+          <div class="content">
+            {{'CONFIRM_REMOVE_TEXT' | translate}}
+          </div>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <div class="field">
+            <p class="control">
+              <button 
+                class="button is-success" 
+                type="submit"
+                (click)="deleteSensor(box._id)">
+                {{'CONFIRM_YES' | translate}}
+              </button>
+            </p>
+          </div>
+          <div class="field pl-2">
+            <p class="control">
+              <button 
+                (click)="toggleModal(false)"
+                class="button is-danger" 
+                type="cancel">
+                {{'CONFIRM_NO' | translate}}
+              </button>
+            </p>
+          </div>
+        </div>
+      </footer>
+  </div>
+</div>
 
+
+<div *ngIf="box">
   <button class="button is-success" (click)="addSensorBoolean = !addSensorBoolean">
     <span class="icon is-small">
       <i class="fa fa-plus"></i>
@@ -105,7 +144,8 @@
     <footer class="card-footer">
       <a href="#" class="card-footer-item">Measurements</a>
       <a href="#" class="card-footer-item">Edit</a>
-      <a (click)="deleteSensor(box._id, sensor)"  class="card-footer-item has-text-danger">Delete</a>
+      <a (click)="toggleModal(true, sensor)"  class="card-footer-item has-text-danger">Delete</a>
     </footer>
   </div>
+
 </div>
