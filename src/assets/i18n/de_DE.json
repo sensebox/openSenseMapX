@@ -157,6 +157,7 @@
     "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung.",
 
     "MENU": "Menu",
+    "CUSTOM_DEVICE":"Manuelle Konfiguration",
 
     "LOGIN_WITH_YOUR_OPENSENSEMAP_ACCOUNT": "Bitte logge dich mit deinem openSenseMap-Account ein.",
     "REGISTER_HERE": "Oder registriere dich hier!",
@@ -172,6 +173,7 @@
     "USERNAME": "Benutzername",
     "CONFIRM_PASSWORD": "Passwort wiederholen",
     "USER_REGISTERED": "Benutzer erfolgreich registriert.",
+
 
     "REQUEST_PASSWORD_RESET": "Passwort zurücksetzen",
     "RESET": "Zurücksetzen",
@@ -203,7 +205,10 @@
     "DATA_UPLOAD": "Daten hochladen",
     "SUPPORT": "Hilfe",
     "SHOW_ON_MAP": "Auf Karte anzeigen",
+    "SENSOR_TYPE":"Typ",
+    "SENSOR_UNIT":"Einheit",
     
+
     "CONFIRM_REMOVE_TITLE":"Sensor entfernen?",
     "CONFIRM_REMOVE_TEXT":"Bist du sicher, dass du den Sensor entfernen möchtest?",
     "CONFIRM_YES":"Ja",
@@ -213,7 +218,13 @@
     "DEVICE": "Gerät",
     "GENERAL": "Allgemein",
     "ADVANCED": "Erweitert",
+    "SECURITY":"Sicherheitseinstellungen",
     "SUMMARY": "Zusammenfassung",
+    
+    "USE_AUTH":"Box Authentifizierung aktivieren",
+    "AUTH_TOKEN":"Schlüssel",
+    "GENERATE_NEW_TOKEN_WARNING":"VORSICHT: Wenn du einen neuen Token generierst musst du einen neuen Sketch auf deine senseBox laden. Diesen Schritt kannst du nicht rückgängig machen.",
+    "GENERATE_NEW_TOKEN":"Neuen Token generieren",
     
     "CHOOSE_YOUR_DEVICE": "Wähle dein Gerät aus",
     "WHICH_DEVICE_ARE_U_USING": "Was für Hardware benutzt du?",

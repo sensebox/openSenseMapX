@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  // api_url: "https://api.opensensemap.org",
-  api_url: "http://localhost:8000",
+  api_url: "https://api.opensensemap.org",
+  //api_url: "http://localhost:8000",
   sensor_wiki_url: "https://api.sensors.wiki",
   // sensor_wiki_url: "http://localhost:3000",
-  mapbox_token: "pk.eyJ1IjoidW11dDAwIiwiYSI6ImNrdXpoeDh3ODB5NzMydnFxMzI4eTlma3AifQ.SXH5fK6-sTOhrgWxiT10OQ",
+  mapbox_token: "pk.eyJ1IjoiZXRoaWUxMCIsImEiOiJjazQyeXh6amIwMmNnM2tyem5nZ2d0Zjd2In0.I9IqqM7bR5pDXH3SwRZdbA",
   locationiq_token: "23e12b10d8c3aad04e8e"
 };
 
