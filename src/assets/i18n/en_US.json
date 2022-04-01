@@ -207,6 +207,11 @@
     "DATA_UPLOAD": "Upload data",
     "SUPPORT": "Support",
     "SHOW_ON_MAP": "Show on map",
+    
+    "CONFIRM_REMOVE_TITLE":"Sensor entfernen?",
+    "CONFIRM_REMOVE_TEXT":"Bist du sicher, dass du den Sensor entfernen möchtest?",
+    "CONFIRM_YES":"Ja",
+    "CONFIRM_NO":"Nein",
 
     "DEVICE": "Device",
     "GENERAL": "General",

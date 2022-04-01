@@ -204,6 +204,12 @@
     "SUPPORT": "Hilfe",
     "SHOW_ON_MAP": "Auf Karte anzeigen",
     
+    "CONFIRM_REMOVE_TITLE":"Sensor entfernen?",
+    "CONFIRM_REMOVE_TEXT":"Bist du sicher, dass du den Sensor entfernen möchtest?",
+    "CONFIRM_YES":"Ja",
+    "CONFIRM_NO":"Nein",
+
+
     "DEVICE": "Gerät",
     "GENERAL": "Allgemein",
     "ADVANCED": "Erweitert",
