@@ -77,10 +77,15 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
         }]
     })
   }
-  toggleModal(show, sensor){
-    this.showModal = show;
+  openModal(sensor){
+    this.showModal = true;
     this.activeSensor = sensor;
   }
+
+  closeModal(){
+    this.showModal = false;
+  }
+
   deleteSensor(box) {
     // hier popup für bestätigung
     this.boxSaved.emit({
@@ -92,9 +97,10 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
         }
       ]
     })
-    this.toggleModal(false,null);
+    this.closeModal();
     this.toasterService.pop('success','','Sensor removed');
 
   }
 
 }
+
