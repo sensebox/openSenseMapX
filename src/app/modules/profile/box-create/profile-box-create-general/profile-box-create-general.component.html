@@ -42,14 +42,32 @@
     <osem-control-message [control]="generalForm.controls.exposure"></osem-control-message>
   </div> -->
 
-  <osem-form-input 
-    [typeString]="'text'"
-    [label]="'TAGS' | translate"
-    [controlName]="'tags'" 
-    [control]="generalForm.controls.tags">
-
-  </osem-form-input>
-
+  <div class="field">
+    <label class="label">Tags</label>
+    <div class="control">
+      <input 
+        class="input" 
+        type="text" 
+        list="SearchResults"
+        [formControl]="generalForm.controls.tags"
+        (keyup)="searchTagsOnKeyUp($event)"
+        (keyup.enter)="addToTags($event)"
+        placeholder="Tags"/>  
+    </div>
+  </div>
+  <datalist id="SearchResults">
+    <option *ngFor="let sr of results" [value]="sr">
+      {{sr}}
+    </option>
+ </datalist>
+ <div class="field is-grouped is-grouped-multiline">
+  <div *ngFor="let tag of tags" class="control">
+    <div class="tags has-addons">
+      <a class="tag is-primary">{{tag}}</a>
+      <a (click)="onDeleteTag(tag)" class="tag is-delete"></a>
+    </div>
+  </div>
+</div>
   <div class="field">
     <label class="label">{{'DESCRIPTION' | translate}}</label>
     <div class="control">

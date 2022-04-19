@@ -34,7 +34,8 @@
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss",
-              "node_modules/mapbox-gl/dist/mapbox-gl.css"
+              "node_modules/mapbox-gl/dist/mapbox-gl.css",
+              "node_modules/bulma/css/bulma.css"
             ],
             "scripts": [
               "node_modules/bulma-calendar/dist/js/bulma-calendar.min.js",

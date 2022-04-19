@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UiStore } from './ui.store';
 import { Ui } from './ui.model';
 import { ColorHelper } from '@swimlane/ngx-charts';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { first, tap } from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
 
@@ -21,10 +21,15 @@ export class UiService {
   }
 
   fetchStats() {
-    
+  
     return this.http.get(`${environment.api_url}/stats`).pipe(tap(stats => {
       this.uiStore.update(state => ({ ...state , stats: { totalBoxes: stats[0], totalMeasurements: stats[1]} }))
     }));
+  }
+
+  fetchTags(){
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get('assets/data/tags.json', {headers})
   }
 
 
