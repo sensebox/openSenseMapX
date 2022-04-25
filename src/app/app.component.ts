@@ -55,6 +55,8 @@ export class AppComponent {
       // get stats from the API (boxes, measurements, measurements/min)
       this.uiService.fetchStats().subscribe();
 
+      // 
+      this.uiService.getAllTags().subscribe();
       // get all the phenomenons and units that can be displayed on opensensemap (maybe find better way to do this? e.g. populate in sensor wiki)
       this.phenoService.get().subscribe();
       this.unitService.get().subscribe();

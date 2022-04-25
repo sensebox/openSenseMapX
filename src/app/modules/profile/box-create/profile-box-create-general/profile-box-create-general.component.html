@@ -49,7 +49,6 @@
         class="input" 
         type="text" 
         list="SearchResults"
-        [formControl]="generalForm.controls.tags"
         (keyup)="searchTagsOnKeyUp($event)"
         (keyup.enter)="addToTags($event)"
         placeholder="Tags"/>  

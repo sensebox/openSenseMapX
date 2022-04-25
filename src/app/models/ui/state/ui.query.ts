@@ -26,7 +26,7 @@ export class UiQuery extends Query<UiState> {
   selectReloadMapData$ = this.select(state => state.reloadMapData);
   selectShowDateModal$ = this.select(state => state.showDateModal);
   selectStats$ = this.select(state => state.stats);
-  
+  selectTags$ = this.select(state => state.tags);
   selectLanguage$ = this.select(state => state.language);
   selectTheme$ = this.select(state => state.theme);
   selectActiveTab$ = this.select(state => state.activeTab);

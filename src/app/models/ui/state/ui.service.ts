@@ -27,10 +27,13 @@ export class UiService {
     }));
   }
 
-  fetchTags(){
+
+
+  getAllTags(){
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get('assets/data/tags.json', {headers})
-  }
+    return this.http.get(`${environment.api_url}/getAllTags`).pipe(tap((tags:any) => {
+      this.uiStore.update(state => ({ ...state , tags: tags.data  }))
+    }));  }
 
 
 

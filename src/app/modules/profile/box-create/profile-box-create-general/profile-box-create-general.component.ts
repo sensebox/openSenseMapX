@@ -3,6 +3,9 @@ import { AkitaNgFormsManager } from '@datorama/akita-ng-forms-manager';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import { UiService } from 'src/app/models/ui/state/ui.service';
+import { HttpClient } from '@angular/common/http';
+import { UiQuery } from 'src/app/models/ui/state/ui.query';
+
 
 export interface FormsState {
   general: {
@@ -24,33 +27,42 @@ export interface FormsState {
 export class ProfileBoxCreateGeneralComponent implements OnInit {
   @Input() selectedDevice;
   generalForm;
-  tags;
 
   results:any = [];
   searchResults:any = [];
-
+  qtags$ = this.uiQuery.selectTags$;
+  tags:any =[];
   constructor(
     private formsManager: AkitaNgFormsManager<FormsState>,
     private builder: FormBuilder,
-    private uiService: UiService) { }
+    private uiService: UiService,
+    private uiQuery: UiQuery,
+    private http: HttpClient) { }
 
   ngOnInit() {
     this.generalForm = this.builder.group({
       name: [null, Validators.required],
       exposure: ['outdoor', Validators.required],
       description: [null],
+      tags:[null],
       connection: [null]
     }); 
     this.formsManager.upsert('general', this.generalForm);
-
     this.getSearchResults();
   }
 
+
+
   getSearchResults(): void {
-    this.uiService.fetchTags()
-      .subscribe( sr => {
-        Object.assign(this.searchResults, sr);
-      })
+
+    this.qtags$.subscribe( sr => {
+      Object.assign(this.searchResults, sr);
+    })
+
+    // this.uiService.fetchTags()
+    //   .subscribe( sr => {
+    //     Object.assign(this.searchResults, sr);
+    //   })
   }
 
   onDeleteTag(event){
@@ -64,8 +76,9 @@ export class ProfileBoxCreateGeneralComponent implements OnInit {
   addToTags(event){
     console.log("get tag",this.generalForm.get('tags'));
     this.tags.push(event.target.value)
-    this.tags.emit(event.target.value);
-    this.generalForm.tags = this.tags;
+    const tags = this.generalForm.get('tags')
+    tags.setValue(this.tags);
+
   }
 
   searchTagsOnKeyUp(event){
