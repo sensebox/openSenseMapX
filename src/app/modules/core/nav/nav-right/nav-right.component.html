@@ -1,19 +1,25 @@
 <div class="nav-right-container">
     <div class="logo" [routerLink]="['']">
-       <img src="/assets/img/logos/osem.svg"> <span>openSenseMap</span>
-       <div id="beta-text" [title]="'BETA_TEXT' | translate">
-           BETA
-       </div>
+        <img src="/assets/img/logos/osem.svg"> <span>openSenseMap</span>
+        <div id="beta-text" [title]="'BETA_TEXT' | translate">
+            BETA
+        </div>
     </div>
     <div class="nav-item-container osem-box-shadow-basic">
-        <div *ngIf="!user" class="nav-item osem-disabled" [routerLink]="[{ outlets: { sidebar: ['login'] }}]" queryParamsHandling="merge">
+        <div *ngIf="!user" class="nav-item osem-disabled" [routerLink]="[{ outlets: { sidebar: ['login'] }}]"
+            queryParamsHandling="merge">
             Login
         </div>
-        <div *ngIf="user" class="nav-item" [routerLink]="[{ outlets: { sidebar: ['m','profile'] }}]" queryParamsHandling="merge">
+        <div *ngIf="user" class="nav-item" [routerLink]="[{ outlets: { sidebar: ['m','profile'] }}]"
+            queryParamsHandling="merge">
             {{user.name}}
         </div>
         <div class="nav-item" (click)="toggleSettings()">
             <i class="fa fa-cogs"></i>
+        </div>
+        <div *ngIf="loggedIn$ | async" class="nav-item" (click)="toggleNotifications()">
+            <i class="fa fa-bell"></i>
+            <span *ngIf="notificationAlert" class="badge">°</span>
         </div>
         <div class="nav-item" [routerLink]="[{ outlets: { sidebar: ['m'] }}]">
             <i class="fa fa-bars"></i>
@@ -23,7 +29,7 @@
 
 
 <div id="settings" class="osem-box-shadow-basic" *ngIf="settings" [@slideInOutMenu]>
-    
+
     <h2 class="underline pt-3">{{'PAGE_SETTINGS' | translate}}</h2>
     <div class="option-container pt-4">
         <div class="option-inner">
@@ -47,7 +53,8 @@
     </div>
     <h2 class="pt-5 underline">{{'MAP_SETTINGS' | translate}}</h2>
     <div class="option-container">
-        <div class="checkbox-container mouse-active py-4" (click)="toggleClustering()" title="{{'TOGGLE_CLUSTERING' | translate}}">
+        <div class="checkbox-container mouse-active py-4" (click)="toggleClustering()"
+            title="{{'TOGGLE_CLUSTERING' | translate}}">
             <div class="checkbox">
                 <i *ngIf="!clustering" class="fa fa-square"></i>
                 <i *ngIf="clustering" class="fa fa-check-square"></i>
@@ -56,4 +63,8 @@
         </div>
     </div>
 
+</div>
+
+<div id="notifications" class="osem-box-shadow-basic" *ngIf="notifications" [@slideInOutMenu]>
+    <osem-notification-viewer></osem-notification-viewer>
 </div>

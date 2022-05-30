@@ -7,8 +7,9 @@ export const environment = {
   // api_url: "https://api.opensensemap.org",
   api_url: "http://localhost:8000",
   sensor_wiki_url: "http://localhost:3001",
-  mapbox_token: "pk.eyJ1IjoidW11dDAwIiwiYSI6ImNqbnVkbnFxNDB2YnIzd3M1eTNidTA3MjUifQ.3gqG1JYEQvckOiiQ8B3NQQ",
-  locationiq_token: "23e12b10d8c3aad04e8e"
+  mapbox_token: "pk.eyJ1IjoiZ2VvdGVjaC1wcm9qZWN0IiwiYSI6ImNrd2FscWthNjJuem0yd3A2bDRpZnNlMm0ifQ.Lb9qC4VTo7TKS2jj3liKZw",
+  locationiq_token: "23e12b10d8c3aad04e8e",
+  websocket_url: "ws://localhost:1234",
 };
 
 /*

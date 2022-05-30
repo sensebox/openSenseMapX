@@ -58,7 +58,7 @@
     }
 }
 
-#settings {
+#settings, #notifications {
     position: absolute;
     background: var(--background-primary-full);
     right: 0;
@@ -109,4 +109,8 @@
             color: var(--color-primary);
         }
     }
+}
+
+.badge {
+    color: red;
 }

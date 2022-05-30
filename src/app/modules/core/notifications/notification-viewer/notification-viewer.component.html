@@ -1,0 +1,8 @@
+<div *ngIf="notifications.length !== 0" id="notifications">
+    <div *ngFor="let notification of notifications">
+        <osem-notification-popup [notification]="notification"></osem-notification-popup>
+    </div>
+</div>
+<div class="dropdown-item" *ngIf="notifications.length === 0">
+    No notifications
+</div>

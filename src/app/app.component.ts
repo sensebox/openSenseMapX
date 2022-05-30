@@ -5,6 +5,7 @@ import { slideInOutHorizontalBoolean, routingFadeIn, appearModal, appearSlow } f
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from './models/session/state/session.service';
 import { UiService } from './models/ui/state/ui.service';
+import { WebsocketService } from './services/websocket.service';
 
 @Component({
   selector: 'osem-root',
@@ -30,7 +31,8 @@ export class AppComponent {
     private uiQuery: UiQuery,
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
-    private uiService: UiService){
+    private uiService: UiService,
+    private webSocketService: WebsocketService){
 
       translate.setDefaultLang('de-DE');
       this.language$.subscribe(lang => {

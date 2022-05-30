@@ -37,9 +37,11 @@ import { ContactComponent } from './contact/contact.component';
 import { NewVisContainerComponent } from './new-vis-container/new-vis-container.component';
 import { NewVisComponent } from './new-vis/new-vis.component';
 import { VisFormComponent } from './vis-form/vis-form.component';
+import { NotificationViewerComponent } from './notifications/notification-viewer/notification-viewer.component';
+import { NotificationPopupComponent } from './notifications/notification-popup/notification-popup.component';
 
 @NgModule({
-  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoComponent, PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent, NewVisComponent, VisFormComponent],
+  declarations: [FilterContainerComponent, SearchComponent, SearchContainerComponent, PhenomenonComponent, NavContainerComponent, NavRightComponent, BottomBarContainerComponent, DatepickerComponent, FilterSwitcherComponent, FilterComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoComponent, PhenoInfoModalComponent, VisContainerComponent, VisComponent, FilterContainerValuesComponent, FilterValuesComponent, DatetimeModalContainerComponent, DatetimeModalComponent, SidebarMenuComponent, SidebarMenuItemsComponent, AboutComponent, PrivacyComponent, SidebarBreadcrumbsComponent, ContactComponent, NewVisContainerComponent, NewVisComponent, VisFormComponent, NotificationViewerComponent, NotificationPopupComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -52,8 +54,10 @@ import { VisFormComponent } from './vis-form/vis-form.component';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true
-  }
+  },
+  //NotificationViewerComponent
 ],
   exports: [FilterContainerComponent, NavContainerComponent, BottomBarContainerComponent, PhenomenonComponent, ImpressumComponent, FaqComponent, DonateComponent, ThanksComponent, PhenoInfoModalComponent, FilterContainerValuesComponent, DatetimeModalContainerComponent, NewVisContainerComponent],
+  entryComponents: [NotificationPopupComponent]
 })
 export class CoreModule { }

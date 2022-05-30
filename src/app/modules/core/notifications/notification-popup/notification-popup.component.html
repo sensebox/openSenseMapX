@@ -1,0 +1,13 @@
+<div class="notification is-primary is-light">
+    <div class="columns">
+        <div class="column is-one-fifth">
+            <figure class="image">
+                <img class="is-rounded" src="/assets/img/Badges_Entwurf-15.svg">
+            </figure>
+        </div>
+        <div class="column">
+            Notification with unique id: {{ notification._id }} and message: {{ notification.message }} at {{ notification.date }} in room {{ notification.room }}
+        </div>
+    </div>
+    <button (click)="remove_me(notification)" class="delete"></button>
+</div>

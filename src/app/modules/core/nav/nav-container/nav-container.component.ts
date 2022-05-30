@@ -13,6 +13,7 @@ import { UiQuery } from 'src/app/models/ui/state/ui.query';
 export class NavContainerComponent implements OnInit {
 
   settings:Boolean = false;
+  notifications:Boolean = false;
 
   language$ = this.uiQuery.selectLanguage$;
   theme$ = this.uiQuery.selectTheme$;
@@ -25,7 +26,7 @@ export class NavContainerComponent implements OnInit {
     private uiService: UiService,
     private uiQuery: UiQuery,
     private sessionQuery: SessionQuery,
-    ) { }
+    ) {}
 
   ngOnInit() {
   }
@@ -42,6 +43,9 @@ export class NavContainerComponent implements OnInit {
   }
   toggleClustering(){
     this.uiService.toggleClustering();
+  }
+  toggleNotifications(){
+    this.notifications = !this.notifications;
   }
 
 }
