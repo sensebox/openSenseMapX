@@ -10,11 +10,14 @@ export class NotificationViewerComponent implements OnInit {
   notifications = [];
   notification = this.notifications.length;
 
-  constructor(private notificationService: NotificationService) {
+  constructor(
+    private notificationService: NotificationService
+  ) {
     this.notificationService.notifications.subscribe((notifications) => {
       this.notifications = notifications;
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

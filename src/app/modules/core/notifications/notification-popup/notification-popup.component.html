@@ -5,8 +5,7 @@
                 <img class="is-rounded" src="/assets/img/Badges_Entwurf-15.svg">
             </figure>
         </div>
-        <div class="column">
-            Notification with unique id: {{ notification._id }} and message: {{ notification.message }} at {{ notification.date }} in room {{ notification.room }}
+        <div class="column">{{ notification.message }}
         </div>
     </div>
     <button (click)="remove_me(notification)" class="delete"></button>

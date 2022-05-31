@@ -31,15 +31,8 @@ export class WebsocketService {
       this.socket.emit("join room", this.user$.email);
     });
 
-    // SOMEHOW CALL NOTIFICATION FUNCTION FROM HERE
-    this.socket.on("private message", (data) => {
-      var notification = new Notification(
-        data.message,
-        data.user,
-        data.room,
-        data.date,
-        data.id
-      );
+    this.socket.on("notification:create", (notification) => {
+      console.log(notification);
       this.notificationService.addNotification(notification);
     });
   }
