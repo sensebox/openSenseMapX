@@ -20,10 +20,27 @@ export class NotificationService {
     this.notifications.next(
       this.notifications.getValue().filter((n) => n !== notification)
     );
+    this.setNotificationAsRead(notification._id);
   }
 
   getNotifications() {
     return this.notifications.getValue();
+  }
+
+  setNotificationAsRead(notificationId) {
+    let headers = new HttpHeaders();
+    headers = headers.append(
+      "Authorization",
+      "Bearer " + window.localStorage.getItem("sb_accesstoken")
+    );
+
+    this.http
+      .get("http://localhost:8000/notifications/setAsRead/" + notificationId, {
+        headers: headers,
+      })
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 
   fetchNotifications() {
@@ -34,13 +51,11 @@ export class NotificationService {
     );
 
     this.http
-      .get("http://localhost:8000/notifications/notifications", {
+      .get("http://localhost:8000/notifications/getUnread", {
         headers: headers,
       })
       .subscribe((notifications: Notification[]) => {
         for (let notification of notifications) {
-          console.log(notification);
-          
           this.addNotification(notification);
         }
       });

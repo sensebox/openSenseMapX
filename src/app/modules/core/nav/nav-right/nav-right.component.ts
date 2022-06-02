@@ -31,21 +31,15 @@ export class NavRightComponent implements OnInit {
   @Input() settings;
   @Input() user;
   @Input() clustering;
+  @Input() notificationsOpen;
   @Input() notifications;
 
   notificationAlert = false;
 
   constructor(
-    private sessionQuery: SessionQuery,
-    private notificationService: NotificationService
+    private sessionQuery: SessionQuery
   ) {
-    this.notificationService.notifications.subscribe((notifications) => {
-      if (notifications.length > 0) {
-        this.notificationAlert = true;
-      } else {
-        this.notificationAlert = false;
-      }
-    });
+    
   }
 
   ngOnInit() {}

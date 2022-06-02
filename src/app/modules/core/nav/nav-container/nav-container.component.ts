@@ -4,6 +4,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'osem-nav-container',
@@ -14,6 +15,8 @@ export class NavContainerComponent implements OnInit {
 
   settings:Boolean = false;
   notifications:Boolean = false;
+
+  notifications$ = this.notificationService.notifications;
 
   language$ = this.uiQuery.selectLanguage$;
   theme$ = this.uiQuery.selectTheme$;
@@ -26,7 +29,8 @@ export class NavContainerComponent implements OnInit {
     private uiService: UiService,
     private uiQuery: UiQuery,
     private sessionQuery: SessionQuery,
-    ) {}
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
   }

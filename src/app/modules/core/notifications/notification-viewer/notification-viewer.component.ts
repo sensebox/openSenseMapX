@@ -7,15 +7,11 @@ import { NotificationService } from "../../../../services/notification.service";
   styleUrls: ["./notification-viewer.component.scss"],
 })
 export class NotificationViewerComponent implements OnInit {
-  notifications = [];
-  notification = this.notifications.length;
+  notifications = this.notificationService.notifications;
 
   constructor(
     private notificationService: NotificationService
   ) {
-    this.notificationService.notifications.subscribe((notifications) => {
-      this.notifications = notifications;
-    });
   }
 
   ngOnInit() {

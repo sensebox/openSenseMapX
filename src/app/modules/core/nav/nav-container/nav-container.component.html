@@ -8,6 +8,7 @@
     (languageToggled)="setLanguage($event)"
     (settingsToggled)="toggleSettings()"
     (clusteringToggled)="toggleClustering()"
-    [notifications]="notifications"
+    [notificationsOpen]="notifications"
+    [notifications]="notifications$ | async"
     (notificationsToggled)="toggleNotifications()"
 ></osem-nav-right>

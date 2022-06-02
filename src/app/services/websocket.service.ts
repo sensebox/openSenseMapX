@@ -3,8 +3,6 @@ import { io } from "socket.io-client";
 import { environment } from "src/environments/environment";
 
 import { SessionQuery } from "../models/session/state/session.query";
-
-import { Notification } from "../models/notification/notification.model";
 import { NotificationService } from "./notification.service";
 
 @Injectable({
@@ -12,7 +10,6 @@ import { NotificationService } from "./notification.service";
 })
 export class WebsocketService {
   socket: any;
-  room = "testRoom";
   user$;
 
   constructor(
@@ -20,7 +17,9 @@ export class WebsocketService {
     private notificationService: NotificationService
   ) {
     if (this.sessionQuery.user$) {
-      this.socket = io(environment.websocket_url);
+      this.socket = io(environment.websocket_url, {
+        auth: { auth_token: window.localStorage.getItem("sb_accesstoken") },
+      });
       this.sessionQuery.user$.subscribe((user) => {
         this.user$ = user;
       });
