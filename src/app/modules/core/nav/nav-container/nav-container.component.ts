@@ -4,7 +4,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UiService } from 'src/app/models/ui/state/ui.service';
 import { UiQuery } from 'src/app/models/ui/state/ui.query';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from 'src/app/models/notification/notification.service';
 
 @Component({
   selector: 'osem-nav-container',

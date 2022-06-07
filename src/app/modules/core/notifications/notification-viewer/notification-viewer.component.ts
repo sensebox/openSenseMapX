@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NotificationService } from "../../../../services/notification.service";
+import { NotificationService } from "src/app/models/notification/notification.service";
 
 @Component({
   selector: "osem-notification-viewer",
@@ -9,11 +9,7 @@ import { NotificationService } from "../../../../services/notification.service";
 export class NotificationViewerComponent implements OnInit {
   notifications = this.notificationService.notifications;
 
-  constructor(
-    private notificationService: NotificationService
-  ) {
-  }
+  constructor(private notificationService: NotificationService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

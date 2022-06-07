@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Notification } from "src/app/models/notification/notification.model";
-import { NotificationService } from "src/app/services/notification.service";
+import { NotificationService } from 'src/app/models/notification/notification.service';
 
 import { NavRightComponent } from "../../nav/nav-right/nav-right.component";
 
@@ -18,8 +18,8 @@ export class NotificationPopupComponent implements OnInit {
   ) {}
 
   remove_me(notification) {
-    this.notificationService.removeNotification(notification);
-    if (this.notificationService.getNotifications().length === 0) {
+    this.notificationService.remove(notification);
+    if (this.notificationService.get().length === 0) {
       this.navRightComponent.notificationsToggled.emit(false);
     }
   }

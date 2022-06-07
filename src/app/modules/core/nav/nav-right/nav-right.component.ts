@@ -8,7 +8,6 @@ import {
 } from "@angular/core";
 import { slideInOutMenu } from "src/app/helper/animations";
 import { SessionQuery } from "src/app/models/session/state/session.query";
-import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
   selector: "osem-nav-right",

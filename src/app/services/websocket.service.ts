@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { environment } from "src/environments/environment";
 
 import { SessionQuery } from "../models/session/state/session.query";
-import { NotificationService } from "./notification.service";
+import { NotificationService } from "src/app/models/notification/notification.service";
 
 @Injectable({
   providedIn: "root",
@@ -32,7 +32,7 @@ export class WebsocketService {
 
     this.socket.on("notification:create", (notification) => {
       console.log(notification);
-      this.notificationService.addNotification(notification);
+      this.notificationService.add(notification);
     });
   }
 }

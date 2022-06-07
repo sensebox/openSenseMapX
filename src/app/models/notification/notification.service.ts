@@ -1,33 +1,38 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { NotificationStore } from "./Notification.store";
+import { Notification } from "./notification.model";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 
-import { Notification } from "../models/notification/notification.model";
-
-@Injectable({
-  providedIn: "root",
-})
+@Injectable({ providedIn: "root" })
 export class NotificationService {
+  constructor(
+    private NotificationStore: NotificationStore,
+    private http: HttpClient
+  ) {
+    this.fetch();
+  }
+
   notifications: BehaviorSubject<Notification[]> = new BehaviorSubject<
     Notification[]
   >([]);
 
-  addNotification(notification: Notification) {
+  add(notification: Notification) {
     this.notifications.next(this.notifications.getValue().concat(notification));
   }
 
-  removeNotification(notification: Notification) {
+  remove(notification: Notification) {
     this.notifications.next(
       this.notifications.getValue().filter((n) => n !== notification)
     );
-    this.setNotificationAsRead(notification._id);
+    this.setAsRead(notification._id);
   }
 
-  getNotifications() {
+  get() {
     return this.notifications.getValue();
   }
 
-  setNotificationAsRead(notificationId) {
+  setAsRead(notificationId) {
     let headers = new HttpHeaders();
     headers = headers.append(
       "Authorization",
@@ -43,7 +48,7 @@ export class NotificationService {
       });
   }
 
-  fetchNotifications() {
+  fetch() {
     let headers = new HttpHeaders();
     headers = headers.append(
       "Authorization",
@@ -56,12 +61,8 @@ export class NotificationService {
       })
       .subscribe((notifications: Notification[]) => {
         for (let notification of notifications) {
-          this.addNotification(notification);
+          this.add(notification);
         }
       });
-  }
-
-  constructor(private http: HttpClient) {
-    this.fetchNotifications();
   }
 }
