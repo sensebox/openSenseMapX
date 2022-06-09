@@ -45,7 +45,7 @@
 <!-- INFO PHENO MODAL: TODO: rename -->
 <osem-pheno-info-modal *ngIf="infoPheno$ | async"></osem-pheno-info-modal> 
 
-<div id="backdrop" *ngIf="sidebarOutlet.isActivated">
+<div id="backdrop" (click)="closeSidebar()" *ngIf="sidebarOutlet.isActivated">
 
 </div>
 
