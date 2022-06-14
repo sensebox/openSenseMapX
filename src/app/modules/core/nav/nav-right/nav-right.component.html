@@ -23,7 +23,7 @@
 
 
 <div id="settings" class="osem-box-shadow-basic" *ngIf="settings" [@slideInOutMenu]>
-    
+
     <h2 class="underline pt-3">{{'PAGE_SETTINGS' | translate}}</h2>
     <div class="option-container pt-4">
         <div class="option-inner">
@@ -37,10 +37,11 @@
         </div>
         <div class="option-inner pt-2">
             <span class="option-name">{{'LANGUAGE' | translate}}:</span>
-            <div class="options" (click)="toggleLanguage(language)">
+            <div class="options">
                 <div class="inner">
-                    <span [class.active]="language === 'en-US'">en</span> /
-                    <span [class.active]="language === 'de-DE'">de</span>
+                    <span [class.active]="language === 'en-US'"  (click)="toggleLanguage('en-US')">en</span> /
+                    <span [class.active]="language === 'de-DE'"  (click)="toggleLanguage('de-DE')">de</span> /
+                    <span [class.active]="language === 'es-ES'"  (click)="toggleLanguage('es-ES')">es</span>
                 </div>
             </div>
         </div>

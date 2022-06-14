@@ -20,8 +20,10 @@ import { ThemeService } from './services/theme.service';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import localeEs from '@angular/common/locales/es';
 
 registerLocaleData(localeDe, 'de-DE');
+registerLocaleData(localeEs, 'es-ES');
 // registerLocaleData(localeEm, 'de-DE');
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

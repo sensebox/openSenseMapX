@@ -36,12 +36,12 @@ export class DatetimeModalComponent implements OnInit {
   startAt = new Date('2020-03-27T10:00:00.000Z');
   minDate = new Date('2020-03-27T10:00:00.000Z');
   maxDate = new Date(); // TODO: Round this to nearest 5minutes ?
- 
+
 
 
   constructor(public translateService: TranslateService) { }
 
-  ngOnInit() {        
+  ngOnInit() {
   }
 
   changeActive(active){
@@ -73,8 +73,20 @@ export class DatetimeModalComponent implements OnInit {
   initCalendars(){
     let that = this;
     setTimeout(function(){
+      let lang;
+      switch (that.translateService.currentLang) {
+        case 'de-DE':
+          lang = 'de'
+          break;
+        case 'es-ES':
+          lang = 'es'
+          break;
+        default:
+          lang = 'en'
+          break;
+      }
       const timeStampOptions = {
-        lang: that.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+        lang: lang,
         minuteSteps: 10,
         startTime: that.dateStampValue ? that.dateStampValue : that.startAt,
         startDate: that.dateStampValue ? that.dateStampValue : that.startAt,
@@ -84,7 +96,7 @@ export class DatetimeModalComponent implements OnInit {
 
       const timeStampCalendar = bulmaCalendar.attach('#timestamp', timeStampOptions);
       const timeRangeOptions = {
-        lang: that.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+        lang: lang,
         minuteSteps: 10,
         startDate: that.dateRangeStart ? that.dateRangeStart : that.minDate,
         startTime: that.dateRangeStart ? that.dateRangeStart : that.minDate,
@@ -94,7 +106,7 @@ export class DatetimeModalComponent implements OnInit {
         color: '#4EAF47'
       }
       const timeRangeCalendar = bulmaCalendar.attach('#timerange', timeRangeOptions);
-  
+
       // To access to bulmaCalendar instance of an element
       const element:any = document.querySelector('#timestamp');
       if (element) {
