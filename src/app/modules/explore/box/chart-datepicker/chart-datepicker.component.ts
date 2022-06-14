@@ -26,7 +26,7 @@ export class ChartDatepickerComponent implements OnInit {
   dateRangeEnd;
 
   constructor(
-    public translateService: TranslateService) { 
+    public translateService: TranslateService) {
     // this.dateTimeAdapter.setLocale('de-DE');
   }
 
@@ -69,8 +69,20 @@ export class ChartDatepickerComponent implements OnInit {
 
   openModal(){
     this.modalActive = true;
+    let lang;
+      switch (this.translateService.currentLang) {
+        case 'de-DE':
+          lang = 'de'
+          break;
+        case 'es-ES':
+          lang = 'es'
+          break;
+        default:
+          lang = 'en'
+          break;
+      }
     const timeRangeOptions = {
-      lang: this.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+      lang: lang,
       minuteSteps: 10,
       startDate: this.dateRangeStart ? this.dateRangeStart : this.minDate,
       startTime: this.dateRangeStart ? this.dateRangeStart : this.minDate,
