@@ -3,11 +3,11 @@ import { Notification } from "./notification.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { SessionQuery } from "../session/state/session.query";
+import { environment } from "src/environments/environment";
 
 @Injectable({ providedIn: "root" })
 export class NotificationService {
   constructor(private sessionQuery: SessionQuery, private http: HttpClient) {
-    this.fetch();
     this.sessionQuery.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
         this.fetch();
@@ -42,7 +42,7 @@ export class NotificationService {
     );
 
     this.http
-      .get("http://localhost:8000/notifications/setAsRead/" + notificationId, {
+      .get(environment.api_url + "/notifications/setAsRead/" + notificationId, {
         headers: headers,
       })
       .subscribe((response) => {
@@ -58,7 +58,7 @@ export class NotificationService {
     );
 
     this.http
-      .get("http://localhost:8000/notifications/getUnread", {
+      .get(environment.api_url + "/notifications/getUnread", {
         headers: headers,
       })
       .subscribe((notifications: Notification[]) => {
