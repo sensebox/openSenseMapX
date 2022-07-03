@@ -242,6 +242,14 @@
     position: relative;
 }
 
+#boxowner {
+    color: var(--color-primary);
+}
+
+#boxowner:hover {
+    color: var(--color-primary-dark);
+}
+
 // #cluster-popup {
 //     font-size: 0.9em;
 //     background: var(--background-primary-full);

@@ -8,11 +8,9 @@ import { environment } from "src/environments/environment";
 @Injectable({ providedIn: "root" })
 export class NotificationService {
   constructor(private sessionQuery: SessionQuery, private http: HttpClient) {
-    this.sessionQuery.isLoggedIn$.subscribe((isLoggedIn) => {
-      if (isLoggedIn) {
-        this.fetch();
-      }
-    });
+    if(this.sessionQuery.isLoggedIn()) {
+      this.fetch();
+    }
   }
 
   notifications: BehaviorSubject<Notification[]> = new BehaviorSubject<
