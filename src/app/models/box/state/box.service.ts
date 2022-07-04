@@ -215,8 +215,8 @@ export class BoxService {
       // ADD OWNER TO BOX IF PROFILE IS PUBLIC
       this.http
         .get(environment.api_url + "/boxes/" + box._id + "/owner")
-        .subscribe((username) => {
-          box.owner = username;
+        .subscribe((data: any) => {
+          box.owner = data.username;
           clearTimeout(this.popupBoxTimeout);
           this.boxStore.setPopupBox(box);
         });

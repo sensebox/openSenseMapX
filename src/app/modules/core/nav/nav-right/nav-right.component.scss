@@ -1,116 +1,124 @@
-@import '../../../../../styles/variables.scss';
+@import "../../../../../styles/variables.scss";
 
 .logo {
-    position: relative;
-    height: $headerHeight;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    // background: var(--background-primary-full);
-    right: 0;
-    color: var(--color-primary);
-    padding: 0 1em;
-    cursor: pointer;
+  position: relative;
+  height: $headerHeight;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  // background: var(--background-primary-full);
+  right: 0;
+  color: var(--color-primary);
+  padding: 0 1em;
+  cursor: pointer;
 
-    #beta-text {
-        position: absolute;
-        display: inline-block;
-        bottom: 0;
-        right: -10px;
-        color: var(--alert-color);
-        transform: rotate(-25deg);
-        font-size: 1.1em;
-    }
+  #beta-text {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    right: -10px;
+    color: var(--alert-color);
+    transform: rotate(-25deg);
+    font-size: 1.1em;
+  }
 
-    img {
-        padding: 0 0.5em 0 0;
-        height: 80%;
-    }
+  img {
+    padding: 0 0.5em 0 0;
+    height: 80%;
+  }
 }
 .nav-right-container {
-    // padding: 0.2em 0.3em;
+  // padding: 0.2em 0.3em;
+  display: flex;
+  position: relative;
+  height: $headerHeight;
+  @media screen and(max-width: $secondBreak) {
+    box-shadow: var(--box-shadow-basic);
+    width: 100%;
+    justify-content: space-between;
+    background: var(--background-primary-full);
+  }
+  // width: 281px;
+
+  .nav-item-container {
     display: flex;
+  }
+
+  .nav-item {
+    background: var(--background-secondary);
+    color: var(--text-color-secondary);
+    line-height: 38px;
+    min-width: 42px;
+    cursor: pointer;
+    padding: 0.2em 0.3em;
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+    align-items: center;
     position: relative;
-    height: $headerHeight;
-    @media screen and(max-width: $secondBreak){
-        box-shadow: var(--box-shadow-basic);
-        width: 100%;
-        justify-content: space-between;
-        background: var(--background-primary-full);
-    }
-    // width: 281px;
-    
-    .nav-item-container {
-        display: flex;
-    }
-    
-    .nav-item {
-        background: var(--background-secondary);
-        color: var(--text-color-secondary);
-        line-height: 38px;
-        min-width: 42px;
-        cursor: pointer;
-        padding: 0.2em 0.3em;
-        font-weight: bold;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-    }
+  }
 }
 
-#settings, #notifications {
-    position: absolute;
-    background: var(--background-primary-full);
-    right: 0;
-    width: 100%;
-    z-index: -1;
-    box-sizing: border-box;
-    margin-top: -3.5em;
-    padding: 4.5em 0.5em 0.4em 0.5em;
-    opacity: 1;
+#settings,
+#notifications {
+  position: absolute;
+  background: var(--background-primary-full);
+  right: 0;
+  width: 100%;
+  z-index: -1;
+  box-sizing: border-box;
+  margin-top: -3.5em;
+  padding: 4.5em 0.5em 0.4em 0.5em;
+  opacity: 1;
 
-    h2 {
-        margin: 0;
-    }
-    h3 {
-        margin: 0.7em 0 0.1em 0;
-    }
+  h2 {
+    margin: 0;
+  }
+  h3 {
+    margin: 0.7em 0 0.1em 0;
+  }
 
-    .option-container {
-        padding-left: 0.6em;
+  .option-container {
+    padding-left: 0.6em;
+  }
+  .option-inner {
+    display: flex;
+    .option-name {
+      width: 85px;
     }
-    .option-inner {
-        display: flex;
-        .option-name {
-            width: 85px;
-        }
-    }
-    .options {
-        padding-left: 0.2em;
-        cursor: pointer;
-        display: inline-block;
-        // border-left: 1px solid #ccc;
-        padding-left: 0.5em;
-        margin-left: 0.2em;
-        .inner {
-            position: relative;
-            top: 2px;
+  }
+  .options {
+    padding-left: 0.2em;
+    cursor: pointer;
+    display: inline-block;
+    // border-left: 1px solid #ccc;
+    padding-left: 0.5em;
+    margin-left: 0.2em;
+    .inner {
+      position: relative;
+      top: 2px;
 
-            .active {
-                font-weight: bold;
-                border-bottom: 1px solid var(--text-color-primary);
-            }
-        }
+      .active {
+        font-weight: bold;
+        border-bottom: 1px solid var(--text-color-primary);
+      }
     }
+  }
 
-    .links {
-        margin-top: 0.5em;
-        a {
-            color: var(--color-primary);
-        }
+  .links {
+    margin-top: 0.5em;
+    a {
+      color: var(--color-primary);
     }
+  }
 }
 
 .badge {
-    color: red;
+  height: 7px;
+  width: 7px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  right: 3px;
 }

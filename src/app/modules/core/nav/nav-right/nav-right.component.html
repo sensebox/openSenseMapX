@@ -19,7 +19,7 @@
         </div>
         <div *ngIf="loggedIn$ | async" class="nav-item" (click)="toggleNotifications()">
             <i class="fa fa-bell"></i>
-            <span *ngIf="notifications.length > 0" class="badge">°</span>
+            <span *ngIf="notifications.length > 0" class="badge"></span>
         </div>
         <div class="nav-item" [routerLink]="[{ outlets: { sidebar: ['m'] }}]">
             <i class="fa fa-bars"></i>

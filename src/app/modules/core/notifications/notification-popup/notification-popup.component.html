@@ -1,12 +1,11 @@
 <div class="notification is-primary is-light">
-    <div class="columns">
-        <div class="column is-one-fifth">
-            <figure class="image">
-                <img class="is-rounded" src="/assets/img/Badges_Entwurf-15.svg">
-            </figure>
-        </div>
-        <div class="column">{{ notification.message }}
-        </div>
+    <div class="wrapper">
+        <p>
+        <figure class="image is-64x64">
+            <img class="is-rounded" [src]="notification.image">
+        </figure>
+        </p>
+        <p [innerHTML]="notification.message"></p>
     </div>
     <button (click)="remove_me(notification)" class="delete"></button>
 </div>
