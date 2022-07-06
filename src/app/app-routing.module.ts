@@ -20,6 +20,7 @@ import { NewVisContainerComponent } from './modules/core/new-vis-container/new-v
 import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
+import { UserProfileComponent } from './modules/explore/map/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
     {path: 'boxes', component: MyBoxesContainerComponent, canActivate: [AuthGuard]}
     ]
   },
+  {path: 'profile/:username', component: UserProfileComponent}
 // {path: 'boxes', component: MyBoxesContainerComponent, outlet: 'sidebar', canActivate: [AuthGuard]}
 ];
 

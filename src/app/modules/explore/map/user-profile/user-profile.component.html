@@ -1,0 +1,69 @@
+<div [@slideInOutAnimation] class="profile bottom-bar-container">
+    <div class="bottom-bar-container">
+        <div class="box-header">
+            <div class="name">
+                <p class="title is-4 has-text-white">{{username}}</p>
+                <p class="subtitle is-6 has-text-white">{{email}}</p>
+            </div>
+            <div class="osem-close-text" (click)="closeBox()">
+                <button class="delete is-medium"></button>
+            </div>
+        </div>
+        <div *ngIf="!(badgesLoaded && boxesLoaded)" class="has-text-centered">
+            <span class="loader"></span>
+        </div>
+        <div *ngIf="badgesLoaded && boxesLoaded" class="data">
+            <div *ngIf="badges.length > 0" class="wrapper">
+                <div class="title is-4 has-text-centered helper">Badges</div>
+                <div class="is-flex is-justify-content-center is-flex-wrap-wrap">
+                    <div *ngFor="let badge of badges" class="card" (click)="goToLink(badge.badgeclassOpenBadgeId)">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                    <figure class="image is-48x48">
+                                        <img src={{badge.image}}>
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-6">{{badge.name}}</p>
+                                    <p class="subtitle is-7">{{badge.issuedOn | date:'short'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="boxes.length > 0" class="wrapper">
+                <div class="title is-4 has-text-centered helper">Boxes</div>
+                <div class="is-flex is-justify-content-center is-flex-wrap-wrap">
+                    <div *ngFor="let box of boxes" class="card" (click)="goToBox(box)">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                    <figure class="image is-48x48">
+                                        <img *ngIf="!box.image || box.image == undefined"
+                                            src="https://bulma.io/images/placeholders/96x96.png"
+                                            alt="Placeholder image">
+                                        <img *ngIf="box.image"
+                                            [src]="'https://opensensemap.org/userimages/' + box.image"
+                                            alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-6">{{box.name}}</p>
+                                    <p class="subtitle is-7">{{box.createdAt | date:'short'}}</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                {{box.description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>

@@ -90,4 +90,12 @@ export class PopupComponent implements OnInit {
     this.closed.emit();
   }
 
+  showUserProfile(username) {
+    this.router.navigate(['/profile/' + username], {
+      relativeTo: this.activatedRoute,
+      queryParamsHandling: 'merge',
+    });
+    this.closePopup();
+  }
+
 }
