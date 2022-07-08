@@ -24,6 +24,12 @@
 .card {
   max-width: 300px;
   cursor: pointer;
+  transition: all .3s ease-in-out; 
+}
+
+.card:hover {
+  transform: scale(1.1);
+  z-index: 999;
 }
 
 .is-flex {
@@ -42,6 +48,13 @@
   margin-bottom: 0.2rem;
 }
 
+.data {
+  overflow: scroll;
+  max-height: 40vh;
+}
+
+// LOADER
+
 .loader {
   width: 96px;
   height: 96px;
@@ -49,7 +62,8 @@
   display: inline-block;
   position: relative;
   border: 3px solid;
-  border-color: var(--background-secondary) var(--background-secondary) transparent;
+  border-color: var(--background-secondary) var(--background-secondary)
+    transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
@@ -63,7 +77,8 @@
   bottom: 0;
   margin: auto;
   border: 3px solid;
-  border-color: transparent var(--background-secondary) var(--background-secondary);;
+  border-color: transparent var(--background-secondary)
+    var(--background-secondary);
   width: 48px;
   height: 48px;
   border-radius: 50%;

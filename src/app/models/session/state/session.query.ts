@@ -11,6 +11,7 @@ export class SessionQuery extends Query<SessionState> {
   isLoggedIn$ = this.select(state => toBoolean(state.user));
   name$ = this.select(state => state.user.name);
   user$ = this.select(state => state.user);
+  isPublic$ = this.select(state => toBoolean(state.user.isPublic));
 
   constructor(protected store: SessionStore, private boxQuery: BoxQuery, private visQuery: VisQuery) {
      super(store);

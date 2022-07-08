@@ -1,33 +1,35 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { SessionService } from 'src/app/models/session/state/session.service';
-import { SessionQuery } from 'src/app/models/session/state/session.query';
+import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { SessionService } from "src/app/models/session/state/session.service";
+import { SessionQuery } from "src/app/models/session/state/session.query";
 
 @Component({
-  selector: 'osem-profile-nav-container',
-  templateUrl: './profile-nav-container.component.html',
-  styleUrls: ['./profile-nav-container.component.scss']
+  selector: "osem-profile-nav-container",
+  templateUrl: "./profile-nav-container.component.html",
+  styleUrls: ["./profile-nav-container.component.scss"],
 })
 export class ProfileNavContainerComponent implements OnInit {
-
   loggedIn$ = this.sessionQuery.isLoggedIn$;
+  isPublic$ = this.sessionQuery.isPublic$;
 
   constructor(
-    private router: Router, 
-    private activatedRoute: ActivatedRoute, 
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private sessionService: SessionService,
-    private sessionQuery: SessionQuery) { }
+    private sessionQuery: SessionQuery,
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  navTo(route) {
+    this.router.navigate(["profile", "boxes"]);
   }
 
-  navTo(route){
-    this.router.navigate(
-      ['profile', 'boxes']
-    );
-  }
-
-  logout(){
+  logout() {
     this.sessionService.logout();
+  }
+
+  checkboxChanged(event) {
+    console.log(event);
   }
 }

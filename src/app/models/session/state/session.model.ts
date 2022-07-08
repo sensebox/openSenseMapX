@@ -5,6 +5,7 @@ export interface User {
   name: string;
   vis: string[];
   boxes: string[];
+  isPublic: boolean;
 }
 
 /**
