@@ -6,6 +6,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from './models/session/state/session.service';
 import { UiService } from './models/ui/state/ui.service';
 import { WebsocketService } from './services/websocket.service';
+import { PhenomenonService } from './models/phenomenon/state/phenomenon.service';
+import { UnitService } from './models/unit/state/unit.service';
+import * as bulmaToast from 'bulma-toast'
+import { ToasterConfig, ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'osem-root',
@@ -24,6 +28,10 @@ export class AppComponent {
   infoPheno$ = this.uiQuery.selectInfoPheno$;
   showDateModal$ = this.uiQuery.selectShowDateModal$;
 
+  toastConfig = new ToasterConfig({
+    showCloseButton: true
+  });
+
 
   constructor(
     private translate: TranslateService,
@@ -31,19 +39,30 @@ export class AppComponent {
     private uiQuery: UiQuery,
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
-    private uiService: UiService,
-    private webSocketService: WebsocketService){
+    private webSocketService: WebsocketService,
+    private phenoService: PhenomenonService,
+    private unitService: UnitService,
+    private toasterService: ToasterService,
+    private uiService: UiService){
 
-      translate.setDefaultLang('de-DE');
+      //set default language to german, TODO: check browser language
+      translate.setDefaultLang('de_DE');
       this.language$.subscribe(lang => {
         translate.use(lang);
       })
 
+      // check if a refreshtoken is in localstorage and recover the sesssion
       if(window.localStorage.getItem('sb_refreshtoken'))
         this.sessionService.recoverSession(window.localStorage.getItem('sb_refreshtoken'))
 
+      // get stats from the API (boxes, measurements, measurements/min)
       this.uiService.fetchStats().subscribe();
-  }
+
+      // get all the phenomenons and units that can be displayed on opensensemap (maybe find better way to do this? e.g. populate in sensor wiki)
+      this.phenoService.get().subscribe();
+      this.unitService.get().subscribe();
+
+    }
 
   closeIntro(){
     this.intro = false;

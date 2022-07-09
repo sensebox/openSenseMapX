@@ -30,8 +30,8 @@
       </li>
     </ul>
     <ul class="menu-list">
-      <li><a [routerLink]="[{ outlets: { sidebar: ['account'] }}]" queryParamsHandling="merge">{{'MY_ACCOUNT' |
-          translate}}</a></li>
+      <li><a [routerLink]="['settings']" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
+      dling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
     </ul>
     <ul class="menu-list">
       <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>

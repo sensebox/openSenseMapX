@@ -87,6 +87,19 @@ export class MapService {
       pitch: 21
     });
 
+    this.map.loadImage(
+      'assets/img/marker/gray.png',
+      function (error, image) {
+      if (error) throw error;
+      that.map.addImage('custom-marker', image);
+    })
+    this.map.loadImage(
+      'assets/img/marker/green-marker.png',
+      function (error, image) {
+      if (error) throw error;
+      that.map.addImage('custom-marker-green', image);
+    })
+
     // disable map rotation using right click + drag
     this.map.dragRotate.disable();
  
@@ -175,19 +188,11 @@ export class MapService {
   //subscribes to the layers in the ui-service.
   subscribeToLayers(){
     if(this.baseLayerSub){
-      this.baseLayerSub.unsubscribe();
-      this.clusterLayerSub.unsubscribe();
-      this.activeBoxSub.unsubscribe();
-      this.compareToSub.unsubscribe();
-      this.clusteringSub.unsubscribe();
-      this.compareModusSub.unsubscribe();
-      this.numbersSub.unsubscribe();
+      this.unsubscribeAll();
     }
 
     let that = this;
-    // console.log("SUBSCRIBE HERE")
     this.baseLayerSub = this.baseLayer$.subscribe(res => {
-      // console.log("LAYER TO DRAW:",res)
       this.baseLayerBehaviour$.next(res);
       that.drawBaseLayer(res);
     });
@@ -240,12 +245,13 @@ export class MapService {
       }
     })
 
-    this.numbersSub = this.numbers$.subscribe(res => {
-      if(this.map && this.map.getLayer('number-layer')){
-        this.map.setLayoutProperty('number-layer', 'visibility', res ? 'visible' : 'none');
+    //TODO ADD THIS IF NUMBERS ARE HANDLED SEPARETLY
+    // this.numbersSub = this.numbers$.subscribe(res => {
+    //   if(this.map && this.map.getLayer('number-layer')){
+    //     // this.map.setLayoutProperty('number-layer', 'visibility', res ? 'visible' : 'none');
 
-      }
-    })
+    //   }
+    // })
 
     // this.dateRangeData$.subscribe(res => {  
     //   if(res){
@@ -283,6 +289,30 @@ export class MapService {
     if (!this.map.getLayer(layer.id)) {
       this.map.addLayer(layer);
 
+      // BOX MAKER LAYER
+      // this.map.addLayer({
+      //   'id': 'points',
+      //   'type': 'symbol',
+      //   'source': 'boxes',
+      //   'layout': {
+      //   // 'icon-image': 'custom-marker',
+      //   'icon-image': ["case", [">=", 
+      //   ["to-string", ["get", "lastMeasurementAt"]],
+      //   ["to-string", "2020-03-27"]
+      //   ], "custom-marker-green", "custom-marker"],
+      //   'icon-allow-overlap': true,
+
+      //   // get the title name from the source's "title" property
+      //   'text-field': ['get', 'title'],
+      //   'text-font': [
+      //   'Open Sans Semibold',
+      //   'Arial Unicode MS Bold'
+      //   ],
+      //   'text-offset': [0, 1.25],
+      //   'text-anchor': 'top'
+      //   }
+      //   });
+
       if (this.map.getLayer('active-layer-text'))
         this.map.moveLayer(layer.id, 'active-layer-text');
 
@@ -297,7 +327,7 @@ export class MapService {
       }
     }
     if (!this.map.getLayer('number-layer')) {
-      this.addNumberLayer();
+      this.addNumberLayer(layer.layout.visibility);
       this.addPopup('base-layer');
     }
     if(layer.paint['circle-color']){
@@ -492,7 +522,8 @@ export class MapService {
 
 
   // NUMBER LAYERS
-  addNumberLayer() {
+  addNumberLayer(visibility) {
+    console.log("ADDING NUMBER LAYER", visibility)
     this.map.addLayer({
       'id': 'number-layer',
       'type': 'symbol',
@@ -510,7 +541,7 @@ export class MapService {
         ]
       },
       "layout": {
-        'visibility': 'visible',
+        'visibility': visibility,
         "text-field": "",
         "text-variable-anchor": ["bottom"],
         "text-offset": {
@@ -589,9 +620,14 @@ export class MapService {
 
   //CLUSTERING
   setClustering(clustering, date){
+    console.log("SETTING CLUSTERING", clustering)
     if(this.map.getLayer('base-layer')){
       this.map.setLayoutProperty('base-layer', 'visibility', clustering ? 'none' : 'visible' );
       this.map.setLayoutProperty('number-layer', 'visibility', clustering ? 'none' : 'visible' );
+      
+      //disable numbers for ALL layer
+      if(!this.map.getFilter('base-layer'))
+        this.map.setLayoutProperty('number-layer', 'visibility','none');
     }
     if(this.map.getLayer('boxes-cluster')){
       if(date){
@@ -801,8 +837,8 @@ export class MapService {
     // positionPopup(pixelPosition);
   }
 
-  // Popups
 
+  // Popups
   addPopup(layer) {
     let that = this;
     this.map.on('mouseenter', layer, 
@@ -865,15 +901,9 @@ export class MapService {
 
   // THEMING
   setThemeDark(dateRange) {
-
+    
     if(this.baseLayerSub){
-      this.baseLayerSub.unsubscribe();
-      this.clusterLayerSub.unsubscribe();
-      this.activeBoxSub.unsubscribe();
-      this.compareToSub.unsubscribe();
-      this.clusteringSub.unsubscribe();
-      this.compareModusSub.unsubscribe();
-      this.numbersSub.unsubscribe();
+      this.unsubscribeAll();
     }
 
     let that = this;
@@ -921,13 +951,7 @@ export class MapService {
   setThemeLight(dateRange) {
 
     if(this.baseLayerSub){
-      this.baseLayerSub.unsubscribe();
-      this.clusterLayerSub.unsubscribe();
-      this.activeBoxSub.unsubscribe();
-      this.compareToSub.unsubscribe();
-      this.clusteringSub.unsubscribe();
-      this.compareModusSub.unsubscribe();
-      this.numbersSub.unsubscribe();
+      this.unsubscribeAll();
     }
 
     let that = this;
@@ -1005,4 +1029,14 @@ export class MapService {
   //   const features = this.map.queryRenderedFeatures([[0,0],[180,180]], { layers: ['boxes-cluster', 'base-layer'] })
   //   console.log(features)
   // }
+
+  unsubscribeAll(){
+    this.baseLayerSub.unsubscribe();
+    this.clusterLayerSub.unsubscribe();
+    this.activeBoxSub.unsubscribe();
+    this.compareToSub.unsubscribe();
+    this.clusteringSub.unsubscribe();
+    this.compareModusSub.unsubscribe();
+    // this.numbersSub.unsubscribe();
+  }
 }

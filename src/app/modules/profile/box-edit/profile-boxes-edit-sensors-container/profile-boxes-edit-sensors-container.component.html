@@ -1,0 +1,5 @@
+<osem-profile-boxes-edit-sensors
+    [box]="box$ | async"
+    [sensors]="sensors$ | async"
+    (boxSaved)="saveBox($event)"
+></osem-profile-boxes-edit-sensors>

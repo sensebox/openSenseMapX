@@ -1,13 +1,16 @@
-import { Injectable } from "@angular/core";
-import { ID } from "@datorama/akita";
-import { SessionStore } from "./session.store";
-import { SessionQuery } from "./session.query";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { environment } from "./../../../../environments/environment";
-import { Router } from "@angular/router";
-import { Observable } from "rxjs/internal/Observable";
 
-@Injectable({ providedIn: "root" })
+import { Injectable, NgZone } from '@angular/core';
+import { ID } from '@datorama/akita';
+import { SessionStore } from './session.store';
+import { SessionQuery } from './session.query';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from './../../../../environments/environment';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+import { ToasterService } from 'angular2-toaster';
+import { TranslateService } from '@ngx-translate/core';
+
+@Injectable({ providedIn: 'root' })
 export class SessionService {
   AUTH_API_URL = environment.api_url;
 
@@ -15,8 +18,12 @@ export class SessionService {
     private sessionStore: SessionStore,
     private sessionQuery: SessionQuery,
     private router: Router,
-    private http: HttpClient
-  ) {}
+    private translateService: TranslateService,
+    private toasterService: ToasterService,
+    private ngZone : NgZone,
+    private http: HttpClient) {
+
+  }
 
   login(creds) {
     this.sessionStore.setLoading(true);
@@ -33,19 +40,26 @@ export class SessionService {
         });
         this.sessionStore.setLoading(false);
         this.getUserDetails();
-        this.router.navigate([{ outlets: { sidebar: ["m"] } }]);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+        this.router.navigate([{ outlets: { sidebar: [ 'm' ] }}]);
+        
+        this.toasterService.pop('success', '', 'Logged In');
+
+
+    }, err => {
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
+
+    });
   }
 
-  logout() {
-    window.localStorage.removeItem("sb_accesstoken");
-    window.localStorage.removeItem("sb_refreshtoken");
-    this.router.navigate([{ outlets: { sidebar: null } }]);
+
+  logout(){
+    window.localStorage.removeItem('sb_accesstoken');
+    window.localStorage.removeItem('sb_refreshtoken');
+    this.router.navigate([{ outlets: { sidebar: null }}]);
     this.sessionStore.logout();
+    this.toasterService.pop('success', '', 'Logged out');
   }
 
   getAccessToken() {
@@ -136,6 +150,76 @@ export class SessionService {
           },
         },
       };
+    });
+  }
+
+  updateProfile(data){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+
+    this.http.put(this.AUTH_API_URL + '/users/me', data, {headers: headers}).subscribe((res:any) => {
+      this.sessionStore.update(state => {
+        return {
+          ...state,
+          user: res.data.me
+        }
+      })
+      this.toasterService.pop('success', '', this.translateService.instant('PROFILE_UPDATED'));
+      this.router.navigate([{ outlets: { sidebar: [ 'm', 'profile', 'settings' ] }}]);
+
+    }, err => {
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
+      // this.errorMessage$.next(err.error.message);
+    });
+  }
+
+  deleteAccount(data){
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer '+window.localStorage.getItem('sb_accesstoken'));
+
+    const options = {
+      headers: headers,
+      body: data,
+    };
+    this.http.delete(this.AUTH_API_URL + '/users/me', options).subscribe((res:any) => {
+      this.router.navigate([{ outlets: { sidebar: null }}]);
+      
+      this.sessionStore.update(state => {
+        return {
+          ...state,
+          user: null
+        }
+      });
+
+      this.toasterService.pop('success', '', this.translateService.instant('ACCOUNT_DELETED'));
+
+    }, err => {
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
+    });
+  }
+
+  resetPassword(email){
+    this.http.post(this.AUTH_API_URL + '/users/request-password-reset', email).subscribe((res:any) => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+      // this.errorMessage$.next(err.error.message);
+    });
+  }
+
+  register(data){
+    this.http.post(this.AUTH_API_URL + '/users/register', data).subscribe((res:any) => {
+      this.toasterService.pop('success', '', this.translateService.instant('USER_REGISTERED'));
+      this.router.navigate([{ outlets: { sidebar: [ 'login' ] }}]);
+    }, err => {
+      this.ngZone.run(() => {
+        this.toasterService.pop('error', 'Error', err.error.message);
+      })
+      // this.errorMessage$.next(err.error.message);
     });
   }
 }

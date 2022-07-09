@@ -32,14 +32,11 @@ export class NavRightComponent implements OnInit {
   @Input() clustering;
   @Input() notificationsOpen;
   @Input() notifications;
+  @Input() selectedPheno;
 
   notificationAlert = false;
 
-  constructor(
-    private sessionQuery: SessionQuery
-  ) {
-    
-  }
+  constructor(private sessionQuery: SessionQuery) {}
 
   ngOnInit() {}
 
@@ -52,10 +49,10 @@ export class NavRightComponent implements OnInit {
   }
 
   toggleLanguage(lang) {
-    if (lang === "de-DE") {
-      this.languageToggled.emit("en-US");
+    if (lang === "de_DE") {
+      this.languageToggled.emit("en_US");
     } else {
-      this.languageToggled.emit("de-DE");
+      this.languageToggled.emit("de_DE");
     }
   }
 

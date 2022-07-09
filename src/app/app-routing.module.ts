@@ -21,6 +21,7 @@ import { FaqComponent } from './modules/core/faq/faq.component';
 import { DonateComponent } from './modules/core/donate/donate.component';
 import { ThanksComponent } from './modules/core/thanks/thanks.component';
 import { UserProfileComponent } from './modules/explore/map/user-profile/user-profile.component';
+import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'edit-legend', component: LegendEditContainerComponent, outlet: 'modal'},
   {path: 'login', component: LoginContainerComponent, outlet: 'sidebar'},
   {path: 'register', component: RegisterContainerComponent, outlet: 'sidebar'},
+  {path: 'resetpassword', component: ResetPasswordComponent, outlet: 'sidebar'},
   {path: 'm', component: SidebarMenuComponent, outlet: 'sidebar', children: [
     {
       path: '',

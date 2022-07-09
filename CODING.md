@@ -51,10 +51,13 @@ This module contains all the components and services that are shared among the o
 ### Layers
 
 - base-layer (the layer to show boxes-source unclustered) (active by default)
+
 - boxes-cluster (the layer to show the clustered boxes)
+
 - boxes-no-cluster (the layer to show the unclustered boxes with cluster option active)
 
 - number-layer (Shows the numbers for base-layer)
+
 - cluster-number-layer  (Shows the numbers for boxes-cluster layer)
 - no-cluster-number (Shows the numbers for boxes-no-cluster layer)
 

@@ -70,7 +70,7 @@ export class ChartDatepickerComponent implements OnInit {
   openModal(){
     this.modalActive = true;
     const timeRangeOptions = {
-      lang: this.translateService.currentLang === 'de-DE' ? 'de' : 'en',
+      lang: this.translateService.currentLang === 'de_DE' ? 'de' : 'en',
       minuteSteps: 10,
       startDate: this.dateRangeStart ? this.dateRangeStart : this.minDate,
       startTime: this.dateRangeStart ? this.dateRangeStart : this.minDate,

@@ -10,7 +10,10 @@ import { FormControl } from '@angular/forms';
 export class ControlMessageComponent {
 
   @Input() control: FormControl;
-  constructor() { }
+  constructor() {
+    if(this.control)
+      console.log("CONTROL MESSAGE", this.control.errors)
+   }
 
   get errorMessage() {
     for (let propertyName in this.control.errors) {

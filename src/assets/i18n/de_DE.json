@@ -109,6 +109,7 @@
 
     "CREATED_AT": "Online seit",
     "SENSORS": "Sensoren",
+    "SENSOR": "Sensor",
     "STATE" : "Status",
     "LOCATION": "Exposure",
     "COMPARE_TO_OTHER_BOX": "Mit anderer Box vergleichen",
@@ -165,6 +166,90 @@
     "PM25_UNIT": "Feinstaub wird unabhängig vom Durchmesser der Teilchen in µm/m³ angebgegen.</br></br>Seit dem 1. Januar 2005 beträgt der einzuhaltende Tagesmittelwert für PM10 in der EU 50 µg/m³ bei 35 zugelassenen Überschreitungen im Kalenderjahr.</br></br>Feinstaub wird heute im Wesentlichen für die Auswirkungen von Luftverschmutzungen auf die Gesundheit verantwortlich gemacht. Auswirkungen sind u.a. die Verstärkung von Allergiesymptomen, die Zunahme von asthmatischen Anfällen, Atemwegsbeschwerden und Lungenkrebs sowie ein gesteigertes Risiko von Mittelohrentzündungen bei Kindern und Beeinträchtigungen des Nervensystems. Daneben werden auch Auswirkungen auf Herz-Kreislauf-Erkrankungen (z. B. Herzinfarkt) angenommen. Das Ausmaß der Auswirkung von Partikeln auf die Atemwege hängt neben der chemischen Zusammensetzung auch von der Größe der Partikel ab: Je kleiner ein Partikel ist, desto tiefer kann es in die Lunge eindringen.</br></br>Es gibt verschiede Möglichkeiten Feinstaub zu messen. Für die senseBox nutzen wir den Lasergestützten Sensor SDS011.",
     "PM25_INTERPRETATION": "Feinstaubmessungen, insb. Rohdaten von Einzelmessungen sollten mit Vorsicht genossen werden. Wie die Grenzwerte es schon andeuten werden normalerweise Mittelwerte aus vielen einzelnen Messungen über eine Stunde oder über einen Tag berechnet.",
     "PM25_INFLUENCE": "Höhe des Messung, Autoverkehr, Holzverbrennung (z.B. Kaminöfen)..",
-    "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung."
+    "PM2.5_FUN_FACT": "Entschuldige bitte, aber wir kennen keinen Spass bei Luftverschmutzung.",
+
+    "MENU": "Menu",
+
+    "LOGIN_WITH_YOUR_OPENSENSEMAP_ACCOUNT": "Bitte logge dich mit deinem openSenseMap-Account ein.",
+    "REGISTER_HERE": "Oder registriere dich hier!",
+    "LOGIN": "Login",
+    "FORGOT_PASSWORD": "Passwort vergessen?",
+    "PASSWORD": "Passwort",
+    "EMAIL": "Email",
+    "GERMAN": "Deutsch",
+    "ENGLISH": "Englisch",
+
+    "REGISTER": "Registrieren",
+    "REGISTER_YOUR_NEW_ACCOUNT": "Registriere einen neuen openSenseMap-Account.",
+    "USERNAME": "Benutzername",
+    "CONFIRM_PASSWORD": "Passwort wiederholen",
+    "USER_REGISTERED": "Benutzer erfolgreich registriert.",
+
+    "REQUEST_PASSWORD_RESET": "Passwort zurücksetzen",
+    "RESET": "Zurücksetzen",
+
+    "CURRENT_PASSWORD": "Dein Passwort",
+    "ACCOUNT_SETTINGS": "Account Einstellungen",
+    "PLEASE_PROVIDE_PASSWORD": "Bitte gib dein aktuelles Passwort an",
+
+    "CHANGE_PASSWORD": "Passwort ändern",
+    "ACCOUNT_DELETE_INFO": "VORSICHT: Wenn du dein Benutzerkonto löscht, werden alle senseBoxen und Messungen gelöscht.",
+    "PROVIDE_CURRENT_PASSWORD" : "Bitte gib dein aktuelles Passwort an um deinen Account zu löschen.",
+    "DELETE_ACCOUNT": "Account löschen",
+    "SAVE": "Speichern",
+    "EMAIL_NOT_CONFIRMED": "Email Adresse ist noch nicht bestätigt!",
+    "PROFILE_UPDATED": "Profil aktualisiert.",
+
+    "NEW_PASSWORD": "Neues Passwort",
+    "CONFIRM_NEW_PASSWORD": "Neues Passwort bestätigen",
+
+    "YOU_HAVE": "Du hast",
+    "REGISTERED_BOXES_INFO": "Lege eine neue senseBox an, indem du auf \"Neu\" klickst oder schau dir unsere Dokumentation an.",
+    "NEW": "Neu",
+    "DOCUMENTATION": "Dokumentation",
+    "FORUM": "Forum",
+    "SHOW_MY_BOXES_ON_MAP": "Zeige meine Stationen auf der Karte",
+
+    "ADD_SENSOR": "Sensor hinzufügen",
+    "EDIT": "Editieren",
+    "DATA_UPLOAD": "Daten hochladen",
+    "SUPPORT": "Hilfe",
+    "SHOW_ON_MAP": "Auf Karte anzeigen",
+    
+    "DEVICE": "Gerät",
+    "GENERAL": "Allgemein",
+    "ADVANCED": "Erweitert",
+    "SUMMARY": "Zusammenfassung",
+    
+    "CHOOSE_YOUR_DEVICE": "Wähle dein Gerät aus",
+    "WHICH_DEVICE_ARE_U_USING": "Was für Hardware benutzt du?",
+    "NEXT": "Weiter",
+    "DEVICE_NOT_AVAILABLE": "Dein Gerät ist nicht in der Liste? Füge es im <a href='https://sensors.wiki'>Sensor-Wiki</a> hinzu um es auf der openSenseMap zu benutzen:",
+    "TUTORIAL": "Anleitung",
+
+
+    "GENERAL_INFORMATION_BOX": "Allgemeine Informationen zu deiner Messstation",
+    "NAME": "Name",
+    "TAGS": "Tags",
+    "DESCRIPTION": "Beschreibung",
+    "BOX_DESCRIPTION": "Beschreibung deiner Messstation",
+
+    "CHOOSE_YOUR_SENSORS": "Wähle deine Sensoren aus",
+    "WHAT_IS_YOUR_BOX_MEASURING": "Was misst deine Messstation?",
+    "SENSOR_NOT_AVAILABLE": "Dein Sensor oder Phänomen ist nicht verfügbar? Füge ihn im <a href='https://sensors.wiki'>Sensor-Wiki</a> hinzu um den Sensor auf der openSenseMap zu benutzen:",
+
+    "YOUR_SENSOR_SETUP": "Dein Sensor Setup:",
+
+    "ADVANCED_OPTIONS": "Erweiterte Optionen",
+    "ARE_YOU_USING_DIFFERENT_CONNECTION_TYPES": "Benutzt du spezielle Verbindungsmethoden?",
+    "DONT_DO_ANYTHING_HERE_IF_YOU_DONT_KNOW_WHAT_YOU_ARE_DOING": "Überspringe diesen Schritt falls du nicht weisst was du tust.",
+
+    "USE_TTN": "TTN benutzen",
+    "USE_MQTT": "MQTT benutzen",
+
+    "YOUR_MEASUREMENT_STATION_SUMMARY" : "Deine Messstation in der Übersicht",
+    "CHECK_IF_EVERYTHING_IS_CORRECT" : "Sind alle Angaben korrekt?",
+
+    "CREATE_BOX": "Station registrieren"
 
 }

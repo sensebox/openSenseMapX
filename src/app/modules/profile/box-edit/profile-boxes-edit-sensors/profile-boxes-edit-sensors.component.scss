@@ -1,0 +1,30 @@
+.card {
+  margin: 1em 0;
+}
+
+.osem-small-text {
+  font-size: 0.8em;
+}
+
+.button {
+  .text {
+    top: 2px;
+    position: relative;
+  }
+}
+
+.osem-danger-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 10, 0.86);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .osem-danger-overlay-content {
+    background: white;
+  }
+}

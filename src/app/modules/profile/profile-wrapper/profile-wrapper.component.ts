@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BoxService } from 'src/app/models/box/state/box.service';
 
 @Component({
   selector: 'osem-profile-wrapper',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileWrapperComponent implements OnInit {
 
-  constructor() { }
+  constructor(private boxService: BoxService) { }
 
   ngOnInit() {
+
+    this.boxService.getMyBoxes();
+
   }
 
 }

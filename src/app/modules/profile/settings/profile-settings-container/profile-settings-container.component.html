@@ -1,0 +1,5 @@
+<osem-profile-settings
+    [user]="user$ | async"
+    (profileSaved)="saveProfile($event)"
+    (accountDeleted)="deleteAccount($event)"
+></osem-profile-settings>

@@ -10,6 +10,7 @@ import { schema } from "normalizr";
 import { SensorStore } from "../../sensor/state/sensor.store";
 import { UiService } from "../../ui/state/ui.service";
 import { BoxQuery } from "./box.query";
+import { ToasterService } from "angular2-toaster";
 import {
   processBoxData,
   toGeoJson,
@@ -26,6 +27,7 @@ export class BoxService {
     private sensorStore: SensorStore,
     private boxQuery: BoxQuery,
     private uiService: UiService,
+    private toasterService: ToasterService,
     private http: HttpClient
   ) {}
 
@@ -84,7 +86,7 @@ export class BoxService {
           entities = entities.map((ent) => {
             let { boxId, sensorId, boxName, exposure, lat, lon, ...noEnt } =
               ent;
-            //TODO: find better place for vconverting to 2 decimal-diggits
+            //TODO: find better place for converting to 2 decimal-diggits
             Object.keys(noEnt).forEach((key) => {
               if (noEnt[key]) {
                 noEnt[key] = Math.round(noEnt[key] * 1e2) / 1e2;
@@ -151,6 +153,74 @@ export class BoxService {
         let ownNormalize = processBoxData(res.data.boxes);
         this.boxStore.upsertMany(ownNormalize[0]);
         this.sensorStore.upsertMany(ownNormalize[1]);
+      });
+  }
+
+  saveBox(box) {
+    let headers = new HttpHeaders();
+    headers = headers.append(
+      "Authorization",
+      "Bearer " + window.localStorage.getItem("sb_accesstoken")
+    );
+
+    this.http
+      .put(this.AUTH_API_URL + "/boxes/" + box._id, box, { headers: headers })
+      .subscribe((res: any) => {
+        let ownNormalize = processBoxData([res.data]);
+        this.boxStore.upsertMany(ownNormalize[0]);
+        this.sensorStore.upsertMany(ownNormalize[1]);
+        this.toasterService.pop("success", "", "Box updated");
+      });
+  }
+
+  generateNewToken(id) {
+    let headers = new HttpHeaders();
+    headers = headers.append(
+      "Authorization",
+      "Bearer " + window.localStorage.getItem("sb_accesstoken")
+    );
+
+    this.http
+      .put(
+        this.AUTH_API_URL + "/boxes/" + id,
+        { generate_access_token: true },
+        { headers: headers }
+      )
+      .subscribe((res: any) => {
+        let ownNormalize = processBoxData([res.data]);
+        this.boxStore.upsertMany(ownNormalize[0]);
+        this.sensorStore.upsertMany(ownNormalize[1]);
+      });
+  }
+
+  generateScript(data) {
+    let headers = new HttpHeaders();
+    headers = headers.append(
+      "Authorization",
+      "Bearer " + window.localStorage.getItem("sb_accesstoken")
+    );
+
+    this.http
+      .get(this.AUTH_API_URL + "/boxes/" + data.id + "/script", {
+        headers: headers,
+        params: data.data,
+        responseType: "text",
+      })
+      .subscribe((res: any) => {
+        this.boxStore.update(data.id, { script: res });
+      });
+  }
+
+  compileScript(data) {
+    this.http
+      .post("https://compiler.sensebox.de/compile", data)
+      .subscribe((res: any) => {
+        var url = encodeURI(
+          "https://compiler.sensebox.de/download?id=" +
+            res.data.id +
+            "&board=sensebox-mcu"
+        );
+        window.open(url, "_self");
       });
   }
 
@@ -230,5 +300,4 @@ export class BoxService {
   setFetchingData(fetchingData) {
     this.boxStore.setFetchingData(fetchingData);
   }
-
 }

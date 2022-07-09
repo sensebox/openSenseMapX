@@ -1,28 +1,140 @@
-<button [routerLink]="['../newbox']" queryParamsHandling="merge" class="button is-primary">{{'NEW' | translate}}</button>
 
-<button (click)="showMyBoxesOnMap()" class="button is-primary">{{'SHOW_MY_BOXES_ON_MAP' | translate}}</button>
-
-<ul>
-  <li *ngFor="let box of boxes" class="my-2">
-    <div class="card">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img *ngIf="!box.image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-              <img *ngIf="box.image" [src]="'https://opensensemap.org/userimages/' +box.image" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="title is-4">{{box.name}}</p>
-            <p class="subtitle is-6">{{box.createdAt | date:'short'}}</p>
-          </div>
-        </div>
-
-        <div class="content">
-          {{box.description}}
-        </div>
+<div class="py-2">
+  <div class="notification">
+    <p class="subtitle is-4">
+      {{'YOU_HAVE' | translate}} {{sorted_boxes.length}} {{'BOXES' | translate}}
+    </p>
+    <p>{{'REGISTERED_BOXES_INFO' | translate}}</p>
+    <div class="buttons py-3 are-normal">
+      <button [routerLink]="['../newbox']" queryParamsHandling="merge" class="button is-primary">{{'NEW' | translate}}</button>
+      <a href="https://sensebox.de/de/go-home" target="_blank" class="button">{{'DOCUMENTATION' | translate}}</a>
+      <a href="https://forum.sensebox.de" target="_blank" class="button">{{'FORUM' | translate}}</a>
+      <button (click)="showMyBoxesOnMap()" class="button">{{'SHOW_MY_BOXES_ON_MAP' | translate}}</button>
+    </div>
+  </div>
+  <div class="is-clearfix">
+    <div class="is-pulled-right">
+        <button 
+          class="button is-small" 
+          (click)="setListStyle('list')"
+          [class.is-active]="listStyle === 'list'">
+          <span class="icon is-small">
+            <i class="fa fa-bars"></i>
+          </span>
+        </button>
+        <button 
+          class="button is-small mr-2" 
+          (click)="setListStyle('boxes')"
+          [class.is-active]="listStyle === 'boxes'">
+          <span class="icon is-small">
+            <i class="fa fa-th-large"></i>
+          </span>
+        </button>
+      <div class="is-pulled-right">
+        <button class="button is-small" (click)="sort('desc')" [class.is-active]="sorting === 'desc'">
+          <span class="icon is-small">
+            <i class="fa fa-sort-numeric-up"></i>
+          </span>
+        </button>
+        <button class="button is-small" (click)="sort('asc')" [class.is-active]="sorting === 'asc'">
+          <span class="icon">
+            <i class="fa fa-sort-numeric-down"></i>
+          </span>
+        </button>
       </div>
     </div>
-  </li>
-</ul>
+  </div>
+  <ul>
+    <li 
+      *ngFor="let box of sorted_boxes" 
+      class="my-2 is-clearfix"
+      [class.osemBox]="listStyle === 'list'">
+      <div 
+        [class.card]="listStyle === 'boxes'"
+        class="osemCard"
+        [routerLink]="[box._id]"
+        queryParamsHandling="preserve">
+        <div class="card-content" [class.is-pulled-left]="listStyle === 'list'">
+          <div class="media">
+            <div class="media-left" *ngIf="listStyle === 'boxes'">
+              <figure class="image is-48x48">
+                <img *ngIf="!box.image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                <img *ngIf="box.image" [src]="'https://opensensemap.org/userimages/' +box.image" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4">{{box.name}}</p>
+              <p class="subtitle is-6">{{box.createdAt | date:'short'}}</p>
+            </div>
+          </div>
+  
+          <div class="content">
+            {{box.description}}
+          </div>
+        </div>
+        <footer 
+          [class.is-pulled-right]="listStyle === 'list'"
+          [class.card-footer]="listStyle === 'boxes'"
+          [title]="'SHOW_ON_MAP' | translate">
+          <a [class.card-footer-item]="listStyle === 'boxes'">
+            <span class="has-text-centered">
+              <span class="icon">
+                <i class="fa fa-map-marker-alt"></i>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'SHOW' | translate}}</span>
+              </ng-container>
+            </span>  
+          </a>
+          <a 
+          [routerLink]="[box._id]" 
+          queryParamsHandling="preserve" 
+          [class.card-footer-item]="listStyle === 'boxes'"
+          [title]="'EDIT' | translate">
+            <span class="has-text-centered">
+              <span class="icon">
+                <i class="fa fa-edit"></i>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'EDIT' | translate}}</span>
+              </ng-container>
+            </span>  
+  
+          </a>
+          <a 
+            href="#" 
+            [class.card-footer-item]="listStyle === 'boxes'"
+            [title]="'DATA_UPLOAD' | translate">
+            <span class="has-text-centered">
+              <span class="icon">
+                <i class="fa fa-table"></i>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'DATA_UPLOAD' | translate}}</span>
+              </ng-container>
+            </span>  
+            
+          </a>
+          <a 
+            href="#" 
+            [class.card-footer-item]="listStyle === 'boxes'"
+            [title]="'SUPPORT' | translate">
+            <span class="has-text-centered">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              <ng-container *ngIf="listStyle === 'boxes'">
+                <br>
+                <span>{{'SUPPORT' | translate}}</span>
+              </ng-container>
+            </span> 
+  
+            </a>
+        </footer>
+      </div>
+    </li>
+  </ul>
+</div>

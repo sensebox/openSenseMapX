@@ -12,20 +12,13 @@ export class ValidationService {
             'invalidPassword': 'Min. 6 Zeichen. Min 1 Zahl.',
             'minlength': `Mindestens ${validatorValue.requiredLength} Zeichen`,
             'maxlength': `Höchstens ${validatorValue.requiredLength} Zeichen`,
-            'invalidUsername': 'Nur Buchstaben, Zahlen und _ - . sind erlaubt.'
+            'invalidUsername': 'Nur Buchstaben, Zahlen und _ - . sind erlaubt.',
+            'email': 'Bitte gib eine gültige Email Adresse an.',
+            "MatchPassword": 'Die Passwörter stimmen nicht überein.'
         };
 
         return config[validatorName];
     }
-
-    // static creditCardValidator(control) {
-    //     // Visa, MasterCard, American Express, Diners Club, Discover, JCB
-    //     if (control.value.match(/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/)) {
-    //         return null;
-    //     } else {
-    //         return { 'invalidCreditCard': true };
-    //     }
-    // }
 
     static emailValidator(control) {
         // RFC 2822 compliant regex
@@ -63,6 +56,21 @@ export class ValidationService {
             }
         } catch(err) {
             control.get('confirmPassword').setErrors( {MatchPassword: true} )
+            return;
+        }
+    }
+
+    static MatchPasswordNew(control: AbstractControl) {
+        try {
+            let password = control.get('newPassword').value; // to get value in input tag
+            let confirmPassword = control.get('newPasswordConfirmed').value; // to get value in input tag
+            if(password != confirmPassword) {
+                control.get('newPasswordConfirmed').setErrors( {MatchPassword: true} )
+            } else {
+                return null
+            }
+        } catch(err) {
+            control.get('newPasswordConfirmed').setErrors( {MatchPassword: true} )
             return;
         }
     }

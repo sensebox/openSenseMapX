@@ -1,0 +1,34 @@
+<div class="tabs">
+    <ul>
+
+        <li            
+            [routerLink]="['general']"
+            queryParamsHandling="preserve"
+            routerLinkActive="is-active"
+        ><a>{{'GENERAL' | translate}}</a></li>
+        
+        <li [routerLink]="['sensors']"
+            queryParamsHandling="preserve"
+            routerLinkActive="is-active"
+            ><a>{{'SENSORS' | translate}}</a></li>
+        <li 
+            [routerLink]="['security']" 
+            queryParamsHandling="preserve"
+            routerLinkActive="is-active"
+            ><a>{{'SECURITY' | translate}}</a></li>
+        <li
+            [routerLink]="['advanced']"
+            queryParamsHandling="preserve"
+            routerLinkActive="is-active"
+        ><a>{{'ADVANCED' | translate}}</a></li>
+
+        <li *ngIf="(box$ | async)?.sensorWikiModel === 'sensebox_home'"
+            [routerLink]="['script']"
+            queryParamsHandling="preserve"
+            routerLinkActive="is-active"
+        ><a>{{'SCRIPT' | translate}}
+        </a></li>
+    </ul>
+</div>
+<router-outlet></router-outlet>
+

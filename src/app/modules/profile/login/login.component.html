@@ -1,37 +1,45 @@
-<div>
-    <h2 class="title">{{'LOGIN' | translate}}</h2>
+<h2 class="title">{{'LOGIN' | translate}}</h2>
 
-    <p>
-        {{'LOGIN WITH YOUR OPENSENSEMAP ACCOUNT, IF YOU DONT HAVE ONE YET REGISTER' | translate}}
-        <a [routerLink]="['/',{ outlets: { sidebar: ['register'] } }]" queryParamsHandling="merge">here</a>
-    </p>
-    
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <div class="field">
-            <p class="control has-icons-left has-icons-right">
-                <input formControlName="email" class="input" type="email" placeholder="Email">
-                <span class="icon is-small is-left">
-                    <i class="fa fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fa fa-check"></i>
-                </span>
-            </p>
-        </div>
-        <div class="field">
-            <p class="control has-icons-left">
-                <input formControlName="password" class="input" type="password" placeholder="Password">
-                <span class="icon is-small is-left">
-                    <i class="fa fa-lock"></i>
-                </span>
-            </p>
-        </div>
-        <div class="field">
-            <p class="control">
-                <button class="button is-success" type="submit">
-                    {{'LOGIN' | translate}}
-                </button>
-            </p>
-        </div>
-    </form>
-</div>
+<p class="py-2">
+    {{'LOGIN_WITH_YOUR_OPENSENSEMAP_ACCOUNT' | translate}}<br>
+    <a [routerLink]="['/',{ outlets: { sidebar: ['register'] } }]" queryParamsHandling="merge">{{'REGISTER_HERE' | translate}}</a>
+</p>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="email" class="input" type="email" placeholder="Email">
+            <span class="icon is-small is-left">
+                <i class="fa fa-envelope"></i>
+            </span>
+            <!-- <span class="icon is-small is-right">
+                <i class="fa fa-check"></i>
+            </span> -->
+        </p>
+        <osem-control-message [control]="loginForm.controls.email"></osem-control-message>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input formControlName="password" class="input" type="password" placeholder="{{'PASSWORD' | translate}}">
+            <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+            </span>
+        </p>
+        <osem-control-message [control]="loginForm.controls.password"></osem-control-message>
+        <a class="is-small is-pulled-right" 
+            [routerLink]="['/',{ outlets: { sidebar: ['resetpassword'] } }]"
+            queryParamsHandling="merge">
+            {{'FORGOT_PASSWORD' | translate}}
+        </a>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button 
+                [disabled]="!this.loginForm.valid"
+                class="button is-success" 
+                type="submit">
+                {{'LOGIN' | translate}}
+            </button>
+        </p>
+    </div>
+</form>

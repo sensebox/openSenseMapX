@@ -15,7 +15,6 @@ export class ProfileBoxesContainerComponent implements OnInit {
   constructor(private sessionQuery: SessionQuery, private sessionService: SessionService, private boxService: BoxService) { }
 
   ngOnInit() {
-    this.boxService.getMyBoxes();
   }
 
 }

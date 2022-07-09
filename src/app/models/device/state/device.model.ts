@@ -4,7 +4,7 @@ export interface Device {
     uri?: string;
     iri?: string;
     label: string;
-    image: string;
+    image?: string;
     sensors?: String[];
   }
   

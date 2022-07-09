@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AkitaNgFormsManager } from '@datorama/akita-ng-forms-manager';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
@@ -6,9 +6,10 @@ import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 export interface FormsState {
   general: {
     name: string;
-    desc: string;
+    description: string;
     exposure: string;
     tags: string[];
+    connection: string;
   };
 }
 
@@ -21,6 +22,9 @@ export interface FormsState {
 })
 export class ProfileBoxCreateGeneralComponent implements OnInit {
 
+
+  @Input() selectedDevice;
+
   generalForm;
 
   constructor(
@@ -28,12 +32,12 @@ export class ProfileBoxCreateGeneralComponent implements OnInit {
     private builder: FormBuilder) { }
 
   ngOnInit() {
-
     this.generalForm = this.builder.group({
       name: [null, Validators.required],
       exposure: ['outdoor', Validators.required],
-      desc: [null],
-      tags: [null]
+      description: [null],
+      tags: [null],
+      connection: [null]
     }); 
     this.formsManager.upsert('general', this.generalForm);
   }

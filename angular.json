@@ -37,7 +37,8 @@
               "node_modules/mapbox-gl/dist/mapbox-gl.css"
             ],
             "scripts": [
-              "node_modules/bulma-calendar/dist/js/bulma-calendar.min.js"
+              "node_modules/bulma-calendar/dist/js/bulma-calendar.min.js",
+              "node_modules/@creativebulma/bulma-collapsible/dist/js/bulma-collapsible.min.js"
             ]
           },
           "configurations": {

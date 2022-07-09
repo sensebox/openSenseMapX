@@ -22,6 +22,7 @@ export class NavContainerComponent implements OnInit {
   theme$ = this.uiQuery.selectTheme$;
   user$ = this.sessionQuery.user$;
   clustering$ = this.uiQuery.selectClustering$;
+  selectedPheno$ = this.uiQuery.selectSelectedPheno$;
 
   constructor(
     private themeService: ThemeService,

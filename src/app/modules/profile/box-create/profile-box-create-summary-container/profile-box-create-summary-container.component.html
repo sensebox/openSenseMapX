@@ -1,0 +1,10 @@
+<osem-profile-box-create-summary
+    [selectedDevice]="selectedDevice$ | async"
+    [generalForm]="generalForm"
+    [selectedSensorElements]="selectedSensorElements$ | async"
+    [ttnForm]="ttnForm"
+    [mqttForm]="mqttForm"
+    [phenomena]="selectPhenomenon$ | async"
+    [units]="units$ | async"
+    (boxCreated)="createBox($event)"
+></osem-profile-box-create-summary>
