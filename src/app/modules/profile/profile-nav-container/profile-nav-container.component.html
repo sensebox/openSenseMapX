@@ -15,23 +15,7 @@
   </p>
   <ng-container *ngIf="loggedIn$ | async">
     <ul class="menu-list">
-      <li>
-        <label class="switch">
-          <input [checked]="isPublic$ | async" (change)="checkboxChanged($event)" type="checkbox">
-          <span class="slider round"></span>
-        </label>
-      </li>
-    </ul>
-    <ul class="menu-list">
-      <li>
-        <a href="">
-          {{'PUBLIC_PROFILE' | translate}}
-        </a>
-      </li>
-    </ul>
-    <ul class="menu-list">
       <li><a [routerLink]="['settings']" queryParamsHandling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
-      dling="merge">{{'MY_ACCOUNT' | translate}}</a></li>
     </ul>
     <ul class="menu-list">
       <li><a (click)="logout()" queryParamsHandling="merge">{{'LOGOUT' | translate}}</a></li>

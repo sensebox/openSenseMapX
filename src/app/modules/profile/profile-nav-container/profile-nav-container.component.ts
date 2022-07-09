@@ -14,9 +14,8 @@ export class ProfileNavContainerComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private sessionService: SessionService,
-    private sessionQuery: SessionQuery,
+    private sessionQuery: SessionQuery
   ) {}
 
   ngOnInit() {}
@@ -27,11 +26,5 @@ export class ProfileNavContainerComponent implements OnInit {
 
   logout() {
     this.sessionService.logout();
-  }
-
-  checkboxChanged(event) {
-    console.log(event);
-    console.log(event.target.checked);
-    
   }
 }

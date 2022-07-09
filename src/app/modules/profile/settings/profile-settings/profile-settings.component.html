@@ -4,14 +4,11 @@
     <div class="box">
 
         <form [formGroup]="profileForm">
-    
-            <osem-form-input 
-                [typeString]="'text'"
-                [label]="'NAME' | translate"
-                [controlName]="'name'" 
+
+            <osem-form-input [typeString]="'text'" [label]="'NAME' | translate" [controlName]="'name'"
                 [control]="profileForm.controls.name">
             </osem-form-input>
-    
+
             <div class="field">
                 <label class="label">{{'EMAIL' | translate}}</label>
                 <p class="control has-icons-left">
@@ -25,44 +22,49 @@
                     <p class="notification is-warning is-light email-warning">
                         {{'EMAIL_NOT_CONFIRMED' | translate}}
                     </p>
-    
+
                 </div>
             </div>
-    
+
+            <div class="field" style="float: right; padding-right: 30px">
+                <label class="label">{{'PUBLIC_PROFILE' | translate}}</label>
+                <div class="field-body">
+                    <div class="control">
+                        <label class="switch">
+                            <input formControlName="isPublic" [checked]="_user.isPublic" (change)="checkboxChanged($event)" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="field">
                 <label class="label">{{'LANGUAGE' | translate}}</label>
                 <div class="field-body">
-                  <div class="control">
-                    <div class="select">
-                      <select [formControl]="profileForm.controls.language">
-                        <option value="en_US">{{'ENGLISH' | translate}}</option>
-                        <option value="de_DE">{{'GERMAN' | translate}}</option>
-                      </select>
+                    <div class="control">
+                        <div class="select">
+                            <select [formControl]="profileForm.controls.language">
+                                <option value="en_US">{{'ENGLISH' | translate}}</option>
+                                <option value="de_DE">{{'GERMAN' | translate}}</option>
+                            </select>
+                        </div>
                     </div>
-                  </div>
                 </div>
                 <osem-control-message [control]="profileForm.controls.language"></osem-control-message>
             </div>
-    
+
             <div class="field">
                 <label class="label">{{'PASSWORD' | translate}} ({{'PLEASE_PROVIDE_PASSWORD' | translate}})</label>
                 <div class="control">
-                    <input 
-                      [formControl]="profileForm.controls.currentPassword"
-                      type="password"
-                      class="input" 
-                      id="password"
-                      placeholder="{{'CURRENT_PASSWORD' | translate}}">
+                    <input [formControl]="profileForm.controls.currentPassword" type="password" class="input"
+                        id="password" placeholder="{{'CURRENT_PASSWORD' | translate}}">
                 </div>
             </div>
-        
+
         </form>
-    
+
         <div class="is-clearfix py-3">
-            <button
-                class="button is-primary is-pulled-right"
-                (click)="saveProfile()"
-                [disabled]="!profileForm.valid">
+            <button class="button is-primary is-pulled-right" (click)="saveProfile()" [disabled]="!profileForm.valid">
                 {{'SAVE' | translate}}
             </button>
         </div>
@@ -73,9 +75,8 @@
     <div class="box">
         <div class="field">
             <label class="label">{{'PASSWORD' | translate}}</label>
-            <a 
-                [routerLink]="['',{ outlets: { sidebar: ['m', 'profile', 'changepassword'] }}]"            queryParamsHandling="merge"
-                class="">
+            <a [routerLink]="['',{ outlets: { sidebar: ['m', 'profile', 'changepassword'] }}]"
+                queryParamsHandling="merge" class="">
                 {{'CHANGE_PASSWORD' | translate}}
             </a>
         </div>
@@ -85,24 +86,18 @@
     <div class="box">
         <div class="is-clearfix">
             <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()">
-    
+
                 <div class="field">
                     <label class="label">{{'DELETE_ACCOUNT' | translate}}</label>
                     <p class="notification is-warning is-light">{{'ACCOUNT_DELETE_INFO'|translate}}</p>
                     <p>{{'PROVIDE_CURRENT_PASSWORD'|translate}}</p>
                     <div class="control">
-                        <input 
-                          [formControl]="deleteForm.controls.password"
-                          type="password"
-                          class="input" 
-                          id="password"
-                          placeholder="{{'CURRENT_PASSWORD' | translate}}">
+                        <input [formControl]="deleteForm.controls.password" type="password" class="input" id="password"
+                            placeholder="{{'CURRENT_PASSWORD' | translate}}">
                     </div>
                 </div>
-        
-                <button
-                    class="button is-danger is-pulled-left"
-                    [disabled]="!deleteForm.valid"
+
+                <button class="button is-danger is-pulled-left" [disabled]="!deleteForm.valid"
                     (click)="deleteAccount()">
                     {{'DELETE_ACCOUNT' | translate}}
                 </button>

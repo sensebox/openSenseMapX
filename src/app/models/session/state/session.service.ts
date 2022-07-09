@@ -126,8 +126,6 @@ export class SessionService {
       .subscribe(
         (res: any) => {
           this.sessionStore.update((state) => {
-            console.log(res);
-            
             return { details: res.data };
           });
         },
