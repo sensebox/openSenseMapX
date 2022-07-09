@@ -31,5 +31,7 @@ export class ProfileNavContainerComponent implements OnInit {
 
   checkboxChanged(event) {
     console.log(event);
+    console.log(event.target.checked);
+    
   }
 }
