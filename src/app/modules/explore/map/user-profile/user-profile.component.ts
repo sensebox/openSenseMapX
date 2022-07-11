@@ -40,18 +40,11 @@ export class UserProfileComponent implements OnInit {
         .get(environment.api_url + "/users/info/" + params.username)
         .subscribe(
           (data: any) => {
-            console.log("User info: ", data);
+            console.log("User info and badges: ", data);
 
             this.username = data.user.name;
-            this.email = data.user.email;
-
-            this.http
-              .get(environment.api_url + "/badges/getBackpack/" + this.email)
-              .subscribe((data: any) => {
-                this.badges = data;
-                this.badgesLoaded = true;
-                console.log("Badges: ", data);
-              });
+            this.badges = data.badges;
+            this.badgesLoaded = true;
           },
           (err) => {
             console.log(err);
