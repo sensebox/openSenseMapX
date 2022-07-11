@@ -1,16 +1,25 @@
-<div [@slideInOutAnimation] class="profile bottom-bar-container">
+<div [@slideInOutAnimation] *ngIf="!(badgesLoaded && boxesLoaded) && !userIsPrivate" class="profile bottom-bar-container">
+    <div class="bottom-bar-container">
+        <div *ngIf="!(badgesLoaded && boxesLoaded) && !userIsPrivate" class="has-text-centered">
+            <span class="loader"></span>
+        </div>
+    </div>
+</div>
+
+<div [@slideInOutAnimation] *ngIf="badgesLoaded && boxesLoaded" class="profile bottom-bar-container">
     <div class="bottom-bar-container">
         <div class="box-header">
             <div class="name">
                 <p class="title is-4 has-text-white">{{username}}</p>
-                <p class="subtitle is-6 has-text-white">{{email}}</p>
             </div>
             <div class="osem-close-text" (click)="closeBox()">
                 <button class="delete is-medium"></button>
             </div>
         </div>
-        <div *ngIf="!(badgesLoaded && boxesLoaded)" class="has-text-centered">
-            <span class="loader"></span>
+        <div *ngIf="userIsPrivate">
+            <div class="box has-text-centered">
+                This profile is not public.
+            </div>
         </div>
         <div *ngIf="badgesLoaded && boxesLoaded" class="data">
             <div *ngIf="badges.length > 0" class="wrapper">

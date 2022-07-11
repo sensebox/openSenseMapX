@@ -20,6 +20,7 @@ export class UserProfileComponent implements OnInit {
   boxesLoaded = false;
   badges: any[] = [];
   badgesLoaded = false;
+  userIsPrivate;
 
   constructor(
     private http: HttpClient,
@@ -37,20 +38,28 @@ export class UserProfileComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.http
         .get(environment.api_url + "/users/info/" + params.username)
-        .subscribe((data: any) => {
-          console.log("User info: ", data);
+        .subscribe(
+          (data: any) => {
+            console.log("User info: ", data);
 
-          this.username = data.user.name;
-          this.email = data.user.email;
+            this.username = data.user.name;
+            this.email = data.user.email;
 
-          this.http
-            .get(environment.api_url + "/badges/getBackpack/" + this.email)
-            .subscribe((data: any) => {
-              this.badges = data;
-              this.badgesLoaded = true;
-              console.log("Badges: ", data);
-            });
-        });
+            this.http
+              .get(environment.api_url + "/badges/getBackpack/" + this.email)
+              .subscribe((data: any) => {
+                this.badges = data;
+                this.badgesLoaded = true;
+                console.log("Badges: ", data);
+              });
+          },
+          (err) => {
+            console.log(err);
+            if (err.status === 403) {
+              this.userIsPrivate = true;
+            }
+          }
+        );
 
       this.http
         .get(environment.api_url + "/boxes/user/" + params.username)
