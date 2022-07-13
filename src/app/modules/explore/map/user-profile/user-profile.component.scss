@@ -1,3 +1,5 @@
+@import "../../../../../styles/variables.scss";
+
 .card-content {
   background-color: white;
 }
@@ -19,13 +21,36 @@
     // @media screen and(max-width: $secondBreak){
     //   padding-left: 0.3em;
     // }
+
+    .name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.3em;
+      padding: 0.5em 1.3em 0.5em 1em;
+      cursor: default;
+      clip-path: polygon(0 0, 100% 0%, 92% 100%, 0 100%);
+      // background: var(--background-primary);
+      background: rgba(255, 255, 255, 0.87);
+      width: 40%;
+      color: var(--color-primary);
+
+      @media screen and (max-width: $secondBreak) {
+        width: auto;
+        font-size: 1.1em;
+        padding: 0.5em 1em 0.5em 0.3em;
+      }
+    }
   }
 }
 
 .card {
   max-width: 300px;
   cursor: pointer;
-  transition: all .3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
+  border: 3px solid var(--color-primary);
+  &.notearned {
+    border: 3px solid #eee;
+  }
 }
 
 .card:hover {
@@ -52,6 +77,10 @@
 .data {
   overflow: scroll;
   max-height: 40vh;
+}
+
+.notearned {
+  opacity: 0.5;
 }
 
 // LOADER

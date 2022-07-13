@@ -4,6 +4,7 @@ import { environment } from "src/environments/environment";
 
 import { SessionQuery } from "../models/session/state/session.query";
 import { NotificationService } from "src/app/models/notification/notification.service";
+import { ToasterService } from "angular2-toaster";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,8 @@ export class WebsocketService {
 
   constructor(
     private sessionQuery: SessionQuery,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private toasterService: ToasterService
   ) {
     this.sessionQuery.user$.subscribe((user) => {
       if (user) {
@@ -30,6 +32,7 @@ export class WebsocketService {
 
         this.socket.on("notification:create", (notification) => {
           this.notificationService.add(notification);
+          this.toasterService.pop("success", "", "New Notification");
         });
       }
     });

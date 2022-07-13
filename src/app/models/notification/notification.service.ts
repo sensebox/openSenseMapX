@@ -4,11 +4,10 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { SessionQuery } from "../session/state/session.query";
 import { environment } from "src/environments/environment";
-import { ToasterService } from "angular2-toaster";
 
 @Injectable({ providedIn: "root" })
 export class NotificationService {
-  constructor(private sessionQuery: SessionQuery, private http: HttpClient, private toasterService: ToasterService) {
+  constructor(private sessionQuery: SessionQuery, private http: HttpClient) {
     if(this.sessionQuery.isLoggedIn()) {
       this.fetch();
     }
@@ -20,7 +19,6 @@ export class NotificationService {
 
   add(notification: Notification) {
     this.notifications.next(this.notifications.getValue().concat(notification));
-    this.toasterService.pop("success", "", "New Notification");
   }
 
   remove(notification: Notification) {

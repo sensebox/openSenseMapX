@@ -1,11 +1,12 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { slideInOutAnimation } from "src/app/helper/animations";
 import { environment } from "src/environments/environment";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UiStore } from "src/app/models/ui/state/ui.store";
 import { MapService } from "../../services/map.service";
 import { BoxService } from "src/app/models/box/state/box.service";
+import { UiService } from "src/app/models/ui/state/ui.service";
 
 @Component({
   selector: "osem-user-profile",
@@ -18,15 +19,17 @@ export class UserProfileComponent implements OnInit {
   email: string;
   boxes: any[] = [];
   boxesLoaded = false;
-  badges: any[] = [];
-  badgesLoaded = false;
+  allBadges: any[] = [];
+  allBadgesLoaded = false;
+  userBadges: any[] = [];
+  userBadgesLoaded = false;
   userIsPrivate;
 
   constructor(
     private http: HttpClient,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private uiStore: UiStore,
+    private uiService: UiService,
     private mapService: MapService,
     private boxService: BoxService
   ) {
@@ -34,20 +37,17 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uiStore.update((state) => ({ ...state, fitlerVisible: false }));
+    this.uiService.setFilterVisible(false);
     this.activatedRoute.params.subscribe((params) => {
       this.http
         .get(environment.api_url + "/users/info/" + params.username)
         .subscribe(
           (data: any) => {
-            console.log("User info and badges: ", data);
-
             this.username = data.user.name;
-            this.badges = data.badges;
-            this.badgesLoaded = true;
+            this.userBadges = data.badges;
+            this.userBadgesLoaded = true;
           },
           (err) => {
-            console.log(err);
             if (err.status === 403) {
               this.userIsPrivate = true;
             }
@@ -57,10 +57,22 @@ export class UserProfileComponent implements OnInit {
       this.http
         .get(environment.api_url + "/boxes/user/" + params.username)
         .subscribe((data: any) => {
-          console.log("Boxes: ", data);
           this.boxes = data;
           this.boxesLoaded = true;
         });
+    });
+
+    this.http.get(environment.api_url + "/badges").subscribe((data: any) => {
+      // remove all badges that are already earned by the user
+      for (let badge of data) {
+        for (let userBadge of this.userBadges) {
+          if (userBadge.badgeclass == badge.entityId) {
+            data.splice(data.indexOf(badge), 1);
+          }
+        }
+      }
+      this.allBadges = data;
+      this.allBadgesLoaded = true;
     });
   }
 
