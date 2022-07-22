@@ -21,6 +21,8 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
   addSensorBoolean = false;
   groupedSensors = {};
 
+  openDeleteModal;
+
   sensorForm = this.builder.group({
     phenomenon: ['', [Validators.required]],
     sensorWikiSensorType: ['']
@@ -40,7 +42,7 @@ export class ProfileBoxesEditSensorsComponent implements OnInit {
     let groupedSensors = {};
 
     for(let sensor of sensors) {
-      for(let sensorElement of sensor.sensorElement){
+      for(let sensorElement of sensor.elements){
         if(groupedSensors[sensorElement.phenomenon]){
           groupedSensors[sensorElement.phenomenon].push({...sensorElement, sensor: sensor})
         } else {

@@ -2,7 +2,7 @@ import { DeviceService } from 'src/app/models/device/state/device.service';
 import { CreateboxService } from 'src/app/models/createbox/state/createbox.service';
 import { Component, OnInit } from '@angular/core';
 import { CreateboxQuery } from 'src/app/models/createbox/state/createbox.query';
-import { map, flatMap } from 'rxjs/operators';
+import { map, flatMap, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DeviceQuery } from 'src/app/models/device/state/device.query';
 import { PhenomenonQuery } from 'src/app/models/phenomenon/state/phenomenon.query';
@@ -33,12 +33,14 @@ export class ProfileBoxCreateSensorsContainerComponent implements OnInit {
     private deviceService: DeviceService) { }
 
   ngOnInit() {
-    this.deviceSub = this.selectedDevice$.pipe(flatMap(res => {
+    this.deviceSub = this.selectedDevice$.pipe(mergeMap(res => {
       if(res){
+        console.log(res);
+        
         if(res.label === "custom") {
           this.sensors$ = this.deviceService.getAllSensors();
         } else {
-          this.sensors$ = this.deviceService.getSensors(res.iri);
+          this.sensors$ = this.deviceService.getSensors(res.id);
         }
       } else {
         return of({})
@@ -55,6 +57,7 @@ export class ProfileBoxCreateSensorsContainerComponent implements OnInit {
   selectSensors(sensor){
     this.createboxService.selectSensor(sensor);
   }
+
   selectSensorElement(sensorElement){
     console.log("SELEEEECT SENSOR ELE", sensorElement)
     this.createboxService.selectSensorElement(sensorElement);

@@ -250,6 +250,8 @@
     "YOUR_MEASUREMENT_STATION_SUMMARY" : "Deine Messstation in der Übersicht",
     "CHECK_IF_EVERYTHING_IS_CORRECT" : "Sind alle Angaben korrekt?",
 
-    "CREATE_BOX": "Station registrieren"
+    "CREATE_BOX": "Station registrieren",
+
+    "CUSTOM_DEVICE": "Eigenes Gerät"
 
 }

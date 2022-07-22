@@ -9,7 +9,7 @@ const initialState = {
 };
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'Phenomenon' , idKey: 'iri'})
+@StoreConfig({ name: 'Phenomenon' , idKey: 'id'})
 export class PhenomenonStore extends EntityStore<PhenomenonState> {
 
   constructor() {

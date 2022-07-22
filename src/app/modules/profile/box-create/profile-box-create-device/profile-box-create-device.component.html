@@ -13,7 +13,7 @@
       [class.selected]="selectedDevice?.label === device.label">  
       <div class="card-image">
         <figure class="image is-4by3">
-          <img src="https://api.sensors.wiki/images/upload/{{device.image}}" alt="Placeholder image">
+          <img *ngIf="device.image" src="http://localhost:3001/image/{{device.image}}" alt="Placeholder image">
         </figure>
       </div>
       <div class="card-content">

@@ -30,10 +30,10 @@ export class ProfileBoxCreateSummaryComponent implements OnInit {
     let sensors = this.selectedSensorElements.map(sensor => {
       return { 
         sensorWikiType: sensor.sensor.sensor.value, 
-        sensorWikiUnit: sensor.sensorElement.unit, 
-        sensorWikiPhenomenon: sensor.sensorElement.phenomenon,
-        unit: sensor.sensorElement.unit,
-        title: this.phenomena[sensor.sensorElement.phenomenon].label[0].value,
+        sensorWikiUnit: sensor.elements.unit, 
+        sensorWikiPhenomenon: sensor.elements.phenomenon,
+        unit: sensor.elements.unit,
+        title: this.phenomena[sensor.elements.phenomenon].label[0].value,
         sensorType: sensor.sensor.sensor.value
       }
     })
