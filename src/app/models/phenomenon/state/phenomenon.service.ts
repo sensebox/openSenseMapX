@@ -25,7 +25,7 @@ export class PhenomenonService {
         tap((entities) => {
           console.log(entities);
           entities = entities.map((ent: any) => {
-            return { ...ent, description: ent.description.item[0].text, label: ent.label.item[0].text };
+            return { ...ent, label: ent.label.item[0].text, rov: ent.rov ? ent.rov : [] };
           });
           this.phenomenonStore.set(entities);
         })

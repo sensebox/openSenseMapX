@@ -50,6 +50,7 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
   }
 
   addSensorElement(e, sensorElement) {
+    console.log("ADDD", sensorElement)
     // this.selectSensor(sensorElement.sensorElement);
     // e.stopPropagation();
     this.sensorElementSelected.emit(sensorElement);
@@ -58,8 +59,8 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
   checkForElement(sensor, element) {
     let res = this.selectedSensorElements.filter((ele) => {
       if (
-        ele.sensor.sensor.value === sensor.sensor.value &&
-        element.phenomena === ele.sensorElement.phenomenonId
+        ele.sensor.id === sensor.id &&
+        element.phenomenonId === ele.sensorElement.phenomenonId
       ) {
         return true;
       }
@@ -75,8 +76,8 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
     let value = event.target.value;
     let newElements = this.selectedSensorElements.map((ele) => {
       if (
-        ele.sensor.sensor.value === sensor.sensor.value &&
-        element.phenomena === ele.sensorElement.phenomenonId
+        ele.sensor.id === sensor.id &&
+        element.phenomenonId === ele.sensorElement.phenomenonId
       ) {
         return { ...ele, sensorElement: { ...ele.sensorElement, unit: value } };
       } else {
@@ -93,8 +94,6 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
     for (let sensor of sensors) {
       if (sensor.elements) {
         for (let sensorElement of sensor.elements) {
-          console.log(sensorElement);
-          console.log(this.phenomena)
           if (groupedSensors[sensorElement.phenomenonId]) {
             groupedSensors[sensorElement.phenomenonId].push({
               ...sensorElement,
@@ -108,6 +107,7 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
         }
       }
     }
+    console.log(groupedSensors)
     return groupedSensors;
   }
 

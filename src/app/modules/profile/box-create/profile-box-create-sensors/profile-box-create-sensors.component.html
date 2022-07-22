@@ -102,7 +102,6 @@
           <input class="is-checkradio is-medium is-primary"
             [checked]="header.classList && header.classList.contains('visible')" type="checkbox">
           <label>
-            {{pheno.key}}
             <span>
               {{phenomena[pheno.key].label}}
             </span>
@@ -126,38 +125,38 @@
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-5" *ngIf="element.label">
-                  {{element.label}}
+                <p class="title is-5" *ngIf="element.sensor.label">
+                  {{element.sensor.slug}}
                   <br>
                   <span class="subtitle is-7">
                     <span class="icon-text">
-                      <!-- <a (click)="$event.stopPropagation()" target="_blank" href="{{element.sensor.sensor.value}}">{{'LEARN_MORE' | translate}}</a>  -->
+                      <a (click)="$event.stopPropagation()" target="_blank" href="{{element.sensor.id}}">{{'LEARN_MORE' | translate}}</a> 
                       <span class="icon is-small">
                         <i class="fa fa-external-link-alt"></i>
                       </span>
                     </span>
                   </span>
                 </p>
-                <!-- <div class="field" *ngIf="phenomena[element.phenomenon].rovs.length > 1 && checkForElement(element.sensor, element)">
+                <div class="field" *ngIf="phenomena[element.phenomenonId] && phenomena[element.phenomenonId].rovs && phenomena[element.phenomenonId].rovs.length > 1 && checkForElement(element.sensor, element)">
                   <label class="label">{{'UNIT' | translate}}</label>
                   <div class="select">
                     <select (click)="select($event, element.sensor, element)">
-                      <option *ngFor="let rov of phenomena[element.phenomenon].rovs" [value]="rov.unit">
+                      <option *ngFor="let rov of phenomena[element.phenomenonId].rovs" [value]="rov.unit">
                         {{units[rov.unit].label}}
                       </option>
                     </select>
                   </div>
                 </div>
-                <div class="field" *ngIf="phenomena[element.phenomenon].rovs.length === 1 && checkForElement(element.sensor, element)">
+                <div class="field" *ngIf="phenomena[element.phenomenonId] && phenomena[element.phenomenonId].rovs && phenomena[element.phenomenonId].rovs.length === 1 && checkForElement(element.sensor, element)">
                   <label class="label">{{'UNIT' | translate}}</label>
                   <div class="select">
                     <select (click)="select($event, element.sensor, element)">
-                      <option *ngFor="let rov of phenomena[element.phenomenon].rovs" [value]="rov.unit">
+                      <option *ngFor="let rov of phenomena[element.phenomenonId].rovs" [value]="rov.unit">
                         {{units[rov.unit].label}}
                       </option>
                     </select>
                   </div>
-                </div> -->
+                </div>
               </div>
             </div>
           </div>
@@ -191,12 +190,12 @@
           </thead>
           <tbody>
             <tr *ngFor="let sensorElement of selectedSensorElements">
-              <td>{{(sensorElement.sensor && sensorElement.sensor.label) ? sensorElement.sensor.label[0].value:
+              <td>{{(sensorElement.sensor && sensorElement.sensor.label) ? sensorElement.sensor.label:
                 'noLabel'}}</td>
-              <td *ngIf="phenomena[sensorElement.sensorElement.phenomenon]">
-                {{phenomena[sensorElement.sensorElement.phenomenon].label[0].value}}</td>
-              <td *ngIf="sensorElement.sensorElement.unit != 'http://server/unset-base/undefined'">
-                {{units[sensorElement.sensorElement.unit].label}}</td>
+              <td *ngIf="phenomena[sensorElement.sensorElement.id]">
+                {{phenomena[sensorElement.sensorElement.id].label}}</td>
+              <td *ngIf="sensorElement.sensorElement.unitId != 'http://server/unset-base/undefined'">
+                {{units[sensorElement.sensorElement.unitId].label}}</td>
             </tr>
           </tbody>
         </table>

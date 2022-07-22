@@ -61,6 +61,10 @@ label span {
 .message-header {
     background: white;
     color: var(--text-color-primary);
+
+    &:hover {
+        background: #eee;
+    }
 }
 
 
