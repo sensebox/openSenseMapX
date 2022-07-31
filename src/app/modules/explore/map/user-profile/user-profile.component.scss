@@ -1,9 +1,54 @@
 @import "../../../../../styles/variables.scss";
 
+.card {
+  max-width: 300px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 3px solid var(--color-primary);
+  &.notearned {
+    border: 3px solid #eee;
+  }
+}
+
+.card:hover {
+  transform: scale(1.06);
+  z-index: 999;
+}
+
+.bottom-bar-container {
+  padding-bottom: 10px;
+}
+
+.name {
+  padding: 1px;
+}
+
+.helper {
+  margin-bottom: 0.2rem;
+}
+
+.is-flex {
+  gap: 10px;
+}
+
+.data {
+  overflow: scroll;
+  max-height: 40vh;
+}
+
+.notearned {
+  opacity: 0.5;
+}
+
+.notearned img {
+  filter: grayscale(100%);
+}
+
 .card-content {
   background-color: white;
 }
 
+// TOP BAR
 .bottom-bar-container {
   background: var(--background-primary);
 
@@ -41,46 +86,6 @@
       }
     }
   }
-}
-
-.card {
-  max-width: 300px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  border: 3px solid var(--color-primary);
-  &.notearned {
-    border: 3px solid #eee;
-  }
-}
-
-.card:hover {
-  transform: scale(1.1);
-  z-index: 999;
-}
-
-.is-flex {
-  gap: 10px;
-}
-
-.name {
-  padding: 10px;
-}
-
-.wrapper {
-  padding-bottom: 20px;
-}
-
-.helper {
-  margin-bottom: 0.2rem;
-}
-
-.data {
-  overflow: scroll;
-  max-height: 40vh;
-}
-
-.notearned {
-  opacity: 0.5;
 }
 
 // LOADER

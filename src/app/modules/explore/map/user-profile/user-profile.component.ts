@@ -23,7 +23,6 @@ export class UserProfileComponent implements OnInit {
   allBadgesLoaded = false;
   userBadges: any[] = [];
   userBadgesLoaded = false;
-  userIsPrivate;
 
   constructor(
     private http: HttpClient,
@@ -43,21 +42,32 @@ export class UserProfileComponent implements OnInit {
         .get(environment.api_url + "/users/info/" + params.username)
         .subscribe(
           (data: any) => {
+            if (data.user === null) {
+              this.router.navigate([""], {
+                relativeTo: this.activatedRoute,
+                queryParamsHandling: "merge",
+              });
+            }
             this.username = data.user.name;
             this.userBadges = data.badges;
             this.userBadgesLoaded = true;
           },
           (err) => {
-            if (err.status === 403) {
-              this.userIsPrivate = true;
-            }
+            this.router.navigate([""], {
+              relativeTo: this.activatedRoute,
+              queryParamsHandling: "merge",
+            });
           }
         );
 
       this.http
         .get(environment.api_url + "/boxes/user/" + params.username)
         .subscribe((data: any) => {
-          this.boxes = data;
+          // delete all null values from boxes array
+          var boxes = data.filter((box) => {
+            return box !== null;
+          });
+          this.boxes = boxes;
           this.boxesLoaded = true;
         });
     });

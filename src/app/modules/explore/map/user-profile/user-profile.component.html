@@ -1,7 +1,7 @@
-<div [@slideInOutAnimation] *ngIf="!(userBadgesLoaded && boxesLoaded && allBadgesLoaded) && !userIsPrivate"
+<div [@slideInOutAnimation] *ngIf="!(userBadgesLoaded && boxesLoaded && allBadgesLoaded)"
     class="profile bottom-bar-container">
     <div class="bottom-bar-container">
-        <div *ngIf="!(userBadgesLoaded && boxesLoaded && allBadgesLoaded) && !userIsPrivate" class="has-text-centered">
+        <div *ngIf="!(userBadgesLoaded && boxesLoaded && allBadgesLoaded)" class="has-text-centered">
             <span class="loader"></span>
         </div>
     </div>
@@ -18,13 +18,8 @@
                 <button class="delete is-medium"></button>
             </div>
         </div>
-        <div *ngIf="userIsPrivate">
-            <div class="box has-text-centered">
-                This profile is not public.
-            </div>
-        </div>
-        <div *ngIf="userBadgesLoaded && boxesLoaded && allBadgesLoaded" class="data">
-            <div *ngIf="userBadges.length > 0" class="wrapper">
+        <div *ngIf="userBadgesLoaded && boxesLoaded && allBadgesLoaded" class="data columns">
+            <div class="column">
                 <div class="title is-4 has-text-centered helper">Badges</div>
                 <div class="is-flex is-justify-content-center is-flex-wrap-wrap">
                     <div *ngFor="let badge of userBadges" class="card is-shadowless"
@@ -60,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="boxes.length > 0" class="wrapper">
+            <div *ngIf="boxes.length > 0" class="column">
                 <div class="title is-4 has-text-centered helper">Boxes</div>
                 <div class="is-flex is-justify-content-center is-flex-wrap-wrap">
                     <div *ngFor="let box of boxes" class="card is-shadowless" (click)="goToBox(box)">

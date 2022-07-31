@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProfileBoxesEditSensorsComponent implements OnInit {
 
+  openDeleteModal;
+
   @Input() box;
   @Input() set sensors(sensors){
     if(sensors){
