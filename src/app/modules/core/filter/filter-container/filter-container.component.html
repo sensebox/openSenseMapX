@@ -7,17 +7,17 @@
             (unfocused)="leave()"
             (focused)="enter()"
             [resultsActive]="resultsActive"
-            [autoCompleteResults]="autoCompleteResults$ | async"
+            [searchResults]="searchResults$ | async"
             [locationAutocompleteResults]="locationAutocompleteResults$ | async"
         ></osem-search>
-        <osem-datepicker 
+        <osem-datepicker
             [dateRange]="selectedDateRange$ | async"
             [dateStamp]="selectedDateStamp$ | async"
             [activeTimeMode]="selectActiveTimeMode$ | async"
             [showDateModal]="showDateModal$ | async"
             (dateChanged)="changeDateRange($event)"
             (toggledDateModal)="toggleDateModal($event)"></osem-datepicker>
-        
+
         <osem-filter-switcher
             [activeTab]="activeTab$ | async"
             [selectedPheno]="selectedPheno$ | async"
@@ -35,9 +35,9 @@
 
         ></osem-filter-switcher>
     </div>
-    
-    <div 
-        id="filter-minimizer" 
+
+    <div
+        id="filter-minimizer"
         class="osem-box-shadow-basic"
         [class.minimized]="!(filterVisible$ | async)"
         (click)="toggleMinimizeFilter()">
