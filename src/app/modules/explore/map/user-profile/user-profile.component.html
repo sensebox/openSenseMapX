@@ -18,70 +18,65 @@
                 <button class="delete is-medium"></button>
             </div>
         </div>
-        <div *ngIf="userBadgesLoaded && boxesLoaded && allBadgesLoaded" class="data columns">
-            <div class="column">
-                <div class="title is-4 has-text-centered helper">Badges</div>
-                <div class="is-flex is-justify-content-center is-flex-wrap-wrap">
-                    <div *ngFor="let badge of userBadges" class="card is-shadowless"
-                        (click)="goToLink(badge.badgeclassOpenBadgeId)">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <figure class="image is-48x48">
-                                        <img src={{badge.image}}>
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-6">{{badge.name}}</p>
-                                    <p class="subtitle is-7">{{badge.issuedOn | date:'short'}}</p>
+        <div class="background">
+            <div *ngIf="userBadgesLoaded && boxesLoaded && allBadgesLoaded" class="columns is-vcentered data">
+                <div *ngIf="boxes.length > 0" class="column is-2 ml-4">
+                    <div class="card is-shadowless has-text-right box">
+                        <div class="dropdown is-hoverable">
+                            <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-caret-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a *ngFor="let box of boxes; let i = index" class="dropdown-item" (click)="selectBox(i)">
+                                        {{box.name}}
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div *ngFor="let badge of allBadges" class="card notearned is-shadowless">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <figure class="image is-48x48">
-                                        <img src={{badge.image}}>
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-6">{{badge.name}}</p>
-                                    <p class="subtitle is-7">{{badge.description}}</p>
-                                </div>
-                            </div>
+                        <div class="has-text-centered">
+                            <figure class="image is-96x96 is-inline-block" (click)="goToBox(boxes[boxIndex])">
+                                <img *ngIf="boxes[boxIndex].image"
+                                    [src]="'https://opensensemap.org/userimages/' + boxes[boxIndex].image">
+                                <img *ngIf="!(boxes[boxIndex].image)" src="assets/icons/motherboard.png">
+                            </figure>
+                            <p class="boxtitle title is-6">{{boxes[boxIndex].name}} </p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div *ngIf="boxes.length > 0" class="column">
-                <div class="title is-4 has-text-centered helper">Boxes</div>
-                <div class="is-flex is-justify-content-center is-flex-wrap-wrap">
-                    <div *ngFor="let box of boxes" class="card is-shadowless" (click)="goToBox(box)">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <figure class="image is-48x48">
-                                        <img *ngIf="box.image"
-                                            [src]="'https://opensensemap.org/userimages/' + box.image"
-                                            alt="Placeholder image">
-                                        <img *ngIf="!(box.image)" src="https://bulma.io/images/placeholders/96x96.png"
-                                            alt="Placeholder image">
-                                    </figure>
+                <div class="column">
+                    <section class="section">
+                        <div class="container">
+                            <div class="columns is-centered is-vcentered is-gapless">
+                                <div *ngFor="let badge of userBadges" class="column">
+                                    <div class="card is-shadowless" (click)="goToLink(badge.badgeclassOpenBadgeId)">
+                                        <div class="is-vcentered has-text-centered">
+                                            <figure class="image is-48x48 is-inline-block">
+                                                <img src={{badge.image}}>
+                                            </figure>
+                                            <p class="title is-6">{{badge.name}}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="media-content">
-                                    <p class="title is-6">{{box.name}}</p>
-                                    <p class="subtitle is-7">{{box.description}}</p>
-                                    <!-- <p class="subtitle is-7">{{box.createdAt | date:'short'}}</p> -->
+                                <div *ngFor="let badge of allBadges" class="column">
+                                    <div class="card notearned is-shadowless">
+                                        <div class="is-vcentered has-text-centered has-text-centered">
+                                            <figure class="image is-48x48 is-inline-block">
+                                                <img src={{badge.image}}>
+                                            </figure>
+                                            <p class="title is-6">{{badge.name}}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
             </div>
-        </div>
-        <div>
         </div>
     </div>
 </div>

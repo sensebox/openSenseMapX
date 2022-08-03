@@ -1,13 +1,10 @@
 @import "../../../../../styles/variables.scss";
 
 .card {
-  max-width: 300px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  border: 3px solid var(--color-primary);
-  &.notearned {
-    border: 3px solid #eee;
-  }
+  border: 0px;
+  background-color: transparent;
 }
 
 .card:hover {
@@ -23,19 +20,6 @@
   padding: 1px;
 }
 
-.helper {
-  margin-bottom: 0.2rem;
-}
-
-.is-flex {
-  gap: 10px;
-}
-
-.data {
-  overflow: scroll;
-  max-height: 40vh;
-}
-
 .notearned {
   opacity: 0.5;
 }
@@ -46,6 +30,40 @@
 
 .card-content {
   background-color: white;
+}
+
+.box {
+  border: 3px solid var(--color-primary);
+  background-color: white;
+}
+
+.box p {
+  color: var(--color-primary);
+}
+
+.box .button {
+  outline: 0px;
+  border: 0px;
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.dropdown {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.dropdown .button {
+  background-color: transparent;
+}
+
+.background {
+  background-color: var(--background-secondary);
+}
+
+.data {
+  background: rgba(255, 255, 255, 0.87);
 }
 
 // TOP BAR

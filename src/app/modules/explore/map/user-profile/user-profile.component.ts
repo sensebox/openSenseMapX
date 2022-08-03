@@ -23,6 +23,7 @@ export class UserProfileComponent implements OnInit {
   allBadgesLoaded = false;
   userBadges: any[] = [];
   userBadgesLoaded = false;
+  boxIndex = 0;
 
   constructor(
     private http: HttpClient,
@@ -103,5 +104,9 @@ export class UserProfileComponent implements OnInit {
     this.mapService.map.once("moveend", () => {
       this.boxService.setPopupBox(box);
     });
+  }
+
+  selectBox(index) {
+    this.boxIndex = index;
   }
 }
