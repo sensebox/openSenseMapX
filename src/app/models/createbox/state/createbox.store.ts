@@ -47,7 +47,7 @@ export class CreateboxStore extends Store<CreateboxState> {
   toggleSensorElement(sensorElement){
     
     this.update( state => {
-      let index = state.selectedSensorElements.findIndex(item => item.sensorElement.phenomenon === sensorElement.sensorElement.phenomenon && item.sensor.sensor.value === sensorElement.sensor.sensor.value);
+      let index = state.selectedSensorElements.findIndex(item => item.sensorElement.id === sensorElement.sensorElement.id && item.sensor.id === sensorElement.sensor.id);
       if(index === -1){
         return { ...state, selectedSensorElements: [...state.selectedSensorElements, sensorElement ]}
       } else {
@@ -68,7 +68,7 @@ export class CreateboxStore extends Store<CreateboxState> {
       return {
         ...state,
         selectedSensorElements: state.selectedSensorElements.filter(item => {
-          if(item.sensorElement.phenomenon === phenoKey){
+          if(item.sensorElement.id === phenoKey){
             return false;
           } else {
             return true;

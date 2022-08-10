@@ -1,8 +1,7 @@
 import { ID } from '@datorama/akita';
 
 export interface Phenomenon {
-  // id: ID;
-  iri: ID;
+  id: ID;
   desc: string;
   label: string;
   rov: ROV[];

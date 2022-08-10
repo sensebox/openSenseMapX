@@ -253,7 +253,8 @@
     "YOUR_MEASUREMENT_STATION_SUMMARY" : "Your measurement station summary",
     "CHECK_IF_EVERYTHING_IS_CORRECT" : "Are all the informations correct?",
 
-    "CREATE_BOX": "Register Station"
+    "CREATE_BOX": "Register Station",
 
+    "CUSTOM_DEVICE": "Custom Device"
 
 }

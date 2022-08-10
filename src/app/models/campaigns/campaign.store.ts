@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Unit } from './unit.model';
+import { Campaign } from './campaign.model';
 import { EntityState, EntityStore, StoreConfig, MultiActiveState, EntityUIStore } from '@datorama/akita';
 
-export interface UnitState extends EntityState<Unit>, MultiActiveState {}
+export interface CampaignState extends EntityState<Campaign>, MultiActiveState {}
 
 
 const initialState = {
 };
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'Unit' , idKey: 'id'})
-export class UnitStore extends EntityStore<UnitState> {
+@StoreConfig({ name: 'Campaign' , idKey: '_id'})
+export class CampaignStore extends EntityStore<CampaignState> {
 
   constructor() {
     super(initialState);
