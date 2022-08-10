@@ -59,7 +59,6 @@ export class ProfileBoxCreateSensorsContainerComponent implements OnInit {
   }
 
   selectSensorElement(sensorElement){
-    console.log("SELEEEECT SENSOR ELE", sensorElement)
     this.createboxService.selectSensorElement(sensorElement);
   }
 

@@ -37,8 +37,7 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.phenomena);
-    console.log("UNITS", this.units);
+    // console.log("UNITS", this.units);
   }
 
   selectSensor(sensor) {
@@ -50,7 +49,6 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
   }
 
   addSensorElement(e, sensorElement) {
-    console.log("ADDD", sensorElement)
     // this.selectSensor(sensorElement.sensorElement);
     // e.stopPropagation();
     this.sensorElementSelected.emit(sensorElement);
@@ -107,7 +105,6 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
         }
       }
     }
-    console.log(groupedSensors)
     return groupedSensors;
   }
 
@@ -118,7 +115,6 @@ export class ProfileBoxCreateSensorsComponent implements OnInit {
     } else {
       // autoselect if only one sensorElement available
       if (pheno.value.length === 1) {
-        console.log(pheno);
         this.sensorElementSelected.emit({
           sensor: pheno.value[0].sensor,
           sensorElement: pheno.value[0],
