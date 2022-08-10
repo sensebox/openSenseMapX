@@ -15,7 +15,6 @@ export class DeviceService {
       .get<any[]>(`${environment.sensor_wiki_url}/devices/all?language=de`)
       .pipe(
         tap((entities) => {
-          console.log(entities);
           entities.map((entity) => {
             this.deviceStore.add({
               ...entity,
@@ -29,12 +28,10 @@ export class DeviceService {
 
   // Function to get all sensors for a device (is this the right place for it?)
   getSensors(device) {
-    console.log(device);
     return this.http
       .get<any>(`${environment.sensor_wiki_url}/devices/${device}/sensors`)
       .pipe(
         tap((entities) => {
-          console.log(entities);
         }),
         map((entities) => {
           return entities;
@@ -48,7 +45,6 @@ export class DeviceService {
       .get<any>(`${environment.sensor_wiki_url}/devices/all/sensors`)
       .pipe(
         tap((entities) => {
-          console.log("CUSTOM SENSORS", entities);
         })
       );
   }

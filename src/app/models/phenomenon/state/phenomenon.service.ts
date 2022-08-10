@@ -23,7 +23,6 @@ export class PhenomenonService {
       )
       .pipe(
         tap((entities) => {
-          console.log(entities);
           entities = entities.map((ent: any) => {
             return { ...ent, label: ent.label.item[0].text, rov: ent.rov ? ent.rov : [] };
           });
