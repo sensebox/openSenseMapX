@@ -255,6 +255,10 @@
 
     "CREATE_BOX": "Register Station",
 
-    "CUSTOM_DEVICE": "Custom Device"
+    "CUSTOM_DEVICE": "Custom Device",
+
+    "PLEASE_SELECT_SENSORS_BEFORE_CONTINUE": "Please select at least one sensor before continuing.",
+
+    "LEARN_MORE": "Learn more"
 
 }

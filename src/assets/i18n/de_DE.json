@@ -252,6 +252,10 @@
 
     "CREATE_BOX": "Station registrieren",
 
-    "CUSTOM_DEVICE": "Eigenes Gerät"
+    "CUSTOM_DEVICE": "Eigenes Gerät",
+
+    "PLEASE_SELECT_SENSORS_BEFORE_CONTINUE": "Bitte wähle deine Sensoren aus, bevor du fortfährst.",
+
+    "LEARN_MORE": "Weitere Informationen"
 
 }
