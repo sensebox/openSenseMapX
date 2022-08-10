@@ -137,22 +137,22 @@
                     </span>
                   </span>
                 </p>
-                <div class="field" *ngIf="phenomena[element.phenomenonId] && phenomena[element.phenomenonId].rovs && phenomena[element.phenomenonId].rovs.length > 1 && checkForElement(element.sensor, element)">
+                <div class="field" *ngIf="phenomena[element.phenomenonId] && phenomena[element.phenomenonId].rov && phenomena[element.phenomenonId].rov.length > 1 && checkForElement(element.sensor, element)">
                   <label class="label">{{'UNIT' | translate}}</label>
                   <div class="select">
                     <select (click)="select($event, element.sensor, element)">
-                      <option *ngFor="let rov of phenomena[element.phenomenonId].rovs" [value]="rov.unit">
-                        {{units[rov.unit].label}}
+                      <option *ngFor="let rov of phenomena[element.phenomenonId].rov" [value]="rov.unitId">
+                        {{units[rov.unitId].label}}
                       </option>
                     </select>
                   </div>
                 </div>
-                <div class="field" *ngIf="phenomena[element.phenomenonId] && phenomena[element.phenomenonId].rovs && phenomena[element.phenomenonId].rovs.length === 1 && checkForElement(element.sensor, element)">
+                <div class="field" *ngIf="phenomena[element.phenomenonId] && phenomena[element.phenomenonId].rov && phenomena[element.phenomenonId].rov.length === 1 && checkForElement(element.sensor, element)">
                   <label class="label">{{'UNIT' | translate}}</label>
                   <div class="select">
                     <select (click)="select($event, element.sensor, element)">
-                      <option *ngFor="let rov of phenomena[element.phenomenonId].rovs" [value]="rov.unit">
-                        {{units[rov.unit].label}}
+                      <option *ngFor="let rov of phenomena[element.phenomenonId].rov" [value]="rov.unitId">
+                        {{units[rov.unitId].label}}
                       </option>
                     </select>
                   </div>
@@ -190,7 +190,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let sensorElement of selectedSensorElements">
-              <td>{{(sensorElement.sensor && sensorElement.sensor.label) ? sensorElement.sensor.label:
+              <td>{{(sensorElement.sensor && sensorElement.sensor.label) ? sensorElement.sensor.slug:
                 'noLabel'}}</td>
               <td *ngIf="phenomena[sensorElement.sensorElement.id]">
                 {{phenomena[sensorElement.sensorElement.id].label}}</td>
