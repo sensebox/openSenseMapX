@@ -27,6 +27,7 @@ export class WebsocketService {
 
         this.socket.on("connect", () => {
           console.log("connected");
+          notificationService.fetch();
           this.socket.emit("join room", this.user$.email);
         });
 

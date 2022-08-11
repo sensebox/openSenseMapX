@@ -259,6 +259,8 @@
 
     "PLEASE_SELECT_SENSORS_BEFORE_CONTINUE": "Please select at least one sensor before continuing.",
 
-    "LEARN_MORE": "Learn more"
+    "LEARN_MORE": "Learn more",
+    
+    "CHOOSE_YOUR_SENSOR": "Choose your sensor"
 
 }
