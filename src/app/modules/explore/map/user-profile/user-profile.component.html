@@ -42,7 +42,7 @@
                             <figure class="image is-96x96 is-inline-block" (click)="goToBox(boxes[boxIndex])">
                                 <img *ngIf="boxes[boxIndex].image"
                                     [src]="'https://opensensemap.org/userimages/' + boxes[boxIndex].image">
-                                <img *ngIf="!(boxes[boxIndex].image)" src="assets/icons/motherboard.png">
+                                <img *ngIf="!(boxes[boxIndex].image)" src="assets/img/senseBox_home.jpg">
                             </figure>
                             <p class="boxtitle title is-6">{{boxes[boxIndex].name}} </p>
                         </div>

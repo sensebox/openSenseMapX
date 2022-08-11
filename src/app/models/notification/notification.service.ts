@@ -8,9 +8,6 @@ import { environment } from "src/environments/environment";
 @Injectable({ providedIn: "root" })
 export class NotificationService {
   constructor(private sessionQuery: SessionQuery, private http: HttpClient) {
-    if(this.sessionQuery.isLoggedIn()) {
-      this.fetch();
-    }
   }
 
   notifications: BehaviorSubject<Notification[]> = new BehaviorSubject<
@@ -18,7 +15,22 @@ export class NotificationService {
   >([]);
 
   add(notification: Notification) {
-    this.notifications.next(this.notifications.getValue().concat(notification));
+    // if there are no notifications yet just add this one
+    if (this.notifications.getValue().length === 0) {
+      this.notifications.next(
+        this.notifications.getValue().concat(notification)
+      );
+    }
+    // if there are already notifications, check if this one is already in there
+    if (
+      !this.notifications.getValue().filter((e) => {
+        return e._id === notification._id;
+      })
+    ) {
+      this.notifications.next(
+        this.notifications.getValue().concat(notification)
+      );
+    }
   }
 
   remove(notification: Notification) {

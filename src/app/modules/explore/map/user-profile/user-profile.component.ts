@@ -38,6 +38,30 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.uiService.setFilterVisible(false);
+    this.getUserData();
+    this.getBadges();
+  }
+
+  getBadges() {
+    this.http.get(environment.api_url + "/badges").subscribe((data: any) => {
+      // remove all badges that are already earned by the user
+      // query all badges
+      for (let badge of data) {
+        // add badge to array of all badges that are not earned by the user
+        this.allBadges.push(badge);
+        // query all badges that the user has earned
+        for (let userBadge of this.userBadges) {
+          // if the user has earned the badge, remove it from the array of all badges
+          if (userBadge.badgeclass == badge.entityId) {
+            this.allBadges.pop();
+          }
+        }
+      }
+      this.allBadgesLoaded = true;
+    });
+  }
+
+  getUserData() {
     this.activatedRoute.params.subscribe((params) => {
       this.http
         .get(environment.api_url + "/users/info/" + params.username)
@@ -61,30 +85,21 @@ export class UserProfileComponent implements OnInit {
           }
         );
 
-      this.http
-        .get(environment.api_url + "/boxes/user/" + params.username)
-        .subscribe((data: any) => {
-          // delete all null values from boxes array
-          var boxes = data.filter((box) => {
-            return box !== null;
-          });
-          this.boxes = boxes;
-          this.boxesLoaded = true;
-        });
+      this.getBoxes(params.username);
     });
+  }
 
-    this.http.get(environment.api_url + "/badges").subscribe((data: any) => {
-      // remove all badges that are already earned by the user
-      for (let badge of data) {
-        for (let userBadge of this.userBadges) {
-          if (userBadge.badgeclass == badge.entityId) {
-            data.splice(data.indexOf(badge), 1);
-          }
-        }
-      }
-      this.allBadges = data;
-      this.allBadgesLoaded = true;
-    });
+  getBoxes(username) {
+    this.http
+      .get(environment.api_url + "/boxes/user/" + username)
+      .subscribe((data: any) => {
+        // delete all null values from boxes array
+        var boxes = data.filter((box) => {
+          return box !== null;
+        });
+        this.boxes = boxes;
+        this.boxesLoaded = true;
+      });
   }
 
   closeBox() {
